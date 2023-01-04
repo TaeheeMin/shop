@@ -20,6 +20,7 @@ public class NoticeListController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		noticeService = new NoticeService();
 		Notice notice = noticeService.getNoticeList();
 		request.setAttribute("notice", notice);
