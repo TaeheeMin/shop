@@ -19,7 +19,6 @@ public class NoticeService {
 			conn = DBUtil.getConnection();
 			noticeDao = new NoticeDao();
 			notice = noticeDao.selectNoticeList(conn);
-			System.out.println(notice);
 			conn.commit();
 		} catch (Exception e) {
 			try {

@@ -5,7 +5,7 @@ import java.sql.*;
 public class DBUtil {
 	public static Connection getConnection() throws Exception {
 		
-		String driver = "oracle.jdbc.driver.OracleDriver";
+		String driver = "org.mariadb.jdbc.Driver";
 		String dbUrl = "jdbc:mariadb://localhost:3306/shop";
 		String dbUser = "root";
 		String dbPw = "java1234";

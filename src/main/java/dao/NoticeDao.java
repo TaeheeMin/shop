@@ -17,7 +17,6 @@ public class NoticeDao {
 		String sql = "SELECT notice_title noticeTitle, createdate FROM notice";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();
-		System.out.println("추가");
 		while(rs.next()) {
 			notice.setNoticeTitle(rs.getString("noticeTitle"));
 			notice.setCreatedate(rs.getString("createdate"));
