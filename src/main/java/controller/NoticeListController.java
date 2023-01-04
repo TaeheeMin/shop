@@ -16,13 +16,10 @@ import vo.Notice;
 public class NoticeListController extends HttpServlet {
 	private NoticeService noticeService;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/view/notice/noticeList.jsp").forward(request, response);
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		noticeService = new NoticeService();
 		Notice notice = noticeService.getNoticeList();
 		request.setAttribute("notice", notice);
-		response.sendRedirect(request.getContextPath()+"/NoticeList");
+		request.getRequestDispatcher("/WEB-INF/view/notice/noticeList.jsp").forward(request, response);
 	}
+
 }
