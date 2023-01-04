@@ -12,8 +12,8 @@ public class NoticeService {
 	private NoticeDao noticeDao;
 	// 1) select
 	// 1-1) notice list
-	public Notice getNoticeList() {
-		Notice notice = new Notice();
+	public ArrayList<Notice> getNoticeList() {
+		ArrayList<Notice> notice = new ArrayList<Notice>();
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();

@@ -12,16 +12,17 @@ public class NoticeDao {
 	// 1-1) count(페이징 처리)
 	
 	// 1-2) list
-	public Notice selectNoticeList(Connection conn) throws Exception {
-		Notice notice = new Notice();
+	public ArrayList<Notice> selectNoticeList(Connection conn) throws Exception {
+		ArrayList<Notice> notice = new ArrayList<Notice>();
 		String sql = "SELECT notice_title noticeTitle, createdate FROM notice";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();
 		while(rs.next()) {
-			notice.setNoticeTitle(rs.getString("noticeTitle"));
-			notice.setCreatedate(rs.getString("createdate"));
+			Notice n = new Notice();
+			n.setNoticeTitle(rs.getString("noticeTitle"));
+			n.setCreatedate(rs.getString("createdate"));
+			notice.add(n);
 		}
-		System.out.println(notice.getNoticeTitle());
 		return notice;
 	}
 	
