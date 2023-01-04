@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class GoodRemoveController
  */
 @WebServlet("/GoodRemoveController")
-public class GoodRemoveController extends HttpServlet {
+public class GoodsRemoveController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GoodRemoveController() {
+    public GoodsRemoveController() {
         super();
         // TODO Auto-generated constructor stub
     }
