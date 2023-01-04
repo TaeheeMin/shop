@@ -7,35 +7,37 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class NoticeAddController
- */
-@WebServlet("/NoticeAddController")
+import service.NoticeService;
+import vo.Notice;
+
+@WebServlet("/NoticeAdd")
 public class NoticeAddController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public NoticeAddController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.getRequestDispatcher("/WEB-INF/view/notice/noticeForm.jsp").forward(request, response);
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("utf-8");
+		// 값 받아오기
+		Notice notice = new Notice();
+		notice.setNoticeTitle(request.getParameter("noticeTitle"));
+		notice.setNoticeContent(request.getParameter("noticeContent"));
+		notice.setEmpId(request.getParameter("empId"));
+		
+		int row = 0;
+		NoticeService noticeService = new NoticeService();
+		row = noticeService.addNotice(notice);
+		// 결과
+		if(row == 1) {
+			// 리스트로 이동
+			System.out.println("입력성공");
+			response.sendRedirect(request.getContextPath()+"/NoticeList"); 
+		} else {
+			// 폼이동
+			System.out.println("입력실패");
+			response.sendRedirect(request.getContextPath()+"/NoticeAdd");
+		}
 	}
 
 }
