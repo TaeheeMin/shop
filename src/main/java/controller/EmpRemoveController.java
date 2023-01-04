@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class addressRemoveController
+ * Servlet implementation class empRemoveController
  */
-@WebServlet("/addressRemoveController")
-public class addressRemoveController extends HttpServlet {
+@WebServlet("/empRemoveController")
+public class EmpRemoveController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public addressRemoveController() {
+    public EmpRemoveController() {
         super();
         // TODO Auto-generated constructor stub
     }

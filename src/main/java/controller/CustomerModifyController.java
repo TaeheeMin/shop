@@ -8,10 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class customerAddController
+ * Servlet implementation class customerModifyController
  */
-@WebServlet("/customerAddController")
-public class customerAddController extends HttpServlet {
+@WebServlet("/customerModifyController")
+public class CustomerModifyController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**

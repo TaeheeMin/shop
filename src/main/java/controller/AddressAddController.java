@@ -8,11 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class customerLoginController
+ * Servlet implementation class addressAddController
  */
-@WebServlet("/customerLoginController")
-public class customerLoginController extends HttpServlet {
+@WebServlet("/addressAddController")
+public class AddressAddController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public AddressAddController() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
