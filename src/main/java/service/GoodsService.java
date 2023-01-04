@@ -18,16 +18,14 @@ public class GoodsService {
 		try {
 			conn = DBUtil.getConnection();
 			HashMap<String, Integer> map = goodsDao.insertGoods(conn, goods);
-			goodsImg.setGoodsCode(map.get("autoKey")); // item테이블에 입력이 성공됐으면 itemNo 생성 이걸 받아와서 item_img에 넣어줌
-			row = goodsImgDao.insertGoodsImg(conn, goodsImg); // item_img에 넣어주는 dao
+			goodsImg.setGoodsCode(map.get("autoKey")); 
+			row = goodsImgDao.insertGoodsImg(conn, goodsImg);
 			
-			// 두개 모두 성공하면 커밋됨
 			conn.commit();
 			
 		} catch (Exception e) {
 			try {
 				conn.rollback();
-				// db작업 실패시 이미 업로드된 파일 삭제
 				File f = new File(dir+"\\"+goodsImg.getFilename());
 				if(f.exists()) {
 					f.delete();

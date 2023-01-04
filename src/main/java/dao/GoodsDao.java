@@ -23,14 +23,12 @@ public class GoodsDao {
 		stmt.setInt(2, goods.getGoodsPrice());
 		int row = stmt.executeUpdate();
 		
-		// stmt.executeUpdate()에서 생성된 오토키값을 가져오는 
 		ResultSet rs = stmt.getGeneratedKeys();
 		int autoKey = 0;
 		if(rs.next()) {
 			autoKey = rs.getInt(1);
 		}
 		
-		// hashMap에 결과 넣어서 반환 => item테이블 결과와 item_no 반환
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("row", row);
 		map.put("autoKey", autoKey);
