@@ -13,8 +13,13 @@ public class CustomerDao {
 	public boolean customerSigninCkId(Connection conn, Customer customer) throws Exception {
 		boolean customerAddCheckId = false;
 		
-		// 중복확인 쿼리 진행
-		String sql = "SELECT customer_id FROM customer WHERE customer_id = ?";
+		// 중복확인 쿼리 진행 (탈퇴한 아이디와, customerId Union)
+		String sql = "SELECT t.checkId"
+					+ " FROM"
+					+ "		(SELECT customer_id checkId FROM customer"
+					+ "		union"
+					+ "		SELECT id checkId FROM outid)t"
+					+ " WHERE t.checkId = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, customer.getCustomerId());
 		ResultSet rs = stmt.executeQuery();
@@ -103,6 +108,8 @@ public class CustomerDao {
 		return modifyCustomerOne;
 	}
 	
+	// 4-1) 비밀번호 수정에 따른 pw_history로 넘기기
+	
 	// 5) 회원탈퇴
 	public int removeCustomerOne(Connection conn, Customer customerOne) throws Exception {
 		int removeCustomerOne = 0;
@@ -115,6 +122,21 @@ public class CustomerDao {
 		removeCustomerOne = stmt.executeUpdate();
 				
 		return removeCustomerOne;
+	}
+	
+	// 5-1) 탈퇴한 회원 outid 테이블에 데이터 저장하기
+	public int addOutid(Connection conn, String outid) throws Exception {
+		int addOutid = 0;
+		
+		String sql = "INSERT INTO outid("
+				+ "id, createdate"
+				+ ") VALUES (?,NOW())"; // point는 기본값 100포인트 부여
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, outid);
+	
+		addOutid = stmt.executeUpdate();
+		
+		return addOutid;
 	}
 	
 	// 6) 회원주소목록 (내주소)
@@ -136,10 +158,17 @@ public class CustomerDao {
 	}
 	
 	// 7) 주소추가
-	public int addMyAddress(Connection conn, Customer customer) throws Exception {
+	public int addMyAddress(Connection conn, CustomerAddress cusAddress) throws Exception {
 		int addMyAddress = 0;
 		
+		String sql = "INSERT INTO customer_address("
+				+ "customer_id, address, createdate"
+				+ ") VALUES (?,?,NOW())"; // point는 기본값 100포인트 부여
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, cusAddress.getCustomerId());
+		stmt.setString(2, cusAddress.getAddress());
 		
+		addMyAddress = stmt.executeUpdate();
 		
 		return addMyAddress;
 	}
