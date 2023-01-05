@@ -6,36 +6,49 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import service.NoticeService;
+import vo.Notice;
 
-/**
- * Servlet implementation class NoticeModifyController
- */
-@WebServlet("/NoticeModifyController")
+@WebServlet("/NoticeModify")
 public class NoticeModifyController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public NoticeModifyController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		// 값 받아오기
+		request.setCharacterEncoding("utf-8");
+		// System.out.println(request.getParameter("noticeCode"));
+		int noticeCode = Integer.parseInt(request.getParameter("noticeCode"));
+		NoticeService noticeService = new NoticeService();
+		Notice noticeOne = noticeService.getNoticeOne(noticeCode);
+		
+		// view와 공유할 모델 데이터 성정
+		request.setAttribute("noticeOne", noticeOne);
+		request.getRequestDispatcher("/WEB-INF/view/notice/noticeModify.jsp").forward(request, response);
+				
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		// 값 받아오기
+		request.setCharacterEncoding("utf-8");
+		Notice notice = new Notice();
+		notice.setNoticeCode(Integer.parseInt(request.getParameter("noticeCode")));
+		notice.setNoticeTitle(request.getParameter("title"));
+		notice.setNoticeContent(request.getParameter("content"));
+		
+		int row = 0;
+		NoticeService noticeService = new NoticeService();
+		row = noticeService.modifyNotice(notice);
+		
+		// 결과
+		if(row == 1) {
+			// 리스트로 이동
+			System.out.println("수정성공");
+			response.sendRedirect(request.getContextPath()+"/NoticeList"); 
+		} else {
+			// 폼이동
+			System.out.println("수정실패");
+			response.sendRedirect(request.getContextPath()+"/NoticeModify?noticeCode="+notice.getNoticeCode());
+		}
+	
 	}
 
 }

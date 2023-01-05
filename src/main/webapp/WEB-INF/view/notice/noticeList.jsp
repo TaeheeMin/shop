@@ -8,21 +8,26 @@
 	</head>
 	<body>
 		<h1>공지목록</h1>
+		<a href="${pageContext.request.contextPath}/NoticeAdd">공지등록</a>
 		<!-- #### list #### -->
 		<table border="1">
 			<thead>
 			  	<tr>
+			      	<th>NO</th>
 			      	<th>TITLE</th>
 			      	<th>DATE</th>
-			      	<th>ACTION</th>
 			    </tr>
 		  	</thead>
 		  	<tbody>
 		  		<c:forEach var="n" items="${notice}">
 		     		<tr>
-		      			<th>${n.noticeTitle}</th>
+		     			<th>${n.noticeCode}</th>
+		      			<td>
+		      				<a href="${pageContext.request.contextPath}/NoticeOne?noticeCode=${n.noticeCode}">
+		      					${n.noticeTitle}
+		      				</a>
+		      			</td>
 				      	<td>${n.createdate}</td>
-				      	<td>수정 삭제</td>
 	    			</tr>
 				</c:forEach>
 		  	</tbody>

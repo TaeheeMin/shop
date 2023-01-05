@@ -7,7 +7,8 @@
 	</head>
 	<body>
 		<h1>공지등록</h1>
-		<form method="post" action="${pageContext.request.contextPath}/AddNotice">
+		<a href="${pageContext.request.contextPath}/NoticeList">공지목록</a>
+		<form method="post" action="${pageContext.request.contextPath}/NoticeAdd">
 			<div> 
 				제목 : <input type="text" name="noticeTitle">
 			</div>
