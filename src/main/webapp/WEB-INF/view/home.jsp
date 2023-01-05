@@ -16,7 +16,8 @@
 			<h4>-회원,직원 관련 기능구현 中-</h4>
 			<!-- 직원 로그인일 경우 보일 항목들 -->
 			<c:if test="${loginEmp != null}">
-				<a href="${pageContext.request.contextPath}/AddEmp">직원등록(직원이상만 가능)</a>
+				<a href="${pageContext.request.contextPath}/AddEmp">직원등록(직원만 가능)</a>
+				<a href="${pageContext.request.contextPath}/EmpList">직원목록(사원이상만 조회가능)</a>
 				<a href="${pageContext.request.contextPath}/Logout">로그아웃</a>
 			</c:if>
 			<!-- 직원 비로그인일 경우 보일 항목들 -->

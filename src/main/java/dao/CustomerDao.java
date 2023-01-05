@@ -141,7 +141,7 @@ public class CustomerDao {
 	}
 	
 	// 6) 회원주소목록 (내주소)
-	public ArrayList<CustomerAddress> MyAddressList(Connection conn, CustomerAddress cusAddress) throws Exception {
+	public ArrayList<CustomerAddress> myAddressList(Connection conn, CustomerAddress cusAddress) throws Exception {
 		ArrayList<CustomerAddress> list = new ArrayList<CustomerAddress>();
 		
 		// 주소 불러오기

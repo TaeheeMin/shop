@@ -44,7 +44,7 @@ public class CustomerOneController extends HttpServlet {
 		CustomerAddress cusAddress = new CustomerAddress();
 		cusAddress.setCustomerId(loginCustomer.getCustomerId());
 		System.out.println("cusAddress.getCustomerId : "+cusAddress.getCustomerId());
-		ArrayList<CustomerAddress> list = customerService.MyAddressList(cusAddress);
+		ArrayList<CustomerAddress> list = customerService.myAddressList(cusAddress);
 
 		request.setAttribute("list", list);
 		request.setAttribute("customerOne", customerOne);

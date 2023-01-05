@@ -123,13 +123,13 @@ public class CustomerService {
 	// 5) 회원탈퇴 (탈퇴와 동시에 outid에 저장)
 	
 	// 6) 회원 주소목록
-	public ArrayList<CustomerAddress> MyAddressList(CustomerAddress cusAddress) {
+	public ArrayList<CustomerAddress> myAddressList(CustomerAddress cusAddress) {
 		ArrayList<CustomerAddress> list = null;
 		Connection conn = null;
 		this.customerDao = new CustomerDao();
 		try {
 			conn = DBUtil.getConnection();
-			list = customerDao.MyAddressList(conn, cusAddress);
+			list = customerDao.myAddressList(conn, cusAddress);
 			conn.commit();
 		} catch (Exception e) {
 			try {
