@@ -23,7 +23,7 @@
 		  		<c:forEach var="o" items="${list}">
 		     		<tr>
 		     			<td>${o.orderCode}</td>
-		     			<td><a href='${pageContext.request.contextPath}/orders/ordersOne?orderCode=${o.orderCode}'>${o.goodsName}</td>
+		     			<td><a href='${pageContext.request.contextPath}/orders/ordersOne?orderCode=${o.orderCode}'>${o.goodsTitle}</td>
 						<td>
 							<img src="${pageContext.request.contextPath}/goodsimg/${o.filename}" width="200" height="200">
 						</td>

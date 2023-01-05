@@ -14,7 +14,7 @@ public class OrdersDao {
 			ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 			String sql = "SELECT "
 					+ "	o.order_code orderCode"
-					+ "	, g.goods_name goodsName"
+					+ "	, g.goods_title goodsTitle"
 					+ "	, gi.filename filename"
 					+ "	, o.createdate createdate"
 					+ "	, o.order_state orderState"
@@ -26,7 +26,7 @@ public class OrdersDao {
 		      while(rs.next()) {
 		         HashMap<String, Object> m = new HashMap<String, Object>();
 		         m.put("orderCode", rs.getInt("orderCode"));
-		         m.put("goodsName", rs.getString("goodsName"));
+		         m.put("goodsTitle", rs.getString("goodsTitle"));
 		         m.put("filename", rs.getString("filename"));
 		         m.put("createdate", rs.getString("createdate"));
 		         m.put("orderState", rs.getString("orderState"));
@@ -44,7 +44,7 @@ public class OrdersDao {
 					+ "	,o.order_price orderPrice"
 					+ "	,o.order_state orderState"
 					+ "	,o.createdate createdate"
-					+ "	,g.goods_name goodsName"
+					+ "	,g.goods_title goodsTitle"
 					+ "	,g.goods_price goodsPrice"
 					+ "	,cu.customer_name customerName"
 					+ "	,cu.customer_phone customerPhone"
@@ -69,7 +69,7 @@ public class OrdersDao {
 				m.put("orderPrice", rs.getInt("orderPrice"));
 				m.put("orderState", rs.getString("orderState"));
 				m.put("createdate", rs.getString("createdate"));
-				m.put("goodsName", rs.getString("goodsName"));
+				m.put("goodsTitle", rs.getString("goodsTitle"));
 				m.put("goodsPrice", rs.getInt("goodsPrice"));
 				m.put("customerName", rs.getString("customerName"));
 				m.put("customerPhone", rs.getString("customerPhone"));

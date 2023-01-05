@@ -32,7 +32,7 @@
 		     			<td>${o.orderPrice}</td>
 		     			<td>${o.orderState}</td>
 		     			<td>${o.createdate}</td>
-		     			<td>${o.goodsName}</td>
+		     			<td>${o.goodsTitle}</td>
 		     			<td>${o.goodsPrice}</td>
 		     			<td>${o.customerName}</td>
 		     			<td>${o.customerPhone}</td>
