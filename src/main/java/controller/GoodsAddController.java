@@ -51,7 +51,7 @@ public class GoodsAddController extends HttpServlet {
 			
 			// 서비스
 			GoodsService goodsService = new GoodsService();
-			goodsService.addItem(goods, goodsImg, dir);
+			goodsService.addGoods(goods, goodsImg, dir);
 			System.out.println("등록 완료");
 		} else {
 			System.out.println("jsp, gif, png파일만 업로드 가능");

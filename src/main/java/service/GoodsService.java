@@ -10,7 +10,7 @@ import vo.*;
 
 public class GoodsService {
 	// 1) add goods
-	public int addItem(Goods goods, GoodsImg goodsImg, String dir) {
+	public int addGoods(Goods goods, GoodsImg goodsImg, String dir) {
 		Connection conn = null;
 		GoodsDao goodsDao = new GoodsDao();
 		GoodsImgDao goodsImgDao = new GoodsImgDao(); 

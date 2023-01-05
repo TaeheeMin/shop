@@ -22,7 +22,9 @@
 						<div>
 							<img src="${pageContext.request.contextPath}/goodsimg/${m.filename}" width="200" height="200">
 						</div>
-						<div>수정 삭제</div>
+						<div>
+							<a href="${pageContext.request.contextPath}/CartAdd">cart</a>
+						</div>
 					</td>
 				</c:forEach>
 			</tr>
