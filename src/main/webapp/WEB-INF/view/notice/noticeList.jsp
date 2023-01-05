@@ -8,6 +8,7 @@
 	</head>
 	<body>
 		<h1>공지목록</h1>
+		<a href="${pageContext.request.contextPath}/Home">홈으로</a>
 		<a href="${pageContext.request.contextPath}/NoticeAdd">공지등록</a>
 		<!-- #### list #### -->
 		<table border="1">

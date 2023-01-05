@@ -7,6 +7,7 @@
 	</head>
 	<body>
 		<h1>공지등록</h1>
+		<a href="${pageContext.request.contextPath}/Home">홈으로</a>
 		<a href="${pageContext.request.contextPath}/NoticeList">공지목록</a>
 		<form method="post" action="${pageContext.request.contextPath}/NoticeAdd">
 			<div> 

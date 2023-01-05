@@ -13,7 +13,7 @@ public class CartDao {
 	public int insertCart(Connection conn, Cart cart) throws Exception {
 		int row = 0;
 		String sql = "INSERT INTO cart("
-				+ " goods_code"
+				+ " goods_title"
 				+ ", customer_id"
 				+ ", cart_quantity"
 				+ ", createdate"
@@ -29,7 +29,8 @@ public class CartDao {
 	public ArrayList<HashMap<String, Object>> cartList(Connection conn, String customerId) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		String sql = "SELECT "
-				+ " g.goods_name goodsName"
+				+ " g.goods_code goodsCode"
+				+ ", g.goods_title goodsTitle"
 				+ ", g.goods_price goodsPrice"
 				+ ", c.cart_quantity cartQuantity"
 				+ ", img.filename filename"
@@ -43,7 +44,8 @@ public class CartDao {
 		ResultSet rs = stmt.executeQuery();
 		while(rs.next()) {
 			HashMap<String, Object> m = new HashMap<String, Object>();
-			m.put("goodsName", rs.getString("goodsName"));
+			m.put("goodsCode",  rs.getInt("goodsCode"));
+			m.put("goodsTitle", rs.getString("goodsTitle"));
 			m.put("goodsPrice",  rs.getInt("goodsPrice"));
 			m.put("cartQuantity", rs.getInt("cartQuantity"));
 			m.put("filename", rs.getString("filename"));
@@ -55,5 +57,15 @@ public class CartDao {
 	
 	// 3) cart update
 	
+	
 	// 4) cart delete
+	public int deleteCart(Connection conn, Cart cart) throws Exception {
+		int row = 0;
+		String sql = "DELETE FROM cart WHERE goods_code = ? AND customer_id = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, cart.getGoodsCode());
+		stmt.setString(2, cart.getCustomerId());
+		row = stmt.executeUpdate();
+		return row;
+	}
 }

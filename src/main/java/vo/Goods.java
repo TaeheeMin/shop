@@ -2,7 +2,9 @@ package vo;
 
 public class Goods {
 	private int goodsCode;
-	private String goodsName;
+	private String goodsTitle;
+	private String goodsArtist;
+	private String goodsContent;
 	private int goodsPrice;
 	private String soldout;
 	private String empId;
@@ -14,11 +16,23 @@ public class Goods {
 	public void setGoodsCode(int goodsCode) {
 		this.goodsCode = goodsCode;
 	}
-	public String getGoodsName() {
-		return goodsName;
+	public String getGoodsTitle() {
+		return goodsTitle;
 	}
-	public void setGoodsName(String goodsName) {
-		this.goodsName = goodsName;
+	public void setGoodsTitle(String goodsTitle) {
+		this.goodsTitle = goodsTitle;
+	}
+	public String getGoodsArtist() {
+		return goodsArtist;
+	}
+	public void setGoodsArtist(String goodsArtist) {
+		this.goodsArtist = goodsArtist;
+	}
+	public String getGoodsContent() {
+		return goodsContent;
+	}
+	public void setGoodsContent(String goodsContent) {
+		this.goodsContent = goodsContent;
 	}
 	public int getGoodsPrice() {
 		return goodsPrice;
@@ -50,5 +64,6 @@ public class Goods {
 	public void setCreatedate(String createdate) {
 		this.createdate = createdate;
 	}
+	
 	
 }

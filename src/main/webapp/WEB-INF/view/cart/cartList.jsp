@@ -9,16 +9,16 @@
 	<body>
 		<h1>장바구니 목록</h1>
 		<a href="${pageContext.request.contextPath}/Home">홈으로</a>
-		<table border="1">
-			<c:forEach var="c" items="${list}" varStatus="s">
-				<tr>
-					<td>
-						<div>
+		<form action="" method="get">
+			<table border="1">
+				<c:forEach var="c" items="${list}" varStatus="s">
+					<tr>
+						<td>
 							<img src="${pageContext.request.contextPath}/goodsimg/${c.filename}" width="200" height="200">
-						</div>
-						<div>${c.goodsName}</div>
-						<div>${c.goodsPrice}</div>
-						<div>
+						</td>
+						<td>${c.goodsTitle}</td>
+						<td>${c.goodsPrice}</td>
+						<td>
 							<select name="cartQuantity">
 								<option value="1">1</option>
 								<option value="2">2</option>
@@ -32,13 +32,14 @@
 								<option value="10">10</option>
 							</select>
 							${c.cartQuantity}
-							</div>
-						<div>
-						삭제
-						</div>
-					</td>
-				</tr>
-			</c:forEach>
-		</table>
+						</td>
+						<td>
+							<a href="${pageContext.request.contextPath}/CartRemove?goodsCode=${c.goodsCode}">삭제</a>
+						</td>
+					</tr>
+				</c:forEach>
+			</table>
+			<button type="submit">주문</button>
+		</form>
 	</body>
 </html>

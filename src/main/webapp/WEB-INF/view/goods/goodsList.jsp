@@ -9,6 +9,7 @@
 	<body>
 		<h1>상품목록</h1>
 		<a href="${pageContext.request.contextPath}/Home">홈으로</a>
+		<a href="${pageContext.request.contextPath}/GoodsAdd">상품등록</a>
 		<a href="${pageContext.request.contextPath}/CartList">장바구니</a>
 		<table border="1">
 			<tr>
@@ -19,7 +20,8 @@
 					
 					<td>
 						<div>${m.goodsCode}</div>
-						<div>${m.goodsName}</div>
+						<div>${m.goodsTitle}</div>
+						<div>${m.goodsArtist}</div>
 						<div>${m.goodsPrice}</div>
 						<div>${m.soldout}</div>
 						<div>
