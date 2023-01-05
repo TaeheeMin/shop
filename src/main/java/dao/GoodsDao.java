@@ -39,7 +39,8 @@ public class GoodsDao {
 	public ArrayList<HashMap<String, Object>> selectGoodsList(Connection conn) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		String sql = "SELECT"
-				+ " gd.goods_name goodsName"
+				+ " gd.goods_code goodsCode"
+				+ ", gd.goods_name goodsName"
 				+ ", gd.goods_price goodsPrice"
 				+ ", gd.soldout soldout"
 				+ ", img.filename filename"
@@ -49,6 +50,7 @@ public class GoodsDao {
 		ResultSet rs = stmt.executeQuery();
 		while(rs.next()) {
 			HashMap<String, Object> m = new HashMap<String, Object>();
+			m.put("goodsCode", rs.getString("goodsCode"));
 			m.put("goodsName", rs.getString("goodsName"));
 			m.put("goodsPrice",  rs.getInt("goodsPrice"));
 			m.put("soldout", rs.getString("soldout"));

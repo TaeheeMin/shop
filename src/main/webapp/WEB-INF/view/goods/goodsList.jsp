@@ -8,6 +8,8 @@
 	</head>
 	<body>
 		<h1>상품목록</h1>
+		<a href="${pageContext.request.contextPath}/Home">홈으로</a>
+		<a href="${pageContext.request.contextPath}/CartList">장바구니</a>
 		<table border="1">
 			<tr>
 				<c:forEach var="m" items="${list}" varStatus="s">
@@ -16,6 +18,7 @@
 					</c:if>
 					
 					<td>
+						<div>${m.goodsCode}</div>
 						<div>${m.goodsName}</div>
 						<div>${m.goodsPrice}</div>
 						<div>${m.soldout}</div>
@@ -23,7 +26,7 @@
 							<img src="${pageContext.request.contextPath}/goodsimg/${m.filename}" width="200" height="200">
 						</div>
 						<div>
-							<a href="${pageContext.request.contextPath}/CartAdd">cart</a>
+							<a href="${pageContext.request.contextPath}/CartAdd?goodsCode=${m.goodsCode}">cart</a>
 						</div>
 					</td>
 				</c:forEach>

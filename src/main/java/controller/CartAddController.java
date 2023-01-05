@@ -6,36 +6,48 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-/**
- * Servlet implementation class CartAddController
- */
+import service.CartService;
+import service.NoticeService;
+import vo.Cart;
+import vo.Customer;
+import vo.Notice;
+
+
 @WebServlet("/CartAdd")
 public class CartAddController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CartAddController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	private CartService cartService;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		HttpSession session = request.getSession();
+		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
+		
+		// 로그인되어있을 시, 로그인폼 진입 불가 -> 홈화면으로 이동
+		if(loginCustomer == null) {
+			response.sendRedirect(request.getContextPath()+"/Home");
+		}
+		
+		// 값 받아오기
+		request.setCharacterEncoding("utf-8");
+		System.out.println(request.getParameter("goodsCode"));
+		Cart cart = new Cart();
+		cart.setGoodsCode(Integer.parseInt(request.getParameter("goodsCode")));
+		cart.setCustomerId(loginCustomer.getCustomerId());
+		
+		this.cartService = new CartService();
+		int row = cartService.addCart(cart);
+		
+		// 결과
+		if(row == 1) {
+			System.out.println("담기성공");
+			response.sendRedirect(request.getContextPath()+"/GoodList");
+		} else {
+			System.out.println("담기실패");
+			response.sendRedirect(request.getContextPath()+"/GoodList");
+		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/goods/goodsList.jsp").forward(request, response);
 	}
-
 }

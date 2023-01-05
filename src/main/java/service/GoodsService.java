@@ -41,7 +41,6 @@ public class GoodsService {
 				e.printStackTrace();
 			}
 		}
-		
 		return row;
 	}
 	
