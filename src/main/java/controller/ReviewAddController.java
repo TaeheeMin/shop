@@ -7,35 +7,42 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class ReviewAddController
- */
-@WebServlet("/ReviewAddController")
-public class ReviewAddController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ReviewAddController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+import service.ReviewService;
+import vo.Review;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+
+@WebServlet("/review/reviewAdd")
+public class ReviewAddController extends HttpServlet {	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//리뷰 작성 폼 연결 
+		request.getRequestDispatcher("/WEB-INF/view/review/reviewForm.jsp").forward(request, response);
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("utf-8");
+		// 값 받아오기
+		Review review = new Review();
+		int orderCode = Integer.parseInt(request.getParameter("orderCode"));
+		String reviewMemo = request.getParameter("reviewMemo");
+		
+		//값 저장 
+		review.setReviewMemo(reviewMemo);
+		review.setOrderCode(orderCode);
+		
+		int row = 0;
+		ReviewService reviewService = new ReviewService();
+		row = reviewService.addReivew(review);
+		// 결과
+		if(row == 1) {
+			// 리스트로 이동
+			System.out.println("입력성공");
+			response.sendRedirect(request.getContextPath()+"/orders/ordreList"); 
+		} else {
+			// 폼이동
+			System.out.println("입력실패");
+			response.sendRedirect(request.getContextPath()+"/review/reviewAdd");
+		}
 	}
 
 }
+

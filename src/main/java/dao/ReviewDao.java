@@ -28,11 +28,12 @@ public class ReviewDao {
 		}
 	
 		// 리뷰추가 주문한상품의 고객만 
-	   public int addReview(Connection conn, Review review,Orders orders) throws Exception {
+	   public int addReview(Connection conn, Review review) throws Exception {
 		      int row = 0;	    
-		      String sql = "INSERT INTO review(review_memo) VALUES (?)";		      
-		      PreparedStatement stmt = conn.prepareStatement(sql);
-		      stmt.setString(1, review.getReviewMemo());		    
+		      String sql = "INSERT INTO review(review_memo, order_code) VALUES (?,?)";		      
+		      PreparedStatement stmt = conn.prepareStatement(sql);		      
+		      stmt.setString(1, review.getReviewMemo());
+		      stmt.setInt(2, review.getOrderCode());
 		      row = stmt.executeUpdate();
 		      return row;
 		   }

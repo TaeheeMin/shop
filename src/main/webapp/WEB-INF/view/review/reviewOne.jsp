@@ -14,12 +14,18 @@
 				<th>orderCode</th>
 				<th>reviewMemo</th>
 				<th>createdate</th>
+				<th>삭제</th>
 			</tr>
 			<c:forEach var="r" items="${reviewList}">
 			<tr>
 				<td>${r.orderCode}</td>
 				<td>${r.reviewMemo}</td>  <!-- 상세보기 추가예정 -->
 				<td>${r.createdate}</td>
+				<td>
+					<a href="${pageContext.request.contextPath}/review/reviewRemoveByAdmin?orderCode=${r.orderCode}">
+					삭제
+					</a>
+				</td>
 			</tr>
 			</c:forEach>
 		</table>

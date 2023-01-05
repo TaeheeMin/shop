@@ -36,7 +36,7 @@ public class ReviewListContoller extends HttpServlet {
 	
 		this.reviewService = new ReviewService();
 		ArrayList<Review> list = reviewService.selectReivewList();
-		request.setAttribute("reviewList", list);
+		request.setAttribute("reviewList", list); //view에서 필요
 		request.setAttribute("currentPage", currentPage); // view에서 필요
 		request.setAttribute("rowPerPage", rowPerPage); // view에서 필요
 

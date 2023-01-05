@@ -41,13 +41,13 @@ public class ReviewService {
 	}
 	
 	// 리뷰추가
-	public int addReivew(Review review, Orders orders) {
+	public int addReivew(Review review) {
 		int row = 0;
 		Connection conn = null;
 		reviewDao = new ReviewDao();
 		try {
 			conn = DBUtil.getConnection();
-			row = reviewDao.addReview(conn, review, orders);
+			row = reviewDao.addReview(conn, review);
 			conn.commit();
 		} catch (Exception e) {
 			try {
