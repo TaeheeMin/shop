@@ -11,18 +11,22 @@
 		<table border="1">
 			<thead>
 			  	<tr>
-			      	<th>goodsName</th>
-			      	<th>filename</th>
-			      	<th>date</th>
-			      	<th>state</th>
-			      	<th>price</th>
+			  		<th>주문번호<th>
+			      	<th>상품이름</th>
+			      	<th>상품이미지</th>
+			      	<th>주문일자</th>
+			      	<th>주문상태</th>
+			      	<th>주문가격</th>
 			    </tr>
 		  	</thead>
 		  	<tbody>
 		  		<c:forEach var="o" items="${list}">
 		     		<tr>
-		     			<td>${o.goodsName}</td>
-						<td>${o.filename}</td>
+		     			<td>${o.orderCode}</td>
+		     			<td><a href='${pageContext.request.contextPath}/orders/ordersOne?orderCode=${o.orderCode}'>${o.goodsName}</td>
+						<td>
+							<img src="${pageContext.request.contextPath}/goodsimg/${o.filename}" width="200" height="200">
+						</td>
 						<td>${o.createdate}</td>
 						<td>${o.orderState}</td>
 						<td>${o.orderPrice}</td>

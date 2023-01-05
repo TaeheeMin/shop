@@ -37,4 +37,30 @@ public class OrdersService {
 		}
 		return list;
 	}
+	//주문상세 리스트 
+	public ArrayList<HashMap<String, Object>> selectOrdersOneList(int orderCode) {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			ordersDao = new OrdersDao();
+			list = ordersDao.selectOrdersOne(conn, orderCode);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
 }

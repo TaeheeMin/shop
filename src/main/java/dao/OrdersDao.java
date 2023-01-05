@@ -13,7 +13,8 @@ public class OrdersDao {
 	 public ArrayList<HashMap<String, Object>> selectOrdersList(Connection conn) throws Exception {
 			ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 			String sql = "SELECT "
-					+ "	g.goods_name goodsName"
+					+ "	o.order_code orderCode"
+					+ "	, g.goods_name goodsName"
 					+ "	, gi.filename filename"
 					+ "	, o.createdate createdate"
 					+ "	, o.order_state orderState"
@@ -24,6 +25,7 @@ public class OrdersDao {
 		      ResultSet rs = stmt.executeQuery();
 		      while(rs.next()) {
 		         HashMap<String, Object> m = new HashMap<String, Object>();
+		         m.put("orderCode", rs.getInt("orderCode"));
 		         m.put("goodsName", rs.getString("goodsName"));
 		         m.put("filename", rs.getString("filename"));
 		         m.put("createdate", rs.getString("createdate"));
@@ -47,8 +49,11 @@ public class OrdersDao {
 					+ "	,cu.customer_name customerName"
 					+ "	,cu.customer_phone customerPhone"
 					+ "	,ca.address address"
+					+ "	,gi.filename filename"
 					+ "	FROM goods g inner JOIN orders o"
 					+ "	ON g.goods_code = o.goods_code"
+					+ "	RIGHT JOIN goods_img gi"
+					+ "	ON g.goods_code = gi.goods_code"
 					+ "	inner JOIN customer cu"
 					+ "	ON o.customer_id = cu.customer_id"
 					+ "	RIGHT JOIN customer_address ca"
@@ -69,6 +74,7 @@ public class OrdersDao {
 				m.put("customerName", rs.getString("customerName"));
 				m.put("customerPhone", rs.getString("customerPhone"));
 				m.put("address", rs.getString("address"));
+				m.put("filename", rs.getString("filename"));
 			}
 			return list;
 			

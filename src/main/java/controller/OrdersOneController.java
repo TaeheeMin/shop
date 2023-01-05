@@ -1,41 +1,33 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class OrdersOneController
- */
-@WebServlet("/OrdersOneController")
-public class OrdersOneController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public OrdersOneController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+import service.OrdersService;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+
+@WebServlet("/orders/ordersOne")
+public class OrdersOneController extends HttpServlet {
+	private OrdersService ordersService;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		ordersService = new OrdersService();
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		int orderCode = Integer.parseInt(request.getParameter("orderCode"));
+		list = ordersService.selectOrdersOneList(orderCode);
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("/WEB-INF/view/orders/ordersOne.jsp").forward(request, response);
+	
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/orders/ordersOne.jsp").forward(request, response);
 	}
 
 }
