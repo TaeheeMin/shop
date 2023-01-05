@@ -94,8 +94,18 @@ public class EmpDao {
 		return modifyEmpActive;
 	}
 	
-	
-	
+	// 4-2) 직원 직위변경
+	public int modifyEmpAuthCode(Connection conn, Emp emp) throws Exception {
+		int modifyEmpAuthCode = 0;
+		
+		String sql = "UPDATE emp SET auth_code = ? WHERE emp_id = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, emp.getAuthCode());
+		stmt.setString(2, emp.getEmpId());
+		modifyEmpAuthCode = stmt.executeUpdate();
+		
+		return modifyEmpAuthCode;
+	}
 	
 	
 	

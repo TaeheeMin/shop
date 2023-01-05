@@ -52,9 +52,4 @@ public class EmpListController extends HttpServlet {
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/WEB-INF/view/emp/empList.jsp").forward(request, response);		
 	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-	}
-
 }

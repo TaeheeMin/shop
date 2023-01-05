@@ -91,7 +91,7 @@ public class EmpService {
 		return list;
 	}
 	
-	// 4-1 직원 활성화/비활성화
+	// 4-1) 직원 활성화/비활성화
 	public int modifyEmpActive(Emp emp) {
 		int modifyEmpActive = 0;
 		Connection conn = null;
@@ -115,5 +115,31 @@ public class EmpService {
 			}
 		}	
 		return modifyEmpActive;
+	}
+	
+	// 4-2) 직원 직위변경
+	public int modifyEmpAuthCode(Emp emp) {
+		int modifyEmpAuthCode = 0;
+		Connection conn = null;
+		this.empDao = new EmpDao();
+		try {
+			conn = DBUtil.getConnection();
+			modifyEmpAuthCode = empDao.modifyEmpAuthCode(conn, emp);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}	
+		return modifyEmpAuthCode;
 	}
 }
