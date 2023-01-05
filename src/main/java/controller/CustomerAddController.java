@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import service.CustomerService;
 import vo.Customer;
 
-@WebServlet("/addCustomer")
+@WebServlet("/AddCustomer")
 public class CustomerAddController extends HttpServlet {
 	private CustomerService customerService;
 	
@@ -23,7 +23,7 @@ public class CustomerAddController extends HttpServlet {
 		
 		// 로그인되어있을 시, 회원가입폼 진입 불가 -> 홈화면으로 이동
 		if(loginCustomer != null) {
-			response.sendRedirect(request.getContextPath()+"/home");
+			response.sendRedirect(request.getContextPath()+"/Home");
 		}
 		
 		// 비로그인일 경우, 회원가입폼 view로 이동
@@ -59,18 +59,18 @@ public class CustomerAddController extends HttpServlet {
 		if(checkId) {
 			// 중복일 경우 회원가입폼으로 이동
 			System.out.println("중복된 아이디가 존재합니다");
-			response.sendRedirect(request.getContextPath()+"/addCustomer");
+			response.sendRedirect(request.getContextPath()+"/AddCustomer");
 			return;
 		} else {
 			// 중복 아닐경우 회원가입 진행
 			int addCustomer = customerService.customerSignin(customer);
 			if(addCustomer == 1) {
 				System.out.println("회원가입 성공");
-				response.sendRedirect(request.getContextPath()+"/home");
+				response.sendRedirect(request.getContextPath()+"/Home");
 				return;
 			} else {
 				System.out.println("회원가입 실패");
-				response.sendRedirect(request.getContextPath()+"/addCustomer");
+				response.sendRedirect(request.getContextPath()+"/AddCustomer");
 			}
 		}
 	}

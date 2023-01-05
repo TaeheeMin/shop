@@ -10,7 +10,7 @@
 	</style>
 <body>
 	<h1>회원가입</h1>
-	<form id="signinForm" action="${pageContext.request.contextPath}/addCustomer" method="post">
+	<form id="signinForm" action="${pageContext.request.contextPath}/AddCustomer" method="post">
 		<table>
 			<tr>
 				<th>아이디</th>
@@ -49,7 +49,7 @@
 			</tr>
 		</table>
 		<div>
-			<button type="button" id="signinBtn">회원가입</button>
+			<button type="submit" id="signinBtn">회원가입</button>
 		</div>
 	</form>
 </body>

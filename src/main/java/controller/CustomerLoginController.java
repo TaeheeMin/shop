@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import service.CustomerService;
 import vo.Customer;
 
-@WebServlet("/loginCustomer")
+@WebServlet("/LoginCustomer")
 public class CustomerLoginController extends HttpServlet {
 	private CustomerService customerService;
 	
@@ -23,7 +23,7 @@ public class CustomerLoginController extends HttpServlet {
 		
 		// 로그인되어있을 시, 로그인폼 진입 불가 -> 홈화면으로 이동
 		if(loginCustomer != null) {
-			response.sendRedirect(request.getContextPath()+"/home");
+			response.sendRedirect(request.getContextPath()+"/Home");
 		}
 		
 		// 비로그인일 경우, 로그인폼 view로 이동
@@ -53,7 +53,7 @@ public class CustomerLoginController extends HttpServlet {
 		if(loginCustomer == null) {
 			System.out.println("로그인 실패 -> 로그인컨트롤러 get으로 이동");
 			String msg = "login fail"; // 아이디 혹은 비밀번호가 맞지 않습니다
-			response.sendRedirect(request.getContextPath()+"/loginCustomer?msg="+msg);
+			response.sendRedirect(request.getContextPath()+"/LoginCustomer?msg="+msg);
 			return;
 		}
 		
@@ -61,7 +61,7 @@ public class CustomerLoginController extends HttpServlet {
 		System.out.println("로그인 성공 -> 홈컨트롤러로 이동");
 		HttpSession session = request.getSession();
 		session.setAttribute("loginCustomer",loginCustomer);
-		response.sendRedirect(request.getContextPath()+"/home");
+		response.sendRedirect(request.getContextPath()+"/Home");
 	}
 
 }

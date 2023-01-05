@@ -6,16 +6,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>로그인</h1>
-	<form action="${pageContext.request.contextPath}/LoginCustomer" method="post">
+	<h1>직원 로그인</h1>
+	<form action="${pageContext.request.contextPath}/LoginEmp" method="post">
 		<table>
 			<tr>
 				<th>아이디</th>
-				<td><input type="text" name="customerId"></td>
+				<td><input type="text" name="empId"></td>
 			</tr>
 			<tr>
 				<th>비밀번호</th>
-				<td><input type="password" name="customerPw"></td>
+				<td><input type="password" name="empPw"></td>
 			</tr>
 		</table>
 		<div>
