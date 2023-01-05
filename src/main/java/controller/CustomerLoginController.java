@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import service.CustomerService;
 import vo.Customer;
+import vo.Emp;
 
 @WebServlet("/LoginCustomer")
 public class CustomerLoginController extends HttpServlet {
@@ -20,10 +21,12 @@ public class CustomerLoginController extends HttpServlet {
 		// 로그인 세션 불러오기
 		HttpSession session = request.getSession();
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
+		Emp loginEmp = (Emp)session.getAttribute("loginEmp"); 
 		
 		// 로그인되어있을 시, 로그인폼 진입 불가 -> 홈화면으로 이동
-		if(loginCustomer != null) {
+		if(loginCustomer != null || loginEmp != null) {
 			response.sendRedirect(request.getContextPath()+"/Home");
+			return;
 		}
 		
 		// 비로그인일 경우, 로그인폼 view로 이동

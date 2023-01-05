@@ -22,10 +22,12 @@ public class EmpLoginController extends HttpServlet {
 		// 로그인 세션 불러오기
 		HttpSession session = request.getSession();
 		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
+		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
 		
 		// 사원로그인 되어있을 시, 로그인 폼 진입 불가 -> 홈화면 이동
-		if(loginEmp != null) {
+		if(loginEmp != null || loginCustomer != null) {
 			response.sendRedirect(request.getContextPath()+"/Home");
+			return;
 		}
 		
 		// 비로그인일경우, 사원로그인폼 view로 이동

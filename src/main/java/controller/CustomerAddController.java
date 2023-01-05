@@ -24,6 +24,7 @@ public class CustomerAddController extends HttpServlet {
 		// 로그인되어있을 시, 회원가입폼 진입 불가 -> 홈화면으로 이동
 		if(loginCustomer != null) {
 			response.sendRedirect(request.getContextPath()+"/Home");
+			return;
 		}
 		
 		// 비로그인일 경우, 회원가입폼 view로 이동

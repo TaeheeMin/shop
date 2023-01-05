@@ -6,36 +6,36 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-/**
- * Servlet implementation class CustomerOneController
- */
-@WebServlet("/CustomerOneController")
+import service.CustomerService;
+import vo.Customer;
+
+
+@WebServlet("/CustomerOne")
 public class CustomerOneController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CustomerOneController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	private CustomerService customerService;
+	
+	// 회원정보 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		// 로그인세션 불러오기
+		HttpSession session = request.getSession();
+		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
+		
+		// 로그인되지 않은경우, 회원정보 폼 진입 불가 -> 홈화면으로 이동
+		if(loginCustomer == null) {
+			response.sendRedirect(request.getContextPath()+"/Home");
+			return;
+		}
+		
+		// 로그인된 경우, 회원정보 불러오기
+		Customer customer = new Customer();
+		customer.setCustomerId(loginCustomer.getCustomerId());
+		
+		this.customerService = new CustomerService();
+		Customer customerOne = customerService.customerOne(customer);
+		
+		request.setAttribute("customerOne", customerOne);
+		request.getRequestDispatcher("/WEB-INF/view/customerOne.jsp").forward(request, response);
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
 }
