@@ -6,36 +6,46 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-/**
- * Servlet implementation class AddressAddController
- */
-@WebServlet("/AddressAddController")
+import service.CustomerService;
+import vo.Customer;
+import vo.CustomerAddress;
+
+@WebServlet("/AddressAdd")
 public class AddressAddController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AddressAddController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	// 주소추가 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	private CustomerService customerService;
+	// 주소추가 액션
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("utf-8"); // 한글인코딩
+		
+		// 파라미타값 받아오기
+		String customerId = request.getParameter("customerId");
+		String address = request.getParameter("address");
+		System.out.println("입력한 주소값 : "+address);
+		
+		// cusAddress에 set
+		CustomerAddress cusAddress = new CustomerAddress();
+		cusAddress.setCustomerId(customerId);
+		cusAddress.setAddress(address);
+		
+		// service
+		this.customerService = new CustomerService();
+		int addMyAddress = customerService.addMyAddress(cusAddress);
+		if(addMyAddress == 1) {
+			System.out.println("주소추가 완료");
+			response.sendRedirect(request.getContextPath()+"/CustomerOne");
+			return;
+		} else {
+			System.out.println("주소추가 실패");
+			response.sendRedirect(request.getContextPath()+"/CustomerOne");
+		}
+		
 	}
 
 }

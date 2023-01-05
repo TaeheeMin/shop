@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import service.CustomerService;
 import vo.Customer;
+import vo.CustomerAddress;
 
 
 @WebServlet("/CustomerOne")
@@ -28,14 +31,23 @@ public class CustomerOneController extends HttpServlet {
 			return;
 		}
 		
+		System.out.println("[customerOne컨트롤러 진입]");
+		this.customerService = new CustomerService();
+		
 		// 로그인된 경우, 회원정보 불러오기
 		Customer customer = new Customer();
 		customer.setCustomerId(loginCustomer.getCustomerId());
-		
-		this.customerService = new CustomerService();
+		System.out.println("customer.getCustomerId : "+customer.getCustomerId());
 		Customer customerOne = customerService.customerOne(customer);
 		
+		// 회원주소목록 불러오기
+		CustomerAddress cusAddress = new CustomerAddress();
+		cusAddress.setCustomerId(loginCustomer.getCustomerId());
+		System.out.println("cusAddress.getCustomerId : "+cusAddress.getCustomerId());
+		ArrayList<CustomerAddress> list = customerService.MyAddressList(cusAddress);
+
+		request.setAttribute("list", list);
 		request.setAttribute("customerOne", customerOne);
-		request.getRequestDispatcher("/WEB-INF/view/customerOne.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/customer/customerOne.jsp").forward(request, response);
 	}
 }

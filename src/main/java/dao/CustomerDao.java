@@ -82,10 +82,11 @@ public class CustomerDao {
 		if(rs.next()) {
 			customerOne = new Customer();
 			customerOne.setCustomerId(rs.getString("customer_id"));
-			customerOne.setCustomerId(rs.getString("customer_pw")); // 회원정보수정 및 탈퇴 시 패스워드 대조하기 위함
+			customerOne.setCustomerPw(rs.getString("customer_pw")); // 회원정보수정 및 탈퇴 시 패스워드 대조하기 위함
+			customerOne.setCustomerName(rs.getString("customer_name"));
 			customerOne.setCustomerPhone(rs.getString("customer_phone"));
-			customerOne.setCustomerPhone(rs.getString("point"));
-			customerOne.setCustomerPhone(rs.getString("createdate"));
+			customerOne.setPoint(rs.getInt("point"));
+			customerOne.setCreatedate(rs.getString("createdate"));
 		}
 		return customerOne;
 	}
@@ -140,18 +141,19 @@ public class CustomerDao {
 	}
 	
 	// 6) 회원주소목록 (내주소)
-	public ArrayList<CustomerAddress> MyAddressList(Connection conn, Customer customer) throws Exception {
-		ArrayList<CustomerAddress> list = null;
+	public ArrayList<CustomerAddress> MyAddressList(Connection conn, CustomerAddress cusAddress) throws Exception {
+		ArrayList<CustomerAddress> list = new ArrayList<CustomerAddress>();
 		
 		// 주소 불러오기
-		String sql = "SELECT address FROM customer_address WHERE customer_id = ?";
+		String sql = "SELECT customer_id, address FROM customer_address WHERE customer_id = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setString(1, customer.getCustomerId());
+		stmt.setString(1, cusAddress.getCustomerId());
 		ResultSet rs = stmt.executeQuery();
 		while(rs.next()) {
-			CustomerAddress ca = new CustomerAddress();
-			ca.setAddress(rs.getString("address"));
-			list.add(ca);
+			CustomerAddress a = new CustomerAddress();
+			a.setCustomerId(rs.getString("customer_id"));
+			a.setAddress(rs.getString("address"));
+			list.add(a);
 		}
 		
 		return list;
@@ -171,6 +173,20 @@ public class CustomerDao {
 		addMyAddress = stmt.executeUpdate();
 		
 		return addMyAddress;
+	}
+	
+	// 8) 주소삭제
+	public int removeAddress(Connection conn, CustomerAddress cusAddress) throws Exception {
+		int removeAddress = 0;
+		
+		String sql = "DELETE from customer_address WHERE customer_id = ? AND address = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, cusAddress.getCustomerId());
+		stmt.setString(2, cusAddress.getAddress());
+		
+		removeAddress = stmt.executeUpdate();
+				
+		return removeAddress;
 	}
 	
 }
