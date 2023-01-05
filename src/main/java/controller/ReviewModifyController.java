@@ -30,7 +30,10 @@ public class ReviewModifyController extends HttpServlet {
 		//로그인정보 추후 세션으로 변경예정
 		String customerId = request.getParameter("customerId");					
 		
-		
+		//디버깅 
+		 System.out.println(customerId);
+		 System.out.println(orderCode);
+		 System.out.println(reviewMemo);
 		//값 저장 
 		review.setReviewMemo(reviewMemo);
 		review.setOrderCode(orderCode);
@@ -47,7 +50,7 @@ public class ReviewModifyController extends HttpServlet {
 		} else {
 			// 폼이동
 			System.out.println("입력실패");
-			response.sendRedirect(request.getContextPath()+"/review/reviewAdd");
+			response.sendRedirect(request.getContextPath()+"/review/reviewModify");
 		}
 	}
 

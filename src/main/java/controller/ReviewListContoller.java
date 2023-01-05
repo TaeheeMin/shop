@@ -40,7 +40,7 @@ public class ReviewListContoller extends HttpServlet {
 		request.setAttribute("currentPage", currentPage); // view에서 필요
 		request.setAttribute("rowPerPage", rowPerPage); // view에서 필요
 
-		request.getRequestDispatcher("/WEB-INF/view/review/reviewOne.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/review/reviewList.jsp").forward(request, response);
 	}
 }
 

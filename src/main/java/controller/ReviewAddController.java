@@ -36,7 +36,7 @@ public class ReviewAddController extends HttpServlet {
 		if(row == 1) {
 			// 리스트로 이동
 			System.out.println("입력성공");
-			response.sendRedirect(request.getContextPath()+"/orders/ordreList"); 
+			response.sendRedirect(request.getContextPath()+"/review/reviewOne"); 
 		} else {
 			// 폼이동
 			System.out.println("입력실패");

@@ -65,9 +65,9 @@ public class ReviewDao {
 	   public int modifyReview(Connection conn, Review review, Orders orders) throws Exception {
 		   int row = 0;
 		   String sql = "UPDATE review re inner JOIN orders o"
-		   		+ "ON re.order_code = o.order_code"
-		   		+ "SET re.review_memo = ?"
-		   		+ "WHERE re.order_code = ? AND o.customer_id = ?";
+		   		+ "	ON re.order_code = o.order_code"
+		   		+ "	SET re.review_memo = ?"
+		   		+ "	WHERE re.order_code = ? AND o.customer_id = ?";
 		      PreparedStatement stmt = conn.prepareStatement(sql);
 		      stmt.setString(1, review.getReviewMemo());
 		      stmt.setInt(2, review.getOrderCode());
