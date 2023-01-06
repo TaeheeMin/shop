@@ -92,9 +92,13 @@ public class PwHistoryDao {
 	public boolean selectPwHistoryCk(Connection conn, Customer customer) throws Exception {
 		boolean checkPw = false;
 		
-		String sql = "SELECT * FROM pw_history WHERE customer_id = ? AND customer_pw = ?";
+		String sql = "SELECT * FROM pw_history WHERE customer_id = ? AND pw = PASSWORD(?)";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, customer.getCustomerId());
+		stmt.setString(2, customer.getCustomerPw());
+		System.out.println("[pwHistory중복체크dao]");
+		System.out.println("customer_id : "+customer.getCustomerId());
+		System.out.println("customer_pw : "+customer.getCustomerPw());
 		ResultSet rs = stmt.executeQuery();
 		if(rs.next()) {
 			checkPw = true;
