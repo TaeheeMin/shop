@@ -113,11 +113,11 @@
 							<img src="${pageContext.request.contextPath}/goodsimg/${od.filename}" width="200" height="200">
 						</td>
 						<td>
-							<c:if test="${od.orderState eq '구매확정'}">
+						
 							<a href="${pageContext.request.contextPath}/review/reviewAdd?orderCode=${od.orderCode}">
 							리뷰작성하기
 							</a>
-							</c:if>
+							
 						</td>
 						<td>
 							<!-- 로그인 세션적용되면 커스터머아이디받아야 삭제가능 -->

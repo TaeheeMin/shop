@@ -8,25 +8,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import service.OrdersService;
-import vo.Goods;
 import vo.Orders;
 
-
-@WebServlet("/orders/ordersAdd")
-public class OrdersAddController extends HttpServlet {
+@WebServlet("/orders/ordersAddByCart")
+public class OrderAddByCartController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//값받아서 넘겨주기
 		int goodsCode = Integer.parseInt(request.getParameter("goodsCode")); 
-		String goodsTitle = request.getParameter("goodsTitle");
-		int goodsPrice = Integer.parseInt(request.getParameter("goodsPrice"));
-		String goodsArtist = request.getParameter("goodsArtist");
+		int ordersPrice = Integer.parseInt(request.getParameter("cartPrice"));
+		int orderQuantity = Integer.parseInt(request.getParameter("cartQuantity"));
+		
+
 		request.setAttribute("goodsCode", goodsCode);
-		request.setAttribute("goodsTitle", goodsTitle);
-		request.setAttribute("goodsPrice", goodsPrice);
-		request.setAttribute("goodsArtist", goodsArtist);
+		request.setAttribute("orderQuantity", orderQuantity);
+		request.setAttribute("ordersPrice", ordersPrice);
+		
+		
 		
 		request.getRequestDispatcher("/WEB-INF/view/orders/ordersPage.jsp").forward(request, response);
 	}
+
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -60,6 +61,5 @@ public class OrdersAddController extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/orders/ordersAdd");
 		}
 	}
+
 }
-
-

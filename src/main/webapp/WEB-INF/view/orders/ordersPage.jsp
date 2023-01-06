@@ -18,8 +18,8 @@
 			<br>		
 			<div> 
 				주문자 정보:  
-				<br>고객ID<input type="text" name="cutomerId" value="${loginCustomer.customerId}">
-				<br>고객이름<input type="text" name="cutomerName" value="${loginCustomer.customerName}">
+				<br>고객ID<input type="text" name="customerId" value="${loginCustomer.customerId}">
+				<br>고객이름<input type="text" name="customerName" value="${loginCustomer.customerName}">
 				<br>고객주소<input type="text" name="addrss">
 				<br>고객연락처<input type="text" name="customerPhone" value="${loginCustomer.customerPhone}">
 			</div>
@@ -32,7 +32,10 @@
 			</div>			
 			<div> 
 				<input type="hidden" name="goodsCode" value="${goodsCode}">
-				<input type="hidden" name="addressCode" value="${addressCode}">
+			</div>
+			<!-- 셀렉트로 선택할수있게 변경해야함 -->
+			<div>	
+				주소코드 :<input type="text" name="addressCode" value="${addressCode}">
 			</div>						
 			<button type="submit">결제</button>
 		</form>

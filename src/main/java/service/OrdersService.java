@@ -142,7 +142,7 @@ public class OrdersService {
 			return result;	
 		}
 	// 주문 카트없이 추가 
-	public int AddOrder(int orderCode,Orders orders) {
+	public int AddOrder(Orders orders) {
 		int result = 0;
 		Connection conn = null; 
 		ordersDao = new OrdersDao();		

@@ -32,14 +32,15 @@ public class ReviewAddController extends HttpServlet {
 		review.setReviewMemo(reviewMemo);
 		review.setOrderCode(orderCode);
 		
-		int row = 0;
+		int pointRow = 0;
 		ReviewService reviewService = new ReviewService();
-		row = reviewService.addReivew(review);
+		pointRow = reviewService.addReivew(review);
 		// 결과
-		if(row == 1) {
+		if(pointRow == 1) {
 			// 리스트로 이동
 			System.out.println("입력성공");
-			response.sendRedirect(request.getContextPath()+"/review/reviewOne"); 
+			response.sendRedirect(request.getContextPath()+"/review/reviewOne");
+			
 		} else {
 			// 폼이동
 			System.out.println("입력실패");
