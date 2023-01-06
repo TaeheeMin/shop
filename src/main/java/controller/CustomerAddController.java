@@ -9,11 +9,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import service.CustomerService;
+import service.PwHistoryService;
 import vo.Customer;
+import vo.PwHistory;
 
 @WebServlet("/AddCustomer")
 public class CustomerAddController extends HttpServlet {
 	private CustomerService customerService;
+	private PwHistoryService pwHistoryService;
 	
 	// 회원가입 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -50,8 +53,14 @@ public class CustomerAddController extends HttpServlet {
 		customer.setCustomerName(customerName);
 		customer.setCustomerPhone(customerPhone);
 		
+		// pwHistory에 set
+		PwHistory pwHistory = new PwHistory();
+		pwHistory.setCustomerId(customerId);
+		pwHistory.setPw(customerPw);
+		
 		// 회원가입 service 불러오기
 		this.customerService = new CustomerService();
+		this.pwHistoryService = new PwHistoryService();
 		
 		// 아이디 중복체크
 		boolean checkId = customerService.customerSigninCkId(customer);
@@ -67,6 +76,11 @@ public class CustomerAddController extends HttpServlet {
 			int addCustomer = customerService.customerSignin(customer);
 			if(addCustomer == 1) {
 				System.out.println("회원가입 성공");
+				// 회원가입한 비밀번호는 pwHistory(비밀번호내역)에 추가하기 
+				int operatePwHistory = pwHistoryService.operatePwHistory(pwHistory);
+				if(operatePwHistory == 1) {
+					System.out.println("비밀번호 pwHistory에 추가완료");
+				}
 				response.sendRedirect(request.getContextPath()+"/Home");
 				return;
 			} else {
@@ -75,5 +89,4 @@ public class CustomerAddController extends HttpServlet {
 			}
 		}
 	}
-
 }

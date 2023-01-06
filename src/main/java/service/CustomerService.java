@@ -5,13 +5,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import dao.CustomerDao;
+import dao.PwHistoryDao;
 import util.DBUtil;
 import vo.Customer;
 import vo.CustomerAddress;
 
 public class CustomerService {
 	private CustomerDao customerDao;
-	
+	private PwHistoryDao pwHistoryDao;
 	// 1) 회원가입 - 중복체크 (CustomerAddController)
 	public boolean customerSigninCkId(Customer customer) {
 		boolean customerSigninCkId = false;
@@ -118,7 +119,33 @@ public class CustomerService {
 		return customerOne;
 	}
 	
-	// 4) 회원정보 수정 (CustomerModifyController)
+	// 4-1) 회원정보수정 비밀번호 이전내역과 중복체크
+	public boolean pwHistoryCk(Customer customer) {
+		boolean pwHistoryCk = false;
+		Connection conn = null;
+		this.pwHistoryDao = new PwHistoryDao();
+		try {
+			conn = DBUtil.getConnection();
+			pwHistoryCk = pwHistoryDao.selectPwHistoryCk(conn, customer);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return pwHistoryCk;
+	}
+	
+	// 4-2) 회원정보 수정 (CustomerModifyController)
 	public int modifyCustomerOne(Customer customerOne, Customer modifyCustomer) {
 		int modifyCustomerOne = 0;
 		Connection conn = null;
@@ -144,12 +171,15 @@ public class CustomerService {
 		return modifyCustomerOne;
 	}
 	
-	// 5) 회원탈퇴 (탈퇴와 동시에 outid에 저장 - CustomerRemoveController)
+	// 5) 회원탈퇴 (탈퇴와 동시에 outid에 저장 - CustomerRemoveController) + pwHistory도 삭제
 	public int removeCustomerOutid(Customer customerOne) {
 		int removeCustomer = 0;
 		int removeCustomerOutid = 0;
+		int removePwHistory = 0;
 		Connection conn = null;
 		this.customerDao = new CustomerDao();
+		this.pwHistoryDao = new PwHistoryDao();
+		
 		try {
 			conn = DBUtil.getConnection();
 			// 회원탈퇴 쿼리(dao) 먼저 진행
@@ -158,6 +188,8 @@ public class CustomerService {
 				System.out.println("탈퇴성공");
 				// 탈퇴한 아이디 -> outid 테이블에 추가
 				removeCustomerOutid = customerDao.addOutid(conn, customerOne);
+				// 탈퇴한 아이디의 pwHistory 데이터 삭제
+				removePwHistory = pwHistoryDao.removePwHistoryByRemoveCustomer(conn, customerOne);
 			} else {
 				System.out.println("탈퇴실패");
 			}
@@ -178,82 +210,4 @@ public class CustomerService {
 		}		
 		return removeCustomerOutid;
 	}	
-	
-	// 6) 회원 주소목록
-	public ArrayList<CustomerAddress> myAddressList(CustomerAddress cusAddress) {
-		ArrayList<CustomerAddress> list = null;
-		Connection conn = null;
-		this.customerDao = new CustomerDao();
-		try {
-			conn = DBUtil.getConnection();
-			list = customerDao.myAddressList(conn, cusAddress);
-			conn.commit();
-		} catch (Exception e) {
-			try {
-				conn.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-			e.printStackTrace();
-		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return list;
-	}
-	
-	// 7) 회원 주소추가
-	public int addMyAddress(CustomerAddress cusAddress) {
-		int addMyAddress = 0;
-		Connection conn = null;
-		this.customerDao = new CustomerDao();
-		try {
-			conn = DBUtil.getConnection();
-			addMyAddress = customerDao.addMyAddress(conn, cusAddress);
-			conn.commit();
-		} catch (Exception e) {
-			try {
-				conn.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-			e.printStackTrace();
-		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return addMyAddress;
-	}
-	
-	// 8) 주소삭제
-	public int removeAddress(CustomerAddress cusAddress) {
-		int removeAddress = 0;
-		Connection conn = null;
-		this.customerDao = new CustomerDao();
-		try {
-			conn = DBUtil.getConnection();
-			removeAddress = customerDao.removeAddress(conn, cusAddress);
-			conn.commit();
-		} catch (Exception e) {
-			try {
-				conn.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-			e.printStackTrace();
-		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return removeAddress;
-	}
 }

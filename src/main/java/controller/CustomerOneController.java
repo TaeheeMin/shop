@@ -40,13 +40,12 @@ public class CustomerOneController extends HttpServlet {
 		// 로그인된 경우, 회원정보 불러오기
 		Customer customer = new Customer();
 		customer.setCustomerId(loginCustomer.getCustomerId());
-		System.out.println("customer.getCustomerId : "+customer.getCustomerId());
+		System.out.println("(1)customer.getCustomerId : "+customer.getCustomerId());
 		Customer customerOne = customerService.customerOne(customer);
 		
 		// 회원주소목록 불러오기
 		CustomerAddress cusAddress = new CustomerAddress();
 		cusAddress.setCustomerId(loginCustomer.getCustomerId());
-		System.out.println("cusAddress.getCustomerId : "+cusAddress.getCustomerId());
 		ArrayList<CustomerAddress> list = customerAddressService.myAddressList(cusAddress);
 
 		request.setAttribute("list", list);
