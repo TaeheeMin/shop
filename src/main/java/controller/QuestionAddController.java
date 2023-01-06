@@ -7,35 +7,34 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class QuestionAddController
- */
-@WebServlet("/QuestionAddController")
-public class QuestionAddController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public QuestionAddController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+import service.QuestionService;
+import vo.Question;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+@WebServlet("/QuestionAdd")
+public class QuestionAddController extends HttpServlet {
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("utf-8");
+		// 값 받아오기
+		Question question = new Question();
+		
+		int row = 0;
+		QuestionService questionService = new QuestionService();
+		row = questionService.addQuestion(question);
+		// 결과
+		if(row == 1) {
+			// 리스트로 이동
+			System.out.println("입력성공");
+			response.sendRedirect(request.getContextPath()+"/NoticeList"); 
+		} else {
+			// 폼이동
+			System.out.println("입력실패");
+			response.sendRedirect(request.getContextPath()+"/NoticeAdd");
+		}
+	
 	}
 
 }

@@ -19,7 +19,7 @@
 		<h1>장바구니 목록</h1>
 		<a href="${pageContext.request.contextPath}/Home">홈으로</a>
 		<a href="${pageContext.request.contextPath}/GoodsList">상품목록</a>
-		<form action="${pageContext.request.contextPath}/" method="get">
+		<form action="${pageContext.request.contextPath}/orders/ordersAddByCart" method="get">
 			<table border="1">
 				<tr>
 					<th>상품정보</th>
@@ -31,9 +31,12 @@
 					<tr>
 						<td>
 							<img src="${pageContext.request.contextPath}/goodsimg/${c.filename}" width="200" height="200">
-							${c.goodsTitle}
+							<input type="text" name="goodsTitle" value="${c.goodsTitle}" readonly="readonly"> 
 						</td>
-						<td>${c.goodsPrice}</td>
+						<td>
+							<input type="text" name="goodsPrice" value="${c.goodsPrice}" readonly="readonly">
+							
+						</td>
 						<td>
 							<select name="cartQuantity" id="cartQuantity">
 								<c:forEach var="x" begin="1" end="10" step="1">
@@ -56,11 +59,11 @@
 				<tr>
 					<td>총 주문금액</td>
 					<td colspan="3">
-						<c:set var = "total" value = "0" />
+						<c:set var = "cartPrice" value = "0" />
 							<c:forEach var="c" items="${list}">
-								<c:set var= "total" value="${total + c.goodsPrice}"/>
+								<c:set var= "cartPrice" value="${cartPrice + c.goodsPrice}"/>
 							</c:forEach>
-						<c:out value="${total}"/>
+						<input type="text" name="cartPrice" value="${cartPrice}" readonly="readonly">
 					</td>
 				</tr>
 			</table>
