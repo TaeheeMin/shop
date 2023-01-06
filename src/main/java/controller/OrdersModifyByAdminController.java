@@ -10,15 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import service.OrdersService;
 import vo.Orders;
 
-@WebServlet("/orders/ordersModify")
-public class OrdersModifyController extends HttpServlet {	
+/**
+ * Servlet implementation class OrdersModifyByAdminController
+ */
+@WebServlet("/orders/ordersModifyByAdmin")
+public class OrdersModifyByAdminController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-	}
-
+	}	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		//고객용 주문상태 수정
+		// 관리자 주문상태 수정
 		// 값받아오기
 		request.setCharacterEncoding("utf-8");
 		Orders orders = new Orders();
@@ -28,7 +29,7 @@ public class OrdersModifyController extends HttpServlet {
 		
 		int row = 0;
 		OrdersService ordersService = new OrdersService();
-		row = ordersService.modifyByCustomerOrders(row, orders);
+		row = ordersService.modifyByAdminOrders(row, orders);
 	
 		if(row == 1) {			
 			System.out.println("수정성공");

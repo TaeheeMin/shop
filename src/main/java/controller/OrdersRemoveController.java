@@ -7,35 +7,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class OrdersRemoveController
- */
-@WebServlet("/OrdersRemoveController")
-public class OrdersRemoveController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public OrdersRemoveController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+import service.OrdersService;
+import service.ReviewService;
+import vo.Orders;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+
+@WebServlet("/orders/ordersRemove")
+public class OrdersRemoveController extends HttpServlet {	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		// 값 받아오기
+		int orderCode = Integer.parseInt(request.getParameter("orderCode"));
+		String customerId = request.getParameter("customerId");
+		Orders orders = new Orders();
+		orders.setCustomerId(customerId);
+		OrdersService ordersService = new OrdersService();
+		int row = ordersService.removeByCustomerOrder(orderCode, orders);
+		
+		// 결과
+		if(row == 1) {
+			// 리스트 이동
+			System.out.println("삭제성공");
+			response.sendRedirect(request.getContextPath()+"/orders/ordersList"); 
+		} else {
+			// 리스트 이동
+			System.out.println("삭제실패");
+			response.sendRedirect(request.getContextPath()+"/orders/ordersList?orderCode="+orderCode);
+		}	
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
 }

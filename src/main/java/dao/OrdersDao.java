@@ -40,16 +40,17 @@ public class OrdersDao {
 			ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 			String sql = "SELECT "
 					+ "o.order_code orderCode"
-					+ "	,o.order_quantity orderQuantity"
-					+ "	,o.order_price orderPrice"
-					+ "	,o.order_state orderState"
-					+ "	,o.createdate createdate"
-					+ "	,g.goods_title goodsTitle"
-					+ "	,g.goods_price goodsPrice"
-					+ "	,cu.customer_name customerName"
-					+ "	,cu.customer_phone customerPhone"
-					+ "	,ca.address address"
-					+ "	,gi.filename filename"
+					+ ",o.order_quantity orderQuantity"
+					+ ",o.order_price orderPrice"
+					+ ",o.order_state orderState"
+					+ ",o.createdate createdate"
+					+ ",o.customer_id customerId"
+					+ ",g.goods_title goodsTitle"
+					+ ",g.goods_price goodsPrice"
+					+ ",cu.customer_name customerName"
+					+ ",cu.customer_phone customerPhone"
+					+ ",ca.address address"
+					+ ",gi.filename filename"
 					+ "	FROM goods g inner JOIN orders o"
 					+ "	ON g.goods_code = o.goods_code"
 					+ "	RIGHT JOIN goods_img gi"
@@ -75,12 +76,14 @@ public class OrdersDao {
 				m.put("customerPhone", rs.getString("customerPhone"));
 				m.put("address", rs.getString("address"));
 				m.put("filename", rs.getString("filename"));
+				m.put("customerId", rs.getString("customerId"));
+				list.add(m);
 			}
 			return list;
 			
 		}
 		// 장바구니 x 바로구매 
-	   public int insertOrders(Connection conn, Orders orders) throws Exception {
+	   public int AddOrders(Connection conn, Orders orders) throws Exception {
 		      int row = 0;	    
 		      String sql = "INSERT INTO orders(goods_code, customer_id, address_code , order_quantity ,order_price , order_state) VALUES (?,?,?,?,?,'결제')";		      
 		      PreparedStatement stmt = conn.prepareStatement(sql);
@@ -95,7 +98,7 @@ public class OrdersDao {
 	   // 주문내역 목록에서 삭제 
 	   public int removeOrders(Connection conn, Orders orders)throws Exception {
 		   int row = 0;
-		   String sql = "DELETE FROM orders WHERE order_code = ? and customer_id = ?";      
+		   String sql = "DELETE FROM orders WHERE order_code = ? AND customer_id = ?";      
 		      PreparedStatement stmt = conn.prepareStatement(sql);
 		      stmt.setInt(1, orders.getOrderCode());
 		      stmt.setString(2, orders.getCustomerId());
@@ -105,7 +108,7 @@ public class OrdersDao {
 	   // 주문상태 수정 (고객용)
 	   public int modifyOrders(Connection conn, Orders orders)throws Exception {
 		   int row = 0;
-		   String sql = "update orders SET order_state =? WHERE customer_id = ? order_code=?";     
+		   String sql = "update orders SET order_state =? WHERE customer_id = ? AND order_code=?";     
 		      PreparedStatement stmt = conn.prepareStatement(sql);
 		      stmt.setString(1, orders.getOrderState());
 		      stmt.setString(2, orders.getCustomerId());
