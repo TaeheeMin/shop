@@ -15,10 +15,13 @@ import vo.Review;
 public class ReviewAddController extends HttpServlet {	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//리뷰 작성 폼 연결 
+		int orderCode = Integer.parseInt(request.getParameter("orderCode"));
+		request.setAttribute("orderCode", orderCode);
 		request.getRequestDispatcher("/WEB-INF/view/review/reviewForm.jsp").forward(request, response);
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		request.setCharacterEncoding("utf-8");
 		// 값 받아오기
 		Review review = new Review();

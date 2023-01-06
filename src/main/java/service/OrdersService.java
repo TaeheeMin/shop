@@ -141,4 +141,29 @@ public class OrdersService {
 				}
 			return result;	
 		}
+	// 주문 카트없이 추가 
+	public int AddOrder(int orderCode,Orders orders) {
+		int result = 0;
+		Connection conn = null; 
+		ordersDao = new OrdersDao();		
+			try {
+				conn = DBUtil.getConnection();
+				result = ordersDao.AddOrders(conn, orders);
+				conn.commit();
+			} catch (Exception e) {
+				try {
+					conn.rollback(); 
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				e.printStackTrace();
+			} finally {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}	
+			return result;
+		}
 }
