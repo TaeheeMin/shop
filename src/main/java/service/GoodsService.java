@@ -9,10 +9,11 @@ import util.DBUtil;
 import vo.*;
 
 public class GoodsService {
+	private GoodsDao goodsDao;
 	// 1) add goods
 	public int addGoods(Goods goods, GoodsImg goodsImg, String dir) {
 		Connection conn = null;
-		GoodsDao goodsDao = new GoodsDao();
+		this.goodsDao = new GoodsDao();
 		GoodsImgDao goodsImgDao = new GoodsImgDao(); 
 		int row = 0;
 		try {
@@ -47,13 +48,12 @@ public class GoodsService {
 	// 2) list
 	public ArrayList<HashMap<String, Object>> getGoodsList() {
 		Connection conn = null;
-		GoodsDao goodsDao = new GoodsDao();
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		try {
 			conn = DBUtil.getConnection();
+			this.goodsDao = new GoodsDao();
 			list = goodsDao.selectGoodsList(conn);
 			conn.commit();
-			
 		} catch (Exception e) {
 			try {
 				conn.rollback();
@@ -70,4 +70,32 @@ public class GoodsService {
 		}
 		return list;
 	}
+	
+	// 2-1) goods one
+	public ArrayList<HashMap<String, Object>> getGoodsOne(int goodsCode) {
+		Connection conn = null;
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		try {
+			conn = DBUtil.getConnection();
+			this.goodsDao = new GoodsDao();
+			list = goodsDao.selectGoodsOne(conn, goodsCode);
+			conn.commit(); // DBUtil setAutoCommit false설정
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
 }

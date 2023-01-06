@@ -20,7 +20,11 @@
 					
 					<td>
 						<div>${m.goodsCode}</div>
-						<div>${m.goodsTitle}</div>
+						<div>
+							<a href="${pageContext.request.contextPath}/GoodsOne?goodsCode=${m.goodsCode}">
+								${m.goodsTitle}
+		      				</a>
+						</div>
 						<div>${m.goodsArtist}</div>
 						<div>${m.goodsPrice}</div>
 						<div>${m.soldout}</div>

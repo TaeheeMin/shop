@@ -56,11 +56,41 @@ public class GoodsDao {
 		ResultSet rs = stmt.executeQuery();
 		while(rs.next()) {
 			HashMap<String, Object> m = new HashMap<String, Object>();
-			m.put("goodsCode", rs.getString("goodsCode"));
+			m.put("goodsCode", rs.getInt("goodsCode"));
 			m.put("goodsTitle", rs.getString("goodsTitle"));
 			m.put("goodsArtist",  rs.getString("goodsArtist"));
 			m.put("goodsPrice",  rs.getInt("goodsPrice"));
 			m.put("soldout", rs.getString("soldout"));
+			m.put("filename", rs.getString("filename"));
+			list.add(m);
+		}
+		return list;
+	}
+	
+	// 2-2) goods one
+	public ArrayList<HashMap<String, Object>> selectGoodsOne(Connection conn, int goodsCode) throws Exception {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		String sql = "SELECT"
+				+ " g.goods_code goodsCode"
+				+ ", g.goods_title goodsTitle"
+				+ ", g.goods_artist goodsArtist"
+				+ ", g.goods_content goodsContent"
+				+ ", g.goods_price goodsPrice"
+				+ ", img.filename"
+				+ " FROM goods g INNER JOIN goods_img img"
+				+ " ON g.goods_code = img.goods_code"
+				+ " WHERE g.goods_code = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, goodsCode);
+		System.out.println(goodsCode);
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			HashMap<String, Object> m = new HashMap<String, Object>();
+			m.put("goodsCode", rs.getInt("goodsCode"));
+			m.put("goodsTitle", rs.getString("goodsTitle"));
+			m.put("goodsArtist",  rs.getString("goodsArtist"));
+			m.put("goodsPrice",  rs.getInt("goodsPrice"));
+			m.put("goodsContent", rs.getString("goodsContent"));
 			m.put("filename", rs.getString("filename"));
 			list.add(m);
 		}
