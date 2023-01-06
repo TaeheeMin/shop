@@ -53,6 +53,16 @@
 						</td>
 					</tr>
 				</c:forEach>
+				<tr>
+					<td>총 주문금액</td>
+					<td colspan="3">
+						<c:set var = "total" value = "0" />
+							<c:forEach var="c" items="${list}">
+								<c:set var= "total" value="${total + c.goodsPrice}"/>
+							</c:forEach>
+						<c:out value="${total}"/>
+					</td>
+				</tr>
 			</table>
 			<button type="submit">주문</button>
 		</form>

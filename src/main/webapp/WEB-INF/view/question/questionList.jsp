@@ -1,23 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>상품목록</title>
+		<title>문의사항</title>
 	</head>
 	<body>
-		<h1>상품목록</h1>
+		<h1>문의사항-관리자용</h1>
 		<a href="${pageContext.request.contextPath}/Home">홈으로</a>
-		<a href="${pageContext.request.contextPath}/GoodsAdd">상품등록</a>
-		<a href="${pageContext.request.contextPath}/CartList">장바구니</a>
 		<table border="1">
 			<tr>
 				<c:forEach var="m" items="${list}" varStatus="s">
-					<c:if test="${s.index != 0 && s.index % 5 == 0 }">
-						</tr><tr>
-					</c:if>
-					
 					<td>
 						<div>${m.goodsCode}</div>
 						<div>${m.goodsTitle}</div>
