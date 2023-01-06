@@ -5,33 +5,48 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>장바구니</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+		<script>
+			$(document).ready(function(){
+				// 1) 수량 변경 이벤트 처리
+				$('#cartQuantity').change(function(){
+					location.href='${pageContext.request.contextPath}/CartModify';
+				});
+			});
+		</script>
 	</head>
 	<body>
 		<h1>장바구니 목록</h1>
 		<a href="${pageContext.request.contextPath}/Home">홈으로</a>
-		<form action="" method="get">
+		<a href="${pageContext.request.contextPath}/GoodsList">상품목록</a>
+		<form action="${pageContext.request.contextPath}/" method="get">
 			<table border="1">
+				<tr>
+					<th>상품정보</th>
+					<th>상품금액</th>
+					<th>수량</th>
+					<th>삭제</th>
+				</tr>
 				<c:forEach var="c" items="${list}" varStatus="s">
 					<tr>
 						<td>
 							<img src="${pageContext.request.contextPath}/goodsimg/${c.filename}" width="200" height="200">
+							${c.goodsTitle}
 						</td>
-						<td>${c.goodsTitle}</td>
 						<td>${c.goodsPrice}</td>
 						<td>
-							<select name="cartQuantity">
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
-								<option value="9">9</option>
-								<option value="10">10</option>
+							<select name="cartQuantity" id="cartQuantity">
+								<c:forEach var="x" begin="1" end="10" step="1">
+									<c:choose> 
+										<c:when test="${x eq c.cartQuantity}">
+											<option value="${x}" selected="selected">${x}</option>
+										</c:when> 
+										<c:otherwise>
+											<option value="${x}">${x}</option>
+										</c:otherwise> 
+									</c:choose> 
+								</c:forEach>
 							</select>
-							${c.cartQuantity}
 						</td>
 						<td>
 							<a href="${pageContext.request.contextPath}/CartRemove?goodsCode=${c.goodsCode}">삭제</a>

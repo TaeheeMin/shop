@@ -18,13 +18,17 @@ public class CartListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
-		if(loginCustomer == null) {
-			response.sendRedirect(request.getContextPath()+"/Home");
-			return;
+		
+		// 로그인시 db cart 목록 출력
+		if(loginCustomer != null) { 
+			//response.sendRedirect(request.getContextPath()+"/Home");
+			this.cartService = new CartService();
+			ArrayList<HashMap<String, Object>> list = cartService.getCartList(loginCustomer.getCustomerId());
+			request.setAttribute("list", list);
+		} else {
+			ArrayList<HashMap<String, Object>> clist = (ArrayList<HashMap<String, Object>>)request.getAttribute("clist");
+			request.setAttribute("list", clist);
 		}
-		this.cartService = new CartService();
-		ArrayList<HashMap<String, Object>> list = cartService.getCartList(loginCustomer.getCustomerId());
-		request.setAttribute("list", list);
 		request.getRequestDispatcher("/WEB-INF/view/cart/cartList.jsp").forward(request, response);
 	}
 

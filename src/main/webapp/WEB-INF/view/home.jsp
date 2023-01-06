@@ -4,16 +4,19 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>홈</title>
 	</head>
 	<body>
 		<div>
-			<a href="${pageContext.request.contextPath}/NoticeList">공지목록</a>
-			<a href="${pageContext.request.contextPath}/GoodList">상품목록</a>
-			
+			<h4>[TH]공지, 상품, 장바구니, 문의사항</h4>
+			<a href="${pageContext.request.contextPath}/NoticeList">공지</a>
+			<a href="${pageContext.request.contextPath}/GoodsList">상품</a>
+			<a href="${pageContext.request.contextPath}/CartList">장바구니</a>
+			<a href="${pageContext.request.contextPath}/">문의사항(구현중)</a>
 		</div>
+		<hr>
 		<div>
-			<h4>-회원,직원 관련 기능구현 中-</h4>
+			<h4>[SG]회원,직원 관련 기능구현 中</h4>
 			<!-- 직원 로그인일 경우 보일 항목들 -->
 			<c:if test="${loginEmp != null}">
 				<a href="${pageContext.request.contextPath}/AddEmp">직원등록(직원만 가능)</a>
@@ -37,5 +40,13 @@
 			<a href="${pageContext.request.contextPath}/AddCustomer">회원가입</a>
 			</c:if>
 		</div>
+		<hr>
+		<div>
+			<h4>[DG]주문, 리뷰, 포인트</h4>
+			<a href="${pageContext.request.contextPath}/orders/ordersList">주문</a>
+			<a href="${pageContext.request.contextPath}/review/reviewList">리뷰</a>
+			<a href="${pageContext.request.contextPath}/">포인트(구현중)</a>
+		</div>
+		<hr>
 	</body>
 </html>

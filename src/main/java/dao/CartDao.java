@@ -13,7 +13,7 @@ public class CartDao {
 	public int insertCart(Connection conn, Cart cart) throws Exception {
 		int row = 0;
 		String sql = "INSERT INTO cart("
-				+ " goods_title"
+				+ " goods_code"
 				+ ", customer_id"
 				+ ", cart_quantity"
 				+ ", createdate"
@@ -56,7 +56,16 @@ public class CartDao {
 	
 	
 	// 3) cart update
-	
+	public int updateCart(Connection conn, int cartQuantity, int goodsCode, String customerId) throws Exception {
+		int row = 0;
+		String sql = "UPDATE cart SET cart_quantity = ? WHERE goods_code = ? AND customer_id = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, cartQuantity);
+		stmt.setInt(2, goodsCode);
+		stmt.setString(3, customerId);
+		row = stmt.executeUpdate();
+		return row;
+	}
 	
 	// 4) cart delete
 	public int deleteCart(Connection conn, Cart cart) throws Exception {
