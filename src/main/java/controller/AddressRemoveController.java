@@ -1,18 +1,19 @@
 package controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import service.CustomerService;
+import service.CustomerAddressService;
 import vo.CustomerAddress;
 
 @WebServlet("/AddressRemove")
 public class AddressRemoveController extends HttpServlet {
-	private CustomerService customerService;
+	private CustomerAddressService customerAddressService;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("[주소삭제컨트롤러 진입]");
@@ -30,8 +31,8 @@ public class AddressRemoveController extends HttpServlet {
 		System.out.println("cusAddress.getAddress : "+cusAddress.getAddress());
 		
 		// 삭제 service 진행
-		this.customerService = new CustomerService();
-		int removeAddress = customerService.removeAddress(cusAddress);
+		this.customerAddressService = new CustomerAddressService();
+		int removeAddress = customerAddressService.removeAddress(cusAddress);
 		if(removeAddress == 1) {
 			System.out.println("주소삭제 성공");
 			response.sendRedirect(request.getContextPath()+"/CustomerOne");
@@ -41,10 +42,4 @@ public class AddressRemoveController extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/CustomerOne");
 		}
 	}
-
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
-
 }

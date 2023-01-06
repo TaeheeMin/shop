@@ -11,7 +11,6 @@
 		$('#authCodeBtn').click(function(){
 			// 선택 유효성 체크
 			if($('#authCode').val() == '') {
-				console.log(('#authCode').val());
 				alert('변경할 직위를 선택바랍니다');
 				return;
 			}
@@ -25,6 +24,12 @@
 	
 	<!-- 검색기능 추가예정 -->
 	검색 : <input type="text" placeholder="검색(기능추가예정 미완)">
+	
+	<!-- 이름별, 직위별, 활성화별, 입사날짜별, 내림차순 오름차순 정렬기능 추가예정 -->
+	
+	<!-- n명씩보기 (10,20,30) rowPerPage 넘겨주기 추가예정 -->
+	
+	<!-- authCodeSelect에서 =선택= (value="") 선택시, 반환하는 방법 -->
 	
 	<table border="1">
 		<thead>
@@ -76,5 +81,8 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	
+	<!-- 페이징처리 -->
+	
 </body>
 </html>

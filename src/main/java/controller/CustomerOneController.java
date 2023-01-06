@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import service.CustomerAddressService;
 import service.CustomerService;
 import vo.Customer;
 import vo.CustomerAddress;
@@ -18,6 +19,7 @@ import vo.CustomerAddress;
 @WebServlet("/CustomerOne")
 public class CustomerOneController extends HttpServlet {
 	private CustomerService customerService;
+	private CustomerAddressService customerAddressService;
 	
 	// 회원정보 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,6 +35,7 @@ public class CustomerOneController extends HttpServlet {
 		
 		System.out.println("[customerOne컨트롤러 진입]");
 		this.customerService = new CustomerService();
+		this.customerAddressService = new CustomerAddressService();
 		
 		// 로그인된 경우, 회원정보 불러오기
 		Customer customer = new Customer();
@@ -44,7 +47,7 @@ public class CustomerOneController extends HttpServlet {
 		CustomerAddress cusAddress = new CustomerAddress();
 		cusAddress.setCustomerId(loginCustomer.getCustomerId());
 		System.out.println("cusAddress.getCustomerId : "+cusAddress.getCustomerId());
-		ArrayList<CustomerAddress> list = customerService.myAddressList(cusAddress);
+		ArrayList<CustomerAddress> list = customerAddressService.myAddressList(cusAddress);
 
 		request.setAttribute("list", list);
 		request.setAttribute("customerOne", customerOne);

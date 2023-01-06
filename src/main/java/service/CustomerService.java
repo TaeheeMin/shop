@@ -118,9 +118,66 @@ public class CustomerService {
 		return customerOne;
 	}
 	
-	// 4) 회원정보 수정
+	// 4) 회원정보 수정 (CustomerModifyController)
+	public int modifyCustomerOne(Customer customerOne, Customer modifyCustomer) {
+		int modifyCustomerOne = 0;
+		Connection conn = null;
+		this.customerDao = new CustomerDao();
+		try {
+			conn = DBUtil.getConnection();
+			modifyCustomerOne = customerDao.modifyCustomerOne(conn, customerOne, modifyCustomer);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}		
+		return modifyCustomerOne;
+	}
 	
-	// 5) 회원탈퇴 (탈퇴와 동시에 outid에 저장)
+	// 5) 회원탈퇴 (탈퇴와 동시에 outid에 저장 - CustomerRemoveController)
+	public int removeCustomerOutid(Customer customerOne) {
+		int removeCustomer = 0;
+		int removeCustomerOutid = 0;
+		Connection conn = null;
+		this.customerDao = new CustomerDao();
+		try {
+			conn = DBUtil.getConnection();
+			// 회원탈퇴 쿼리(dao) 먼저 진행
+			removeCustomer = customerDao.removeCustomerOne(conn, customerOne);
+			if(removeCustomer == 1) {
+				System.out.println("탈퇴성공");
+				// 탈퇴한 아이디 -> outid 테이블에 추가
+				removeCustomerOutid = customerDao.addOutid(conn, customerOne);
+			} else {
+				System.out.println("탈퇴실패");
+			}
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}		
+		return removeCustomerOutid;
+	}	
 	
 	// 6) 회원 주소목록
 	public ArrayList<CustomerAddress> myAddressList(CustomerAddress cusAddress) {

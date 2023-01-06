@@ -64,7 +64,8 @@ public class CustomerDao {
 			loginCustomer = new Customer();
 			loginCustomer.setCustomerId(rs.getString("customer_id"));
 			loginCustomer.setCustomerName(rs.getString("customer_name"));
-			loginCustomer.setCustomerPhone(rs.getString("point"));
+			loginCustomer.setCustomerPhone(rs.getString("customer_phone"));
+			loginCustomer.setPoint(rs.getInt("point"));
 		}
 		
 		return loginCustomer;
@@ -91,7 +92,7 @@ public class CustomerDao {
 		return customerOne;
 	}
 	
-	// 4) 회원정보 수정
+	// 4-1) 비밀번호 수정
 	public int modifyCustomerOne(Connection conn, Customer customerOne, Customer modifyCustomer) throws Exception {
 		int modifyCustomerOne = 0;
 		
@@ -105,9 +106,12 @@ public class CustomerDao {
 		stmt.setString(3, modifyCustomer.getCustomerPhone());
 		stmt.setString(4, customerOne.getCustomerId());
 		stmt.setString(5, customerOne.getCustomerPw());
+		modifyCustomerOne = stmt.executeUpdate();
 		
 		return modifyCustomerOne;
 	}
+	
+	// 4-2) 회원정보 수정 (이름 및 휴대폰번호 변경)
 	
 	// 4-1) 비밀번호 수정에 따른 pw_history로 넘기기
 	
@@ -115,7 +119,7 @@ public class CustomerDao {
 	public int removeCustomerOne(Connection conn, Customer customerOne) throws Exception {
 		int removeCustomerOne = 0;
 		
-		String sql = "DELETE from customer WHERE customer_id = ? AND customer_pw = ?";
+		String sql = "DELETE from customer WHERE customer_id = ? AND customer_pw = PASSWORD(?)";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, customerOne.getCustomerId());
 		stmt.setString(2, customerOne.getCustomerPw());
@@ -126,14 +130,14 @@ public class CustomerDao {
 	}
 	
 	// 5-1) 탈퇴한 회원 outid 테이블에 데이터 저장하기
-	public int addOutid(Connection conn, String outid) throws Exception {
+	public int addOutid(Connection conn, Customer customerOne) throws Exception {
 		int addOutid = 0;
 		
 		String sql = "INSERT INTO outid("
 				+ "id, createdate"
 				+ ") VALUES (?,NOW())"; // point는 기본값 100포인트 부여
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setString(1, outid);
+		stmt.setString(1, customerOne.getCustomerId());
 	
 		addOutid = stmt.executeUpdate();
 		

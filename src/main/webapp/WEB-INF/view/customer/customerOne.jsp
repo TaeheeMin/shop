@@ -18,10 +18,13 @@
 		가입날짜 : ${customerOne.createdate}
 	</div>
 	<div>
-		<a href="">로그아웃</a>
+		<a href="${pageContext.request.contextPath}/Logout">로그아웃</a>
 	</div>
 	<div>
-		<a href="">회원정보수정</a>
+		<a href="${pageContext.request.contextPath}/CustomerModify">회원정보수정</a>
+	</div>
+	<div>
+		<a href="${pageContext.request.contextPath}/CustomerRemove">회원탈퇴</a>
 	</div>
 	<form action="${pageContext.request.contextPath}/AddressAdd" method="post">
 		<div>
