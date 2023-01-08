@@ -3,6 +3,7 @@ package service;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import dao.NoticeDao;
 import dao.QuestionDao;
@@ -42,13 +43,13 @@ public class QuestionService {
 	
 	// 2) get
 	// 2-1) 관리자
-	public ArrayList<Question> getNoticeList() {
+	public ArrayList<Question> getQuestionListByAdmin() {
 		ArrayList<Question> list = new ArrayList<Question>();
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();
 			this.questionDao = new QuestionDao();
-			list = questionDao.selectAllQuestion(conn);
+			list = questionDao.selectQuestionByAdmin(conn);
 			conn.commit();
 		} catch (Exception e) {
 			try {
@@ -68,7 +69,58 @@ public class QuestionService {
 		return list;
 	}
 	// 2-2) 회원용
+	public ArrayList<Question> getQuestionListbyCustomer(String customerId) {
+		ArrayList<Question> list = new ArrayList<Question>();
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			this.questionDao = new QuestionDao();
+			list = questionDao.selectQuestionBycustomer(conn, customerId);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
 	
+	// 2-3) 문의사항 one
+	public ArrayList<HashMap<String, Object>> getQuestionOne(int questionCode) {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			this.questionDao = new QuestionDao();
+			list = questionDao.selectQuestionOne(conn, questionCode);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
 	// 3) modify
 	
 	// 4) remove

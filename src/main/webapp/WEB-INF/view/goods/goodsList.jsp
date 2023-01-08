@@ -5,12 +5,49 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>상품목록</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$('#rowPerPage').change(function() {
+					$('#listForm').submit();
+				});
+			});
+		</script>
 	</head>
 	<body>
 		<h1>상품목록</h1>
 		<a href="${pageContext.request.contextPath}/Home">홈으로</a>
 		<a href="${pageContext.request.contextPath}/GoodsAdd">상품등록</a>
 		<a href="${pageContext.request.contextPath}/CartList">장바구니</a>
+		
+		<!-- #### search #### -->
+		<form action="${pageContext.request.contextPath}/GoodsList" method="get">
+			<select name="rowPerPage" id="rowPerPage">
+				<c:if test="${rowPerPage == 10}">
+					<option value="10" selected="selected">10</option>
+					<option value="20">20</option>
+					<option value="30">30</option>
+				</c:if>
+				<c:if test="${rowPerPage == 20}">
+					<option value="10">10</option>
+					<option value="20" selected="selected">20</option>
+					<option value="30">30</option>
+				</c:if>
+				<c:if test="${rowPerPage == 30}">
+					<option value="10">10</option>
+					<option value="20">20</option>
+					<option value="30" selected="selected">30</option>
+				</c:if>
+			</select>
+			<select name="category" id="category">
+				<option value="gd.goods_title">앨범</option>
+				<option value="gd.goods_artist">가수</option>
+			</select>
+			<input type="search" placeholder="Search" name="word" id="search" value="${word}">
+     		<button type="submit">검색</button>
+		</form>
+		
+		<!-- #### list #### -->	
 		<table border="1">
 			<tr>
 				<c:forEach var="m" items="${list}" varStatus="s">
@@ -39,5 +76,24 @@
 				</c:forEach>
 			</tr>
 		</table>
+		<div>
+			<a href="${pageContext.request.contextPath}/GoodsList?currentPage=1">처음</a>
+			
+			<c:if test="${currentPage > 1}">
+				<a href="${pageContext.request.contextPath}/GoodsList?currentPage=${currentPage-1}">이전</a>
+			</c:if>
+			
+			<c:forEach var="x" begin="${beginPage}" end="${beginPage = endPage}" step="1">
+				<a href="${pageContext.request.contextPath}/GoodsList?currentPage=${beginPage}">${beginPage}</a>
+			</c:forEach>
+			
+			<c:if test="${currentPage < lastPage}">
+				<a href="${pageContext.request.contextPath}/GoodsList?currentPage=${currentPage+1}">다음</a>
+			</c:if>
+			
+			<a href="${pageContext.request.contextPath}/GoodsList?currentPage=${lastPage}">마지막</a>
+		</div>
+		
+		
 	</body>
 </html>

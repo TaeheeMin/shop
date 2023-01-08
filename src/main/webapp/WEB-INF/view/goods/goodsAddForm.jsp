@@ -8,7 +8,7 @@
 	<body>
 		<h1>상품등록</h1>
 		<a href="${pageContext.request.contextPath}/Home">홈으로</a>
-		<a href="${pageContext.request.contextPath}/GoodList">상품목록</a>
+		<a href="${pageContext.request.contextPath}/GoodsList">상품목록</a>
 		<form enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/GoodsAdd">
 			상품 이름 : <input type="text" name="goodsTitle">
 			상품 가수 : <input type="text" name="goodsArtist">

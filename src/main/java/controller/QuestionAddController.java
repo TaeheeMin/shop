@@ -20,6 +20,10 @@ public class QuestionAddController extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		// 값 받아오기
 		Question question = new Question();
+		question.setOrdersCode(Integer.parseInt(request.getParameter("ordersCode")));
+		question.setCategory(request.getParameter("category"));
+		question.setQuestionTitle(request.getParameter("questionTitle"));
+		question.setQuestionMemo(request.getParameter("questionMemo"));
 		
 		int row = 0;
 		QuestionService questionService = new QuestionService();
@@ -28,11 +32,11 @@ public class QuestionAddController extends HttpServlet {
 		if(row == 1) {
 			// 리스트로 이동
 			System.out.println("입력성공");
-			response.sendRedirect(request.getContextPath()+"/NoticeList"); 
+			response.sendRedirect(request.getContextPath()+"/QuestionListByCustomer"); 
 		} else {
 			// 폼이동
 			System.out.println("입력실패");
-			response.sendRedirect(request.getContextPath()+"/NoticeAdd");
+			response.sendRedirect(request.getContextPath()+"/QuestionListByCustomer");
 		}
 	
 	}

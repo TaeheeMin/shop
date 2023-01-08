@@ -14,33 +14,41 @@
 		<a href="${pageContext.request.contextPath}/CartList">장바구니</a>
 		<!-- #### list #### -->
 		<table border="1">
-			<tr>
-				<th>NO</th>
-				<td>${goodsOne.goodsCode}</td>
-			</tr>
-			<tr>
-				<th>TITLE</th>
-				<td>${goodsOne.goodsTitle}</td>
-			</tr>
-			<tr>
-				<th>ARTIST</th>
-				<td>${goodsOne.goodsArtist}</td>
-			</tr>
-			<tr>
-				<th>CONTENT</th>
-				<td>${goodsOne.goodsContent}</td>
-			</tr>
-			<tr>
-				<th>PRICE</th>
-				<td>${goodsOne.goodsPrice}</td>
-			</tr>
-			<tr>
-				<th>ACTION</th>
-				<td>
-					<a href="${pageContext.request.contextPath}/CartAdd?goodsCode=${goodsOne.goodsCode}&cartQuantity=1&filename=${goodsOne.filename}&goodsPrice=${goodsOne.goodsPrice}&goodsTitle=${goodsOne.goodsTitle}">cart</a>
-					<a href="${pageContext.request.contextPath}/orders/ordersAdd?goodsCode=${goodsOne.goodsCode}&cartQuantity=1&goodsArtist=${goodsOne.goodsArtist}&filename=${goodsOne.filename}&goodsPrice=${goodsOne.goodsPrice}&goodsTitle=${goodsOne.goodsTitle}">구매하기</a>
-				</td>
-			</tr>
+			<c:forEach var="goodsOne" items="${goodsOne}">
+				<tr>
+					<th>NO</th>
+					<td><c:out value="${goodsOne.goodsCode}"></c:out></td>
+				</tr>
+				<tr>
+					<th>TITLE</th>
+					<td><c:out value="${goodsOne.goodsTitle}"></c:out></td>
+				</tr>
+				<tr>
+					<th>IMG</th>
+					<td>
+						<img src="${pageContext.request.contextPath}/goodsimg/${goodsOne.filename}" width="200" height="200">
+					</td>
+				</tr>
+				<tr>
+					<th>ARTIST</th>
+					<td><c:out value="${goodsOne.goodsArtist}"></c:out></td>
+				</tr>
+				<tr>
+					<th>CONTENT</th>
+					<td><c:out value="${goodsOne.goodsContent}"></c:out></td>
+				</tr>
+				<tr>
+					<th>PRICE</th>
+					<td><c:out value="${goodsOne.goodsPrice}"></c:out></td>
+				</tr>
+				<tr>
+					<th>ACTION</th>
+					<td>
+						<a href="${pageContext.request.contextPath}/CartAdd?goodsCode=${goodsOne.goodsCode}&cartQuantity=1&filename=${goodsOne.filename}&goodsPrice=${goodsOne.goodsPrice}&goodsTitle=${goodsOne.goodsTitle}">cart</a>
+						<a href="${pageContext.request.contextPath}/orders/ordersAdd?goodsCode=${goodsOne.goodsCode}&cartQuantity=1&goodsArtist=${goodsOne.goodsArtist}&filename=${goodsOne.filename}&goodsPrice=${goodsOne.goodsPrice}&goodsTitle=${goodsOne.goodsTitle}">구매하기</a>
+					</td>
+				</tr>
+			</c:forEach>
 		</table>
 	</body>
 </html>

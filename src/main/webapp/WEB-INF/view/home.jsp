@@ -12,7 +12,8 @@
 			<a href="${pageContext.request.contextPath}/NoticeList">공지</a>
 			<a href="${pageContext.request.contextPath}/GoodsList">상품</a>
 			<a href="${pageContext.request.contextPath}/CartList">장바구니</a>
-			<a href="${pageContext.request.contextPath}/">문의사항(구현중)</a>
+			<a href="${pageContext.request.contextPath}/QuestionListByAdmin">문의사항(관리자)</a>
+			<a href="${pageContext.request.contextPath}/QuestionListByCustomer">문의사항(회원)</a>
 		</div>
 		<hr>
 		<div>

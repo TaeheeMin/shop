@@ -17,9 +17,10 @@ public class GoodsDao {
 				+ ", goods_price"
 				+ ", soldout"
 				+ ", emp_id"
-				+ ", hit" 
+				+ ", hit"
+				+ ", view" 
 				+ ", createdate"
-				+ ") VALUES (?, ?, ?, ?, 'N', ?, 0, NOW())";
+				+ ") VALUES (?, ?, ?, ?, 'N', ?, 0, 0, NOW())";
 		PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 		stmt.setString(1, goods.getGoodsTitle());
 		stmt.setString(2, goods.getGoodsArtist());
@@ -41,7 +42,19 @@ public class GoodsDao {
 	}
 	
 	// 2) list
-	public ArrayList<HashMap<String, Object>> selectGoodsList(Connection conn) throws Exception {
+	// 2-1) count
+	public int selectGoodsCount(Connection conn) throws Exception {
+		int row = 0;
+		String sql = "SELECT COUNT(*) FROM goods";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next()) {
+			row = rs.getInt("COUNT(*)");
+		}
+		return row;
+	}
+	// 2-2) list
+	public ArrayList<HashMap<String, Object>> selectGoodsList(Connection conn, int beginRow, int endRow, String category, String word) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		String sql = "SELECT"
 				+ " gd.goods_code goodsCode"
@@ -51,8 +64,13 @@ public class GoodsDao {
 				+ ", gd.soldout soldout"
 				+ ", img.filename filename"
 				+ " FROM goods gd INNER JOIN goods_img img"
-				+ " ON gd.goods_code = img.goods_code";
+				+ " ON gd.goods_code = img.goods_code"
+				+ " WHERE " + category + " LIKE ?"
+				+ " LIMIT ?, ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, "%"+ word +"%");
+		stmt.setInt(2, beginRow);
+		stmt.setInt(3, endRow);
 		ResultSet rs = stmt.executeQuery();
 		while(rs.next()) {
 			HashMap<String, Object> m = new HashMap<String, Object>();
@@ -67,29 +85,30 @@ public class GoodsDao {
 		return list;
 	}
 	
-	// 2-2) goods one
+	// 3) goods one
 	public ArrayList<HashMap<String, Object>> selectGoodsOne(Connection conn, int goodsCode) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		System.out.println(goodsCode);
 		String sql = "SELECT"
 				+ " g.goods_code goodsCode"
 				+ ", g.goods_title goodsTitle"
 				+ ", g.goods_artist goodsArtist"
 				+ ", g.goods_content goodsContent"
 				+ ", g.goods_price goodsPrice"
-				+ ", img.filename"
+				+ ", img.filename filename"
 				+ " FROM goods g INNER JOIN goods_img img"
 				+ " ON g.goods_code = img.goods_code"
 				+ " WHERE g.goods_code = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, goodsCode);
-		System.out.println(goodsCode);
 		ResultSet rs = stmt.executeQuery();
-		if(rs.next()) {
+		while(rs.next()) {
 			HashMap<String, Object> m = new HashMap<String, Object>();
-			m.put("goodsCode", rs.getInt("goodsCode"));
+			m.put("goodsCode", rs.getString("goodsCode"));
 			m.put("goodsTitle", rs.getString("goodsTitle"));
+			m.put("filename", rs.getString("filename"));
 			m.put("goodsArtist",  rs.getString("goodsArtist"));
-			m.put("goodsPrice",  rs.getInt("goodsPrice"));
+			m.put("goodsPrice",  rs.getString("goodsPrice"));
 			m.put("goodsContent", rs.getString("goodsContent"));
 			m.put("filename", rs.getString("filename"));
 			list.add(m);
