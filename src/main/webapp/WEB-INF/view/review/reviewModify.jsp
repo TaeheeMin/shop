@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,13 +11,13 @@
 		<form action="${pageContext.request.contextPath}/review/reviewModify" method="post">
 			<table border="1">
 			<div> 
-				주문번호 : <input type="text" name="orderCode"> <!-- orderCode는 리스트에서 받아오는값으로 readonly예정 -->
+				주문번호 : <input type="text" name="orderCode" value="${orderCode}" readonly="readonly"> 
 			</div>
 			<div>
 				리뷰내용 : <textarea rows="10" cols="20" name="reviewMemo"></textarea>
 			</div>
 			<div>
-			 	리뷰작성자 : <input type="text" name="customerId">
+			 	리뷰작성자 : <input type="text" name="customerId" value="${customerId}">
 			</div>			
 			<button type="submit">수정</button>				
 		</form>
