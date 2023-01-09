@@ -20,7 +20,7 @@
 				주문자 정보:  
 				<br>고객ID<input type="text" name="customerId" value="${loginCustomer.customerId}">
 				<br>고객이름<input type="text" name="customerName" value="${loginCustomer.customerName}">
-				<br>고객주소<input type="text" name="addrss">
+				<br>고객주소<input type="text" name="address">
 				<br>고객연락처<input type="text" name="customerPhone" value="${loginCustomer.customerPhone}">
 			</div>
 			<br>					

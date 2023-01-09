@@ -177,9 +177,11 @@ public class OrdersService {
 			try {
 				conn = DBUtil.getConnection();
 				result = ordersDao.AddOrders(conn, orders);
+				//디버깅
+				System.out.println("구매성공");
 				conn.commit();
 			} catch (Exception e) {
-				try {
+				try {System.out.println("구매실패");
 					conn.rollback(); 
 				} catch (SQLException e1) {
 					e1.printStackTrace();
