@@ -7,7 +7,7 @@
 		<title>문의사항 상세보기</title>
 	</head>
 	<body>
-		<h1>문의사항-관리자용</h1>
+		<h1>문의사항-상세보기</h1>
 		<a href="${pageContext.request.contextPath}/Home">홈으로</a>
 		<a href="${pageContext.request.contextPath}/QuestionList">문의사항 목록</a>
 		<table border="1">

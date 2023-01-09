@@ -9,7 +9,7 @@
 	<body>
 		<h1>문의사항-회원용</h1>
 		<a href="${pageContext.request.contextPath}/Home">홈으로</a>
-		<a href="${pageContext.request.contextPath}/">문의사항 등록</a>
+		<a href="${pageContext.request.contextPath}/QuestionAdd">문의사항 등록</a>
 		<table border="1">
 			<tr>
 				<th>문의사항 번호</th>

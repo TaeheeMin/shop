@@ -5,14 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import org.w3c.dom.html.HTMLQuoteElement;
-
-import vo.Notice;
 import vo.Question;
 
 public class QuestionDao {
-	// 1) insert-회원
+	// 1) insert
 	public int insertQuestion(Connection conn, Question question) throws Exception {
 		int row = 0;
 		String sql = "INSERT INTO question("

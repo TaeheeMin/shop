@@ -79,8 +79,7 @@
 						</div>
 						<c:if test="${loginEmp != null}">
 							<div>
-								<a href="${pageContext.request.contextPath}/GoodsModify">수정</a>
-								<a href="${pageContext.request.contextPath}/GoodsRemove">삭제</a>
+								<a href="${pageContext.request.contextPath}/GoodsModify?goodsCode=${m.goodsCode}">수정</a>
 							</div>
 						</c:if>
 					</td>
@@ -94,7 +93,7 @@
 				<a href="${pageContext.request.contextPath}/GoodsList?rowPerPage=${rowPerPage}&currentPage=${currentPage-1}">이전</a>
 			</c:if>
 			
-			<c:forEach var="x" begin="${beginPage}" end="${beginPage = endPage}" step="1">
+			<c:forEach var="x" begin="${beginPage}" end="${endPage}" step="1">
 				<a href="${pageContext.request.contextPath}/GoodsList?rowPerPage=${rowPerPage}&currentPage=${x}">${x}</a>
 			</c:forEach>
 			<c:if test="${currentPage < lastPage}">

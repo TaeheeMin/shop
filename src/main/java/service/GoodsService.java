@@ -157,4 +157,30 @@ public class GoodsService {
 		return goodsOne;
 	}
 
+	// 3) modify goods
+	public int modifyGoods(Goods goods) {
+		Connection conn = null;
+		int row = 0;
+		try {
+			conn = DBUtil.getConnection();
+			this.goodsDao = new GoodsDao();
+			row = goodsDao.updateGoods(conn, goods);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return row;
+	}
 }

@@ -10,7 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import service.GoodsService;
+import service.NoticeService;
 import vo.Emp;
+import vo.Goods;
+import vo.Notice;
 
 @WebServlet("/GoodsModify")
 public class GoodsModifyController extends HttpServlet {
@@ -37,6 +40,28 @@ public class GoodsModifyController extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/view/goods/goodsModify.jsp").forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 값 받아오기
+		request.setCharacterEncoding("utf-8");
+		Goods goods = new Goods();
+		goods.setGoodsCode(Integer.parseInt(request.getParameter("goodsCode")));
+		goods.setGoodsTitle(request.getParameter("goodsTitle"));
+		goods.setGoodsArtist(request.getParameter("goodsArtist"));
+		goods.setGoodsContent(request.getParameter("goodsContent"));
+		goods.setGoodsPrice(Integer.parseInt(request.getParameter("goodsPrice")));
+		goods.setSoldout(request.getParameter("soldout"));
+		int row = 0;
+		this.goodsService = new GoodsService();
+		row = goodsService.modifyGoods(goods);
+		
+		// 결과
+		if(row == 1) {
+			// 리스트로 이동
+			System.out.println("수정성공");
+			response.sendRedirect(request.getContextPath()+"/GoodsList"); 
+		} else {
+			// 폼이동
+			System.out.println("수정실패");
+			response.sendRedirect(request.getContextPath()+"/GoodsModify?goodsCode="+goods.getGoodsCode());
+		}
 	}
-
 }

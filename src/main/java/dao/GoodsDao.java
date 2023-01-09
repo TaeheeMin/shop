@@ -97,6 +97,7 @@ public class GoodsDao {
 				+ ", g.goods_artist goodsArtist"
 				+ ", g.goods_content goodsContent"
 				+ ", g.goods_price goodsPrice"
+				+ ", g.soldout soldout"
 				+ ", g.view view"
 				+ ", img.filename filename"
 				+ " FROM goods g INNER JOIN goods_img img"
@@ -113,6 +114,7 @@ public class GoodsDao {
 			m.put("goodsArtist",  rs.getString("goodsArtist"));
 			m.put("goodsPrice",  rs.getString("goodsPrice"));
 			m.put("goodsContent", rs.getString("goodsContent"));
+			m.put("soldout", rs.getString("soldout"));
 			m.put("view",  rs.getInt("view"));
 			m.put("filename", rs.getString("filename"));
 			list.add(m);
@@ -147,6 +149,29 @@ public class GoodsDao {
 		String sql = "UPDATE goods SET view = view+1 WHERE goods_code = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, goodsCode);
+		row = stmt.executeUpdate();
+		return row;
+	}
+	
+	// 3-2) goods update
+	public int updateGoods(Connection conn, Goods goods) throws Exception {
+		int row = 0;
+		String sql = "UPDATE goods SET"
+				+ " goods_title = ?"
+				+ ", goods_artist = ?"
+				+ ", goods_content = ?"
+				+ ", goods_price = ?"
+				+ ", soldout = ?"
+				+ ", hit = ?"
+				+ " WHERE goods_code = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, goods.getGoodsTitle());
+		stmt.setString(2, goods.getGoodsArtist());
+		stmt.setString(3, goods.getGoodsContent());
+		stmt.setInt(4, goods.getGoodsPrice());
+		stmt.setString(5, goods.getSoldout());
+		stmt.setInt(6, goods.getHit());
+		stmt.setInt(7, goods.getGoodsCode());
 		row = stmt.executeUpdate();
 		return row;
 	}
