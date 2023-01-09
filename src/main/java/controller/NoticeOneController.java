@@ -8,6 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import service.*;
 import vo.*;
 
@@ -24,7 +26,6 @@ public class NoticeOneController extends HttpServlet {
 		
 		// view와 공유할 모델 데이터 성정
 		request.setAttribute("noticeOne", noticeOne);
-		
 		request.getRequestDispatcher("/WEB-INF/view/notice/noticeOne.jsp").forward(request, response);
 	}
 

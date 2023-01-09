@@ -25,7 +25,7 @@ public class CartRemoveController extends HttpServlet {
 		}
 		// 값 받아오기
 		request.setCharacterEncoding("utf-8");
-		System.out.println(request.getParameter("goodsCode"));
+		// System.out.println(request.getParameter("goodsCode"));
 		Cart cart = new Cart();
 		cart.setGoodsCode(Integer.parseInt(request.getParameter("goodsCode")));
 		cart.setCustomerId(loginCustomer.getCustomerId());

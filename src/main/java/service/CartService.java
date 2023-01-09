@@ -65,7 +65,31 @@ public class CartService {
 	}
 	
 	// 3) modify cart
-	
+	public int modifyCart(int cartQuantity, int goodsCode, String customerId) {
+		Connection conn = null;
+		CartDao cartDao = new CartDao();
+		int row = 0;
+		try {
+			conn = DBUtil.getConnection();
+			row = cartDao.updateCart(conn, cartQuantity, goodsCode, customerId);
+			conn.commit();
+			
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return row;
+	}
 	// 4) remove cart
 	public int removeCart(Cart cart) {
 		Connection conn = null;

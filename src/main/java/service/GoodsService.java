@@ -79,7 +79,7 @@ public class GoodsService {
 		try {
 			conn = DBUtil.getConnection();
 			// 페이징
-			int beginRow = (currentPage - 1) * rowPerPage + 1; // 시작 행
+			int beginRow = (currentPage - 1) * rowPerPage; // 시작 행
 			System.out.println("beginRow : " + beginRow);
 			list = goodsDao.selectGoodsList(conn, beginRow, rowPerPage, category, word);
 			conn.commit();
@@ -110,11 +110,6 @@ public class GoodsService {
 			if(goodsDao.selectGoodsOne(conn, goodsCode) != null) {
 				list = goodsDao.selectGoodsOne(conn, goodsCode);
 				int row = this.goodsDao.updateGoodsView(conn, goodsCode);
-				if(row == 1) {
-					System.out.println("업데이트 성공");
-				} else {
-					System.out.println("업데이트 실패");
-				}
 			}
 			conn.commit(); // DBUtil setAutoCommit false설정
 		} catch (Exception e) {

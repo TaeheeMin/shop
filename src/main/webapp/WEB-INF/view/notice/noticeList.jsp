@@ -9,7 +9,9 @@
 	<body>
 		<h1>공지목록</h1>
 		<a href="${pageContext.request.contextPath}/Home">홈으로</a>
+		<c:if test="${loginEmp != null}">
 		<a href="${pageContext.request.contextPath}/NoticeAdd">공지등록</a>
+		</c:if>
 		<!-- #### list #### -->
 		<table border="1">
 			<thead>
