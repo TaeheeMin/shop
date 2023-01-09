@@ -11,6 +11,33 @@ import vo.Customer;
 import vo.Orders;
 
 public class OrdersDao {
+	// 주문목록 관리자용 
+ public ArrayList<HashMap<String, Object>> selectOrdersListByAdmin(Connection conn) throws Exception {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		String sql = "SELECT "
+				+ "	o.order_code orderCode"
+				+ "	, g.goods_title goodsTitle"
+				+ "	, gi.filename filename"
+				+ "	, o.createdate createdate"
+				+ "	, o.order_state orderState"
+				+ "	, o.order_price orderPrice"
+				+ "	FROM orders o INNER JOIN goods g ON o.goods_code = g.goods_code"
+				+ "	INNER JOIN goods_img gi ON g.goods_code = gi.goods_code";
+	              
+	      PreparedStatement stmt = conn.prepareStatement(sql);	  
+	      ResultSet rs = stmt.executeQuery();
+	      while(rs.next()) {
+	         HashMap<String, Object> m = new HashMap<String, Object>();
+	         m.put("orderCode", rs.getInt("orderCode"));
+	         m.put("goodsTitle", rs.getString("goodsTitle"));
+	         m.put("filename", rs.getString("filename"));
+	         m.put("createdate", rs.getString("createdate"));
+	         m.put("orderState", rs.getString("orderState"));
+	         m.put("orderPrice", rs.getString("orderPrice"));
+	         list.add(m);
+	      }			
+		return list;
+	}
 		// 주문목록 본인용 
 	 public ArrayList<HashMap<String, Object>> selectOrdersList(Connection conn, Customer loginCustomer) throws Exception {
 			ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();

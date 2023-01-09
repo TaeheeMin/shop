@@ -15,7 +15,34 @@ import vo.Review;
 
 public class OrdersService {
 	private OrdersDao ordersDao;
-	// 주문 리스트
+	// 주문 리스트 관리자용
+	public ArrayList<HashMap<String, Object>> selectOrdersListByAdmin() {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			ordersDao = new OrdersDao();
+			list = ordersDao.selectOrdersListByAdmin(conn);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
+	// 주문 리스트 고객용
 	public ArrayList<HashMap<String, Object>> selectOrdersList(Customer loginCustomer) {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		Connection conn = null;

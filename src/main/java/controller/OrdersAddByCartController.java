@@ -11,7 +11,7 @@ import service.OrdersService;
 import vo.Orders;
 
 @WebServlet("/orders/ordersAddByCart")
-public class OrderAddByCartController extends HttpServlet {
+public class OrdersAddByCartController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//값받아서 넘겨주기
 		int goodsCode = Integer.parseInt(request.getParameter("goodsCode")); 
