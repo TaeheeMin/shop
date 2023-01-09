@@ -92,7 +92,7 @@ public class CustomerDao {
 		return customerOne;
 	}
 	
-	// 4-1) 비밀번호 수정
+	// 4-1) 회원정보 수정 (비밀번호, 이름, 휴대폰번호 한번에 변경가능)
 	public int modifyCustomerOne(Connection conn, Customer customerOne, Customer modifyCustomer) throws Exception {
 		int modifyCustomerOne = 0;
 		
@@ -110,10 +110,6 @@ public class CustomerDao {
 		
 		return modifyCustomerOne;
 	}
-	
-	// 4-2) 회원정보 수정 (이름 및 휴대폰번호 변경)
-	
-	// 4-1) 비밀번호 수정에 따른 pw_history로 넘기기
 	
 	// 5) 회원탈퇴
 	public int removeCustomerOne(Connection conn, Customer customerOne) throws Exception {
