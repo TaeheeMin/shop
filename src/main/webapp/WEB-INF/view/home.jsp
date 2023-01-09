@@ -8,6 +8,13 @@
 	</head>
 	<body>
 		<div>
+			<h4>[접속자수]</h4>
+			<span>현재 접속자 수 : ${currentCnt} /</span>
+			<span>Today 접속자 수 : ${todayCount} /</span>
+			<span>Total 접속자 수 : ${totalCount}</span>
+		</div>
+		<hr>
+		<div>
 			<h4>[TH]공지, 상품, 장바구니, 문의사항</h4>
 			<a href="${pageContext.request.contextPath}/NoticeList">공지</a>
 			<a href="${pageContext.request.contextPath}/GoodsList">상품</a>
