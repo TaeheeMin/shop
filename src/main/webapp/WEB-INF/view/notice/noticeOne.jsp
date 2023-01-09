@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -27,17 +28,19 @@
 				<th>DATE</th>
 				<td>${noticeOne.createdate}</td>
 			</tr>
-			<tr>
-				<th>ACTION</th>
-				<td>
-					<a href="${pageContext.request.contextPath}/NoticeModify?noticeCode=${noticeOne.noticeCode}">
-						수정
-					</a>
-					<a href="${pageContext.request.contextPath}/NoticeRemove?noticeCode=${noticeOne.noticeCode}">
-						삭제
-					</a>
-				</td>
-			</tr>
+			<c:if test="${loginEmp != null}">
+				<tr>
+					<th>ACTION</th>
+					<td>
+						<a href="${pageContext.request.contextPath}/NoticeModify?noticeCode=${noticeOne.noticeCode}">
+							수정
+						</a>
+						<a href="${pageContext.request.contextPath}/NoticeRemove?noticeCode=${noticeOne.noticeCode}">
+							삭제
+						</a>
+					</td>
+				</tr>
+			</c:if>
 		</table>
 	</body>
 </html>

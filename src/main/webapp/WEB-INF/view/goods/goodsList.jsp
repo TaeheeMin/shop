@@ -17,8 +17,10 @@
 	<body>
 		<h1>상품목록</h1>
 		<a href="${pageContext.request.contextPath}/Home">홈으로</a>
-		<a href="${pageContext.request.contextPath}/GoodsAdd">상품등록</a>
 		<a href="${pageContext.request.contextPath}/CartList">장바구니</a>
+		<c:if test="${loginEmp != null}">
+			<a href="${pageContext.request.contextPath}/GoodsAdd">상품등록</a>
+		</c:if>
 		
 		<!-- #### search #### -->
 		<form action="${pageContext.request.contextPath}/GoodsList" method="get" id="listForm">
@@ -70,9 +72,17 @@
 						</div>
 						<div>
 							view : ${m.view}
+						</div>
+						<div>
 							<a href="${pageContext.request.contextPath}/CartAdd?goodsCode=${m.goodsCode}&cartQuantity=1&filename=${m.filename}&goodsPrice=${m.goodsPrice}&goodsTitle=${m.goodsTitle}">cart</a>
 							<a href="${pageContext.request.contextPath}/orders/ordersAdd?goodsCode=${m.goodsCode}&cartQuantity=1&goodsArtist=${m.goodsArtist}&filename=${m.filename}&goodsPrice=${m.goodsPrice}&goodsTitle=${m.goodsTitle}">구매하기</a>
 						</div>
+						<c:if test="${loginEmp != null}">
+							<div>
+								<a href="${pageContext.request.contextPath}/GoodsModify">수정</a>
+								<a href="${pageContext.request.contextPath}/GoodsRemove">삭제</a>
+							</div>
+						</c:if>
 					</td>
 				</c:forEach>
 			</tr>

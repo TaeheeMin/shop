@@ -8,9 +8,6 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 		<script>
 			$(document).ready(function(){
-				// 1) 수량 변경 이벤트 처리
-				$('#cartQuantity').change(function(){
-					location.href='${pageContext.request.contextPath}/CartModify';
 				});
 			});
 		</script>
