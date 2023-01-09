@@ -50,57 +50,64 @@
 		     			<td>${od.orderQuantity}</td>
 		     			<td>${od.orderPrice}</td>
 		     			<td>${od.orderState}
-		     			<form id="orderForm" method="get" action="${pageContext.request.contextPath}/orders/ordersModify">
+		     			<form id="orderForm" method="post" action="${pageContext.request.contextPath}/orders/ordersModify">
 		     			<input type="hidden" name="orderCode" value="${od.orderCode}">
 		     			<input type="hidden" name="customerId" value="${od.customerId}">						
+						<c:if test="${od.customerId eq loginCustomer.customerId}">
 						<select name="orderState" id="orderState">
 						<!-- 구매자만 볼수있게 -->
-						<c:if test="${od.customerId eq loginCustomer.customerId}">					
+							<c:if test="${od.orderState eq '결제'}">
+								<option value="결제" selected="selected">결제</option>
+								<option value="취소">취소</option>
+								<option value="구매확정">구매확정</option>
+							</c:if>					
 							<c:if test="${od.orderState eq '취소'}">
 								<option value="결제">결제</option>
 								<option value="취소" selected="selected" >취소</option>
-								<option value="배송중">배송중</option>
-								<option value="배송완료">배송완료</option>
 								<option value="구매확정">구매확정</option>
 							</c:if>
 							<c:if test="${od.orderState eq '구매확정'}">
 							<option value="결제">결제</option>
 								<option value="취소">취소</option>
-								<option value="배송중">배송중</option>
-								<option value="배송완료">배송완료</option>
 								<option value="구매확정" selected="selected">구매확정</option>
 							</c:if>
+						</select>
 						</c:if>
 						</form>
 							
 						<!-- 관리자용 -->
-						<form id="orderFormByAdmin" method="get" action="${pageContext.request.contextPath}/orders/ordersModifyByAdmin">
+						<form id="orderFormByAdmin" method="post" action="${pageContext.request.contextPath}/orders/ordersModifyByAdmin">
+		     			
 		     			<input type="hidden" name="orderCode" value="${od.orderCode}">
-		     			<input type="hidden" name="customerId" value="${od.customerId}">			
-						<c:if test="${loginEmp.auth_code} > 1">
+		     			<input type="hidden" name="customerId" value="${od.customerId}">
+		     			<c:if test="${loginEmp.auth_code} > 1">
+		     			<select name="orderState" id="orderState">			
+							<c:if test="${od.orderState eq '결제'}">
+								<option value="결제" selected="selected">결제</option>
+								<option value="취소">취소</option>
+								<option value="배송중">배송중</option>
+								<option value="배송완료">배송완료</option>								
+							</c:if>
 							<c:if test="${od.orderState eq '취소'}">
 								<option value="결제">결제</option>
 								<option value="취소" selected="selected" >취소</option>
 								<option value="배송중">배송중</option>
-								<option value="배송완료">배송완료</option>
-								<option value="구매확정">구매확정</option>
+								<option value="배송완료">배송완료</option>								
 							</c:if>		
 							<c:if test="${od.orderState eq '배송중'}">
 								<option value="결제">결제</option>
 								<option value="취소">취소</option>
 								<option value="배송중" selected="selected">배송중</option>
-								<option value="배송완료">배송완료</option>
-								<option value="구매확정">구매확정</option>
+								<option value="배송완료">배송완료</option>							
 							</c:if>
 							<c:if test="${od.orderState eq '배송완료'}">
 								<option value="결제">결제</option>
 								<option value="취소">취소</option>
 								<option value="배송중">배송중</option>
-								<option value="배송완료" selected="selected">배송완료</option>
-								<option value="구매확정">구매확정</option>
+								<option value="배송완료" selected="selected">배송완료</option>								
 							</c:if>
-						</c:if>
 						</select>
+						</c:if>
 					</form>
 		     			</td>
 		     			<td>${od.createdate}</td>

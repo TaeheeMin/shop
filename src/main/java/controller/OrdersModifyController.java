@@ -19,11 +19,14 @@ public class OrdersModifyController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//고객용 주문상태 수정
+		
 		// 값받아오기
+		String orderState = request.getParameter("orderState");
+		System.out.println();
 		request.setCharacterEncoding("utf-8");
 		Orders orders = new Orders();
 		orders.setOrderCode(Integer.parseInt(request.getParameter("orderCode")));
-		orders.setOrderState(request.getParameter("orderState"));
+		orders.setOrderState(orderState);
 		orders.setCustomerId(request.getParameter("customerId"));
 		
 		int row = 0;
@@ -32,7 +35,7 @@ public class OrdersModifyController extends HttpServlet {
 	
 		if(row == 1) {			
 			System.out.println("수정성공");
-			response.sendRedirect(request.getContextPath()+"/orders/ordersList"); 
+			response.sendRedirect(request.getContextPath()+"/orders/ordersOne"); 
 		} else { 
 			System.out.println("수정실패");
 			response.sendRedirect(request.getContextPath()+"/orders/ordersModify="+orders.getOrderCode());
