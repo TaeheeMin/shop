@@ -9,12 +9,20 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import service.ReviewService;
+import vo.Customer;
 import vo.Orders;
 import vo.Review;
 @WebServlet("/review/reviewModify")
 public class ReviewModifyController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//리뷰 변경 폼 연결 
+		//로그인 세션
+		HttpSession session = request.getSession();
+		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
+		
+		//값 받아오기
+		int orderCode = Integer.parseInt(request.getParameter("orderCode"));
+		request.setAttribute("orderCode", orderCode);
+	
 		request.getRequestDispatcher("/WEB-INF/view/review/reviewModify.jsp").forward(request, response);
 	}
 	

@@ -89,7 +89,12 @@ public class OrdersAddController extends HttpServlet {
 		orders.setCustomerId(customerId);
 		orders.setOrderQuantity(orderQuantity);
 		orders.setOrderPrice(orderPrice);
-
+		//디버깅
+		System.out.println(goodsCode); 
+		System.out.println(addressCode);
+		System.out.println(orderQuantity);
+		System.out.println(orderPrice);
+		System.out.println(customerId);
 	
 		int row = 0;
 		OrdersService ordersService = new OrdersService();
