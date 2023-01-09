@@ -21,7 +21,7 @@
 		<a href="${pageContext.request.contextPath}/CartList">장바구니</a>
 		
 		<!-- #### search #### -->
-		<form action="${pageContext.request.contextPath}/GoodsList" method="get">
+		<form action="${pageContext.request.contextPath}/GoodsList" method="get" id="listForm">
 			<select name="rowPerPage" id="rowPerPage">
 				<c:if test="${rowPerPage == 10}">
 					<option value="10" selected="selected">10</option>
@@ -69,6 +69,7 @@
 							<img src="${pageContext.request.contextPath}/goodsimg/${m.filename}" width="200" height="200">
 						</div>
 						<div>
+							view : ${m.view}
 							<a href="${pageContext.request.contextPath}/CartAdd?goodsCode=${m.goodsCode}&cartQuantity=1&filename=${m.filename}&goodsPrice=${m.goodsPrice}&goodsTitle=${m.goodsTitle}">cart</a>
 							<a href="${pageContext.request.contextPath}/orders/ordersAdd?goodsCode=${m.goodsCode}&cartQuantity=1&goodsArtist=${m.goodsArtist}&filename=${m.filename}&goodsPrice=${m.goodsPrice}&goodsTitle=${m.goodsTitle}">구매하기</a>
 						</div>
@@ -77,21 +78,20 @@
 			</tr>
 		</table>
 		<div>
-			<a href="${pageContext.request.contextPath}/GoodsList?currentPage=1">처음</a>
+			<a href="${pageContext.request.contextPath}/GoodsList?rowPerPage=${rowPerPage}&currentPage=1">처음</a>
 			
 			<c:if test="${currentPage > 1}">
-				<a href="${pageContext.request.contextPath}/GoodsList?currentPage=${currentPage-1}">이전</a>
+				<a href="${pageContext.request.contextPath}/GoodsList?rowPerPage=${rowPerPage}&currentPage=${currentPage-1}">이전</a>
 			</c:if>
 			
 			<c:forEach var="x" begin="${beginPage}" end="${beginPage = endPage}" step="1">
-				<a href="${pageContext.request.contextPath}/GoodsList?currentPage=${beginPage}">${beginPage}</a>
+				<a href="${pageContext.request.contextPath}/GoodsList?rowPerPage=${rowPerPage}&currentPage=${x}">${x}</a>
 			</c:forEach>
-			
 			<c:if test="${currentPage < lastPage}">
-				<a href="${pageContext.request.contextPath}/GoodsList?currentPage=${currentPage+1}">다음</a>
+				<a href="${pageContext.request.contextPath}/GoodsList?rowPerPage=${rowPerPage}&currentPage=${currentPage +1}">다음</a>
 			</c:if>
 			
-			<a href="${pageContext.request.contextPath}/GoodsList?currentPage=${lastPage}">마지막</a>
+			<a href="${pageContext.request.contextPath}/GoodsList?rowPerPage=${rowPerPage}&currentPage=${lastPage}">마지막</a>
 		</div>
 		
 		

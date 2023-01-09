@@ -42,6 +42,10 @@
 					<td><c:out value="${goodsOne.goodsPrice}"></c:out></td>
 				</tr>
 				<tr>
+					<th>VIEW</th>
+					<td><c:out value="${goodsOne.view}"></c:out></td>
+				</tr>
+				<tr>
 					<th>ACTION</th>
 					<td>
 						<a href="${pageContext.request.contextPath}/CartAdd?goodsCode=${goodsOne.goodsCode}&cartQuantity=1&filename=${goodsOne.filename}&goodsPrice=${goodsOne.goodsPrice}&goodsTitle=${goodsOne.goodsTitle}">cart</a>

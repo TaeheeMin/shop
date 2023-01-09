@@ -28,7 +28,7 @@ public class CartAddController extends HttpServlet {
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
 		int row = 0;
 		
-		// 로그인 -> cart 추가
+		// 1) 로그인 -> cart 추가
 		if(loginCustomer != null) {
 			// 값 받아오기
 			// System.out.println(request.getParameter("goodsCode"));
@@ -43,8 +43,25 @@ public class CartAddController extends HttpServlet {
 			if(row != 1) {
 				System.out.println("담기실패");
 			}
-			
-		} else { // 비로그인시 => 세션에 저장
+			response.sendRedirect(request.getContextPath()+"/GoodsList");
+			return;
+		} 
+		
+		// 2) 비로그인시 => 세션에 저장
+		if(loginCustomer == null) {
+			ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+			HashMap<String, Object> m = new HashMap<String, Object>();
+			m.put("goodsCode", request.getParameter("goodsCode"));
+			m.put("cartQuantity", request.getParameter("cartQuantity"));
+			m.put("filename", request.getParameter("filename"));
+			m.put("goodsPrice", request.getParameter("goodsPrice"));
+			list.add(m);
+			session.setAttribute("list", list);
+			response.sendRedirect(request.getContextPath()+"/GoodsList");
+			return;
+		}
+		/*
+		if(loginCustomer == null || session.getAttribute("clist") != null) {
 			ArrayList<HashMap<String, Object>> clist = new ArrayList<HashMap<String, Object>>();
 			HashMap<String, Object> m = new HashMap<String, Object>();
 			m.put("goodsCode", request.getParameter("goodsCode"));
@@ -52,10 +69,9 @@ public class CartAddController extends HttpServlet {
 			m.put("filename", request.getParameter("filename"));
 			m.put("goodsPrice", request.getParameter("goodsPrice"));
 			clist.add(m);
-			
-			session.setAttribute("clist",clist);
+			session.putValue("clist", clist);
 		}
-		response.sendRedirect(request.getContextPath()+"/GoodsList");
+		*/
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

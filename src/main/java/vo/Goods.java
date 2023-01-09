@@ -8,7 +8,8 @@ public class Goods {
 	private int goodsPrice;
 	private String soldout;
 	private String empId;
-	private String hit;
+	private int hit;
+	private int view;
 	private String createdate;
 	public int getGoodsCode() {
 		return goodsCode;
@@ -52,11 +53,17 @@ public class Goods {
 	public void setEmpId(String empId) {
 		this.empId = empId;
 	}
-	public String getHit() {
+	public int getHit() {
 		return hit;
 	}
-	public void setHit(String hit) {
+	public void setHit(int hit) {
 		this.hit = hit;
+	}
+	public int getView() {
+		return view;
+	}
+	public void setView(int view) {
+		this.view = view;
 	}
 	public String getCreatedate() {
 		return createdate;
@@ -64,6 +71,4 @@ public class Goods {
 	public void setCreatedate(String createdate) {
 		this.createdate = createdate;
 	}
-	
-	
 }

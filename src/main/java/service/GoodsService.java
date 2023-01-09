@@ -21,7 +21,6 @@ public class GoodsService {
 			HashMap<String, Integer> map = goodsDao.insertGoods(conn, goods);
 			goodsImg.setGoodsCode(map.get("autoKey")); 
 			row = goodsImgDao.insertGoodsImg(conn, goodsImg);
-			
 			conn.commit();
 			
 		} catch (Exception e) {
@@ -46,7 +45,7 @@ public class GoodsService {
 	}
 	
 	// 2) list
-	// 2-0) list count
+	// 2-1) list count
 	public int getGoodsListCount() {
 		int row = 0;
 		Connection conn = null;
@@ -54,7 +53,6 @@ public class GoodsService {
 			conn = DBUtil.getConnection();
 			this.goodsDao = new GoodsDao();
 			row = goodsDao.selectGoodsCount(conn);
-			System.out.println(row);
 			conn.commit(); // DBUtil setAutoCommit false설정
 		} catch (Exception e) {
 			try {
@@ -74,7 +72,7 @@ public class GoodsService {
 		return row;
 	}
 	
-	// 2-1) list
+	// 2-2) list
 	public ArrayList<HashMap<String, Object>> getGoodsList(int currentPage, int rowPerPage, String category, String word) {
 		Connection conn = null;
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
@@ -102,14 +100,22 @@ public class GoodsService {
 		return list;
 	}
 	
-	// 2-2) goods one
+	// 2-3) goods one
 	public ArrayList<HashMap<String, Object>> getGoodsOne(int goodsCode) {
 		Connection conn = null;
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		try {
 			conn = DBUtil.getConnection();
 			this.goodsDao = new GoodsDao();
-			list = goodsDao.selectGoodsOne(conn, goodsCode);
+			if(goodsDao.selectGoodsOne(conn, goodsCode) != null) {
+				list = goodsDao.selectGoodsOne(conn, goodsCode);
+				int row = this.goodsDao.updateGoodsView(conn, goodsCode);
+				if(row == 1) {
+					System.out.println("업데이트 성공");
+				} else {
+					System.out.println("업데이트 실패");
+				}
+			}
 			conn.commit(); // DBUtil setAutoCommit false설정
 		} catch (Exception e) {
 			try {
@@ -128,5 +134,5 @@ public class GoodsService {
 		}
 		return list;
 	}
-	
+
 }

@@ -27,7 +27,7 @@
 					<th>수량</th>
 					<th>삭제</th>
 				</tr>
-				<c:forEach var="c" items="${list}" varStatus="s">
+				<c:forEach var="c" items="${list}">
 					<tr>
 						<td>
 							<img src="${pageContext.request.contextPath}/goodsimg/${c.filename}" width="200" height="200">

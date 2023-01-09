@@ -62,6 +62,7 @@ public class GoodsDao {
 				+ ", gd.goods_artist goodsArtist"
 				+ ", gd.goods_price goodsPrice"
 				+ ", gd.soldout soldout"
+				+ ", gd.view view"
 				+ ", img.filename filename"
 				+ " FROM goods gd INNER JOIN goods_img img"
 				+ " ON gd.goods_code = img.goods_code"
@@ -79,22 +80,24 @@ public class GoodsDao {
 			m.put("goodsArtist",  rs.getString("goodsArtist"));
 			m.put("goodsPrice",  rs.getInt("goodsPrice"));
 			m.put("soldout", rs.getString("soldout"));
+			m.put("view",  rs.getInt("view"));
 			m.put("filename", rs.getString("filename"));
 			list.add(m);
 		}
 		return list;
 	}
 	
-	// 3) goods one
+	// 2-3) goods one
 	public ArrayList<HashMap<String, Object>> selectGoodsOne(Connection conn, int goodsCode) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-		System.out.println(goodsCode);
+		// System.out.println(goodsCode);
 		String sql = "SELECT"
 				+ " g.goods_code goodsCode"
 				+ ", g.goods_title goodsTitle"
 				+ ", g.goods_artist goodsArtist"
 				+ ", g.goods_content goodsContent"
 				+ ", g.goods_price goodsPrice"
+				+ ", g.view view"
 				+ ", img.filename filename"
 				+ " FROM goods g INNER JOIN goods_img img"
 				+ " ON g.goods_code = img.goods_code"
@@ -110,9 +113,21 @@ public class GoodsDao {
 			m.put("goodsArtist",  rs.getString("goodsArtist"));
 			m.put("goodsPrice",  rs.getString("goodsPrice"));
 			m.put("goodsContent", rs.getString("goodsContent"));
+			m.put("view",  rs.getInt("view"));
 			m.put("filename", rs.getString("filename"));
 			list.add(m);
 		}
 		return list;
+	}
+	
+	// 3) update
+	// 3-1) view update
+	public int updateGoodsView(Connection conn, int goodsCode) throws Exception {
+		int row = 0;
+		String sql = "UPDATE goods SET view = view+1 WHERE goods_code = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, goodsCode);
+		row = stmt.executeUpdate();
+		return row;
 	}
 }
