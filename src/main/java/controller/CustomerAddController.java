@@ -35,8 +35,7 @@ public class CustomerAddController extends HttpServlet {
 	}
 
 	// 회원가입 액션
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8"); // 한글 인코딩
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		
 		// 파라미터값 받아오기
 		String customerId = request.getParameter("customerId");

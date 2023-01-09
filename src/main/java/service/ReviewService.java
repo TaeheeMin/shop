@@ -44,11 +44,17 @@ public class ReviewService {
 	// 리뷰추가 동시에 포인트적립
 	public int addReivew(Review review) {
 		int row = 0;		
+		int addReviewRow = 0;
 		Connection conn = null;		
 		reviewDao = new ReviewDao();
+		pointHistoryDao = new PointHistoryDao();
 		try {
 			conn = DBUtil.getConnection();
-			row = reviewDao.addReview(conn, review);		
+			addReviewRow = reviewDao.addReview(conn, review);	
+			if(addReviewRow == 1) {
+				System.out.println("리뷰 추가완료");
+				row = pointHistoryDao.AddPoint(conn, addReviewRow);
+			}
 			conn.commit();
 		} catch (Exception e) {
 			try {
