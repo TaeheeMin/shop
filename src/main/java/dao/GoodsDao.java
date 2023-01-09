@@ -120,6 +120,26 @@ public class GoodsDao {
 		return list;
 	}
 	
+	// 2-4) goodsOne (상품하나 정보)
+	public Goods GoodsOne(Connection conn, int goodsCode) throws Exception {
+		Goods goodsOne = null;
+		
+		String sql = "SELECT * FROM goods WHERE goods_code = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, goodsCode);
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			goodsOne = new Goods();
+			goodsOne.setGoodsCode(rs.getInt("goods_code"));
+			goodsOne.setGoodsTitle(rs.getString("goods_title"));
+			goodsOne.setGoodsArtist(rs.getString("goods_artist"));
+			goodsOne.setGoodsContent(rs.getString("goods_content"));
+			goodsOne.setGoodsPrice(rs.getInt("goods_price"));
+		}
+		
+		return goodsOne;
+	}
+	
 	// 3) update
 	// 3-1) view update
 	public int updateGoodsView(Connection conn, int goodsCode) throws Exception {

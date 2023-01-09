@@ -13,12 +13,13 @@ public class CustomerAddressDao {
 		ArrayList<CustomerAddress> list = new ArrayList<CustomerAddress>();
 		
 		// 주소 불러오기
-		String sql = "SELECT customer_id, address FROM customer_address WHERE customer_id = ?";
+		String sql = "SELECT address_code, customer_id, address FROM customer_address WHERE customer_id = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, cusAddress.getCustomerId());
 		ResultSet rs = stmt.executeQuery();
 		while(rs.next()) {
 			CustomerAddress a = new CustomerAddress();
+			a.setAddressCode(rs.getInt("address_code"));
 			a.setCustomerId(rs.getString("customer_id"));
 			a.setAddress(rs.getString("address"));
 			list.add(a);

@@ -129,5 +129,32 @@ public class GoodsService {
 		}
 		return list;
 	}
+	
+	// 2-4) goods one
+	public Goods goodsOne(int goodsCode) {
+		Goods goodsOne = null;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			this.goodsDao = new GoodsDao();
+			goodsOne = goodsDao.GoodsOne(conn, goodsCode);
+			conn.commit(); // DBUtil setAutoCommit false설정
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return goodsOne;
+	}
 
 }

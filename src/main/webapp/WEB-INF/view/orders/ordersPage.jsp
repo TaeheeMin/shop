@@ -11,16 +11,15 @@
 	<form method="post" action="${pageContext.request.contextPath}/orders/ordersAdd">
 			<div>
 				상품정보: 
-						<br>앨범이름 <input type="text" name="goodsTitle" value="${goodsTitle}">
-						<br>아티스트 <input type="text" name="goodsArtist" value="${goodsArtist}">
-						<br>가격 <input type="text" name="goodsPrice" value="${goodsPrice}"> 
+						<br>앨범이름 <input type="text" name="goodsTitle" value="${goodsOne.goodsTitle}">
+						<br>아티스트 <input type="text" name="goodsArtist" value="${goodsOne.goodsArtist}">
+						<br>가격 <input type="text" name="goodsPrice" value="${goodsOne.goodsPrice}"> 
 			</div>
 			<br>		
 			<div> 
 				주문자 정보:  
 				<br>고객ID<input type="text" name="customerId" value="${loginCustomer.customerId}">
-				<br>고객이름<input type="text" name="customerName" value="${loginCustomer.customerName}">
-				<br>고객주소<input type="text" name="addrss">
+				<br>고객이름<input type="text" name="customerName" value="${loginCustomer.customerName}">				
 				<br>고객연락처<input type="text" name="customerPhone" value="${loginCustomer.customerPhone}">
 			</div>
 			<br>					
@@ -31,13 +30,33 @@
 				주문가격 :  <input type="text" name="orderPrice" value="${orderPrice}">
 			</div>			
 			<div> 
-				<input type="hidden" name="goodsCode" value="${goodsCode}">
+				<input type="hidden" name="goodsCode" value="${goodsOne.goodsCode}">
 			</div>
 			<!-- 셀렉트로 선택할수있게 변경해야함 -->
-			<div>	
-				주소코드 :<input type="text" name="addressCode" value="${addressCode}">
-			</div>						
+			<div>
+				주소목록
+			</div>
+			<c:forEach var="a" items="${list}">
+				<div>
+					<span><input type="radio" name="addressCode" class="addressCode" value="${a.addressCode}"></span>
+					${a.address}
+					<span><a href="${pageContext.request.contextPath}/AddressRemoveOrder?customerId=${a.customerId}&address=${a.address}&goodsCode=${goodsOne.goodsCode}">삭제</a></span>
+				</div>
+			</c:forEach>
+			<hr>				
 			<button type="submit">결제</button>
+		</form>
+		<form action="${pageContext.request.contextPath}/orders/ordersAdd" method="get">
+			<div>
+				주소추가
+			</div>
+			<div>
+				<input type="hidden" name="goodsCode" value="${goodsOne.goodsCode}">
+			</div>
+			<div>
+				<textarea rows="4" cols="40" name="address"></textarea>
+			</div>
+			<div><button type="submit">추가</button></div>
 		</form>
 	
 	
