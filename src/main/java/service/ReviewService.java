@@ -52,8 +52,15 @@ public class ReviewService {
 			conn = DBUtil.getConnection();
 			addReviewRow = reviewDao.addReview(conn, review);	
 			if(addReviewRow == 1) {
-				System.out.println("리뷰 추가완료");
-				row = pointHistoryDao.AddPoint(conn, addReviewRow);
+				System.out.println("[ReviewService]리뷰 추가완료");
+				row = pointHistoryDao.AddPoint(conn, review);
+				if(row == 1) {
+					System.out.println("[ReviewService]포인트 적립 완료");
+				} else {
+					System.out.println("[ReviewService]포인트 적립 실패");
+				}
+			} else {
+				System.out.println("[ReviewService]리뷰 추가실패");
 			}
 			conn.commit();
 		} catch (Exception e) {

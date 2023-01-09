@@ -7,22 +7,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import service.SiteCounterService;
+
 
 @WebServlet("/Home")
 public class HomeController extends HttpServlet {
-
+	private SiteCounterService siteCounterService;
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 홈 View
-		request.getRequestDispatcher("/WEB-INF/view/home.jsp").forward(request, response);
 		
-		// 드라이브 로딩
-    	try {
-			Class.forName("org.mariadb.jdbc.Driver");
-			System.out.println("BootListener 드라이브 로딩 성공");
-		} catch (ClassNotFoundException e) {
-			System.out.println("드라이브 로딩 실패");
-			e.printStackTrace();
-		}
+		// (누적,오늘,현재) 접속자수 불러오기
+		this.siteCounterService = new SiteCounterService();
+		int todayCount = siteCounterService.selectTodayCount();
+		int totalCount = siteCounterService.selectTotalCount();
+		request.setAttribute("todayCount", todayCount);
+		request.setAttribute("totalCount", totalCount);
+		
+		request.getRequestDispatcher("/WEB-INF/view/home.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
