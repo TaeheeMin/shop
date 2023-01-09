@@ -8,6 +8,7 @@ import java.util.HashMap;
 import dao.OrdersDao;
 import dao.ReviewDao;
 import util.DBUtil;
+import vo.Customer;
 import vo.Orders;
 import vo.Review;
 
@@ -15,13 +16,13 @@ import vo.Review;
 public class OrdersService {
 	private OrdersDao ordersDao;
 	// 주문 리스트
-	public ArrayList<HashMap<String, Object>> selectOrdersList() {
+	public ArrayList<HashMap<String, Object>> selectOrdersList(Customer loginCustomer) {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();
 			ordersDao = new OrdersDao();
-			list = ordersDao.selectOrdersList(conn);
+			list = ordersDao.selectOrdersList(conn, loginCustomer);
 			conn.commit();
 		} catch (Exception e) {
 			try {

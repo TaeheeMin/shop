@@ -28,7 +28,7 @@
 		<table border="1">
 			<thead>
 			  	<tr>
-			  		<th>주문번호<th>
+			  		<th>주문번호</th>
 			      	<th>주문수량</th>
 			      	<th>주문가격</th>
 			      	<th>주문상태</th>

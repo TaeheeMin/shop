@@ -43,20 +43,12 @@ public class ReviewService {
 	
 	// 리뷰추가 동시에 포인트적립
 	public int addReivew(Review review) {
-		int row = 0;
-		int pointRow = 0;
-		Connection conn = null;
-		pointHistoryDao = new PointHistoryDao();
+		int row = 0;		
+		Connection conn = null;		
 		reviewDao = new ReviewDao();
 		try {
 			conn = DBUtil.getConnection();
-			row = reviewDao.addReview(conn, review);
-			if(pointRow == 1) {
-				System.out.println("리뷰작성성공");
-				pointRow = pointHistoryDao.AddPoint(conn, review.getOrderCode());
-				} else {
-					System.out.println("리뷰작성실패");	
-				}
+			row = reviewDao.addReview(conn, review);		
 			conn.commit();
 		} catch (Exception e) {
 			try {
@@ -72,7 +64,7 @@ public class ReviewService {
 				e.printStackTrace();
 			}
 		}
-		return pointRow;
+		return row;
 	}
 	// 리뷰삭제 관리자용
 	public int removeByAdminReview(int orderCode) {

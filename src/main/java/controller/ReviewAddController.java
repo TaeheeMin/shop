@@ -28,18 +28,20 @@ public class ReviewAddController extends HttpServlet {
 		int orderCode = Integer.parseInt(request.getParameter("orderCode"));
 		String reviewMemo = request.getParameter("reviewMemo");
 		
+		System.out.println(orderCode);
 		//값 저장 
 		review.setReviewMemo(reviewMemo);
 		review.setOrderCode(orderCode);
-		
+		int row=0;
 		int pointRow = 0;
 		ReviewService reviewService = new ReviewService();
-		pointRow = reviewService.addReivew(review);
+		row = reviewService.addReivew(review);
 		// 결과
-		if(pointRow == 1) {
+		if(row == 1) {
 			// 리스트로 이동
 			System.out.println("입력성공");
-			response.sendRedirect(request.getContextPath()+"/review/reviewOne");
+			response.sendRedirect(request.getContextPath()+"/Home");
+			
 			
 		} else {
 			// 폼이동

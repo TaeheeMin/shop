@@ -11,7 +11,7 @@
 		<table border="1">
 			<thead>
 			  	<tr>
-			  		<th>주문번호<th>
+			  		<th>주문번호</th>
 			      	<th>상품이름</th>
 			      	<th>상품이미지</th>
 			      	<th>주문일자</th>

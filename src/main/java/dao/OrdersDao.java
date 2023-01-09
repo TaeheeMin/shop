@@ -7,11 +7,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import vo.Cart;
+import vo.Customer;
 import vo.Orders;
 
 public class OrdersDao {
-		// 주문목록
-	 public ArrayList<HashMap<String, Object>> selectOrdersList(Connection conn) throws Exception {
+		// 주문목록 본인용 
+	 public ArrayList<HashMap<String, Object>> selectOrdersList(Connection conn, Customer loginCustomer) throws Exception {
 			ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 			String sql = "SELECT "
 					+ "	o.order_code orderCode"
@@ -21,8 +22,10 @@ public class OrdersDao {
 					+ "	, o.order_state orderState"
 					+ "	, o.order_price orderPrice"
 					+ "	FROM orders o INNER JOIN goods g ON o.goods_code = g.goods_code"
-					+ "	INNER JOIN goods_img gi ON g.goods_code = gi.goods_code";		              
+					+ "	INNER JOIN goods_img gi ON g.goods_code = gi.goods_code"
+					+ "	WHERE o.customer_id = ?";		              
 		      PreparedStatement stmt = conn.prepareStatement(sql);
+		      stmt.setString(1, loginCustomer.getCustomerId());
 		      ResultSet rs = stmt.executeQuery();
 		      while(rs.next()) {
 		         HashMap<String, Object> m = new HashMap<String, Object>();
