@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 </head>
 <body>
 	<h1>구매페이지</h1>
@@ -24,10 +25,10 @@
 			</div>
 			<br>					
 			<div> 
-				주문수량 :  <input type="text" name="orderQuantity">
+				주문수량 :	<input type="text" name="orderQuantity" value="${orderQuantity}" readonly="readonly">								
 			</div>			
 			<div> 
-				주문가격 :  <input type="text" name="orderPrice" value="${orderPrice}">
+				주문가격 :  <input type="text" name="orderPrice" value="${goodsOne.goodsPrice*orderQuantity}">
 			</div>			
 			<div> 
 				<input type="hidden" name="goodsCode" value="${goodsOne.goodsCode}">

@@ -40,8 +40,11 @@ public class OrdersAddController extends HttpServlet {
 		//값받아서 넘겨주기
 		int goodsCode = Integer.parseInt(request.getParameter("goodsCode"));
 		this.goodsService = new GoodsService();
+		int orderQuantity = Integer.parseInt(request.getParameter("cartQuantity"));
 		Goods goodsOne = goodsService.goodsOne(goodsCode);
 		request.setAttribute("goodsOne", goodsOne);
+		request.setAttribute("orderQuantity", orderQuantity);
+		
 		
 		this.customerAddressService = new CustomerAddressService();
 		
