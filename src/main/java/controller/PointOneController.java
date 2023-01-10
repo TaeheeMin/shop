@@ -15,21 +15,22 @@ import service.PointHistoryService;
 import vo.Customer;
 
 
-@WebServlet("/point/pintOne")
+@WebServlet("/point/pointOne")
 public class PointOneController extends HttpServlet {
 	private PointHistoryService pointHistoryService;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//현재 포인트 		
 		
-			HttpSession session = request.getSession();
-			Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
-			
-			
-			pointHistoryService = new PointHistoryService();
-			ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-			list = pointHistoryService.selectPoint(loginCustomer);
-			request.setAttribute("list", list);
-			request.getRequestDispatcher("/WEB-INF/view/point/pointOne.jsp").forward(request, response);
+		HttpSession session = request.getSession();
+		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
+		System.out.println("loginCustomer : "+loginCustomer.getCustomerId());
+		
+		pointHistoryService = new PointHistoryService();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map = pointHistoryService.selectPoint(loginCustomer);
+		System.out.println(map);
+		request.setAttribute("map", map);
+		request.getRequestDispatcher("/WEB-INF/view/point/pointOne.jsp").forward(request, response);
 				
 	}
 	

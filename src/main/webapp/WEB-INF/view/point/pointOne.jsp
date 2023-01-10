@@ -10,7 +10,7 @@
 		<h1>현재포인트</h1>	
 		<div>
 		<c:forEach var="p" items="${list}">
-		${p.importPoint-p.exportPoint} 점
+		${p.importPoint-p.exportPoint+100} 점
 		</c:forEach>
 		</div>
 </body>

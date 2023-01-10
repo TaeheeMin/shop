@@ -6,8 +6,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import service.ReviewService;
+import vo.Customer;
 import vo.Review;
 
 
@@ -21,7 +23,8 @@ public class ReviewAddController extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		HttpSession session = request.getSession();
+		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
 		
 		// 값 받아오기
 		Review review = new Review();
@@ -35,7 +38,7 @@ public class ReviewAddController extends HttpServlet {
 		int row=0;
 		int pointRow = 0;
 		ReviewService reviewService = new ReviewService();
-		row = reviewService.addReivew(review);
+		row = reviewService.addReivew(review, loginCustomer);
 		// 결과
 		if(row == 1) {
 			// 리스트로 이동

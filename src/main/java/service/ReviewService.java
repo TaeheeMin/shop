@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import dao.PointHistoryDao;
 import dao.ReviewDao;
 import util.DBUtil;
+import vo.Customer;
 import vo.Orders;
 import vo.Review;
 
@@ -42,7 +43,7 @@ public class ReviewService {
 	}
 	
 	// 리뷰추가 동시에 포인트적립
-	public int addReivew(Review review) {
+	public int addReivew(Review review, Customer loginCustomer) {
 		int row = 0;		
 		int addReviewRow = 0;
 		Connection conn = null;		

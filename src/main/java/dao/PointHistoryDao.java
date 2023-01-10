@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -11,7 +12,8 @@ import vo.PointHistory;
 import vo.Review;
 
 public class PointHistoryDao {
-	//포인트 추가
+	
+	// 1) 포인트 추가 (적립)
 	public int AddPoint(Connection conn, Review review) throws Exception {
 		int pointRow = 0;	    
 		String sql = "INSERT INTO point_history(order_code,point_kind,point,createdate) VALUES (?,'적립','500',NOW())";		      
@@ -20,9 +22,12 @@ public class PointHistoryDao {
 	    pointRow = stmt.executeUpdate();
 	    return pointRow;
 	}
-	// 아이디별 적립,사용 포인트 확인 
-	public ArrayList<HashMap<String, Object>> selectPoint(Connection conn, Customer loginCustomer) throws Exception {
-		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>(); 
+	
+	// 포인트 추가 (사용)
+	
+	// 2) 아이디별 적립,사용 포인트총합 확인 
+	public HashMap<String, Object> selectPoint(Connection conn, Customer loginCustomer) throws Exception {
+		HashMap<String, Object> map = null; 
 		String sql = "SELECT"
 				+ "	ifnull(SUM(IF(ph.point_kind = '적립', ph.point, NULL)), 0) importPoint"
 				+ ", ifnull(sum(IF(ph.point_kind = '사용', ph.point, NULL)), 0) exportPoint"
@@ -35,16 +40,26 @@ public class PointHistoryDao {
 	    PreparedStatement stmt = conn.prepareStatement(sql);	
 	    stmt.setString(1, loginCustomer.getCustomerId());
 	    ResultSet rs = stmt.executeQuery();
-	    while(rs.next()) {
-		       HashMap<String, Object> m = new HashMap<String, Object>();
-		       m.put("importPoint", rs.getInt("importPoint"));
-		       m.put("exportPoint", rs.getInt("exportPoint"));
-		       m.put("createdate", rs.getString("createdate"));
-		       list.add(m);
-		
+	    if(rs.next()) {
+		       map = new HashMap<String, Object>();
+		       map.put("importPoint", rs.getInt("importPoint"));
+		       map.put("exportPoint", rs.getInt("exportPoint"));
+		       map.put("createdate", rs.getString("createdate"));		
 	    }
-		return list;	
+		return map;	
 	}
 	
+	// 3) customer포인트에 누적포인트 덮어쓰기
+	public int modifyCustomerPoint(Connection conn, Customer loginCustomer, int point) throws Exception {
+		int row = 0;
+		
+		String sql = "UPDATE customer SET point = ? WHERE customer_id = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, point);
+		stmt.setString(2, loginCustomer.getCustomerId());
+		row = stmt.executeUpdate();
+		
+		return row;
+	}
 	
 }

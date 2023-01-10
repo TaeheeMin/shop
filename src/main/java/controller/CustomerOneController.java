@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import service.CustomerAddressService;
 import service.CustomerService;
+import service.PointHistoryService;
 import vo.Customer;
 import vo.CustomerAddress;
 
@@ -20,6 +22,7 @@ import vo.CustomerAddress;
 public class CustomerOneController extends HttpServlet {
 	private CustomerService customerService;
 	private CustomerAddressService customerAddressService;
+	private PointHistoryService pointHistoryService;
 	
 	// 회원정보 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -48,6 +51,12 @@ public class CustomerOneController extends HttpServlet {
 		cusAddress.setCustomerId(loginCustomer.getCustomerId());
 		ArrayList<CustomerAddress> list = customerAddressService.myAddressList(cusAddress);
 
+		// 회원 포인트 불러오기
+		this.pointHistoryService = new PointHistoryService();
+		int customerPoint = pointHistoryService.modifyCustomerPoint(loginCustomer);
+		if(customerPoint == 1) {
+			System.out.println("고객 잔여 포인트 로딩");
+		}
 		request.setAttribute("list", list);
 		request.setAttribute("customerOne", customerOne);
 		request.getRequestDispatcher("/WEB-INF/view/customer/customerOne.jsp").forward(request, response);

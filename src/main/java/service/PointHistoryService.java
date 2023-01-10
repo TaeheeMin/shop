@@ -13,14 +13,14 @@ import vo.PointHistory;
 
 public class PointHistoryService {
 	private PointHistoryDao pointHistoryDao;
-	// 포인트 적립,사용 리스트
-	public ArrayList<HashMap<String, Object>> selectPoint(Customer loginCustomer) {
-		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+	// 1) 포인트 적립,사용 리스트
+	public HashMap<String, Object> selectPoint(Customer loginCustomer) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();
 			pointHistoryDao = new PointHistoryDao();
-			list = pointHistoryDao.selectPoint(conn, loginCustomer);
+			map = pointHistoryDao.selectPoint(conn, loginCustomer);
 			conn.commit();
 		} catch (Exception e) {
 			try {
@@ -37,8 +37,39 @@ public class PointHistoryService {
 				e.printStackTrace();
 			}
 		}
-		return list;
+		return map;
 	}
 	
+	// 2) customer의 point 누적 덮어쓰기
+	public int modifyCustomerPoint(Customer loginCustomer) {
+		int row = 0;
+		Connection conn = null;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int point = 0;
+		try {
+			conn = DBUtil.getConnection();
+			pointHistoryDao = new PointHistoryDao();
+			map = pointHistoryDao.selectPoint(conn, loginCustomer);
+			point = (int)(map.get("importPoint"))-(int)(map.get("exportPoint"))+100;
+			row = pointHistoryDao.modifyCustomerPoint(conn, loginCustomer, point);
+			// list = pointHistoryDao.selectPoint(conn, loginCustomer);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return row;
+	}
 
 }
