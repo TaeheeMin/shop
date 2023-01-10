@@ -25,7 +25,7 @@
 			</div>
 			<br>					
 			<div> 
-				주문수량 :	<input type="text" name="orderQuantity" value="${orderQuantity}" readonly="readonly">								
+				주문수량 :	<input type="text" name="orderQuantity" value="${orderQuantity}">								
 			</div>			
 			<div> 
 				주문가격 :  <input type="text" name="orderPrice" value="${goodsOne.goodsPrice*orderQuantity}">
