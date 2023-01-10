@@ -36,21 +36,24 @@ public class OrdersAddController extends HttpServlet {
 			return;
 		}
 		System.out.println("[OrdersAdd컨트롤러 진입]");
-		
-		//값받아서 넘겨주기
-		String goodsTitle = request.getParameter("goodsTitle");
+		System.out.println(request.getParameter("goodsCode"));
+		// 파라미타값 받아오기
+		// String goodsTitle = request.getParameter("goodsTitle");
 		int goodsCode = Integer.parseInt(request.getParameter("goodsCode"));
+		System.out.println("(1)goodsCode : "+goodsCode);
 		this.goodsService = new GoodsService();
 		int orderQuantity = Integer.parseInt(request.getParameter("cartQuantity"));
+		
+		// 주문할 상품목록 불러오기 
 		ArrayList<HashMap<String,Object>> goodsList = goodsService.getGoodsOne(goodsCode);
 		request.setAttribute("goodsList", goodsList);
 		request.setAttribute("orderQuantity", orderQuantity);
-		request.setAttribute("goodsTitle", goodsTitle);
-		int orderPrice = Integer.parseInt(request.getParameter("cartPrice"));
+		// request.setAttribute("goodsTitle", goodsTitle);
+		// int orderPrice = Integer.parseInt(request.getParameter("cartPrice"));
 		
 		this.customerAddressService = new CustomerAddressService();
 		
-		// 주소 추가입력 있을 시,
+		/* 주소 추가입력 있을 시,
 		if(request.getParameter("address") != null) {
 			System.out.println("주소추가입력값 :::: "+request.getParameter("address"));
 			CustomerAddress insertAddress = new CustomerAddress();
@@ -66,12 +69,13 @@ public class OrdersAddController extends HttpServlet {
 				response.sendRedirect(request.getContextPath()+"/orders/ordersAdd?goodsCode="+goodsCode);
 			}
 		}
+		*/
 		
 		// 회원주소목록 불러오기
 		CustomerAddress cusAddress = new CustomerAddress();
 		cusAddress.setCustomerId(loginCustomer.getCustomerId());
-		ArrayList<CustomerAddress> list = customerAddressService.myAddressList(cusAddress);
-		request.setAttribute("list", list);
+		ArrayList<CustomerAddress> addressList = customerAddressService.myAddressList(cusAddress);
+		request.setAttribute("addressList", addressList);
 		
 		request.getRequestDispatcher("/WEB-INF/view/orders/ordersPage.jsp").forward(request, response);
 	}
@@ -87,19 +91,21 @@ public class OrdersAddController extends HttpServlet {
 		int addressCode = Integer.parseInt(request.getParameter("addressCode"));
 		int orderQuantity = Integer.parseInt(request.getParameter("orderQuantity"));
 		int orderPrice = Integer.parseInt(request.getParameter("orderPrice"));
-		String customerId = request.getParameter("customerId");		
+		String customerId = request.getParameter("customerId");	
+		
 		//값 저장 
-		orders.setAdrressCode(goodsCode);	
-		orders.setGoodsCode(addressCode);
+		orders.setAdrressCode(addressCode);	
+		orders.setGoodsCode(goodsCode);
 		orders.setCustomerId(customerId);
 		orders.setOrderQuantity(orderQuantity);
 		orders.setOrderPrice(orderPrice);
+		
 		//디버깅
-		System.out.println(goodsCode); 
-		System.out.println(addressCode);
-		System.out.println(orderQuantity);
-		System.out.println(orderPrice);
-		System.out.println(customerId);
+		System.out.println("goodsCode : "+goodsCode); 
+		System.out.println("addressCode : "+addressCode);
+		System.out.println("orderQuantity : "+orderQuantity);
+		System.out.println("orderPrice : "+orderPrice);
+		System.out.println("customerId : "+customerId);
 	
 		int row = 0;
 		OrdersService ordersService = new OrdersService();
