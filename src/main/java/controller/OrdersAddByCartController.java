@@ -18,11 +18,11 @@ public class OrdersAddByCartController extends HttpServlet {
 		int ordersPrice = Integer.parseInt(request.getParameter("cartPrice"));
 		int orderQuantity = Integer.parseInt(request.getParameter("cartQuantity"));
 		String goodsTitle = request.getParameter("goodsTitle");	
-
+		
 		request.setAttribute("goodsCode", goodsCode);
 		request.setAttribute("orderQuantity", orderQuantity);
 		request.setAttribute("ordersPrice", ordersPrice);
-		
+		request.setAttribute("goodsTitle", goodsTitle);
 		
 		
 		request.getRequestDispatcher("/WEB-INF/view/orders/ordersPage.jsp").forward(request, response);

@@ -38,13 +38,15 @@ public class OrdersAddController extends HttpServlet {
 		System.out.println("[OrdersAdd컨트롤러 진입]");
 		
 		//값받아서 넘겨주기
+		String goodsTitle = request.getParameter("goodsTitle");
 		int goodsCode = Integer.parseInt(request.getParameter("goodsCode"));
 		this.goodsService = new GoodsService();
 		int orderQuantity = Integer.parseInt(request.getParameter("cartQuantity"));
 		Goods goodsOne = goodsService.goodsOne(goodsCode);
 		request.setAttribute("goodsOne", goodsOne);
 		request.setAttribute("orderQuantity", orderQuantity);
-		
+		request.setAttribute("goodsTitle", goodsTitle);
+		int orderPrice = Integer.parseInt(request.getParameter("cartPrice"));
 		
 		this.customerAddressService = new CustomerAddressService();
 		

@@ -16,7 +16,7 @@
 		<h1>장바구니 목록</h1>
 		<a href="${pageContext.request.contextPath}/Home">홈으로</a>
 		<a href="${pageContext.request.contextPath}/GoodsList">상품목록</a>
-		<form action="${pageContext.request.contextPath}/orders/ordersAddByCart" method="get">
+		<form action="${pageContext.request.contextPath}/orders/ordersAdd" method="get">
 			<table border="1">
 				<tr>
 					<th>상품정보</th>
