@@ -2,8 +2,8 @@ package vo;
 
 public class QuestionComment {
 	private int commentCode;
-	private int question_code;
-	private String comment_memo;
+	private int questionCode;
+	private String commentMemo;
 	private String createdate;
 	public int getCommentCode() {
 		return commentCode;
@@ -11,17 +11,17 @@ public class QuestionComment {
 	public void setCommentCode(int commentCode) {
 		this.commentCode = commentCode;
 	}
-	public int getQuestion_code() {
-		return question_code;
+	public int getQuestionCode() {
+		return questionCode;
 	}
-	public void setQuestion_code(int question_code) {
-		this.question_code = question_code;
+	public void setQuestionCode(int questionCode) {
+		this.questionCode = questionCode;
 	}
-	public String getComment_memo() {
-		return comment_memo;
+	public String getCommentMemo() {
+		return commentMemo;
 	}
-	public void setComment_memo(String comment_memo) {
-		this.comment_memo = comment_memo;
+	public void setCommentMemo(String commentMemo) {
+		this.commentMemo = commentMemo;
 	}
 	public String getCreatedate() {
 		return createdate;
@@ -29,5 +29,4 @@ public class QuestionComment {
 	public void setCreatedate(String createdate) {
 		this.createdate = createdate;
 	}
-	
 }

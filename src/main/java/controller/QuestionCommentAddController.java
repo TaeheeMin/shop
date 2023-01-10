@@ -18,19 +18,10 @@ import vo.QuestionComment;
 public class QuestionCommentAddController extends HttpServlet {
 	private QuestionCommentService questionCommentService;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 로그인 세션 불러오기
-		HttpSession session = request.getSession();
-		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
-		
-		if(loginEmp == null) {
-			System.out.println("관리자만 사용 가능");
-			response.sendRedirect(request.getContextPath()+"/Home");
-			return;
-		}
-		request.getRequestDispatcher("/WEB-INF/view/question/questionOne.jsp").forward(request, response);
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 		// 로그인 세션 불러오기
 		HttpSession session = request.getSession();
 		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
@@ -41,14 +32,12 @@ public class QuestionCommentAddController extends HttpServlet {
 			return;
 		}
 		
-		request.setCharacterEncoding("utf-8");
-		System.out.println(request.getParameter("ordersCode"));
-		System.out.println(request.getParameter("category"));
-		System.out.println(request.getParameter("questionTitle"));
-		System.out.println(request.getParameter("questionMemo"));
 		// 값 받아오기
 		QuestionComment questionComment = new QuestionComment();
-		
+		questionComment.setCommentMemo(request.getParameter("commentMemo"));
+		questionComment.setQuestionCode(Integer.parseInt(request.getParameter("questionCode")));
+		System.out.println(questionComment.getQuestionCode());
+		System.out.println(questionComment.getCommentMemo());
 		int row = 0;
 		this.questionCommentService = new QuestionCommentService();
 		row = questionCommentService.addQuestionComment(questionComment);
@@ -61,7 +50,7 @@ public class QuestionCommentAddController extends HttpServlet {
 		} else {
 			// 폼이동
 			System.out.println("입력실패");
-			response.sendRedirect(request.getContextPath()+"/QuestionOne");
+			response.sendRedirect(request.getContextPath()+"/QuestionOne?questionCode=?"+questionComment.getQuestionCode());
 		}
 		
 	}

@@ -27,15 +27,7 @@ public class QuestionListByAdminController extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/Home");
 			return;
 		}
-		
-		// 1) currentPage		
-		int currentPage = 0;
-		
-		// 2) rowPerPage
-		int rowPerPage = 10;
-		
 		this.questionService = new QuestionService();
-		
 		
 		ArrayList<Question> list = new ArrayList<Question>();
 		list = questionService.getQuestionListByAdmin();
