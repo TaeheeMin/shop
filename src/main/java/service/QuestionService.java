@@ -68,6 +68,7 @@ public class QuestionService {
 		}
 		return list;
 	}
+	
 	// 2-2) 회원용
 	public ArrayList<Question> getQuestionListbyCustomer(String customerId) {
 		ArrayList<Question> list = new ArrayList<Question>();
@@ -121,9 +122,58 @@ public class QuestionService {
 		}
 		return list;
 	}
+	
 	// 3) modify
+	public int modifyQuestion(Question question) {
+		int row = 0;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			this.questionDao = new QuestionDao();
+			row = questionDao.updateQuestion(conn, question);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return row;
+	}
 	
 	// 4) remove
-	
+	public int removeQuestion(int questionCode) {
+		int row = 0;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			this.questionDao = new QuestionDao();
+			row = questionDao.deleteQuestion(conn, questionCode);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return row; 
+	}
 	
 }

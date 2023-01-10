@@ -12,7 +12,7 @@
 		<form action="${pageContext.request.contextPath}/QuestionAdd" method="post"> 
 			<div>
 				주문 목록
-				<select name="odersCode">
+				<select name="ordersCode">
 					<c:forEach var="list" items="${list}">
 						<option value="${list.orderCode}">${list.orderCode}</option>
 					</c:forEach>

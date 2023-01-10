@@ -20,8 +20,14 @@ public class QuestionListByCustomerController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
-		String customerId = loginCustomer.getCustomerId();
+		// 로그인이 안되어있을경우 진입 불가 -> 홈으로 이동
+		if(loginCustomer == null) {
+			System.out.println("로그인 필요");
+			response.sendRedirect(request.getContextPath()+"/Home");
+			return;
+		}
 		
+		String customerId = loginCustomer.getCustomerId();
 		this.questionService = new QuestionService();
 		ArrayList<Question> list = new ArrayList<Question>();
 		list = questionService.getQuestionListbyCustomer(customerId);

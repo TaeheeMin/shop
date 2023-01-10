@@ -70,18 +70,6 @@ public class CartAddController extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/GoodsList");
 			return;
 		}
-		/*
-		if(loginCustomer == null || session.getAttribute("clist") != null) {
-			ArrayList<HashMap<String, Object>> clist = new ArrayList<HashMap<String, Object>>();
-			HashMap<String, Object> m = new HashMap<String, Object>();
-			m.put("goodsCode", request.getParameter("goodsCode"));
-			m.put("cartQuantity", request.getParameter("cartQuantity"));
-			m.put("filename", request.getParameter("filename"));
-			m.put("goodsPrice", request.getParameter("goodsPrice"));
-			clist.add(m);
-			session.putValue("clist", clist);
-		}
-		*/
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

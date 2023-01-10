@@ -29,8 +29,8 @@
 					</td>
 					<td>${q.createdate}</td>
 					<td>
-						<a href="">수정</a>
-						<a href="">삭제</a>
+						<a href="${pageContext.request.contextPath}/QuestionModify?questionCode=${q.questionCode}">수정</a>
+						<a href="${pageContext.request.contextPath}/QuestionRemove?questionCode=${q.questionCode}">삭제</a>
 					</td>
 				</tr>
 			</c:forEach>

@@ -35,7 +35,7 @@ public class QuestionAddController extends HttpServlet {
 		list = ordersService.selectOrdersList(loginCustomer);
 		session.setAttribute("list", list);
 		
-		request.getRequestDispatcher("/WEB-INF/view/question/questionAddForm.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/question/questionAdd.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -54,6 +54,7 @@ public class QuestionAddController extends HttpServlet {
 		int row = 0;
 		QuestionService questionService = new QuestionService();
 		row = questionService.addQuestion(question);
+		
 		// 결과
 		if(row == 1) {
 			// 리스트로 이동

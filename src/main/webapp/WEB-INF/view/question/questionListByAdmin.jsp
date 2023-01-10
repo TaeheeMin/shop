@@ -28,7 +28,7 @@
 					</td>
 					<td>${q.createdate}</td>
 					<td>
-						<a href="">답변</a>
+						<a href="${pageContext.request.contextPath}/QuestionCommentAdd">답변</a>
 					</td>
 				</tr>
 			</c:forEach>

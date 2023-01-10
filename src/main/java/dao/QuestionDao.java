@@ -100,7 +100,9 @@ public class QuestionDao {
 	// 2-3) 문의사항One
 	public ArrayList<HashMap<String, Object>> selectQuestionOne(Connection conn, int questionCode) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-		String sql = "SELECT q.orders_code odersCode"
+		String sql = "SELECT "
+				+ " q.question_code questionCode"
+				+ ", q.orders_code odersCode"
 				+ ", q.category category"
 				+ ", q.question_title questionTitle"
 				+ ", q.question_memo qusetionMemo"
@@ -119,6 +121,7 @@ public class QuestionDao {
 		ResultSet rs = stmt.executeQuery();
 		while(rs.next()) {
 			HashMap<String, Object> m = new HashMap<String, Object>();
+			m.put("questionCode", rs.getInt("questionCode"));
 			m.put("odersCode", rs.getString("odersCode"));
 			m.put("category", rs.getString("category"));
 			m.put("questionTitle", rs.getString("questionTitle"));
@@ -131,6 +134,20 @@ public class QuestionDao {
 	}
 	
 	// 3) update
+	public int updateQuestion(Connection conn, Question question) throws Exception {
+		int row = 0;
+		String sql = "UPDATE question SET"
+				+ " category = ?"
+				+ ", question_title = ?"
+				+ ", question_memo = ?"
+				+ " WHERE question_code = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, question.getCategory());
+		stmt.setString(2, question.getQuestionTitle());
+		stmt.setString(3, question.getQuestionMemo());
+		stmt.setInt(4, question.getQuestionCode());
+		return row;
+	}
 	
 	// 4) delete
 	public int deleteQuestion(Connection conn, int questionCode) throws Exception {

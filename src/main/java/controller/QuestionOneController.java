@@ -15,12 +15,12 @@ import vo.*;
 
 @WebServlet("/QuestionOne")
 public class QuestionOneController extends HttpServlet {
-	
+	private QuestionService questionService;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 값 받아오기
 		//System.out.println(request.getParameter("questionCode"));
 		int questionCode = Integer.parseInt(request.getParameter("questionCode"));
-		QuestionService questionService = new QuestionService();
+		this.questionService = new QuestionService();
 		
 		ArrayList<HashMap<String, Object>> list = questionService.getQuestionOne(questionCode);
 		// view와 공유할 모델 데이터 성정
