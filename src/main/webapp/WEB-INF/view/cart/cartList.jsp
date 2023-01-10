@@ -27,6 +27,7 @@
 				<c:forEach var="c" items="${list}">
 					<tr>
 						<td>
+							<input type="hidden" name="goodsCode" value="${c.goodsCode}"> 
 							<img src="${pageContext.request.contextPath}/goodsimg/${c.filename}" width="200" height="200">
 							<input type="text" name="goodsTitle" value="${c.goodsTitle}" readonly="readonly"> 
 						</td>
