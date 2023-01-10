@@ -27,6 +27,7 @@ public class CartAddController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
 		int row = 0;
+		System.out.println("[CartAddController진입]");
 		
 		// 1) 로그인 -> cart 추가
 		if(loginCustomer != null) {
@@ -49,14 +50,23 @@ public class CartAddController extends HttpServlet {
 		
 		// 2) 비로그인시 => 세션에 저장
 		if(loginCustomer == null) {
-			ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+			System.out.println("[CartAddController - 비로그인상태]");
+			ArrayList<HashMap<String, Object>> list = null;
+			ArrayList<HashMap<String, Object>> cart = (ArrayList<HashMap<String,Object>>)session.getAttribute("cart");
+			System.out.println("cart : "+cart);
+			if(cart == null) {
+				System.out.println("장바구니 null");
+				list = new ArrayList<HashMap<String, Object>>();
+			} else {
+				list = cart;
+			}
 			HashMap<String, Object> m = new HashMap<String, Object>();
 			m.put("goodsCode", request.getParameter("goodsCode"));
 			m.put("cartQuantity", request.getParameter("cartQuantity"));
 			m.put("filename", request.getParameter("filename"));
 			m.put("goodsPrice", request.getParameter("goodsPrice"));
 			list.add(m);
-			session.setAttribute("list", list);
+			session.setAttribute("cart", list);
 			response.sendRedirect(request.getContextPath()+"/GoodsList");
 			return;
 		}

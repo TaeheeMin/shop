@@ -18,6 +18,9 @@ public class GoodsListController extends HttpServlet {
 	private GoodsService goodsService;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		HttpSession session = request.getSession();
+		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
+		
 		// 1) 카테고리
 		String category = request.getParameter("category"); 
 		if(category == null) {

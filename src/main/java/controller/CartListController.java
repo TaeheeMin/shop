@@ -26,8 +26,8 @@ public class CartListController extends HttpServlet {
 			ArrayList<HashMap<String, Object>> list = cartService.getCartList(loginCustomer.getCustomerId());
 			request.setAttribute("list", list);
 		} else {
-			ArrayList<HashMap<String, Object>> clist = (ArrayList<HashMap<String, Object>>)request.getAttribute("clist");
-			request.setAttribute("list", clist);
+			ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>)session.getAttribute("cart");
+			request.getSession().setAttribute("list", list);
 		}
 		request.getRequestDispatcher("/WEB-INF/view/cart/cartList.jsp").forward(request, response);
 	}
