@@ -14,24 +14,14 @@
     <title>One Music - Modern Music HTML5 Template</title>
 
     <!-- Favicon -->
-    <link rel="icon" href="<%=request.getContextPath()%>/resourcesimg/core-img/favicon.ico">
+    <link rel="icon" href="<%=request.getContextPath()%>/resources/img/core-img/favicon.ico">
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resourcesstyle.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/style.css">
 
 </head>
 
 <body>
-    <!-- Preloader -->
-    <div class="preloader d-flex align-items-center justify-content-center">
-        <div class="lds-ellipsis">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </div>
-
     <!-- ##### Header Area Start ##### -->
     <header class="header-area">
         <!-- Navbar Area -->
