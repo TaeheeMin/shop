@@ -42,8 +42,8 @@ public class OrdersAddController extends HttpServlet {
 		int goodsCode = Integer.parseInt(request.getParameter("goodsCode"));
 		this.goodsService = new GoodsService();
 		int orderQuantity = Integer.parseInt(request.getParameter("cartQuantity"));
-		Goods goodsOne = goodsService.goodsOne(goodsCode);
-		request.setAttribute("goodsOne", goodsOne);
+		ArrayList<HashMap<String,Object>> goodsList = goodsService.getGoodsOne(goodsCode);
+		request.setAttribute("goodsList", goodsList);
 		request.setAttribute("orderQuantity", orderQuantity);
 		request.setAttribute("goodsTitle", goodsTitle);
 		int orderPrice = Integer.parseInt(request.getParameter("cartPrice"));
