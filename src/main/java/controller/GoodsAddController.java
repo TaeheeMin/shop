@@ -44,6 +44,7 @@ public class GoodsAddController extends HttpServlet {
 			// 값 받아오기
 			Goods goods = new Goods();
 			goods.setGoodsTitle(mreq.getParameter("goodsTitle"));
+			goods.setGoodsCategory(mreq.getParameter("goodsCategory"));
 			goods.setGoodsArtist(mreq.getParameter("goodsArtist"));
 			goods.setGoodsContent(mreq.getParameter("goodsContent"));
 			goods.setGoodsPrice(Integer.parseInt(mreq.getParameter("goodsPrice")));

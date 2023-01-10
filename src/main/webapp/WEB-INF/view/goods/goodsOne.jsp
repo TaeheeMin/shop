@@ -20,6 +20,10 @@
 					<td><c:out value="${goodsOne.goodsCode}"></c:out></td>
 				</tr>
 				<tr>
+					<th>CATEGORY</th>
+					<td><c:out value="${goodsOne.goodsCategory}"></c:out></td>
+				</tr>
+				<tr>
 					<th>TITLE</th>
 					<td><c:out value="${goodsOne.goodsTitle}"></c:out></td>
 				</tr>

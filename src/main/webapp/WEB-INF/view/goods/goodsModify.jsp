@@ -22,6 +22,20 @@
 						</td>
 					</tr>
 					<tr>
+						<th>CATEGORY</th>
+						<td>
+							<select name="goodsCategory">
+								<option value="발라드">발라드</option>
+								<option value="댄스/팝">댄스/팝</option>
+								<option value="랩/힙합">랩/힙합</option>
+								<option value="재즈">재즈</option>
+								<option value="해외팝">해외팝</option>
+								<option value="인디">인디</option>
+							</select>
+							<input type="text" name="" value="${list.goodsCategory}">
+						</td>
+					</tr>
+					<tr>
 						<th>TITLE</th>
 						<td>
 							<input type="text" name="goodsTitle" value="${list.goodsTitle}">

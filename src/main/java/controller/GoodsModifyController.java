@@ -44,6 +44,7 @@ public class GoodsModifyController extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		Goods goods = new Goods();
 		goods.setGoodsCode(Integer.parseInt(request.getParameter("goodsCode")));
+		goods.setGoodsCategory(request.getParameter("goodsCategory"));
 		goods.setGoodsTitle(request.getParameter("goodsTitle"));
 		goods.setGoodsArtist(request.getParameter("goodsArtist"));
 		goods.setGoodsContent(request.getParameter("goodsContent"));

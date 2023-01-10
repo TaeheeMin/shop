@@ -44,9 +44,13 @@
 			<select name="category" id="category">
 				<option value="gd.goods_title">앨범</option>
 				<option value="gd.goods_artist">가수</option>
+				<option value="gd.goods_category">장르</option>
 			</select>
 			<input type="search" placeholder="Search" name="word" id="search" value="${word}">
      		<button type="submit">검색</button>
+     		<c:if test="${word != ''}">
+     			${word} 검색 총 (구현중)건
+     		</c:if>
 		</form>
 		
 		<!-- #### list #### -->	

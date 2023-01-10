@@ -11,7 +11,8 @@ public class GoodsDao {
 	// 1) insert
 	public HashMap<String, Integer> insertGoods(Connection conn, Goods goods) throws Exception {
 		String sql = "INSERT INTO goods("
-				+ " goods_title"
+				+ " goods_category"
+				+ ", goods_title"
 				+ ", goods_artist"
 				+ ", goods_content"
 				+ ", goods_price"
@@ -20,13 +21,14 @@ public class GoodsDao {
 				+ ", hit"
 				+ ", view" 
 				+ ", createdate"
-				+ ") VALUES (?, ?, ?, ?, 'N', ?, 0, 0, NOW())";
+				+ ") VALUES (?, ?, ?, ?, ?, 'N', ?, 0, 0, NOW())";
 		PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-		stmt.setString(1, goods.getGoodsTitle());
-		stmt.setString(2, goods.getGoodsArtist());
-		stmt.setString(3, goods.getGoodsContent());
-		stmt.setInt(4, goods.getGoodsPrice());
-		stmt.setString(5, goods.getEmpId());
+		stmt.setString(1, goods.getGoodsCategory());
+		stmt.setString(2, goods.getGoodsTitle());
+		stmt.setString(3, goods.getGoodsArtist());
+		stmt.setString(4, goods.getGoodsContent());
+		stmt.setInt(5, goods.getGoodsPrice());
+		stmt.setString(6, goods.getEmpId());
 		int row = stmt.executeUpdate();
 		
 		ResultSet rs = stmt.getGeneratedKeys();
@@ -58,6 +60,7 @@ public class GoodsDao {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		String sql = "SELECT"
 				+ " gd.goods_code goodsCode"
+				+ ", gd.goods_category goodsCategory"
 				+ ", gd.goods_title goodsTitle"
 				+ ", gd.goods_artist goodsArtist"
 				+ ", gd.goods_price goodsPrice"
@@ -76,6 +79,7 @@ public class GoodsDao {
 		while(rs.next()) {
 			HashMap<String, Object> m = new HashMap<String, Object>();
 			m.put("goodsCode", rs.getInt("goodsCode"));
+			m.put("goodsCategory", rs.getString("goodsCategory"));
 			m.put("goodsTitle", rs.getString("goodsTitle"));
 			m.put("goodsArtist",  rs.getString("goodsArtist"));
 			m.put("goodsPrice",  rs.getInt("goodsPrice"));
@@ -93,6 +97,7 @@ public class GoodsDao {
 		// System.out.println(goodsCode);
 		String sql = "SELECT"
 				+ " g.goods_code goodsCode"
+				+ ", g.goods_category goodsCategory"
 				+ ", g.goods_title goodsTitle"
 				+ ", g.goods_artist goodsArtist"
 				+ ", g.goods_content goodsContent"
@@ -109,6 +114,7 @@ public class GoodsDao {
 		while(rs.next()) {
 			HashMap<String, Object> m = new HashMap<String, Object>();
 			m.put("goodsCode", rs.getString("goodsCode"));
+			m.put("goodsCategory", rs.getString("goodsCategory"));
 			m.put("goodsTitle", rs.getString("goodsTitle"));
 			m.put("filename", rs.getString("filename"));
 			m.put("goodsArtist",  rs.getString("goodsArtist"));
@@ -158,6 +164,7 @@ public class GoodsDao {
 		int row = 0;
 		String sql = "UPDATE goods SET"
 				+ " goods_title = ?"
+				+ ", goods_category = ?"
 				+ ", goods_artist = ?"
 				+ ", goods_content = ?"
 				+ ", goods_price = ?"
@@ -166,12 +173,13 @@ public class GoodsDao {
 				+ " WHERE goods_code = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, goods.getGoodsTitle());
-		stmt.setString(2, goods.getGoodsArtist());
-		stmt.setString(3, goods.getGoodsContent());
-		stmt.setInt(4, goods.getGoodsPrice());
-		stmt.setString(5, goods.getSoldout());
-		stmt.setInt(6, goods.getHit());
-		stmt.setInt(7, goods.getGoodsCode());
+		stmt.setString(2, goods.getGoodsCategory());
+		stmt.setString(3, goods.getGoodsArtist());
+		stmt.setString(4, goods.getGoodsContent());
+		stmt.setInt(5, goods.getGoodsPrice());
+		stmt.setString(6, goods.getSoldout());
+		stmt.setInt(7, goods.getHit());
+		stmt.setInt(8, goods.getGoodsCode());
 		row = stmt.executeUpdate();
 		return row;
 	}

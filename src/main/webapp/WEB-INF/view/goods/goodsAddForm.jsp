@@ -10,6 +10,15 @@
 		<a href="${pageContext.request.contextPath}/Home">홈으로</a>
 		<a href="${pageContext.request.contextPath}/GoodsList">상품목록</a>
 		<form enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/GoodsAdd">
+			장르 : 
+			<select name="goodsCategory">
+				<option value="발라드">발라드</option>
+				<option value="댄스/팝">댄스/팝</option>
+				<option value="랩/힙합">랩/힙합</option>
+				<option value="재즈">재즈</option>
+				<option value="해외팝">해외팝</option>
+				<option value="인디">인디</option>
+			</select>
 			상품 이름 : <input type="text" name="goodsTitle">
 			상품 가수 : <input type="text" name="goodsArtist">
 			상품 설명 : <input type="text" name="goodsContent">

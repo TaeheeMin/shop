@@ -2,6 +2,7 @@ package vo;
 
 public class Goods {
 	private int goodsCode;
+	private String goodsCategory;
 	private String goodsTitle;
 	private String goodsArtist;
 	private String goodsContent;
@@ -71,4 +72,11 @@ public class Goods {
 	public void setCreatedate(String createdate) {
 		this.createdate = createdate;
 	}
+	public String getGoodsCategory() {
+		return goodsCategory;
+	}
+	public void setGoodsCategory(String goodsCategory) {
+		this.goodsCategory = goodsCategory;
+	}
+	
 }
