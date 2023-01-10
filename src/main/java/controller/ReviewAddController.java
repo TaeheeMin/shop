@@ -22,7 +22,7 @@ public class ReviewAddController extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		request.setCharacterEncoding("utf-8");
+		
 		// 값 받아오기
 		Review review = new Review();
 		int orderCode = Integer.parseInt(request.getParameter("orderCode"));

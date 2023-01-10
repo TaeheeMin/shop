@@ -12,13 +12,6 @@
                $('#orderForm').submit();
             })
          });
-	//관리자용
-		$(document).ready(function() {
-			$('#orderState').change(function() {
-               $('#orderFormByAdmin').submit();
-            })
-         });		
-	
     </script>
     
 <title>Insert title here</title>
@@ -49,67 +42,7 @@
 		     			<td>${od.orderCode}</td>
 		     			<td>${od.orderQuantity}</td>
 		     			<td>${od.orderPrice}</td>
-		     			<td>${od.orderState}
-		     			<form id="orderForm" method="post" action="${pageContext.request.contextPath}/orders/ordersModify">
-		     			<input type="hidden" name="orderCode" value="${od.orderCode}">
-		     			<input type="hidden" name="customerId" value="${od.customerId}">						
-						<c:if test="${od.customerId eq loginCustomer.customerId}">
-						<select name="orderState" id="orderState">
-						<!-- 구매자만 볼수있게 -->
-							<c:if test="${od.orderState eq '결제'}">
-								<option value="결제" selected="selected">결제</option>
-								<option value="취소">취소</option>
-								<option value="구매확정">구매확정</option>
-							</c:if>					
-							<c:if test="${od.orderState eq '취소'}">
-								<option value="결제">결제</option>
-								<option value="취소" selected="selected" >취소</option>
-								<option value="구매확정">구매확정</option>
-							</c:if>
-							<c:if test="${od.orderState eq '구매확정'}">
-							<option value="결제">결제</option>
-								<option value="취소">취소</option>
-								<option value="구매확정" selected="selected">구매확정</option>
-							</c:if>
-						</select>
-						</c:if>
-						</form>
-							
-						<!-- 관리자용 -->
-						<form id="orderFormByAdmin" method="post" action="${pageContext.request.contextPath}/orders/ordersModifyByAdmin">
-		     			
-		     			<input type="hidden" name="orderCode" value="${od.orderCode}">
-		     			<input type="hidden" name="customerId" value="${od.customerId}">
-		     			<c:if test="${loginEmp.auth_code} > 1">
-		     			<select name="orderState" id="orderState">			
-							<c:if test="${od.orderState eq '결제'}">
-								<option value="결제" selected="selected">결제</option>
-								<option value="취소">취소</option>
-								<option value="배송중">배송중</option>
-								<option value="배송완료">배송완료</option>								
-							</c:if>
-							<c:if test="${od.orderState eq '취소'}">
-								<option value="결제">결제</option>
-								<option value="취소" selected="selected" >취소</option>
-								<option value="배송중">배송중</option>
-								<option value="배송완료">배송완료</option>								
-							</c:if>		
-							<c:if test="${od.orderState eq '배송중'}">
-								<option value="결제">결제</option>
-								<option value="취소">취소</option>
-								<option value="배송중" selected="selected">배송중</option>
-								<option value="배송완료">배송완료</option>							
-							</c:if>
-							<c:if test="${od.orderState eq '배송완료'}">
-								<option value="결제">결제</option>
-								<option value="취소">취소</option>
-								<option value="배송중">배송중</option>
-								<option value="배송완료" selected="selected">배송완료</option>								
-							</c:if>
-						</select>
-						</c:if>
-					</form>
-		     			</td>
+		     			<td>${od.orderState}</td>
 		     			<td>${od.createdate}</td>
 		     			<td>${od.goodsTitle}</td>
 		     			<td>${od.goodsPrice}</td>
@@ -119,12 +52,13 @@
 						<td>
 							<img src="${pageContext.request.contextPath}/goodsimg/${od.filename}" width="200" height="200">
 						</td>
-						<td>
 						
+						<td>
+							<c:if test="${od.orderState eq '구매확정'}">						
 							<a href="${pageContext.request.contextPath}/review/reviewAdd?orderCode=${od.orderCode}">
 							리뷰작성하기
 							</a>
-							
+							</c:if>
 						</td>
 						<td>
 							<!-- 로그인 세션적용되면 커스터머아이디받아야 삭제가능 -->

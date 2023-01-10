@@ -25,7 +25,7 @@ public class OrdersModifyByAdminController extends HttpServlet {
 		Orders orders = new Orders();
 		orders.setOrderCode(Integer.parseInt(request.getParameter("orderCode")));
 		orders.setOrderState(request.getParameter("orderState"));
-		orders.setCustomerId(request.getParameter("customerId"));
+	
 		
 		int row = 0;
 		OrdersService ordersService = new OrdersService();
@@ -33,7 +33,7 @@ public class OrdersModifyByAdminController extends HttpServlet {
 	
 		if(row == 1) {			
 			System.out.println("수정성공");
-			response.sendRedirect(request.getContextPath()+"/orders/ordersList"); 
+			response.sendRedirect(request.getContextPath()+"/orders/ordersListByAdmin"); 
 		} else { 
 			System.out.println("수정실패");
 			response.sendRedirect(request.getContextPath()+"/orders/ordersModify="+orders.getOrderCode());

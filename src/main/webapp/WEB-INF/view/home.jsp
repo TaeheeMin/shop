@@ -54,7 +54,7 @@
 			<a href="${pageContext.request.contextPath}/orders/ordersList">주문(고객용)</a>
 			<a href="${pageContext.request.contextPath}/orders/ordersListByAdmin">주문(관리자용)</a>
 			<a href="${pageContext.request.contextPath}/review/reviewList">리뷰</a>
-			<a href="${pageContext.request.contextPath}/">포인트(구현중)</a>
+			<a href="${pageContext.request.contextPath}/point/pintOne">포인트(구현중)</a>
 		</div>
 		<hr>
 	</body>

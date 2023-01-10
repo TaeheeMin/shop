@@ -20,7 +20,7 @@ public class OrdersDao {
 				+ "	, gi.filename filename"
 				+ "	, o.createdate createdate"
 				+ "	, o.order_state orderState"
-				+ "	, o.order_price orderPrice"
+				+ "	, o.order_price orderPrice"								
 				+ "	FROM orders o INNER JOIN goods g ON o.goods_code = g.goods_code"
 				+ "	INNER JOIN goods_img gi ON g.goods_code = gi.goods_code";
 	              
@@ -33,7 +33,7 @@ public class OrdersDao {
 	         m.put("filename", rs.getString("filename"));
 	         m.put("createdate", rs.getString("createdate"));
 	         m.put("orderState", rs.getString("orderState"));
-	         m.put("orderPrice", rs.getString("orderPrice"));
+	         m.put("orderPrice", rs.getString("orderPrice"));	         
 	         list.add(m);
 	      }			
 		return list;
@@ -140,11 +140,10 @@ public class OrdersDao {
 	   // 주문상태 수정 (고객용)
 	   public int modifyOrders(Connection conn, Orders orders)throws Exception {
 		   int row = 0;
-		   String sql = "update orders SET order_state =? WHERE customer_id = ? AND order_code=?";     
+		   String sql = "update orders SET order_state =? WHERE order_code=?";     
 		      PreparedStatement stmt = conn.prepareStatement(sql);
 		      stmt.setString(1, orders.getOrderState());
-		      stmt.setString(2, orders.getCustomerId());
-		      stmt.setInt(3, orders.getOrderCode());
+		      stmt.setInt(2, orders.getOrderCode());
 		      row = stmt.executeUpdate();
 		      return row;
 	   } 

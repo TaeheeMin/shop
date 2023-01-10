@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,13 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>	
-		<!-- test -->
-		<h1>포인트등록</h1>	
-		<form method="post" action="${pageContext.request.contextPath}/point/pointAdd">
-			<div> 
-				주문번호 : <input type="text" name="orderCode">
-			</div>				
-			<button type="submit">등록</button>
-		</form>	
+		<h1>현재포인트</h1>	
+		<div>
+		<c:forEach var="p" items="${list}">
+		${p.importPoint-p.exportPoint} 점
+		</c:forEach>
+		</div>
 </body>
 </html>
