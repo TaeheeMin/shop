@@ -116,4 +116,31 @@ public class CartService {
 		}
 		return row;
 	}
+	
+	//4-2) 주문시 카트 비우기
+	public int clearCart(String customerId) {
+		Connection conn = null;
+		CartDao cartDao = new CartDao();
+		int row = 0;
+		try {
+			conn = DBUtil.getConnection();
+			row = cartDao.clearCart(conn, customerId);
+			conn.commit();
+			
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return row;
+	}
 }

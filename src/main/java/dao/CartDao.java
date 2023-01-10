@@ -77,4 +77,14 @@ public class CartDao {
 		row = stmt.executeUpdate();
 		return row;
 	}
+	
+	// 4-2) 주문시 cart delete
+	public int clearCart(Connection conn, String customerId) throws Exception {
+		int row = 0;
+		String sql = "DELETE FROM cart WHERE customer_id = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customerId);
+		row = stmt.executeUpdate();
+		return row;
+	}
 }
