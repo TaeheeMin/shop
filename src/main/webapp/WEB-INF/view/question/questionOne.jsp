@@ -26,8 +26,12 @@
 						</td>
 					</tr>
 					<tr>
-						<th>주문번호</th>
-						<td><c:out value="${list.odersCode}"></c:out></td>
+						<th>주문상품</th>
+						<td>
+							<img src="${pageContext.request.contextPath}/goodsimg/${list.filename}" width="100" height="100">
+							<br>
+							<c:out value="${list.goodsTitle}"></c:out>
+						</td>
 					</tr>
 					<tr>
 						<th>카테고리</th>
@@ -49,9 +53,10 @@
 			</table>
 			
 			<c:if test="${loginEmp != null}">
-			<h3>답변 등록</h3>
-			<textarea rows="5" cols="30" name="commentMemo"></textarea>
+				<h3>답변 등록</h3>
+				<textarea rows="5" cols="30" name="commentMemo"></textarea>
 			</c:if>
+			<button type="submit">등록</button>
 		</form>
 		<h3>답변보기</h3>
 		<c:forEach var="comment" items="${comment}">

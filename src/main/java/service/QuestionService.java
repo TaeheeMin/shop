@@ -70,8 +70,8 @@ public class QuestionService {
 	}
 	
 	// 2-2) 회원용
-	public ArrayList<Question> getQuestionListbyCustomer(String customerId) {
-		ArrayList<Question> list = new ArrayList<Question>();
+	public ArrayList<HashMap<String, Object>> getQuestionListbyCustomer(String customerId) {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();

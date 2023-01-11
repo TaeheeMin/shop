@@ -67,32 +67,37 @@ public class QuestionDao {
 	}
 	
 	// 2-2) 회원 list
-	public ArrayList<Question> selectQuestionBycustomer(Connection conn, String customerId) throws Exception {
-		ArrayList<Question> list = new ArrayList<Question>();
+	public ArrayList<HashMap<String, Object>> selectQuestionBycustomer(Connection conn, String customerId) throws Exception {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		String sql = "SELECT"
-				+ " question_code questionCode"
+				+ " q.question_code questionCode"
 				+ ", q.orders_code ordersCode"
+				+ ", g.goods_title goodsTitle"
+				+ ", img.filename filename"
 				+ ", q.category category"
 				+ ", q.question_title questionTitle"
 				+ ", q.createdate createdate"
-				+ ", g.goods_title goodsTitle"
 				+ " FROM question q INNER JOIN orders o"
 				+ " ON q.orders_code = o.order_code"
 				+ " INNER JOIN goods g"
-				+ " ON o.goods_code = g.goods_code"
+				+ " ON o.goods_code = g.goods_cod"
+				+ "e INNER JOIN goods_img img"
+				+ " ON g.goods_code = img.goods_code"
 				+ " WHERE o.customer_id = ?"
-				+ " ORDER BY q.createdate DESC";
+				+ " ORDER BY q.question_code DESC";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, customerId);
 		ResultSet rs = stmt.executeQuery();
 		while(rs.next()) {
-			Question question = new Question();
-			question.setQuestionCode(rs.getInt("questionCode"));
-			question.setOrdersCode(rs.getInt("ordersCode"));
-			question.setCategory(rs.getString("category"));
-			question.setQuestionTitle(rs.getString("questionTitle"));
-			question.setCreatedate(rs.getString("createdate"));
-			list.add(question);
+			HashMap<String, Object> m = new HashMap<String, Object>();
+			m.put("questionCode", rs.getInt("questionCode"));
+			m.put("ordersCode", rs.getInt("ordersCode"));
+			m.put("goodsTitle", rs.getString("goodsTitle"));
+			m.put("filename", rs.getString("filename"));
+			m.put("category", rs.getString("category"));
+			m.put("questionTitle", rs.getString("questionTitle"));
+			m.put("createdate", rs.getString("createdate"));
+			list.add(m);
 		}
 		return list;
 	}
@@ -123,6 +128,7 @@ public class QuestionDao {
 			HashMap<String, Object> m = new HashMap<String, Object>();
 			m.put("questionCode", rs.getInt("questionCode"));
 			m.put("odersCode", rs.getString("odersCode"));
+			m.put("goodsTitle", rs.getString("goodsTitle"));
 			m.put("category", rs.getString("category"));
 			m.put("questionTitle", rs.getString("questionTitle"));
 			m.put("qusetionMemo", rs.getString("qusetionMemo"));

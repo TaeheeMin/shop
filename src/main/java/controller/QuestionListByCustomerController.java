@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,7 +30,7 @@ public class QuestionListByCustomerController extends HttpServlet {
 		
 		String customerId = loginCustomer.getCustomerId();
 		this.questionService = new QuestionService();
-		ArrayList<Question> list = new ArrayList<Question>();
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		list = questionService.getQuestionListbyCustomer(customerId);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/WEB-INF/view/question/questionListByCustomer.jsp").forward(request, response);
