@@ -83,7 +83,7 @@
 			<c:set var= "total" value="${total + result.goodsPrice*result.cartQuantity}"/>
 			</c:forEach>
 			
-			<input type="checkbox" id="point"> 포인트 사용
+			<input type="checkbox" id="point" name="pointCk" value=""> 포인트 사용
 			<input type="text" id="totalPrice" value="${total}">
 			
 			<c:out value="${total}"/>
