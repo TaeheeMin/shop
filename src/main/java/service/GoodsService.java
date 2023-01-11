@@ -156,6 +156,33 @@ public class GoodsService {
 		}
 		return goodsOne;
 	}
+	
+	// 2-5) goods one review
+	public ArrayList<HashMap<String, Object>> getGoodsReview(int goodsCode) {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			this.goodsDao = new GoodsDao();
+			list = goodsDao.goodsReview(conn, goodsCode);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
 
 	// 3) modify goods
 	public int modifyGoods(Goods goods) {

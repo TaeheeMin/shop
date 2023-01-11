@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import service.GoodsService;
+import vo.Review;
 
 
 @WebServlet("/GoodsOne")
@@ -22,9 +23,11 @@ public class GoodsOneController extends HttpServlet {
 		int goodsCode = Integer.parseInt(request.getParameter("goodsCode"));
 		this.goodsService = new GoodsService();
 		ArrayList<HashMap<String, Object>> goodsOne = goodsService.getGoodsOne(goodsCode);
+		ArrayList<HashMap<String, Object>> review = goodsService.getGoodsReview(goodsCode);
 		
-		// view와 공유할 모델 데이터 성정
+		// 상품 상세보기
 		request.setAttribute("goodsOne", goodsOne);
+		request.setAttribute("review", review);
 		request.getRequestDispatcher("/WEB-INF/view/goods/goodsOne.jsp").forward(request, response);
 	}
 

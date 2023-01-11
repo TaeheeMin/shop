@@ -12,6 +12,7 @@
 		<a href="${pageContext.request.contextPath}/Home">홈으로</a>
 		<a href="${pageContext.request.contextPath}/GoodsList">상품목록</a>
 		<a href="${pageContext.request.contextPath}/CartList">장바구니</a>
+		
 		<!-- #### list #### -->
 		<table border="1">
 			<c:forEach var="goodsOne" items="${goodsOne}">
@@ -58,5 +59,25 @@
 				</tr>
 			</c:forEach>
 		</table>
+		
+		<!-- #### review #### -->
+		<h3>리뷰</h3>
+		<table border="1">
+			<c:forEach var="review" items="${review}">
+				<tr>
+					<th>CUSTOMERID</th>
+					<td><c:out value="${review.customerId}"></c:out></td>
+				</tr>
+				<tr>
+					<th>REVIEW</th>
+					<td><c:out value="${review.reviewMemo}"></c:out></td>
+				</tr>
+				<tr>
+					<th>CREATEDATE</th>
+					<td><c:out value="${review.createdate}"></c:out></td>
+				</tr>
+			</c:forEach>
+		</table>
+		
 	</body>
 </html>

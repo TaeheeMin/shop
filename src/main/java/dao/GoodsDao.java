@@ -148,6 +148,32 @@ public class GoodsDao {
 		return goodsOne;
 	}
 	
+	// 2-5) goods one review
+	public ArrayList<HashMap<String, Object>> goodsReview(Connection conn, int goodsCode) throws Exception {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		String sql = "SELECT"
+				+ " r.review_memo reviewMemo"
+				+ ", r.createdate createdate"
+				+ ", o.customer_id customerId"
+				+ " FROM goods g INNER JOIN orders o"
+				+ " ON g.goods_code = o.goods_code"
+				+ " INNER JOIN review r"
+				+ " ON o.order_code = r.order_code"
+				+ " WHERE g.goods_code = ?"
+				+ " ORDER BY r.createdate DESC";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, goodsCode);
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next()) {
+			HashMap<String, Object> m = new HashMap<String, Object>();
+			m.put("reviewMemo", rs.getString("reviewMemo"));
+			m.put("createdate", rs.getString("createdate"));
+			m.put("customerId", rs.getString("customerId"));
+			list.add(m);
+		}
+		return list;
+	}
+	
 	// 3) update
 	// 3-1) view update
 	public int updateGoodsView(Connection conn, int goodsCode) throws Exception {
