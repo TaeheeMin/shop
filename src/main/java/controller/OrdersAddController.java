@@ -124,16 +124,22 @@ public class OrdersAddController extends HttpServlet {
 		
 		int row = 0;
 		OrdersService ordersService = new OrdersService();
-		row = ordersService.AddOrder(orders, cartList, customerId, loginCustomer);
 		
-		int customerPoint = pointHistoryService.remainCustomerPoint(loginCustomer);
-		System.out.println("잔여 포인트 : "+customerPoint);
+		// 체크값이 null이면 포인트 사용안함
+		// System.out.println("포인트 체크: " + request.getParameter("pointCk"));
+		if(request.getParameter("pointCk") != null) {
+			row = ordersService.AddOrderPoint(orders, cartList, customerId);
+		} else {
+			row = ordersService.addOrder(orders, cartList, customerId);
+			int customerPoint = pointHistoryService.remainCustomerPoint(loginCustomer);
+			loginCustomer.setPoint(customerPoint);
+			System.out.println("잔여 포인트 : " + customerPoint);
+		}
 		
 		// 결과
 		if(row == 1) {
 			// 리스트로 이동
 			System.out.println("성공");
-			loginCustomer.setPoint(customerPoint);
 			response.sendRedirect(request.getContextPath()+"/orders/ordersComplete"); 
 		} else {
 			// 폼이동

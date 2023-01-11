@@ -56,6 +56,7 @@ public class GoodsListController extends HttpServlet {
 		// System.out.println("count : " + count);
 		int page = 5; // 페이징 목록 개수
 		int beginPage = ((currentPage - 1)/page) * page + 1; // 시작 페이지
+
 		System.out.println("beginPage : "+beginPage);
 		// System.out.println("beginPage : " + beginPage);
 		int endPage = beginPage + page - 1; // 페이징 목록 끝
