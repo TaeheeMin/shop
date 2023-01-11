@@ -47,6 +47,7 @@ public class EmpDao {
 		if(rs.next()) {
 			loginEmp = new Emp();
 			loginEmp.setEmpId(rs.getString("emp_id"));
+			loginEmp.setActive(rs.getString("active"));
 			loginEmp.setAuthCode(rs.getInt("auth_code"));
 
 		}
@@ -56,14 +57,14 @@ public class EmpDao {
 	
 	// 3) 직원목록(검색기능추가된) - 매니저만 조회 가능
 	// 3-1) 직원목록 - 매니저만 조회 가능
-	public ArrayList<HashMap<String,Object>> allEmpList(Connection conn, int beginRow, int rowPerPage) throws Exception {
+	public ArrayList<HashMap<String,Object>> allEmpList(Connection conn, int beginRow, int rowPerPage, String col, String sort) throws Exception {
 		ArrayList<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
 		
 		String sql = "SELECT"
 					+ " e.emp_id empId, e.emp_name empName, e.active active, e.createdate createdate, a.auth_memo authMemo"
 					+ " FROM emp e"
 					+ " INNER JOIN auth_info a ON e.auth_code = a.auth_code"
-					+ " ORDER BY e.createdate DESC"
+					+ " ORDER BY "+col+" "+sort
 					+ " LIMIT ?, ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, beginRow);
@@ -118,19 +119,16 @@ public class EmpDao {
 		return fireEmp;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	// 6) 직원 총원
+	public int ttlCntEmp(Connection conn) throws Exception {
+		int ttlCntEmp = 0;
+		
+		String sql = "SELECT COUNT(*) FROM emp";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			ttlCntEmp = rs.getInt("COUNT(*)");
+		}
+		return ttlCntEmp;
+	}		
 }

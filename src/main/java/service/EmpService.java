@@ -66,13 +66,13 @@ public class EmpService {
 	
 	// 3) 직원목록(검색기능 추가)
 	// 3) 직원목록
-	public ArrayList<HashMap<String,Object>> allEmpList(int beginRow, int rowPerPage) {
+	public ArrayList<HashMap<String,Object>> allEmpList(int beginRow, int rowPerPage, String col, String sort) {
 		ArrayList<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
 		Connection conn = null;
 		this.empDao = new EmpDao();
 		try {
 			conn = DBUtil.getConnection();
-			list = empDao.allEmpList(conn, beginRow, rowPerPage);
+			list = empDao.allEmpList(conn, beginRow, rowPerPage, col, sort);
 			conn.commit();
 		} catch (Exception e) {
 			try {
@@ -144,4 +144,30 @@ public class EmpService {
 	}
 	
 	// 4-3) 직원 해고(삭제)
+	
+	// 5) 직원 총원
+	public int ttlCntEmp() {
+		int ttlCntEmp = 0;
+		Connection conn = null;
+		this.empDao = new EmpDao();
+		try {
+			conn = DBUtil.getConnection();
+			ttlCntEmp = empDao.ttlCntEmp(conn);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}	
+		return ttlCntEmp;
+	}
 }

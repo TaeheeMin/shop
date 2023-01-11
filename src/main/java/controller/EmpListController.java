@@ -31,25 +31,58 @@ public class EmpListController extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/Home");
 			return;
 		}
+		this.empService = new EmpService();
 		
 		// 페이징 작업
-		int currentPage = 1;
+		int currentPage = 1; // 현재페이지 초기값 
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		System.out.println("currentPage: "+currentPage);
-		int rowPerPage = 10; // 페이지 당 출력할 사원 수
+		int rowPerPage = 1; // 페이지 당 출력할 사원 수
+		int pageCnt = 10; // 한번에 보일 페이지 갯수
 		if(request.getParameter("rowPerPage") != null) {
 			rowPerPage = Integer.parseInt(request.getParameter("rowPerPage"));
 		}
 		int beginRow = (currentPage-1) * rowPerPage;
+		int beginPage = ((currentPage-1)/pageCnt)*pageCnt + 1; // 페이지 목록 시작 값
+		System.out.println("beginPage : "+beginPage);
+		int endPage = beginPage + pageCnt - 1;
+		System.out.println("endPage : "+endPage);
+		int ttlEmp = empService.ttlCntEmp();
+		System.out.println("직원 총원 : "+ttlEmp);
+		int lastPage = ttlEmp / rowPerPage;
+		if(ttlEmp % rowPerPage != 0) {
+			lastPage++;
+		}
+		if(lastPage < 10) {
+			pageCnt = lastPage;
+		}
 		
+		// 내림차순 오름차순 초기값
+		String col = "e.createdate";
+		String sort = "desc";
+		if(request.getParameter("col") != null) {
+			col = request.getParameter("col");
+		}
+		if(request.getParameter("sort") != null) {
+			sort = request.getParameter("sort");
+		}
+		String paramSort = "asc";
+		if(sort.equals("asc")) {
+			paramSort = "desc";
+		}
 		
-		// 현
-		this.empService = new EmpService();
-		ArrayList<HashMap<String,Object>> list = empService.allEmpList(beginRow, rowPerPage);
+		// 목록불러오기 service
+		
+		ArrayList<HashMap<String,Object>> list = empService.allEmpList(beginRow, rowPerPage, col, sort);
 				
+		request.setAttribute("paramSort", paramSort);
 		request.setAttribute("list", list);
+		request.setAttribute("currentPage", currentPage);
+		request.setAttribute("pageCnt", pageCnt);
+		request.setAttribute("endPage", endPage);
+		request.setAttribute("lastPage", lastPage);
 		request.getRequestDispatcher("/WEB-INF/view/emp/empList.jsp").forward(request, response);		
 	}
 }

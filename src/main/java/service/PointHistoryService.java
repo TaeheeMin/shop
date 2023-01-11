@@ -52,7 +52,6 @@ public class PointHistoryService {
 			map = pointHistoryDao.selectPoint(conn, loginCustomer);
 			point = (int)(map.get("importPoint"))-(int)(map.get("exportPoint"))+100;
 			row = pointHistoryDao.modifyCustomerPoint(conn, loginCustomer, point);
-			// list = pointHistoryDao.selectPoint(conn, loginCustomer);
 			conn.commit();
 		} catch (Exception e) {
 			try {
@@ -70,6 +69,37 @@ public class PointHistoryService {
 			}
 		}
 		return row;
+	}
+	
+	// 2-1) customer 잔여포인트 불러오기
+	public int remainCustomerPoint(Customer loginCustomer) {
+		int row = 0;
+		Connection conn = null;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int point = 0;
+		try {
+			conn = DBUtil.getConnection();
+			pointHistoryDao = new PointHistoryDao();
+			map = pointHistoryDao.selectPoint(conn, loginCustomer);
+			point = (int)(map.get("importPoint"))-(int)(map.get("exportPoint"))+100;
+			row = pointHistoryDao.modifyCustomerPoint(conn, loginCustomer, point);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return point;
 	}
 	
 	// 3) 포인트 사용

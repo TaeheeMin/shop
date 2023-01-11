@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import service.CustomerAddressService;
 import service.GoodsService;
 import service.OrdersService;
+import service.PointHistoryService;
 import vo.Cart;
 import vo.Customer;
 import vo.CustomerAddress;
@@ -27,6 +28,7 @@ public class OrdersAddController extends HttpServlet {
 	private CustomerAddressService customerAddressService;
 	private GoodsService goodsService;
 	private CartService cartService;
+	private PointHistoryService pointHistoryService;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 로그인세션 불러오기
@@ -75,6 +77,12 @@ public class OrdersAddController extends HttpServlet {
 			}
 		}
 		*/
+		// 회원 포인트 불러오기
+		this.pointHistoryService = new PointHistoryService();
+		int customerPoint = pointHistoryService.modifyCustomerPoint(loginCustomer);
+		if(customerPoint == 1) {
+			System.out.println("고객 잔여 포인트 로딩");
+		}
 		
 		// 회원주소목록 불러오기
 		CustomerAddress cusAddress = new CustomerAddress();
@@ -116,11 +124,16 @@ public class OrdersAddController extends HttpServlet {
 		
 		int row = 0;
 		OrdersService ordersService = new OrdersService();
-		row = ordersService.AddOrder(orders, cartList, customerId);
+		row = ordersService.AddOrder(orders, cartList, customerId, loginCustomer);
+		
+		int customerPoint = pointHistoryService.remainCustomerPoint(loginCustomer);
+		System.out.println("잔여 포인트 : "+customerPoint);
+		
 		// 결과
 		if(row == 1) {
 			// 리스트로 이동
 			System.out.println("성공");
+			loginCustomer.setPoint(customerPoint);
 			response.sendRedirect(request.getContextPath()+"/orders/ordersComplete"); 
 		} else {
 			// 폼이동

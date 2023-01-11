@@ -21,28 +21,38 @@
 </script>
 <body>
 	<h1>사원목록</h1>
-	
+	<div><a href="${pageContext.request.contextPath}/Home">홈</a></div>
 	<!-- 검색기능 추가예정 -->
 	<div>
 	사원검색 : 
 		<input type="text" placeholder="사원이름을 입력하세요">
-	</div>
-	
-	<!-- 이름별, 직위별, 활성화별, 입사날짜별, 내림차순 오름차순 정렬기능 추가예정 -->
+	</div>	
 	
 	<!-- n명씩보기 (10,20,30) rowPerPage 넘겨주기 추가예정 -->
-	
-	<!-- authCodeSelect에서 =선택= (value="") 선택시, 반환하는 방법 -->
 	
 	<table border="1">
 		<thead>
 			<tr>
-				<th>이름</th>
-				<th>ID</th>
-				<th>직위</th>
-				<th>직위변경</th>
-				<th>재직현황</th>
-				<th>입사날짜</th>
+				<th>
+					<a href="${pageContext.request.contextPath}/EmpList?col=e.emp_name&sort=${paramSort}">이름</a>
+				</th>
+				<th>
+					<a href="${pageContext.request.contextPath}/EmpList?col=e.emp_id&sort=${paramSort}">ID</a>
+				</th>
+				<th>
+					<a href="${pageContext.request.contextPath}/EmpList?col=a.auth_memo&sort=${paramSort}">직위</a>
+				</th>
+				<th>
+					<a href="${pageContext.request.contextPath}/EmpList?col=e.active&sort=${paramSort}">재직현황</a>
+				</th>
+				<th>
+					<a href="${pageContext.request.contextPath}/EmpList?col=e.createdate&sort=${paramSort}">입사날짜</a>
+				</th>
+				<!-- 직원 직위 및 재직상태 변경 (매니저 직위만 가능) -->
+				<c:if test="${loginEmp.authCode == 99}">
+					<th>직위변경</th>
+					<th>재직상태변경</th>
+				</c:if>
 			</tr>
 		</thead>
 		<tbody>
@@ -52,23 +62,36 @@
 						<td>${e.empName}</td>
 						<td>${e.empId}</td>
 						<td>${e.authMemo}</td>
-						<td>
-							<form id="authCodeForm" action="${pageContext.request.contextPath}/EmpAuthCode" method="post">
-								<select name="authCode" id="authCode">
-									<option value="">=선택=</option>
-									<option value="0">인턴</option>
-									<option value="1">사원</option>
-									<option value="99">매니저</option>
-								</select>
-								<input type="hidden" name="empId" value="${e.empId}">
-								<button type="button" id="authCodeBtn">변경</button>
-							</form>
-						</td>
-						<td>
-							${e.active}
+						<td>${e.active}</td>
+						<td>${e.createdate}</td>
+						<!-- 직원 직위 및 재직상태 변경 (매니저 직위만 가능) -->
+						<c:if test="${loginEmp.authCode == 99}">
+							<td>
+								<form id="authCodeForm" action="${pageContext.request.contextPath}/EmpAuthCode" method="post">
+									<select name="authCode" id="authCode">
+										<c:if test="${e.authMemo eq '인턴'}">
+											<option value="0" selected="selected">인턴</option>
+											<option value="1">사원</option>
+											<option value="99">매니저</option>
+										</c:if>
+										<c:if test="${e.authMemo eq '사원'}">
+											<option value="0">인턴</option>
+											<option value="1" selected="selected">사원</option>
+											<option value="99">매니저</option>
+										</c:if>
+										<c:if test="${e.authMemo eq '매니저'}">
+											<option value="0">인턴</option>
+											<option value="1">사원</option>
+											<option value="99" selected="selected">매니저</option>
+										</c:if>
+									</select>
+									<input type="hidden" name="empId" value="${e.empId}">
+									<button type="submit" id="authCodeBtn">변경</button>
+								</form>
+							</td>
+							<td>
 							<form action="${pageContext.request.contextPath}/EmpActive" method="post">
 								<input type="hidden" name="empId" value="${e.empId}">
-								<!-- 비활성화일경우, 활성화 -->
 								<select name="active">
 									<c:if test="${e.active eq '재직'}">
 										<option value="재직" selected="selected">재직</option>
@@ -88,14 +111,46 @@
 								</select>
 								<button type="submit">수정</button>
 							</form>
-						</td>
-						<td>${e.createdate}</td>
+							</td>
+						</c:if>
 					</tr>
 			</c:forEach>
 		</tbody>
 	</table>
 	
 	<!-- 페이징처리 -->
-	
+	<div>
+		<span><!-- 첫페이지 -->
+			<a href="${pageContext.request.contextPath}/EmpList?currentPage=1">첫</a>
+		</span>
+		<c:if test="${currentPage > 1}">
+			<span><!-- 이전 -->
+				<a href="${pageContext.request.contextPath}/EmpList?currentPage=${currentPage-1}">◀</a>
+			</span>
+		</c:if>
+		<!-- 페이지목록 -->
+		<c:forEach var="i" begin="${beginPage}" end="${endPage}">
+			<c:choose>
+				<c:when test="${currentPage == i}">
+					<span>
+						<a style="color:orange">${i}</a>
+					</span>
+				</c:when>
+				<c:otherwise>
+					<span>
+						<a href="${pageContext.request.contextPath}/EmpList?currentPage=${i}">${i}</a>
+					</span>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+		<c:if test="${currentPage < lastPage}">
+			<span><!-- 다음 -->
+				<a href="${pageContext.request.contextPath}/EmpList?currentPage=${currentPage+1}">▶</a>
+			</span>
+		</c:if>
+		<span><!-- 끝페이지 -->
+			<a href="${pageContext.request.contextPath}/EmpList?currentPage=${lastPage}">끝</a>
+		</span>
+	</div>
 </body>
 </html>

@@ -174,10 +174,13 @@ public class OrdersService {
 			return result;	
 		}
 	// 주문 
-	public int AddOrder(Orders orders,ArrayList<HashMap<String, Object>> cartList, String customerId) {
+	public int AddOrder(Orders orders,ArrayList<HashMap<String, Object>> cartList, String customerId, Customer loginCustomer) {
 		int result = 0;
 		int clearCart = 0;
 		int point = 0;
+		int customerPoint = 0;
+		int row = 0;
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		Connection conn = null; 
 		ordersDao = new OrdersDao();
 		cartDao = new CartDao();
@@ -188,7 +191,11 @@ public class OrdersService {
 				if(result == 1) {
 					point = pointHistoryDao.addPointHistory(conn, customerId);
 					clearCart = cartDao.clearCart(conn, customerId);
-					
+					// 회원 잔여 포인트정보 업데이트하기
+					map = pointHistoryDao.selectPoint(conn, loginCustomer);
+					customerPoint = (int)(map.get("importPoint"))-(int)(map.get("exportPoint"))+100;
+					System.out.println("회원님의 잔여포인트 : "+customerPoint);
+					row = pointHistoryDao.modifyCustomerPoint(conn, loginCustomer, customerPoint);
 					//디버깅
 					System.out.println("구매성공");
 				}
