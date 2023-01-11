@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,7 +32,7 @@
                     <nav class="classy-navbar justify-content-between" id="oneMusicNav">
 
                         <!-- Nav brand -->
-                        <a href="index.html" class="nav-brand"><img src="img/core-img/logo.png" alt=""></a>
+                        <a href="index.html" class="nav-brand"><img src="<%=request.getContextPath()%>/resources/img/core-img/logo.png" alt=""></a>
 
                         <!-- Navbar Toggler -->
                         <div class="classy-navbar-toggler">
@@ -174,7 +174,7 @@
                     <div class="albums-slideshow owl-carousel">
                         <!-- Single Album -->
                         <div class="single-album">
-                            <img src="img/bg-img/a1.jpg" alt="">
+                            <img src="<%=request.getContextPath()%>/resources/img/bg-img/a1.jpg" alt="">
                             <div class="album-info">
                                 <a href="#">
                                     <h5>The Cure</h5>
@@ -185,7 +185,7 @@
 
                         <!-- Single Album -->
                         <div class="single-album">
-                            <img src="img/bg-img/a2.jpg" alt="">
+                            <img src="<%=request.getContextPath()%>/resources/img/bg-img/a2.jpg" alt="">
                             <div class="album-info">
                                 <a href="#">
                                     <h5>Sam Smith</h5>
@@ -196,7 +196,7 @@
 
                         <!-- Single Album -->
                         <div class="single-album">
-                            <img src="img/bg-img/a3.jpg" alt="">
+                            <img src="<%=request.getContextPath()%>/resources/img/bg-img/a3.jpg" alt="">
                             <div class="album-info">
                                 <a href="#">
                                     <h5>Will I am</h5>
@@ -207,7 +207,7 @@
 
                         <!-- Single Album -->
                         <div class="single-album">
-                            <img src="img/bg-img/a4.jpg" alt="">
+                            <img src="<%=request.getContextPath()%>/resources/img/bg-img/a4.jpg" alt="">
                             <div class="album-info">
                                 <a href="#">
                                     <h5>The Cure</h5>
@@ -533,7 +533,7 @@
                         <!-- Single Top Item -->
                         <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="100ms">
                             <div class="thumbnail">
-                                <img src="img/bg-img/wt1.jpg" alt="">
+                                <img src="<%=request.getContextPath()%>/resources/img/bg-img/wt1.jpg" alt="">
                             </div>
                             <div class="content-">
                                 <h6>Sam Smith</h6>
@@ -544,7 +544,7 @@
                         <!-- Single Top Item -->
                         <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="150ms">
                             <div class="thumbnail">
-                                <img src="img/bg-img/wt2.jpg" alt="">
+                                <img src="<%=request.getContextPath()%>/resources/img/bg-img/wt2.jpg" alt="">
                             </div>
                             <div class="content-">
                                 <h6>Power Play</h6>
@@ -566,7 +566,7 @@
                         <!-- Single Top Item -->
                         <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="250ms">
                             <div class="thumbnail">
-                                <img src="img/bg-img/wt4.jpg" alt="">
+                                <img src="<%=request.getContextPath()%>/resources/img/bg-img/wt4.jpg" alt="">
                             </div>
                             <div class="content-">
                                 <h6>The Music Band</h6>
@@ -588,7 +588,7 @@
                         <!-- Single Top Item -->
                         <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="350ms">
                             <div class="thumbnail">
-                                <img src="img/bg-img/wt6.jpg" alt="">
+                                <img src="<%=request.getContextPath()%>/resources/img/bg-img/wt6.jpg" alt="">
                             </div>
                             <div class="content-">
                                 <h6>The Culture</h6>
