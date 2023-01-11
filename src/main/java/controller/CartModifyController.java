@@ -1,6 +1,9 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +19,23 @@ import vo.Customer;
 public class CartModifyController extends HttpServlet {
 	private CartService cartService;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
+		System.out.println(loginCustomer.getCustomerId());
+		// 로그인시 db cart 목록 출력
+		if(loginCustomer != null) { 
+			//response.sendRedirect(request.getContextPath()+"/Home");
+			this.cartService = new CartService();
+			ArrayList<HashMap<String, Object>> list = cartService.getCartList(loginCustomer.getCustomerId());
+			request.setAttribute("list", list);
+		} else {
+			ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>)session.getAttribute("cart");
+			request.getSession().setAttribute("list", list);
+		}
+		request.getRequestDispatcher("/WEB-INF/view/cart/cartModify.jsp").forward(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession();
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
@@ -40,8 +60,4 @@ public class CartModifyController extends HttpServlet {
 			return;
 		} 
 	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	}
-
 }

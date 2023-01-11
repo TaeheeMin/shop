@@ -34,7 +34,6 @@ public class CartListController extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/view/cart/cartList.jsp").forward(request, response);
 	}
 
 }

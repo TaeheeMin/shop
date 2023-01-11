@@ -8,6 +8,8 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 		<script>
 			$(document).ready(function(){
+				$('#cartQuantityBtn').click(function(){
+					location.href="${pageContext.request.contextPath}/CartModify"
 				});
 			});
 		</script>
@@ -35,6 +37,7 @@
 							<input type="text" name="goodsPrice" value="${c.goodsPrice}" readonly="readonly">
 							
 						</td>
+						
 						<td>
 							<select name="cartQuantity" id="cartQuantity">
 								<c:forEach var="x" begin="1" end="10" step="1">
@@ -48,6 +51,7 @@
 									</c:choose> 
 								</c:forEach>
 							</select>
+							<button id="cartQuantityBtn" type="button">수정</button>
 						</td>
 						<td>
 							<a href="${pageContext.request.contextPath}/CartRemove?goodsCode=${c.goodsCode}">삭제</a>
@@ -59,7 +63,7 @@
 					<td colspan="3">
 						<c:set var = "cartPrice" value = "0" />
 							<c:forEach var="c" items="${list}">
-								<c:set var= "cartPrice" value="${cartPrice + c.goodsPrice}"/>
+								<c:set var= "cartPrice" value="${cartPrice + (c.goodsPrice * c.cartQuantity)}"/>
 							</c:forEach>
 						<input type="text" name="cartPrice" value="${cartPrice}" readonly="readonly">
 					</td>
