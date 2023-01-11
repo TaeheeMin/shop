@@ -44,7 +44,7 @@ public class GoodsListController extends HttpServlet {
 		// System.out.println("currentPage : " + currentPage);
 		
 		// 3-2) rowPerPage
-		int rowPerPage = 10;
+		int rowPerPage = 1;
 		if(request.getParameter("rowPerPage") != null) {
 			rowPerPage = Integer.parseInt(request.getParameter("rowPerPage"));
 		}
@@ -55,9 +55,11 @@ public class GoodsListController extends HttpServlet {
 		int count = goodsService.getGoodsListCount();
 		// System.out.println("count : " + count);
 		int page = 5; // 페이징 목록 개수
-		int beginPage = (currentPage - 1)/(page * count) + 1; // 시작 페이지
+		int beginPage = ((currentPage - 1)/page) * page + 1; // 시작 페이지
+		System.out.println("beginPage : "+beginPage);
 		// System.out.println("beginPage : " + beginPage);
 		int endPage = beginPage + page - 1; // 페이징 목록 끝
+		System.out.println("endPage : "+endPage);
 		int lastPage = (int)Math.ceil((double)count / (double)rowPerPage); // 마지막 페이지
 		// System.out.println("lastPage : " + lastPage);
 		if(endPage > lastPage) {

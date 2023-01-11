@@ -55,20 +55,26 @@ public class EmpDao {
 		return loginEmp;
 	}
 	
-	// 3) 직원목록(검색기능추가된) - 매니저만 조회 가능
-	// 3-1) 직원목록 - 매니저만 조회 가능
-	public ArrayList<HashMap<String,Object>> allEmpList(Connection conn, int beginRow, int rowPerPage, String col, String sort) throws Exception {
+	// 3) 직원목록(검색기능추가된) - 사원이상만 조회 가능
+	// 3-1) 직원목록 - 사원이상만 조회 가능
+	public ArrayList<HashMap<String,Object>> allEmpList(Connection conn, int beginRow, int rowPerPage, String col, String sort, String word) throws Exception {
 		ArrayList<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
 		
 		String sql = "SELECT"
-					+ " e.emp_id empId, e.emp_name empName, e.active active, e.createdate createdate, a.auth_memo authMemo"
+					+ " e.emp_id empId"
+					+ ", e.emp_name empName"
+					+ ", e.active active"
+					+ ", e.createdate createdate"
+					+ ", a.auth_memo authMemo"
 					+ " FROM emp e"
 					+ " INNER JOIN auth_info a ON e.auth_code = a.auth_code"
+					+ " WHERE e.emp_name LIKE ?"
 					+ " ORDER BY "+col+" "+sort
 					+ " LIMIT ?, ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, beginRow);
-		stmt.setInt(2, rowPerPage);
+		stmt.setString(1, "%"+word+"%");
+		stmt.setInt(2, beginRow);
+		stmt.setInt(3, rowPerPage);
 		ResultSet rs = stmt.executeQuery();
 		while(rs.next()) {
 			HashMap<String,Object> m = new HashMap<String,Object>();
@@ -130,5 +136,20 @@ public class EmpDao {
 			ttlCntEmp = rs.getInt("COUNT(*)");
 		}
 		return ttlCntEmp;
-	}		
+	}	
+	
+	// 7) 검색된 직원 
+	public int ttlCntSearchEmp(Connection conn, String word) throws Exception {
+		int ttlCntSearchEmp = 0;
+		
+		String sql = "SELECT COUNT(*) FROM emp WHERE emp_name LIKE ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, "%"+word+"%");
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			ttlCntSearchEmp = rs.getInt("COUNT(*)");
+		}
+		
+		return ttlCntSearchEmp;
+	}
 }

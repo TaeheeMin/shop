@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +22,9 @@ public class EmpAuthCodeController extends HttpServlet {
 		int authCode = Integer.parseInt(request.getParameter("authCode"));
 		System.out.println("[EmpAuthCode컨트롤러 진입]");
 		System.out.println("authCode : "+authCode);
+		String word =request.getParameter("word");
+		System.out.println("word : "+word);
+		String rowPerPage = request.getParameter("rowPerPage");
 		
 		// Emp에 set
 		Emp emp = new Emp();
@@ -30,11 +35,11 @@ public class EmpAuthCodeController extends HttpServlet {
 		int modifyEmpAuthCode = empService.modifyEmpAuthCode(emp);
 		if(modifyEmpAuthCode == 1) {
 			System.out.println("활성화 변경 성공");
-			response.sendRedirect(request.getContextPath()+"/EmpList");
+			response.sendRedirect(request.getContextPath()+"/EmpList?word="+URLEncoder.encode(word,"utf-8")+"&rowPerPage="+rowPerPage);
 			return;
 		} else {
 			System.out.println("활성화 변경 실패");
-			response.sendRedirect(request.getContextPath()+"/EmpList");
+			response.sendRedirect(request.getContextPath()+"/EmpList?word="+URLEncoder.encode(word,"utf-8")+"&rowPerPage="+rowPerPage);
 		}
 	}
 

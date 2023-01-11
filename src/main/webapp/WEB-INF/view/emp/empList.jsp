@@ -24,9 +24,29 @@
 	<div><a href="${pageContext.request.contextPath}/Home">홈</a></div>
 	<!-- 검색기능 추가예정 -->
 	<div>
-	사원검색 : 
-		<input type="text" placeholder="사원이름을 입력하세요">
-	</div>	
+		<form action="${pageContext.request.contextPath}/EmpList" method="get">
+			<select name="rowPerPage">
+				<c:if test="${rowPerPage == 5}">
+					<option value="5" selected="selected">5</option>
+					<option value="10">10</option>
+					<option value="20">20</option>
+				</c:if>
+				<c:if test="${rowPerPage == 10}">
+					<option value="5">5</option>
+					<option value="10" selected="selected">10</option>
+					<option value="20">20</option>
+				</c:if>
+				<c:if test="${rowPerPage == 20}">
+					<option value="5">5</option>
+					<option value="10">10</option>
+					<option value="20" selected="selected">20</option>
+				</c:if>
+			</select>
+			사원검색 : 
+				<input type="text" name="word" placeholder="사원이름을 입력하세요">
+			<button type="submit">검색</button>
+		</form>
+	</div>
 	
 	<!-- n명씩보기 (10,20,30) rowPerPage 넘겨주기 추가예정 -->
 	
@@ -34,19 +54,19 @@
 		<thead>
 			<tr>
 				<th>
-					<a href="${pageContext.request.contextPath}/EmpList?col=e.emp_name&sort=${paramSort}">이름</a>
+					<a href="${pageContext.request.contextPath}/EmpList?col=e.emp_name&sort=${paramSort}&word=${word}&rowPerPage=${rowPerPage}">이름</a>
 				</th>
 				<th>
-					<a href="${pageContext.request.contextPath}/EmpList?col=e.emp_id&sort=${paramSort}">ID</a>
+					<a href="${pageContext.request.contextPath}/EmpList?col=e.emp_id&sort=${paramSort}&word=${word}&rowPerPage=${rowPerPage}">ID</a>
 				</th>
 				<th>
-					<a href="${pageContext.request.contextPath}/EmpList?col=a.auth_memo&sort=${paramSort}">직위</a>
+					<a href="${pageContext.request.contextPath}/EmpList?col=a.auth_memo&sort=${paramSort}&word=${word}&rowPerPage=${rowPerPage}">직위</a>
 				</th>
 				<th>
-					<a href="${pageContext.request.contextPath}/EmpList?col=e.active&sort=${paramSort}">재직현황</a>
+					<a href="${pageContext.request.contextPath}/EmpList?col=e.active&sort=${paramSort}&word=${word}&rowPerPage=${rowPerPage}">재직현황</a>
 				</th>
 				<th>
-					<a href="${pageContext.request.contextPath}/EmpList?col=e.createdate&sort=${paramSort}">입사날짜</a>
+					<a href="${pageContext.request.contextPath}/EmpList?col=e.createdate&sort=${paramSort}&word=${word}&rowPerPage=${rowPerPage}">입사날짜</a>
 				</th>
 				<!-- 직원 직위 및 재직상태 변경 (매니저 직위만 가능) -->
 				<c:if test="${loginEmp.authCode == 99}">
@@ -66,7 +86,7 @@
 						<td>${e.createdate}</td>
 						<!-- 직원 직위 및 재직상태 변경 (매니저 직위만 가능) -->
 						<c:if test="${loginEmp.authCode == 99}">
-							<td>
+							<td><!-- 직위변경 -->
 								<form id="authCodeForm" action="${pageContext.request.contextPath}/EmpAuthCode" method="post">
 									<select name="authCode" id="authCode">
 										<c:if test="${e.authMemo eq '인턴'}">
@@ -86,31 +106,37 @@
 										</c:if>
 									</select>
 									<input type="hidden" name="empId" value="${e.empId}">
+									<input type="hidden" name="word" value="${word}">
+									<input type="hidden" name="rowPerPage" value="${rowPerPage}">
+									<input type="hidden" name="sort" value="${paramSort}">
 									<button type="submit" id="authCodeBtn">변경</button>
 								</form>
 							</td>
-							<td>
-							<form action="${pageContext.request.contextPath}/EmpActive" method="post">
-								<input type="hidden" name="empId" value="${e.empId}">
-								<select name="active">
-									<c:if test="${e.active eq '재직'}">
-										<option value="재직" selected="selected">재직</option>
-										<option value="휴직">휴직</option>
-										<option value="사직">사직</option>
-									</c:if>
-									<c:if test="${e.active eq '휴직'}">
-										<option value="재직">재직</option>
-										<option value="휴직" selected="selected">휴직</option>
-										<option value="사직">사직</option>
-									</c:if>
-									<c:if test="${e.active eq '사직'}">
-										<option value="재직">재직</option>
-										<option value="휴직">휴직</option>
-										<option value="사직" selected="selected">사직</option>
-									</c:if>
-								</select>
-								<button type="submit">수정</button>
-							</form>
+							<td><!-- 재직상태 변경 -->
+								<form action="${pageContext.request.contextPath}/EmpActive" method="post">
+									<select name="active">
+										<c:if test="${e.active eq '재직'}">
+											<option value="재직" selected="selected">재직</option>
+											<option value="휴직">휴직</option>
+											<option value="사직">사직</option>
+										</c:if>
+										<c:if test="${e.active eq '휴직'}">
+											<option value="재직">재직</option>
+											<option value="휴직" selected="selected">휴직</option>
+											<option value="사직">사직</option>
+										</c:if>
+										<c:if test="${e.active eq '사직'}">
+											<option value="재직">재직</option>
+											<option value="휴직">휴직</option>
+											<option value="사직" selected="selected">사직</option>
+										</c:if>
+									</select>
+									<input type="hidden" name="word" value="${word}">
+									<input type="hidden" name="rowPerPage" value="${rowPerPage}">
+									<input type="hidden" name="sort" value="${paramSort}">
+									<input type="hidden" name="empId" value="${e.empId}">
+									<button type="submit">수정</button>
+								</form>
 							</td>
 						</c:if>
 					</tr>
@@ -121,15 +147,15 @@
 	<!-- 페이징처리 -->
 	<div>
 		<span><!-- 첫페이지 -->
-			<a href="${pageContext.request.contextPath}/EmpList?currentPage=1">첫</a>
+			<a href="${pageContext.request.contextPath}/EmpList?currentPage=1&word=${word}&rowPerPage=${rowPerPage}&sort=${paramSort}">첫</a>
 		</span>
 		<c:if test="${currentPage > 1}">
 			<span><!-- 이전 -->
-				<a href="${pageContext.request.contextPath}/EmpList?currentPage=${currentPage-1}">◀</a>
+				<a href="${pageContext.request.contextPath}/EmpList?currentPage=${currentPage-1}&word=${word}&rowPerPage=${rowPerPage}&sort=${paramSort}">◀</a>
 			</span>
 		</c:if>
 		<!-- 페이지목록 -->
-		<c:forEach var="i" begin="${beginPage}" end="${endPage}">
+		<c:forEach var="i" begin="${beginPage}" end="${endPage}" step="1">
 			<c:choose>
 				<c:when test="${currentPage == i}">
 					<span>
@@ -138,18 +164,18 @@
 				</c:when>
 				<c:otherwise>
 					<span>
-						<a href="${pageContext.request.contextPath}/EmpList?currentPage=${i}">${i}</a>
+						<a href="${pageContext.request.contextPath}/EmpList?currentPage=${i}&word=${word}&rowPerPage=${rowPerPage}&sort=${paramSort}">${i}</a>
 					</span>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
 		<c:if test="${currentPage < lastPage}">
 			<span><!-- 다음 -->
-				<a href="${pageContext.request.contextPath}/EmpList?currentPage=${currentPage+1}">▶</a>
+				<a href="${pageContext.request.contextPath}/EmpList?currentPage=${currentPage+1}&word=${word}&rowPerPage=${rowPerPage}&sort=${paramSort}">▶</a>
 			</span>
 		</c:if>
 		<span><!-- 끝페이지 -->
-			<a href="${pageContext.request.contextPath}/EmpList?currentPage=${lastPage}">끝</a>
+			<a href="${pageContext.request.contextPath}/EmpList?currentPage=${lastPage}&word=${word}&rowPerPage=${rowPerPage}&sort=${paramSort}">끝</a>
 		</span>
 	</div>
 </body>
