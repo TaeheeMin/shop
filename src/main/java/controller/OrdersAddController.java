@@ -116,7 +116,7 @@ public class OrdersAddController extends HttpServlet {
 		
 		int row = 0;
 		OrdersService ordersService = new OrdersService();
-		row = ordersService.AddOrder(orders, cartList);
+		row = ordersService.AddOrder(orders, cartList, customerId);
 		// 결과
 		if(row == 1) {
 			// 리스트로 이동

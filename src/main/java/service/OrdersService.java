@@ -5,7 +5,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import dao.CartDao;
 import dao.OrdersDao;
+import dao.PointHistoryDao;
 import dao.ReviewDao;
 import util.DBUtil;
 import vo.Customer;
@@ -15,6 +17,8 @@ import vo.Review;
 
 public class OrdersService {
 	private OrdersDao ordersDao;
+	private CartDao cartDao;
+	private PointHistoryDao pointHistoryDao;
 	// 주문 리스트 관리자용
 	public ArrayList<HashMap<String, Object>> selectOrdersListByAdmin() {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
@@ -170,15 +174,24 @@ public class OrdersService {
 			return result;	
 		}
 	// 주문 
-	public int AddOrder(Orders orders,ArrayList<HashMap<String, Object>> cartList) {
+	public int AddOrder(Orders orders,ArrayList<HashMap<String, Object>> cartList, String customerId) {
 		int result = 0;
+		int clearCart = 0;
+		int point = 0;
 		Connection conn = null; 
-		ordersDao = new OrdersDao();		
+		ordersDao = new OrdersDao();
+		cartDao = new CartDao();
+		pointHistoryDao = new PointHistoryDao();
 			try {
 				conn = DBUtil.getConnection();
 				result = ordersDao.AddOrders(conn, orders, cartList);
-				//디버깅
-				System.out.println("구매성공");
+				if(result == 1) {
+					point = pointHistoryDao.addPointHistory(conn, customerId);
+					clearCart = cartDao.clearCart(conn, customerId);
+					
+					//디버깅
+					System.out.println("구매성공");
+				}
 				conn.commit();
 			} catch (Exception e) {
 				try {System.out.println("구매실패");

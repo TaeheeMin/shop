@@ -71,5 +71,33 @@ public class PointHistoryService {
 		}
 		return row;
 	}
+	
+	// 3) 포인트 사용
+	public int addPointHistory(String customerId) {
+		int row = 0;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			pointHistoryDao = new PointHistoryDao();
+			row = pointHistoryDao.addPointHistory(conn, customerId);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return row;
+	}
 
 }

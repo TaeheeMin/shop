@@ -79,7 +79,6 @@
 						</div>
 						<div>
 							<a href="${pageContext.request.contextPath}/CartAdd?goodsCode=${m.goodsCode}&cartQuantity=1&filename=${m.filename}&goodsPrice=${m.goodsPrice}&goodsTitle=${m.goodsTitle}">cart</a>
-							<a href="${pageContext.request.contextPath}/orders/ordersAdd?goodsCode=${m.goodsCode}&cartQuantity=1&goodsArtist=${m.goodsArtist}&filename=${m.filename}&goodsPrice=${m.goodsPrice}&goodsTitle=${m.goodsTitle}">구매하기</a>
 						</div>
 						<c:if test="${loginEmp != null}">
 							<div>

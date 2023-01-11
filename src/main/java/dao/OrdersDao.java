@@ -116,8 +116,8 @@ public class OrdersDao {
 		
 		// 구매 
 	   public int AddOrders(Connection conn, Orders orders, ArrayList<HashMap<String, Object>> cartList) throws Exception {
-		      int row = 0;	
-		 for(HashMap<String, Object> c : cartList) {
+	      int row = 0;	
+	      for(HashMap<String, Object> c : cartList) {
 		      String sql = "INSERT INTO orders(goods_code, customer_id, address_code , order_quantity ,order_price , order_state) VALUES (?,?,?,?,?,'결제')";		      
 		      PreparedStatement stmt = conn.prepareStatement(sql);
 		      stmt.setInt(1, (int) c.get("goodsCode"));
@@ -127,9 +127,9 @@ public class OrdersDao {
 		      stmt.setInt(5, (int) c.get("goodsPrice"));		    
 		      row = stmt.executeUpdate();
 		      
+	      }
+	      return row;
 	   }
-		      return row;
-		   }
 	   // 주문내역 목록에서 삭제  
 	   public int removeOrders(Connection conn, Orders orders)throws Exception {
 		   int row = 0;

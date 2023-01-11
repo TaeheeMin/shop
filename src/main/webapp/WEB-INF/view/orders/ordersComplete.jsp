@@ -8,5 +8,6 @@
 </head>
 <body>
 	<h1>주문완료되었습니다.</h1>
+	<a href="${pageContext.request.contextPath}/Home">홈으로</a>
 </body>
 </html>

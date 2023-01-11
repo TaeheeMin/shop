@@ -6,8 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import vo.Customer;
+import vo.Orders;
 import vo.PointHistory;
 import vo.Review;
 
@@ -23,7 +23,27 @@ public class PointHistoryDao {
 	    return pointRow;
 	}
 	
-	// 포인트 추가 (사용)
+	// 포인트(사용)
+	public int addPointHistory(Connection conn, String customerId) throws Exception {
+		int row = 0;
+		String sql = "INSERT INTO point_history("
+				+ " order_code"
+				+ ", point_kind"
+				+ ", POINT"
+				+ ", createdate"
+				+ ") VALUES("
+				+ "(SELECT order_code FROM orders"
+				+ " WHERE customer_id = ?"
+				+ " ORDER BY createdate DESC LIMIT 1)"
+				+ ", '사용'"
+				+ ", (SELECT point FROM customer WHERE customer_id= ?)"
+				+ ", NOW())";
+		PreparedStatement stmt = conn.prepareStatement(sql);	
+	    stmt.setString(1,customerId);
+	    stmt.setString(2,customerId);
+	    row = stmt.executeUpdate();
+	    return row;
+	}
 	
 	// 2) 아이디별 적립,사용 포인트총합 확인 
 	public HashMap<String, Object> selectPoint(Connection conn, Customer loginCustomer) throws Exception {
