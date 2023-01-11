@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import vo.Customer;
 import vo.CustomerAddress;
 
 public class CustomerAddressDao {
@@ -56,5 +57,28 @@ public class CustomerAddressDao {
 		removeAddress = stmt.executeUpdate();
 				
 		return removeAddress;
+	}
+	
+	// 8-1) 주소삭제 (전부삭제 - 회원탈퇴 시 트랜잭션을 위함)
+	public void removeAllAddress(Connection conn, Customer customerOne) throws Exception {
+		String sql = "DELETE FROM customer_address WHERE customer_id = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customerOne.getCustomerId());
+		stmt.executeUpdate();
+	}
+	
+	// 9) 주소 총갯수
+	public int ttlCntAddress(Connection conn, CustomerAddress cusAddress) throws Exception {
+		int ttlAddress = 0;
+		
+		String sql = "SELECT COUNT(*) FROM customer_address WHERE customer_id = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, cusAddress.getCustomerId());
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			ttlAddress = rs.getInt("COUNT(*)");
+		}
+		
+		return ttlAddress;
 	}
 }

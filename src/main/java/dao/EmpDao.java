@@ -22,7 +22,7 @@ public class EmpDao {
 		// 가입쿼리 진행 - 기본값 비활성화 및 0(인턴)레벨 -> 추후 매니저가 활성화 및 등급조정하게끔
 		String sql = "INSERT INTO emp("
 					+ "emp_id, emp_pw, emp_name, active, auth_code, createdate"
-					+ ") VALUES (?,PASSWORD(?),?,'N',0,NOW())"; 
+					+ ") VALUES (?,PASSWORD(?),?,'재직',0,NOW())"; 
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, emp.getEmpId());
 		stmt.setString(2, emp.getEmpPw());
@@ -81,7 +81,7 @@ public class EmpDao {
 		return list;		
 	}
 	
-	// 4-1) 직원 활성화/비활성화
+	// 4-1) 직원 재직현황
 	public int modifyEmpActive(Connection conn, Emp emp) throws Exception {
 		int modifyEmpActive = 0;
 		
@@ -107,7 +107,16 @@ public class EmpDao {
 		return modifyEmpAuthCode;
 	}
 	
-	
+	// 5) 직원 해고(삭제)
+	public int fireEmp(Connection conn, Emp emp) throws Exception {
+		int fireEmp = 0;
+		String sql = "DELETE FROM emp WHERE emp_id = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, emp.getEmpId());
+		fireEmp = stmt.executeUpdate();
+		
+		return fireEmp;
+	}
 	
 	
 	
