@@ -24,7 +24,9 @@ public class OrdersModifyController extends HttpServlet {
 		Orders orders = new Orders();
 		orders.setOrderCode(Integer.parseInt(request.getParameter("orderCode")));
 		orders.setOrderState(request.getParameter("orderState"));
-	
+		//디버깅 
+		System.out.println(Integer.parseInt(request.getParameter("orderCode")));
+		System.out.println(request.getParameter("orderState"));
 		
 		int row = 0;
 		OrdersService ordersService = new OrdersService();

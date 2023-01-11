@@ -6,15 +6,17 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	<c:forEach var="o" items="${list}">
 	<script>
 	//관리자용
 	$(document).ready(function() {
-		$('#orderState').change(function() {
-           $('#orderFormByAdmin').submit();
+		$('.orderState${o.orderCode}').change(function() {
+           $('#orderFormByAdmin${o.orderCode}').submit();
         })
      });		
 
 	</script>
+	</c:forEach>
 </head>
 <body>
 	<h1>주문목록</h1>
@@ -33,16 +35,16 @@
 		  		<c:forEach var="o" items="${list}">
 		     		<tr>
 		     			<td>${o.orderCode}</td>
-		     			<td><a href='${pageContext.request.contextPath}/orders/ordersOne?orderCode=${o.orderCode}'>${o.goodsTitle}</td>
+		     			<td><a href='${pageContext.request.contextPath}/orders/ordersOne?orderCode=${o.orderCode}'>${o.goodsTitle}</a></td>
 						<td>
 							<img src="${pageContext.request.contextPath}/goodsimg/${o.filename}" width="200" height="200">
 						</td>
 						<td>${o.createdate}</td>
 						<td>${o.orderState}
 								<!-- 관리자용 -->
-						<form id="orderFormByAdmin" method="post" action="${pageContext.request.contextPath}/orders/ordersModifyByAdmin">		     			
+						<form id="orderFormByAdmin${o.orderCode}" method="post" action="${pageContext.request.contextPath}/orders/ordersModifyByAdmin">		     			
 		     			<input type="hidden" name="orderCode" value="${o.orderCode}">		     		     			
-		     			<select name="orderState" id="orderState">			
+		     			<select name="orderState" class="orderState${o.orderCode}">			
 							<c:if test="${o.orderState eq '결제' || o.orderState eq '구매확정'}">
 								<option value="결제" selected="selected">결제</option>
 								<option value="취소">취소</option>
@@ -68,8 +70,8 @@
 								<option value="배송완료" selected="selected">배송완료</option>								
 							</c:if>
 						</select>
+						</form>
 						</td>						
-					</form>
 					
 						<td>${o.orderPrice}</td>
 			
