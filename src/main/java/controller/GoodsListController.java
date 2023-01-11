@@ -44,7 +44,7 @@ public class GoodsListController extends HttpServlet {
 		// System.out.println("currentPage : " + currentPage);
 		
 		// 3-2) rowPerPage
-		int rowPerPage = 1;
+		int rowPerPage = 10;
 		if(request.getParameter("rowPerPage") != null) {
 			rowPerPage = Integer.parseInt(request.getParameter("rowPerPage"));
 		}
