@@ -51,11 +51,8 @@
 								<option value="배송중">배송중</option>
 								<option value="배송완료">배송완료</option>								
 							</c:if>
-							<c:if test="${o.orderState eq '취소'}">
-								<option value="결제">결제</option>
-								<option value="취소" selected="selected" >취소</option>
-								<option value="배송중">배송중</option>
-								<option value="배송완료">배송완료</option>								
+							<c:if test="${o.orderState eq '취소'}">								
+								<option value="취소" selected="selected" >취소</option>																
 							</c:if>		
 							<c:if test="${o.orderState eq '배송중'}">
 								<option value="결제">결제</option>
@@ -63,10 +60,7 @@
 								<option value="배송중" selected="selected">배송중</option>
 								<option value="배송완료">배송완료</option>							
 							</c:if>
-							<c:if test="${o.orderState eq '배송완료'}">
-								<option value="결제">결제</option>
-								<option value="취소">취소</option>
-								<option value="배송중">배송중</option>
+							<c:if test="${o.orderState eq '배송완료'}">							
 								<option value="배송완료" selected="selected">배송완료</option>								
 							</c:if>
 						</select>
