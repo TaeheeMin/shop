@@ -142,4 +142,6 @@ public class EmpService {
 		}	
 		return modifyEmpAuthCode;
 	}
+	
+	// 4-3) 직원 해고(삭제)
 }

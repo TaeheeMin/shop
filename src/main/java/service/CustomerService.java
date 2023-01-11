@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import dao.CustomerAddressDao;
 import dao.CustomerDao;
 import dao.PwHistoryDao;
 import util.DBUtil;
@@ -13,6 +14,8 @@ import vo.CustomerAddress;
 public class CustomerService {
 	private CustomerDao customerDao;
 	private PwHistoryDao pwHistoryDao;
+	private CustomerAddressDao customerAddressDao;
+	
 	// 1) 회원가입 - 중복체크 (CustomerAddController)
 	public boolean customerSigninCkId(Customer customer) {
 		boolean customerSigninCkId = false;
@@ -179,17 +182,19 @@ public class CustomerService {
 		Connection conn = null;
 		this.customerDao = new CustomerDao();
 		this.pwHistoryDao = new PwHistoryDao();
+		this.customerAddressDao = new CustomerAddressDao();
 		
 		try {
 			conn = DBUtil.getConnection();
-			// 회원탈퇴 쿼리(dao) 먼저 진행
+			// (1) 회원탈퇴 전, 회원 정보 삭제 진행 (주소 및 비밀번호이력)
+			customerAddressDao.removeAllAddress(conn, customerOne);
+			removePwHistory = pwHistoryDao.removePwHistoryByRemoveCustomer(conn, customerOne);
+			// (2) 회원탈퇴 쿼리(dao) 진행
 			removeCustomer = customerDao.removeCustomerOne(conn, customerOne);
 			if(removeCustomer == 1) {
 				System.out.println("탈퇴성공");
-				// 탈퇴한 아이디 -> outid 테이블에 추가
+				// (3) 탈퇴한 아이디 -> outid 테이블에 추가
 				removeCustomerOutid = customerDao.addOutid(conn, customerOne);
-				// 탈퇴한 아이디의 pwHistory 데이터 삭제
-				removePwHistory = pwHistoryDao.removePwHistoryByRemoveCustomer(conn, customerOne);
 			} else {
 				System.out.println("탈퇴실패");
 			}
