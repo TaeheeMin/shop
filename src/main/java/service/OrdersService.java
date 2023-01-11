@@ -169,14 +169,14 @@ public class OrdersService {
 				}
 			return result;	
 		}
-	// 주문 카트없이 추가 
-	public int AddOrder(Orders orders) {
+	// 주문 
+	public int AddOrder(Orders orders,ArrayList<HashMap<String, Object>> cartList) {
 		int result = 0;
 		Connection conn = null; 
 		ordersDao = new OrdersDao();		
 			try {
 				conn = DBUtil.getConnection();
-				result = ordersDao.AddOrders(conn, orders);
+				result = ordersDao.AddOrders(conn, orders, cartList);
 				//디버깅
 				System.out.println("구매성공");
 				conn.commit();

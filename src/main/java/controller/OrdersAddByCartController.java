@@ -49,7 +49,7 @@ public class OrdersAddByCartController extends HttpServlet {
 	
 		int row = 0;
 		OrdersService ordersService = new OrdersService();
-		row = ordersService.AddOrder(orders);
+		row = ordersService.AddOrder(orders, null);
 		// 결과
 		if(row == 1) {
 			// 리스트로 이동

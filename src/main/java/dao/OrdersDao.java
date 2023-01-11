@@ -115,19 +115,22 @@ public class OrdersDao {
 		}	
 		
 		// 구매 
-	   public int AddOrders(Connection conn, Orders orders) throws Exception {
-		      int row = 0;	    
+	   public int AddOrders(Connection conn, Orders orders, ArrayList<HashMap<String, Object>> cartList) throws Exception {
+		      int row = 0;	
+		 for(HashMap<String, Object> c : cartList) {
 		      String sql = "INSERT INTO orders(goods_code, customer_id, address_code , order_quantity ,order_price , order_state) VALUES (?,?,?,?,?,'결제')";		      
 		      PreparedStatement stmt = conn.prepareStatement(sql);
-		      stmt.setInt(1, orders.getGoodsCode());
+		      stmt.setInt(1, (int) c.get("goodsCode"));
 		      stmt.setString(2, orders.getCustomerId());
 		      stmt.setInt(3, orders.getAdrressCode());
-		      stmt.setInt(4, orders.getOrderQuantity());
-		      stmt.setInt(5, orders.getOrderPrice());		    
+		      stmt.setInt(4, (int) c.get("cartQuantity"));
+		      stmt.setInt(5, (int) c.get("goodsPrice"));		    
 		      row = stmt.executeUpdate();
+		      
+	   }
 		      return row;
 		   }
-	   // 주문내역 목록에서 삭제 
+	   // 주문내역 목록에서 삭제  
 	   public int removeOrders(Connection conn, Orders orders)throws Exception {
 		   int row = 0;
 		   String sql = "DELETE FROM orders WHERE order_code = ? AND customer_id = ?";      

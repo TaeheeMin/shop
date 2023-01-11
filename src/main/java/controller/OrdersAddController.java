@@ -14,16 +14,19 @@ import javax.servlet.http.HttpSession;
 import service.CustomerAddressService;
 import service.GoodsService;
 import service.OrdersService;
+import vo.Cart;
 import vo.Customer;
 import vo.CustomerAddress;
 import vo.Goods;
 import vo.Orders;
+import service.CartService;
 
 
 @WebServlet("/orders/ordersAdd")
 public class OrdersAddController extends HttpServlet {
 	private CustomerAddressService customerAddressService;
 	private GoodsService goodsService;
+	private CartService cartService;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 로그인세션 불러오기
@@ -43,10 +46,12 @@ public class OrdersAddController extends HttpServlet {
 		System.out.println("(1)goodsCode : "+goodsCode);
 		this.goodsService = new GoodsService();
 		int orderQuantity = Integer.parseInt(request.getParameter("cartQuantity"));
-		
+		Cart cart = new Cart();
 		// 주문할 상품목록 불러오기 
-		ArrayList<HashMap<String,Object>> goodsList = goodsService.getGoodsOne(goodsCode);
-		request.setAttribute("goodsList", goodsList);
+		this.cartService = new CartService();
+		
+		ArrayList<HashMap<String,Object>> cartList = cartService.getCartList(loginCustomer.getCustomerId());
+		request.setAttribute("cartList", cartList);
 		request.setAttribute("orderQuantity", orderQuantity);
 		// request.setAttribute("goodsTitle", goodsTitle);
 		// int orderPrice = Integer.parseInt(request.getParameter("cartPrice"));
@@ -81,35 +86,37 @@ public class OrdersAddController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 로그인세션 불러오기
+		HttpSession session = request.getSession();
+		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
+		// 로그인되지 않은경우, 주문페이지 폼 진입 불가 -> 홈화면으로 이동
+		if(loginCustomer == null) {
+			response.sendRedirect(request.getContextPath()+"/Home");
+			return;
+		}
 		
 		request.setCharacterEncoding("utf-8");
 		System.out.println("[OrdersAdd컨트롤러 post]");
 
 		// 값 받아오기
-		Orders orders = new Orders();;
-		int goodsCode = Integer.parseInt(request.getParameter("goodsCode"));
-		int addressCode = Integer.parseInt(request.getParameter("addressCode"));
-		int orderQuantity = Integer.parseInt(request.getParameter("orderQuantity"));
-		int orderPrice = Integer.parseInt(request.getParameter("orderPrice"));
+		Orders orders = new Orders();;	
+		int addressCode = Integer.parseInt(request.getParameter("addressCode"));				
 		String customerId = request.getParameter("customerId");	
 		
 		//값 저장 
-		orders.setAdrressCode(addressCode);	
-		orders.setGoodsCode(goodsCode);
-		orders.setCustomerId(customerId);
-		orders.setOrderQuantity(orderQuantity);
-		orders.setOrderPrice(orderPrice);
+		ArrayList<HashMap<String,Object>> cartList = cartService.getCartList(loginCustomer.getCustomerId());
 		
-		//디버깅
-		System.out.println("goodsCode : "+goodsCode); 
-		System.out.println("addressCode : "+addressCode);
-		System.out.println("orderQuantity : "+orderQuantity);
-		System.out.println("orderPrice : "+orderPrice);
+		orders.setAdrressCode(addressCode);		
+		orders.setCustomerId(customerId);
+		this.cartService = new CartService();
+		
+		//디버깅	
+		System.out.println("addressCode : "+addressCode);	
 		System.out.println("customerId : "+customerId);
-	
+		
 		int row = 0;
 		OrdersService ordersService = new OrdersService();
-		row = ordersService.AddOrder(orders);
+		row = ordersService.AddOrder(orders, cartList);
 		// 결과
 		if(row == 1) {
 			// 리스트로 이동
