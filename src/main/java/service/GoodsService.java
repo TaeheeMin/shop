@@ -75,6 +75,7 @@ public class GoodsService {
 	// 2-2) list
 	public ArrayList<HashMap<String, Object>> getGoodsList(int currentPage, int rowPerPage, String search, String word, String category) {
 		Connection conn = null;
+		this.goodsDao = new GoodsDao();
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		try {
 			conn = DBUtil.getConnection();
@@ -82,6 +83,34 @@ public class GoodsService {
 			int beginRow = (currentPage - 1) * rowPerPage; // 시작 행
 			// System.out.println("beginRow : " + beginRow);
 			list = goodsDao.selectGoodsList(conn, beginRow, rowPerPage, search, word, category);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
+	// 2-2-2) 홈화면에 띄울 최신곡
+	public ArrayList<HashMap<String, Object>> selectRecentlySongList() {
+		Connection conn = null;
+		this.goodsDao = new GoodsDao();
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		System.out.println("[goodsService]");
+		try {
+			conn = DBUtil.getConnection();
+			list = goodsDao.selectRecentlySongList(conn);
+			System.out.println("list : "+list);
 			conn.commit();
 		} catch (Exception e) {
 			try {
