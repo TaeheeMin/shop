@@ -52,16 +52,8 @@ public class OrdersAddController extends HttpServlet {
 		// 3) 주문할 상품목록(장바구니) 불러오기 
 		ArrayList<HashMap<String,Object>> cartList = cartService.getCartList(loginCustomer.getCustomerId());
 		request.setAttribute("cartList", cartList);
-
-		/* 4) 회원 포인트 불러오기
-		this.pointHistoryService = new PointHistoryService();
-		int customerPoint = pointHistoryService.modifyCustomerPoint(loginCustomer);
-		if(customerPoint == 1) {
-			System.out.println("고객 잔여 포인트 로딩");
-		}
-		*/
 		
-		// 5) 선택된 회원주소 불러오기
+		// 4) 선택된 회원주소 불러오기
 		CustomerAddress cusAddress = new CustomerAddress();
 		if(request.getParameter("addressCode") != null) {
 			String customerId = loginCustomer.getCustomerId();

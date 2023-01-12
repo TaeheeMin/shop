@@ -48,32 +48,37 @@
 					
 			<!-- 고객 정보 -->
 			<h2>고객정보</h2>
+			<a href="${pageContext.request.contextPath}/AddressList">배송지선택</a>
 			<table border="1">
 				 <tr>
 					<th>ID</th>
-					<th>이름</th>
-					<th>연락처</th>				
-					<th>포인트</th>				
+					<td><input type="text" name="customerId" value="${loginCustomer.customerId}" readonly="readonly"></td>
 				</tr>
 				<tr>
-					<td><input type="text" name="customerId" value="${loginCustomer.customerId}" readonly="readonly"></td>
+					<th>이름</th>
 					<td><input type="text" name="customerName" value="${loginCustomer.customerName}" readonly="readonly"></td>
+				</tr>
+				<tr>	
+					<th>연락처</th>		
 					<td><input type="text" name="customerPhone" value="${loginCustomer.customerPhone}" readonly="readonly"></td>
-					<td><input type="text" name="point" value="${loginCustomer.point}" readonly="readonly"></td>
+				</tr>
+				<tr>		
+					<th>포인트</th>
+					<td><input type="text" name="point" value="${loginCustomer.point}" readonly="readonly"></td>				
+				</tr>
+				<tr>
+					<th>배송주소</th>
+					<td>
+						<c:if test="${myAddress != null}">			
+							<div>
+								<input type="text" name="address" value="${myAddress.address}" readonly="readonly">
+								<input type="hidden" name="addressCode" value="${myAddress.addressCode}">
+							</div>
+						</c:if>
+					</td>
 				</tr> 			
 			</table>
 			
-			<!-- 고객배송지 선택 -->
-			<div>
-				배송주소 <a href="${pageContext.request.contextPath}/AddressList">주소선택</a>
-			</div>
-			
-			<c:if test="${myAddress != null}">			
-				<div>
-					<input type="text" name="address" value="${myAddress.address}">
-					<input type="hidden" name="addressCode" value="${myAddress.addressCode}">
-				</div>
-			</c:if>
 			<br>
 			<br>
 			
@@ -86,7 +91,7 @@
 			</c:forEach>
 			
 			<input type="checkbox" id="point" name="pointCk" value=""> 포인트 사용
-			<input type="text" id="totalPrice" value="${total}">
+			<input type="text" id="totalPrice" value="${total}" readonly="readonly">
 			
 			<c:out value="${total}"/>
 			<button type="submit">결제</button>

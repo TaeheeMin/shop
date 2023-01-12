@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,12 +19,6 @@ public class AddressListController extends HttpServlet {
 
 	private CustomerAddressService customerAddressService;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// orderPage의 상품정보 경유해주기 (get및 set)
-		/*
-		ArrayList<HashMap<String,Object>> cartList = (ArrayList<HashMap<String,Object>>)request.getAttribute("cartList");
-		System.out.println("cartList : "+cartList);
-		request.setAttribute("cartList", cartList);
-		*/
 		
 		// 주소목록 불러오기
 		HttpSession session = request.getSession();
