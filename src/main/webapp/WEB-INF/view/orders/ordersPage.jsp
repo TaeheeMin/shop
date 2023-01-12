@@ -45,8 +45,7 @@
 					</tr>
 				</c:forEach>
 			</table>		
-			
-						
+					
 			<!-- 고객 정보 -->
 			<h2>고객정보</h2>
 			<table border="1">
@@ -60,22 +59,25 @@
 					<td><input type="text" name="customerId" value="${loginCustomer.customerId}" readonly="readonly"></td>
 					<td><input type="text" name="customerName" value="${loginCustomer.customerName}" readonly="readonly"></td>
 					<td><input type="text" name="customerPhone" value="${loginCustomer.customerPhone}" readonly="readonly"></td>
-					<td><input type="text" name="customerPhone" value="${loginCustomer.point}" readonly="readonly"></td>
+					<td><input type="text" name="point" value="${loginCustomer.point}" readonly="readonly"></td>
 				</tr> 			
 			</table>
-	
+			
+			<!-- 고객배송지 선택 -->
 			<div>
-				배송주소
+				배송주소 <a href="${pageContext.request.contextPath}/AddressList">주소선택</a>
 			</div>
-			<c:forEach var="a" items="${addressList}">
+			
+			<c:if test="${myAddress != null}">			
 				<div>
-					<span><input type="radio" name="addressCode" class="addressCode" value="${a.addressCode}"></span>
-					${a.address}
-					<span><a href="${pageContext.request.contextPath}/AddressRemoveOrder?customerId=${a.customerId}&address=${a.address}&goodsCode=${g.goodsCode}">삭제</a></span>
+					<input type="text" name="address" value="${myAddress.address}">
+					<input type="hidden" name="addressCode" value="${myAddress.addressCode}">
 				</div>
-			</c:forEach>
+			</c:if>
 			<br>
 			<br>
+			
+			<!-- 총 주문가격 -->
 			총주문 가격 :
 			<c:set var = "total" value = "0" />
 			<c:forEach var="result" items="${cartList}" varStatus="status">			
@@ -88,24 +90,6 @@
 			
 			<c:out value="${total}"/>
 			<button type="submit">결제</button>
-		</form>
-		
-		<!-- 주소추가 폼 (미완)
-		<form action="${pageContext.request.contextPath}/orders/ordersAdd" method="get">
-			<div>
-				주소추가
-			</div>
-			<div>
-				<input type="hidden" name="orderQuantity" value="${orderQuantity}">
-				<input type="hidden" name="goodsCode" value="${g.goodsCode}">
-			</div>
-			<div>
-				<textarea rows="4" cols="40" name="address"></textarea>
-			</div>
-			<div><button type="submit">추가</button></div>
-		</form>
-		 -->
-		
-		
+		</form>		
 	</body>
 </html>

@@ -38,6 +38,32 @@ public class CustomerAddressService {
 		return list;
 	}
 	
+	// 6-1) 배송희망 주소 불러오기 (1개)
+	public CustomerAddress myAddress(String customerId, int addressCode) {
+		CustomerAddress myAddress = null;
+		Connection conn = null;
+		this.customerAddressDao = new CustomerAddressDao();
+		try {
+			conn = DBUtil.getConnection();
+			myAddress = customerAddressDao.myAddress(conn, customerId, addressCode);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return myAddress;
+	}
+	
 	// 7) 회원 주소추가 (주소 총갯수와 트랜잭션 3개 초과 생성 불가하게끔)
 	public int addMyAddress(CustomerAddress cusAddress) {
 		int addMyAddress = 0;
