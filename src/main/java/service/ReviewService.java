@@ -3,7 +3,9 @@ package service;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import dao.OrdersDao;
 import dao.PointHistoryDao;
 import dao.ReviewDao;
 import util.DBUtil;
@@ -15,14 +17,42 @@ import vo.Review;
 public class ReviewService {
 	private ReviewDao reviewDao;
 	private PointHistoryDao pointHistoryDao;
+	// 주문 리스트 페이징
+		public int getReviewListCount() {
+			int row = 0;
+			Connection conn = null;
+			try {
+				conn = DBUtil.getConnection();
+				reviewDao = new ReviewDao();
+				row = reviewDao.selectReviewCount(conn);
+				conn.commit(); // DBUtil setAutoCommit false설정
+			} catch (Exception e) {
+				try {
+					conn.rollback();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				e.printStackTrace();
+				
+			} finally {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			return row;
+		}
+	
 	// 리뷰 리스트
-	public ArrayList<Review> selectReivewList() {
-		ArrayList<Review> review = new ArrayList<Review>();
+		public ArrayList<HashMap<String, Object>> selectReviewList(int currentPage, int rowPerPage) {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();
+			int beginRow = (currentPage - 1) * rowPerPage;
 			reviewDao = new ReviewDao();
-			review = reviewDao.selectReviewList(conn);
+			list = reviewDao.selectReviewList(conn, beginRow, rowPerPage);
 			conn.commit();
 		} catch (Exception e) {
 			try {
@@ -39,7 +69,7 @@ public class ReviewService {
 				e.printStackTrace();
 			}
 		}
-		return review;
+		return list;
 	}
 	
 	// 리뷰추가 동시에 포인트적립

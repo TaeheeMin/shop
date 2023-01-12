@@ -4,27 +4,56 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import vo.Notice;
 import vo.Orders;
 import vo.Review;
 
 public class ReviewDao {
-		//리뷰 리스트 
-		//이너조인 하여 다른목록 봐야함 추후예정
-		public ArrayList<Review> selectReviewList(Connection conn) throws Exception {
-			ArrayList<Review> review = new ArrayList<Review>();
-			String sql = "SELECT order_code orderCode, review_memo reviewMemo, createdate FROM review";
+		// 리뷰목록 페이징
+		public int selectReviewCount(Connection conn) throws Exception {
+			int row = 0;
+			String sql = "SELECT COUNT(*) FROM review";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
-				Review r = new Review();
-				r.setOrderCode(rs.getInt("orderCode"));
-				r.setReviewMemo(rs.getString("reviewMemo"));
-				r.setCreatedate(rs.getString("createdate"));
-				review.add(r);
+				row = rs.getInt("COUNT(*)");
 			}
-			return review;
+			return row;
+		}
+		//리뷰 리스트 		
+			public ArrayList<HashMap<String, Object>> selectReviewList(Connection conn, int beginRow, int rowPerPage) throws Exception {
+			ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();		
+			String sql = "SELECT "
+					+ "o.order_code orderCode"
+					+ "	, r.review_memo reviewMemo"
+					+ "	, r.createdate createdate"
+					+ "	, o.customer_id customerId"
+					+ "	, g.goods_title goodsTitle"
+					+ " , gi.filename filename"
+					+ "	FROM review r INNER JOIN orders o"
+					+ "	ON r.order_code = o.order_code"
+					+ " INNER JOIN goods g"
+					+ " ON o.order_code = g.goods_code"
+					+ "	INNER JOIN goods_img gi"
+					+ " ON g.goods_code = gi.goods_code"
+					+ " LIMIT ?,?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, beginRow);
+			stmt.setInt(2, rowPerPage);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()) {
+		         HashMap<String, Object> m = new HashMap<String, Object>();
+		         m.put("orderCode", rs.getInt("orderCode"));
+		         m.put("reviewMemo", rs.getString("reviewMemo"));
+		         m.put("customerId", rs.getString("customerId"));
+		         m.put("createdate", rs.getString("createdate"));
+		         m.put("goodsTitle", rs.getString("goodsTitle"));
+		         m.put("filename", rs.getString("filename"));
+		         list.add(m);
+			}
+			return list;
 		}
 	
 		// 리뷰추가 주문한상품의 고객만 
