@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import service.QuestionCommentService;
 import service.QuestionService;
 import vo.Customer;
 import vo.Question;
@@ -18,6 +19,7 @@ import vo.Question;
 @WebServlet("/QuestionListByCustomer")
 public class QuestionListByCustomerController extends HttpServlet {
 	private QuestionService questionService;
+	private QuestionCommentService questionCommentService;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
@@ -30,8 +32,13 @@ public class QuestionListByCustomerController extends HttpServlet {
 		
 		String customerId = loginCustomer.getCustomerId();
 		this.questionService = new QuestionService();
+		this.questionCommentService = new QuestionCommentService();
+		
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-		list = questionService.getQuestionListbyCustomer(customerId);
+		ArrayList<HashMap<String, Object>> comment = new ArrayList<HashMap<String, Object>>();
+		list = questionService.getQuestionListByAdmin();
+		comment = questionCommentService.getAllQuestionComment();
+		request.setAttribute("comment", comment);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/WEB-INF/view/question/questionListByCustomer.jsp").forward(request, response);
 	}

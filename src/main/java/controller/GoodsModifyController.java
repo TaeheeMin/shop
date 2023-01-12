@@ -50,6 +50,7 @@ public class GoodsModifyController extends HttpServlet {
 		goods.setGoodsContent(request.getParameter("goodsContent"));
 		goods.setGoodsPrice(Integer.parseInt(request.getParameter("goodsPrice")));
 		goods.setSoldout(request.getParameter("soldout"));
+		goods.setHit(Integer.parseInt(request.getParameter("hit")));
 		int row = 0;
 		this.goodsService = new GoodsService();
 		row = goodsService.modifyGoods(goods);

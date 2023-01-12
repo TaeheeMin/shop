@@ -60,9 +60,6 @@
 			
 			<input type="search" placeholder="Search" name="word" id="word" value="${word}">
      		<button type="button" id="searchBtn">검색</button>
-     		<c:if test="${word != ''}">
-     			${word} 검색 총 (구현중)건
-     		</c:if>
 		</form>
 		
 		<!-- #### list #### -->	
@@ -82,7 +79,6 @@
 						</div>
 						<div>${m.goodsArtist}</div>
 						<div>${m.goodsPrice}</div>
-						<div>${m.soldout}</div>
 						<div>
 							<img src="${pageContext.request.contextPath}/goodsimg/${m.filename}" width="200" height="200">
 						</div>
@@ -90,9 +86,14 @@
 							view : ${m.view}
 						</div>
 						<div>
-							<c:if test="${m.soldout eq 'N'}">
-								<a href="${pageContext.request.contextPath}/CartAdd?goodsCode=${m.goodsCode}&cartQuantity=1&filename=${m.filename}&goodsPrice=${m.goodsPrice}&goodsTitle=${m.goodsTitle}">cart</a>
-							</c:if>
+							<c:choose> 
+								<c:when test="${m.soldout eq 'N'}">
+									<a href="${pageContext.request.contextPath}/CartAdd?goodsCode=${m.goodsCode}&cartQuantity=1&filename=${m.filename}&goodsPrice=${m.goodsPrice}&goodsTitle=${m.goodsTitle}">cart</a>
+								</c:when> 
+								<c:otherwise>
+									품절
+								</c:otherwise> 
+							</c:choose> 
 						</div>
 						<c:if test="${loginEmp != null}">
 							<div>

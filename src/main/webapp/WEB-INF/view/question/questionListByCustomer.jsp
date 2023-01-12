@@ -36,8 +36,17 @@
 					</td>
 					<td>${q.createdate}</td>
 					<td>
-						<a href="${pageContext.request.contextPath}/QuestionModify?questionCode=${q.questionCode}">수정</a>
-						<a href="${pageContext.request.contextPath}/QuestionRemove?questionCode=${q.questionCode}">삭제</a>
+						<c:forEach var="c" items="${comment}">
+							<c:choose> 
+								<c:when test="${c.questionCode eq q.questionCode}">
+									<a href="${pageContext.request.contextPath}/QuestionOne?questionCode=${q.questionCode}">답변보기</a>
+								</c:when> 
+								<c:otherwise>
+									<a href="${pageContext.request.contextPath}/QuestionModify?questionCode=${q.questionCode}">수정</a>
+									<a href="${pageContext.request.contextPath}/QuestionRemove?questionCode=${q.questionCode}">삭제</a>
+								</c:otherwise> 
+							</c:choose> 
+						</c:forEach>
 					</td>
 				</tr>
 			</c:forEach>

@@ -71,6 +71,7 @@ public class GoodsDao {
 				+ " ON gd.goods_code = img.goods_code"
 				+ " WHERE " + search + " LIKE ?"
 				+ " AND gd.goods_category LIKE ?"
+				+ " ORDER BY hit DESC, goodsCode DESC"
 				+ " LIMIT ?, ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, "%"+ word +"%");
@@ -105,6 +106,7 @@ public class GoodsDao {
 				+ ", g.goods_content goodsContent"
 				+ ", g.goods_price goodsPrice"
 				+ ", g.soldout soldout"
+				+ ", g.hit hit"
 				+ ", g.view view"
 				+ ", img.filename filename"
 				+ " FROM goods g INNER JOIN goods_img img"
@@ -123,6 +125,7 @@ public class GoodsDao {
 			m.put("goodsPrice",  rs.getString("goodsPrice"));
 			m.put("goodsContent", rs.getString("goodsContent"));
 			m.put("soldout", rs.getString("soldout"));
+			m.put("hit", rs.getString("hit"));
 			m.put("view",  rs.getInt("view"));
 			m.put("filename", rs.getString("filename"));
 			list.add(m);

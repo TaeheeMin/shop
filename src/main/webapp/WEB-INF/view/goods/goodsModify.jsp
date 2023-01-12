@@ -56,13 +56,30 @@
 					<tr>
 						<th>CONTENT</th>
 						<td>
-							<input type="text" name="goodsContent" value="${list.goodsContent}">
+							<textarea rows="15" cols="50" name="goodsContent">${list.goodsContent}</textarea>
 						</td>
 					</tr>
 					<tr>
 						<th>PRICE</th>
 						<td>
 							<input type="text" name="goodsPrice" value="${list.goodsPrice}">
+						</td>
+					</tr>
+					<tr>
+						<th>HIT</th>
+						<td>
+							<c:choose> 
+								<c:when test="${list.hit eq 0}">
+									<input type="radio" name="hit" value="1">추천상품
+									<input type="radio" name="hit" value="0" checked="checked">일반상품
+								</c:when> 
+								<c:otherwise>
+									<input type="radio" name="hit" value="1" checked="checked">추천상품
+									<input type="radio" name="hit" value="0">일반상품
+								</c:otherwise> 
+							</c:choose> 
+						
+							
 						</td>
 					</tr>
 					<tr>
