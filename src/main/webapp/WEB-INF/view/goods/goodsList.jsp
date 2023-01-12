@@ -78,7 +78,9 @@
 							view : ${m.view}
 						</div>
 						<div>
-							<a href="${pageContext.request.contextPath}/CartAdd?goodsCode=${m.goodsCode}&cartQuantity=1&filename=${m.filename}&goodsPrice=${m.goodsPrice}&goodsTitle=${m.goodsTitle}">cart</a>
+							<c:if test="${m.soldout eq 'N'}">
+								<a href="${pageContext.request.contextPath}/CartAdd?goodsCode=${m.goodsCode}&cartQuantity=1&filename=${m.filename}&goodsPrice=${m.goodsPrice}&goodsTitle=${m.goodsTitle}">cart</a>
+							</c:if>
 						</div>
 						<c:if test="${loginEmp != null}">
 							<div>

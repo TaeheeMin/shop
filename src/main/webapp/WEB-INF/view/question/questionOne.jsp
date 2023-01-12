@@ -10,10 +10,10 @@
 		<h1>문의사항-상세보기</h1>
 		<a href="${pageContext.request.contextPath}/Home">홈으로</a>
 		<c:if test="${loginEmp != null}">
-		<a href="${pageContext.request.contextPath}/QuestionListByAdmin">관리자 문의사항 목록</a>
+			<a href="${pageContext.request.contextPath}/QuestionListByAdmin">관리자 문의사항 목록</a>
 		</c:if>
 		<c:if test="${loginCustomer != null}">
-		<a href="${pageContext.request.contextPath}/QuestionListByCustomer">문의사항 목록</a>
+			<a href="${pageContext.request.contextPath}/QuestionListByCustomer">문의사항 목록</a>
 		</c:if>
 		<form action="${pageContext.request.contextPath}/QuestionCommentAdd" method="post">
 			<table border="1">
@@ -55,12 +55,17 @@
 			<c:if test="${loginEmp != null}">
 				<h3>답변 등록</h3>
 				<textarea rows="5" cols="30" name="commentMemo"></textarea>
+				<button type="submit">등록</button>
 			</c:if>
-			<button type="submit">등록</button>
 		</form>
+		
 		<h3>답변보기</h3>
 		<c:forEach var="comment" items="${comment}">
 			<table border="1">
+				<tr>
+					<th>번호</th>
+					<td>${comment.questionCode}</td>
+				</tr>
 				<tr>
 					<th>작성일</th>
 					<td>${comment.createdate}</td>

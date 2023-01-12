@@ -30,9 +30,23 @@ public class QuestionAddController extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/Home");
 			return;
 		}
+		
+		// 3-1) currentPage		
+		int currentPage = 1;
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		// System.out.println("currentPage : " + currentPage);
+		
+		// 3-2) rowPerPage
+		int rowPerPage = 10;
+		if(request.getParameter("rowPerPage") != null) {
+			rowPerPage = Integer.parseInt(request.getParameter("rowPerPage"));
+				}
+		
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		this.ordersService = new OrdersService();
-		list = ordersService.selectOrdersList(loginCustomer);
+		list = ordersService.selectOrdersList(loginCustomer, currentPage, rowPerPage);
 		session.setAttribute("list", list);
 		
 		request.getRequestDispatcher("/WEB-INF/view/question/questionAdd.jsp").forward(request, response);

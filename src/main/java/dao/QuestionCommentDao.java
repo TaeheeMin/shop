@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import vo.Question;
 import vo.QuestionComment;
@@ -25,22 +26,43 @@ public class QuestionCommentDao {
 	}
 	
 	// 2) get
-	public ArrayList<QuestionComment> selectQuestionComment(Connection conn, int questionCode) throws Exception {
-		ArrayList<QuestionComment> list = new ArrayList<QuestionComment>();
+	public ArrayList<HashMap<String, Object>> selectQuestionComment(Connection conn, int questionCode) throws Exception {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		String sql = "SELECT"
 				+ " comment_memo commentMemo"
 				+ ", createdate"
+				+ ", question_code questionCode"
 				+ " FROM question_comment"
 				+ " WHERE question_code = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, questionCode);
 		ResultSet rs = stmt.executeQuery();
 		while(rs.next()) {
-			QuestionComment q = new QuestionComment();
-			q.setCommentMemo(rs.getString("commentMemo"));
-			q.setCreatedate(rs.getString("createdate"));
-			list.add(q);
+			HashMap<String, Object> m = new HashMap<String, Object>();
+			m.put("questionCode", rs.getInt("questionCode"));
+			m.put("commentMemo", rs.getString("commentMemo"));
+			m.put("createdate", rs.getString("createdate"));
+			list.add(m);
 		}
 		return list;
 	}
+	
+	// 3) list
+	public ArrayList<HashMap<String, Object>> selectAllQuestionComment(Connection conn) throws Exception {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		String sql = "SELECT"
+				+ " qc.comment_code commentCode"
+				+ ", q.question_code questionCode"
+				+ " FROM question_comment qc INNER JOIN question q"
+				+ " ON qc.question_code = q.question_code";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next()) {
+			HashMap<String, Object> m = new HashMap<String, Object>();
+			m.put("commentCode", rs.getInt("commentCode"));
+			m.put("questionCode", rs.getInt("questionCode"));
+			list.add(m);
+		}
+		return list;
+	} 
 }

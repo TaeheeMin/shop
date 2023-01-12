@@ -43,8 +43,8 @@ public class QuestionService {
 	
 	// 2) get
 	// 2-1) 관리자
-	public ArrayList<Question> getQuestionListByAdmin() {
-		ArrayList<Question> list = new ArrayList<Question>();
+	public ArrayList<HashMap<String, Object>> getQuestionListByAdmin() {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();

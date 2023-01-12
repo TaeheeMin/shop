@@ -24,7 +24,7 @@ public class QuestionOneController extends HttpServlet {
 		this.questionService = new QuestionService();
 		this.questionCommentService = new QuestionCommentService();
 		ArrayList<HashMap<String, Object>> list = questionService.getQuestionOne(questionCode);
-		ArrayList<QuestionComment> comment = questionCommentService.getQuestionComment(questionCode);
+		ArrayList<HashMap<String, Object>> comment = questionCommentService.getQuestionComment(questionCode);
 		// view와 공유할 모델 데이터 성정
 		request.setAttribute("list", list);
 		request.setAttribute("comment", comment);

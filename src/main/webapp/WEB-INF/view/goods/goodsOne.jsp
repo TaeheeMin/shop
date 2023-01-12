@@ -50,18 +50,20 @@
 					<th>VIEW</th>
 					<td><c:out value="${goodsOne.view}"></c:out></td>
 				</tr>
-				<tr>
-					<th>ACTION</th>
-					<td>
-						<a href="${pageContext.request.contextPath}/CartAdd?goodsCode=${goodsOne.goodsCode}&cartQuantity=1&filename=${goodsOne.filename}&goodsPrice=${goodsOne.goodsPrice}&goodsTitle=${goodsOne.goodsTitle}">cart</a>
-						<a href="${pageContext.request.contextPath}/orders/ordersAdd?goodsCode=${goodsOne.goodsCode}&cartQuantity=1&goodsArtist=${goodsOne.goodsArtist}&filename=${goodsOne.filename}&goodsPrice=${goodsOne.goodsPrice}&goodsTitle=${goodsOne.goodsTitle}">구매하기</a>
-					</td>
-				</tr>
+				<c:if test="${goodsOne.soldout eq 'N'}">
+					<tr>
+						<th>ACTION</th>
+						<td>
+							<a href="${pageContext.request.contextPath}/CartAdd?goodsCode=${goodsOne.goodsCode}&cartQuantity=1&filename=${goodsOne.filename}&goodsPrice=${goodsOne.goodsPrice}&goodsTitle=${goodsOne.goodsTitle}">cart</a>
+						</td>
+					</tr>
+				</c:if>
 			</c:forEach>
 		</table>
 		
 		<!-- #### review #### -->
 		<h3>리뷰</h3>
+		<c:if test="${review != null}">
 		<table border="1">
 			<c:forEach var="review" items="${review}">
 				<tr>
@@ -78,6 +80,6 @@
 				</tr>
 			</c:forEach>
 		</table>
-		
+		</c:if>
 	</body>
 </html>

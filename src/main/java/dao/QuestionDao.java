@@ -39,33 +39,41 @@ public class QuestionDao {
 		}
 		return count;
 	}
-	
-	public ArrayList<Question> selectQuestionByAdmin(Connection conn) throws Exception {
-		ArrayList<Question> list = new ArrayList<Question>();
+	// 문의 리스트
+	public ArrayList<HashMap<String, Object>> selectQuestionByAdmin(Connection conn) throws Exception {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		String sql = "SELECT"
-				+ " question_code questionCode"
-				+ ", orders_code ordersCode"
-				+ ", category"
-				+ ", question_title questionTitle"
-				+ ", question_memo questionMemo"
-				+ ", createdate"
-				+ " FROM question"
-				+ " ORDER BY question_code DESC";
+				+ " q.question_code questionCode"
+				+ ", q.orders_code ordersCode"
+				+ ", g.goods_title goodsTitle"
+				+ ", img.filename filename"
+				+ ", q.category"
+				+ ", q.question_title questionTitle"
+				+ ", q.question_memo questionMemo"
+				+ ", q.createdate"
+				+ " FROM question q INNER JOIN orders o"
+				+ " ON q.orders_code = o.order_code"
+				+ " INNER JOIN goods g"
+				+ " ON o.goods_code = g.goods_code"
+				+ " INNER JOIN goods_img img"
+				+ " ON g.goods_code = img.goods_code"
+				+ " ORDER BY q.question_code DESC";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();
 		while(rs.next()) {
-			Question q = new Question();
-			q.setQuestionCode(rs.getInt("questionCode"));
-			q.setOrdersCode(rs.getInt("ordersCode"));
-			q.setCategory(rs.getString("category"));
-			q.setQuestionTitle(rs.getString("questionTitle"));
-			q.setQuestionMemo(rs.getString("questionMemo"));
-			q.setCreatedate(rs.getString("createdate"));
-			list.add(q);
+			HashMap<String, Object> m = new HashMap<String, Object>();
+			m.put("questionCode", rs.getInt("questionCode"));
+			m.put("ordersCode", rs.getInt("ordersCode"));
+			m.put("goodsTitle", rs.getString("goodsTitle"));
+			m.put("filename", rs.getString("filename"));
+			m.put("category", rs.getString("category"));
+			m.put("questionTitle", rs.getString("questionTitle"));
+			m.put("createdate", rs.getString("createdate"));
+			list.add(m);
 		}
 		return list;
 	}
-	
+
 	// 2-2) 회원 list
 	public ArrayList<HashMap<String, Object>> selectQuestionBycustomer(Connection conn, String customerId) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
@@ -80,8 +88,8 @@ public class QuestionDao {
 				+ " FROM question q INNER JOIN orders o"
 				+ " ON q.orders_code = o.order_code"
 				+ " INNER JOIN goods g"
-				+ " ON o.goods_code = g.goods_cod"
-				+ "e INNER JOIN goods_img img"
+				+ " ON o.goods_code = g.goods_code"
+				+ " INNER JOIN goods_img img"
 				+ " ON g.goods_code = img.goods_code"
 				+ " WHERE o.customer_id = ?"
 				+ " ORDER BY q.question_code DESC";
