@@ -11,8 +11,21 @@ import vo.Customer;
 import vo.Orders;
 
 public class OrdersDao {
+	// 주문목록 페이징
+	public int selectOrdersCount(Connection conn) throws Exception {
+		int row = 0;
+		String sql = "SELECT COUNT(*) FROM orders";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next()) {
+			row = rs.getInt("COUNT(*)");
+		}
+		return row;
+	}
+
+	
 	// 주문목록 관리자용 
- public ArrayList<HashMap<String, Object>> selectOrdersListByAdmin(Connection conn) throws Exception {
+ public ArrayList<HashMap<String, Object>> selectOrdersListByAdmin(Connection conn, int beginRow, int rowPerPage) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		String sql = "SELECT "
 				+ "	o.order_code orderCode"
@@ -22,9 +35,12 @@ public class OrdersDao {
 				+ "	, o.order_state orderState"
 				+ "	, o.order_price orderPrice"								
 				+ "	FROM orders o INNER JOIN goods g ON o.goods_code = g.goods_code"
-				+ "	INNER JOIN goods_img gi ON g.goods_code = gi.goods_code";
+				+ "	INNER JOIN goods_img gi ON g.goods_code = gi.goods_code"
+				+ "	LIMIT ?,?";
 	              
-	      PreparedStatement stmt = conn.prepareStatement(sql);	  
+	      PreparedStatement stmt = conn.prepareStatement(sql);
+	      stmt.setInt(1, beginRow);
+	      stmt.setInt(2, rowPerPage);
 	      ResultSet rs = stmt.executeQuery();
 	      while(rs.next()) {
 	         HashMap<String, Object> m = new HashMap<String, Object>();
@@ -39,7 +55,7 @@ public class OrdersDao {
 		return list;
 	}
 		// 주문목록 본인용 
-	 public ArrayList<HashMap<String, Object>> selectOrdersList(Connection conn, Customer loginCustomer) throws Exception {
+	 public ArrayList<HashMap<String, Object>> selectOrdersList(Connection conn, int beginRow, int rowPerPage, Customer loginCustomer) throws Exception {
 			ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 			String sql = "SELECT "
 					+ "	o.order_code orderCode"
@@ -50,9 +66,12 @@ public class OrdersDao {
 					+ "	, o.order_price orderPrice"
 					+ "	FROM orders o INNER JOIN goods g ON o.goods_code = g.goods_code"
 					+ "	INNER JOIN goods_img gi ON g.goods_code = gi.goods_code"
-					+ "	WHERE o.customer_id = ?";		              
+					+ "	WHERE o.customer_id = ?"
+					+ " LIMIT ?,?";		              
 		      PreparedStatement stmt = conn.prepareStatement(sql);
 		      stmt.setString(1, loginCustomer.getCustomerId());
+		      stmt.setInt(2, beginRow);
+		      stmt.setInt(3, rowPerPage);
 		      ResultSet rs = stmt.executeQuery();
 		      while(rs.next()) {
 		         HashMap<String, Object> m = new HashMap<String, Object>();

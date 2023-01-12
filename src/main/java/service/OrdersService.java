@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import dao.CartDao;
+import dao.GoodsDao;
 import dao.OrdersDao;
 import dao.PointHistoryDao;
 import dao.ReviewDao;
@@ -20,13 +21,14 @@ public class OrdersService {
 	private CartDao cartDao;
 	private PointHistoryDao pointHistoryDao;
 	// 주문 리스트 관리자용
-	public ArrayList<HashMap<String, Object>> selectOrdersListByAdmin() {
+	public ArrayList<HashMap<String, Object>> selectOrdersListByAdmin(int currentPage, int rowPerPage) {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		Connection conn = null;
 		try {
+			int beginRow = (currentPage - 1) * rowPerPage; // 시작 행
 			conn = DBUtil.getConnection();
 			ordersDao = new OrdersDao();
-			list = ordersDao.selectOrdersListByAdmin(conn);
+			list = ordersDao.selectOrdersListByAdmin(conn, beginRow, rowPerPage);
 			conn.commit();
 		} catch (Exception e) {
 			try {
@@ -45,15 +47,45 @@ public class OrdersService {
 		}
 		return list;
 	}
-	
-	// 주문 리스트 고객용
-	public ArrayList<HashMap<String, Object>> selectOrdersList(Customer loginCustomer) {
-		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+	// 주문 리스트 페이징
+	public int getOrdersListCount() {
+		int row = 0;
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();
 			ordersDao = new OrdersDao();
-			list = ordersDao.selectOrdersList(conn, loginCustomer);
+			row = ordersDao.selectOrdersCount(conn);
+			conn.commit(); // DBUtil setAutoCommit false설정
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return row;
+	}
+	
+	
+	
+	
+	// 주문 리스트 고객용
+	public ArrayList<HashMap<String, Object>> selectOrdersList(Customer loginCustomer,int currentPage, int rowPerPage) {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			int beginRow = (currentPage - 1) * rowPerPage; // 시작 행
+			ordersDao = new OrdersDao();
+			list = ordersDao.selectOrdersList(conn, beginRow, rowPerPage, loginCustomer);
 			conn.commit();
 		} catch (Exception e) {
 			try {
