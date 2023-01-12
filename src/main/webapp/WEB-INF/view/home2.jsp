@@ -18,92 +18,12 @@
 	    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style.css">
 	</head>
 	<body>
-	<!-- ##### Header Area Start ##### -->
-    <header class="header-area">
-        <!-- Navbar Area -->
-        <div class="oneMusic-main-menu">
-            <div class="classy-nav-container breakpoint-off">
-                <div class="container">
-                    <!-- Menu -->
-                    <nav class="classy-navbar justify-content-between" id="oneMusicNav">
-
-                        <!-- Nav brand -->
-                        <a href="index.html" class="nav-brand"><img src="${pageContext.request.contextPath}/resources/img/core-img/logo.png" alt=""></a>
-
-                        <!-- Navbar Toggler -->
-                        <div class="classy-navbar-toggler">
-                            <span class="navbarToggler"><span></span><span></span><span></span></span>
-                        </div>
-
-                        <!-- Menu -->
-                        <div class="classy-menu">
-
-                            <!-- Close Button -->
-                            <div class="classycloseIcon">
-                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
-                            </div>
-
-                            <!-- Nav Start -->
-                            <div class="classynav">
-                                <ul>
-                                    <li><a href="index.html">Home</a></li>
-                                    <li><a href="albums-store.html">Albums</a></li>
-                                    <li><a href="#">Pages</a>
-                                        <ul class="dropdown">
-                                            <li><a href="index.html">Home</a></li>
-                                            <li><a href="albums-store.html">Albums</a></li>
-                                            <li><a href="event.html">Events</a></li>
-                                            <li><a href="blog.html">News</a></li>
-                                            <li><a href="contact.html">Contact</a></li>
-                                            <li><a href="elements.html">Elements</a></li>
-                                            <li><a href="login.html">Login</a></li>
-                                            <li><a href="#">Dropdown</a>
-                                                <ul class="dropdown">
-                                                    <li><a href="#">Even Dropdown</a></li>
-                                                    <li><a href="#">Even Dropdown</a></li>
-                                                    <li><a href="#">Even Dropdown</a></li>
-                                                    <li><a href="#">Even Dropdown</a>
-                                                        <ul class="dropdown">
-                                                            <li><a href="#">Deeply Dropdown</a></li>
-                                                            <li><a href="#">Deeply Dropdown</a></li>
-                                                            <li><a href="#">Deeply Dropdown</a></li>
-                                                            <li><a href="#">Deeply Dropdown</a></li>
-                                                            <li><a href="#">Deeply Dropdown</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li><a href="#">Even Dropdown</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="event.html">Events</a></li>
-                                    <li><a href="blog.html">News</a></li>
-                                    <li><a href="contact.html">Contact</a></li>
-                                </ul>
-
-                                <!-- Login/Register & Cart Button -->
-                                <div class="login-register-cart-button d-flex align-items-center">
-                                    <!-- Login/Register -->
-                                    <div class="login-register-btn mr-50">
-                                        <a href="login.html" id="loginBtn">Login / Register</a>
-                                    </div>
-
-                                    <!-- Cart Button -->
-                                    <div class="cart-btn">
-                                        <p><span class="icon-shopping-cart"></span> <span class="quantity">1</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Nav End -->
-
-                        </div>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </header>
-    <!-- ##### Header Area End ##### -->
+		<!-- 메뉴 partial jsp 구성 -->
+		<div>
+			<jsp:include page="../../inc/menu.jsp"></jsp:include>
+		</div>
     
+    <!-- 홈화면 (요즘잘나가는트렌디한그룹의사진으로이쁘게) -->
     <!-- ##### Hero Area Start ##### -->
     <section class="hero-area">
         <div class="hero-slides owl-carousel">
@@ -146,7 +66,7 @@
     </section>
     <!-- ##### Hero Area End ##### -->
     
-    <!-- ##### 최신앨범 홍보란 ##### -->
+    <!-- ##### 최신앨범 홍보란 (최근추가된 앨범 8개) ##### -->
     <section class="latest-albums-area section-padding-100">
         <div class="container">
             <div class="row">
@@ -160,7 +80,7 @@
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-9">
                     <div class="ablums-text text-center mb-70">
-                        <p>방금 막 공개된 따끈따끈한 최신앨범들을 구경해보세요!!</p>
+                        <p>방금 막 공개된 따끈따끈한 최신앨범들을 구경해보세요!! (좀더 장문으로 이쁘고 멋진소개글 쓰기)</p>
                     </div>
                 </div>
             </div>
