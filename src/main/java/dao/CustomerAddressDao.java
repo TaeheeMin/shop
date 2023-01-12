@@ -29,6 +29,24 @@ public class CustomerAddressDao {
 		return list;
 	}
 	
+	// 6-1) 배송희망 주소 불러오기 (1개)
+	public CustomerAddress myAddress(Connection conn, String customerId, int addressCode) throws Exception {
+		CustomerAddress myAddress = null;
+		
+		String sql = "SELECT address_code, address FROM customer_address WHERE address_code = ? AND customer_id = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, addressCode);
+		stmt.setString(2, customerId);
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			myAddress = new CustomerAddress();
+			myAddress.setAddressCode(rs.getInt("address_code"));
+			myAddress.setAddress(rs.getString("address"));
+		}
+		
+		return myAddress;
+	}
+	
 	// 7) 주소추가
 	public int addMyAddress(Connection conn, CustomerAddress cusAddress) throws Exception {
 		int addMyAddress = 0;
