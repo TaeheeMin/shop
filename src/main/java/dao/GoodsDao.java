@@ -56,7 +56,7 @@ public class GoodsDao {
 		return row;
 	}
 	// 2-2) list
-	public ArrayList<HashMap<String, Object>> selectGoodsList(Connection conn, int beginRow, int endRow, String category, String word) throws Exception {
+	public ArrayList<HashMap<String, Object>> selectGoodsList(Connection conn, int beginRow, int endRow, String search, String word, String category) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		String sql = "SELECT"
 				+ " gd.goods_code goodsCode"
@@ -69,12 +69,14 @@ public class GoodsDao {
 				+ ", img.filename filename"
 				+ " FROM goods gd INNER JOIN goods_img img"
 				+ " ON gd.goods_code = img.goods_code"
-				+ " WHERE " + category + " LIKE ?"
+				+ " WHERE " + search + " LIKE ?"
+				+ " AND gd.goods_category LIKE ?"
 				+ " LIMIT ?, ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, "%"+ word +"%");
-		stmt.setInt(2, beginRow);
-		stmt.setInt(3, endRow);
+		stmt.setString(2, "%"+ category +"%");
+		stmt.setInt(3, beginRow);
+		stmt.setInt(4, endRow);
 		ResultSet rs = stmt.executeQuery();
 		while(rs.next()) {
 			HashMap<String, Object> m = new HashMap<String, Object>();

@@ -73,15 +73,15 @@ public class GoodsService {
 	}
 	
 	// 2-2) list
-	public ArrayList<HashMap<String, Object>> getGoodsList(int currentPage, int rowPerPage, String category, String word) {
+	public ArrayList<HashMap<String, Object>> getGoodsList(int currentPage, int rowPerPage, String search, String word, String category) {
 		Connection conn = null;
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		try {
 			conn = DBUtil.getConnection();
 			// 페이징
 			int beginRow = (currentPage - 1) * rowPerPage; // 시작 행
-			System.out.println("beginRow : " + beginRow);
-			list = goodsDao.selectGoodsList(conn, beginRow, rowPerPage, category, word);
+			// System.out.println("beginRow : " + beginRow);
+			list = goodsDao.selectGoodsList(conn, beginRow, rowPerPage, search, word, category);
 			conn.commit();
 		} catch (Exception e) {
 			try {

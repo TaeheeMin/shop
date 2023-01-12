@@ -24,16 +24,21 @@ public class GoodsListController extends HttpServlet {
 		// 1) 카테고리
 		String category = request.getParameter("category"); 
 		if(category == null) {
-			category = "gd.goods_title";
+			category = "";
 		}
-		// System.out.println("category : " + category);
+		System.out.println("category : " + category);
 		
 		// 2) 검색어
+		String search = request.getParameter("search");
+		if(search == null) {
+			search = "gd.goods_title";
+		}
+		System.out.println("search : " + search);
 		String word = request.getParameter("word");
 		if(word == null) {
 			word = "";
-			// System.out.println("word : " + word);
 		}
+		System.out.println("word : " + word);
 		
 		// 3) 페이징
 		// 3-1) currentPage		
@@ -53,12 +58,10 @@ public class GoodsListController extends HttpServlet {
 		// 3-3) 전체 페이지
 		this.goodsService = new GoodsService();
 		int count = goodsService.getGoodsListCount();
-		// System.out.println("count : " + count);
+		System.out.println("count : " + count);
 		int page = 5; // 페이징 목록 개수
 		int beginPage = ((currentPage - 1)/page) * page + 1; // 시작 페이지
-
 		System.out.println("beginPage : "+beginPage);
-		// System.out.println("beginPage : " + beginPage);
 		int endPage = beginPage + page - 1; // 페이징 목록 끝
 		System.out.println("endPage : "+endPage);
 		int lastPage = (int)Math.ceil((double)count / (double)rowPerPage); // 마지막 페이지
@@ -68,7 +71,7 @@ public class GoodsListController extends HttpServlet {
 		}
 		// System.out.println("endPage : " + endPage);
 		
-		ArrayList<HashMap<String, Object>> list = goodsService.getGoodsList(currentPage, rowPerPage, category, word);
+		ArrayList<HashMap<String, Object>> list = goodsService.getGoodsList(currentPage, rowPerPage, category, word, category);
 		request.setAttribute("list", list);
 		request.setAttribute("beginPage", beginPage);
 		request.setAttribute("page", page);
@@ -77,10 +80,12 @@ public class GoodsListController extends HttpServlet {
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("rowPerPage", rowPerPage);
 		request.setAttribute("category", category);
+		request.setAttribute("search", search);
 		request.setAttribute("word", word);
 		request.getRequestDispatcher("/WEB-INF/view/goods/goodsList.jsp").forward(request, response);
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 	}
 }

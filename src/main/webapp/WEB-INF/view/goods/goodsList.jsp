@@ -11,6 +11,9 @@
 				$('#rowPerPage').change(function() {
 					$('#listForm').submit();
 				});
+				$('#searchBtn').click(function() {
+					$('#listForm').submit();
+				});
 			});
 		</script>
 	</head>
@@ -24,6 +27,15 @@
 		
 		<!-- #### search #### -->
 		<form action="${pageContext.request.contextPath}/GoodsList" method="get" id="listForm">
+			<div>
+				<input type="radio" name="category" id="category" value="">전체
+				<input type="radio" name="category" id="category" value="발라드">발라드
+				<input type="radio" name="category" id="category" value="댄스/팝">댄스/팝
+				<input type="radio" name="category" id="category" value="랩/힙합">랩/힙합
+				<input type="radio" name="category" id="category" value="재즈">재즈
+				<input type="radio" name="category" id="category" value="해외팝">해외팝
+				<input type="radio" name="category" id="category" value="인디">인디
+			</div>
 			<select name="rowPerPage" id="rowPerPage">
 				<c:if test="${rowPerPage == 10}">
 					<option value="10" selected="selected">10</option>
@@ -41,13 +53,13 @@
 					<option value="30" selected="selected">30</option>
 				</c:if>
 			</select>
-			<select name="category" id="category">
+			<select name="search" id="search">
 				<option value="gd.goods_title">앨범</option>
 				<option value="gd.goods_artist">가수</option>
-				<option value="gd.goods_category">장르</option>
 			</select>
-			<input type="search" placeholder="Search" name="word" id="search" value="${word}">
-     		<button type="submit">검색</button>
+			
+			<input type="search" placeholder="Search" name="word" id="word" value="${word}">
+     		<button type="button" id="searchBtn">검색</button>
      		<c:if test="${word != ''}">
      			${word} 검색 총 (구현중)건
      		</c:if>
