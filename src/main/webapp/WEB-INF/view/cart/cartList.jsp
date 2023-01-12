@@ -72,7 +72,7 @@
 					<td colspan="3">
 						<c:set var = "cartPrice" value = "0" />
 							<c:forEach var="c" items="${list}">
-								<c:set var= "cartPrice" value="${cartPrice + (c.goodsPrice * c.cartQuantity)}"/>
+								<c:set var= "cartPrice" value="${cartPrice + c.goodsPrice}"/>
 							</c:forEach>
 						<input type="text" name="cartPrice" value="${cartPrice}" readonly="readonly">
 					</td>
