@@ -6,13 +6,22 @@
 		<meta charset="UTF-8">
 		<title>장바구니</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-		<script>
-			$(document).ready(function(){
-				$('#cartQuantityBtn').click(function(){
-					location.href="${pageContext.request.contextPath}/CartModify"
+		<c:forEach var="c" items="${list}">
+			<script>
+				$(document).ready(function(){
+					$('#cartQuantityBtn${c.goodsCode}').click(function(){
+						let cartQuantity = $('#cartQuantity${c.goodsCode}');
+						console.log('(1)'+cartQuantity.val());
+						
+						let cartQtt = $('#cartQtt${c.goodsCode}');
+						cartQtt = cartQuantity
+						console.log('(2)'+cartQtt.val())
+						$('input[name=cartQuantity]').attr('value',cartQtt.val());
+						$('#modifyQttForm${c.goodsCode}').submit();
+					});
 				});
-			});
-		</script>
+			</script>
+		</c:forEach>
 	</head>
 	<body>
 		<h1>장바구니 목록</h1>
@@ -39,7 +48,7 @@
 						</td>
 						
 						<td>
-							<select name="cartQuantity" id="cartQuantity">
+							<select name="cartQuantity" id="cartQuantity${c.goodsCode}">
 								<c:forEach var="x" begin="1" end="10" step="1">
 									<c:choose> 
 										<c:when test="${x eq c.cartQuantity}">
@@ -51,7 +60,7 @@
 									</c:choose> 
 								</c:forEach>
 							</select>
-							<button id="cartQuantityBtn" type="button">수정</button>
+							<button id="cartQuantityBtn${c.goodsCode}" type="button">수정</button>
 						</td>
 						<td>
 							<a href="${pageContext.request.contextPath}/CartRemove?goodsCode=${c.goodsCode}">삭제</a>
@@ -71,5 +80,12 @@
 			</table>
 			<button type="submit">주문</button>
 		</form>
+		<!-- 수량변경 히든폼 -->
+		<c:forEach var="c" items="${list}">
+		<form action="${pageContext.request.contextPath}/CartModify" method="post" id="modifyQttForm${c.goodsCode}">
+			<input type="hidden" name="goodsCode" value="${c.goodsCode}">
+			<input type="hidden" name="cartQuantity" value="" id="cartQtt${c.goodsCode}">
+		</form>
+		</c:forEach>
 	</body>
 </html>

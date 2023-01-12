@@ -1,6 +1,9 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,13 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import service.CartService;
 import service.CustomerService;
+import vo.Cart;
 import vo.Customer;
 import vo.Emp;
 
 @WebServlet("/LoginCustomer")
 public class CustomerLoginController extends HttpServlet {
 	private CustomerService customerService;
+	private CartService cartService;
 	
 	// 로그인 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -64,6 +70,23 @@ public class CustomerLoginController extends HttpServlet {
 		System.out.println("로그인 성공 -> 홈컨트롤러로 이동");
 		HttpSession session = request.getSession();
 		session.setAttribute("loginCustomer",loginCustomer);
+		if(session.getAttribute("cart") != null) {
+			// 비로그인상태에서 장바구니에 담은 물건이 있을 경우, 회원 장바구니로 이동해주기
+			this.cartService = new CartService();
+			Cart cart = new Cart();
+			cart.setCustomerId(customerId);
+			// 비로그인에서 담은 cartlist 불러오기
+			ArrayList<HashMap<String, Object>> cartlist = (ArrayList<HashMap<String,Object>>)session.getAttribute("cart");
+			int addCart = 0;
+			for(HashMap<String,Object> c : cartlist) { 
+				// foreach 문으로 각각의 goodsCode를 불러와 cart에대입하여 cart에 추가해주기
+				cart.setGoodsCode(Integer.parseInt(String.valueOf(c.get("goodsCode"))));
+				addCart = cartService.addCart(cart);
+				if(addCart == 1) {
+					System.out.println(Integer.parseInt(String.valueOf(c.get("goodsCode")))+"번 상품 장바구니로 이동 성공");
+				}
+			}
+		}
 		response.sendRedirect(request.getContextPath()+"/Home");
 	}
 

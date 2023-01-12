@@ -36,14 +36,16 @@ public class CartModifyController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession();
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
 		int row = 0;
+		System.out.println("[CartModify컨트롤러 post 진입]");
 		
 		// 1) 로그인 -> cart 추가
 		if(loginCustomer != null) {
 			// 값 받아오기
+			System.out.println("cartQtt : "+request.getParameter("cartQuantity"));
+			System.out.println("goodsCode : "+request.getParameter("goodsCode"));
 			int cartQuantity =Integer.parseInt(request.getParameter("cartQuantity"));
 			System.out.println(cartQuantity);
 			int goodsCode = Integer.parseInt(request.getParameter("goodsCode"));
