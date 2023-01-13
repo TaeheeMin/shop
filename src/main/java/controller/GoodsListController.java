@@ -71,7 +71,11 @@ public class GoodsListController extends HttpServlet {
 		}
 		// System.out.println("endPage : " + endPage);
 		
+		// 앨범리스트 
 		ArrayList<HashMap<String, Object>> list = goodsService.getGoodsList(currentPage, rowPerPage, search, word, category);
+		// 추천상품 리스
+		ArrayList<HashMap<String, Object>> hlist = goodsService.selectHitSongList();
+		request.setAttribute("hlist", hlist);
 		request.setAttribute("list", list);
 		request.setAttribute("beginPage", beginPage);
 		request.setAttribute("page", page);

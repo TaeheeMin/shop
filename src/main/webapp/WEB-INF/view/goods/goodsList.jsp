@@ -34,24 +34,53 @@
 			<jsp:include page="/inc/menu.jsp"></jsp:include>
 		</div>
 		
-		
-    <!-- ##### Breadcumb Area Start ##### -->
-    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/breadcumb3.jpg);">
-        <div class="bradcumbContent">
-            <p>See what’s new</p>
-            <h2>Latest Albums</h2>
-        </div>
-    </section>
-    <!-- ##### Breadcumb Area End ##### -->
-
-    <!-- ##### Album Catagory Area Start ##### -->
-    <section class="album-catagory section-padding-100-0">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                	<!-- #### search #### -->
-					<form action="${pageContext.request.contextPath}/GoodsList" method="get" id="listForm">
-						<div>
+    	<!-- ##### Breadcumb Area Start ##### -->
+	    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/breadcumb3.jpg);">
+	        <div class="bradcumbContent">
+	            <p>See what’s new</p>
+	            <h2>LATEST ALBUMS</h2>
+	        </div>
+	    </section>
+	    <!-- ##### Breadcumb Area End ##### -->
+	    
+	    <!-- ##### Album Catagory Area Start ##### -->
+	    <section class="album-catagory section-padding-100-0">
+	        <div class="container">
+	            <div class="row">
+	                <div class="col-12">
+	                	<!-- #### search #### -->
+						<form action="${pageContext.request.contextPath}/GoodsList" method="get" id="listForm">
+							<div class="browse-by-catagories catagory-menu d-flex flex-wrap align-items-center mb-70">
+		                        <a href="#" data-filter="*">Browse All</a>
+		                        <a href="#" data-filter=".a">A</a>
+		                        <a href="#" data-filter=".b">B</a>
+		                        <a href="#" data-filter=".c">C</a>
+		                        <a href="#" data-filter=".d">D</a>
+		                        <a href="#" data-filter=".e">E</a>
+		                        <a href="#" data-filter=".f">F</a>
+		                        <a href="#" data-filter=".g">G</a>
+		                        <a href="#" data-filter=".h">H</a>
+		                        <a href="#" data-filter=".i">I</a>
+		                        <a href="#" data-filter=".j">J</a>
+		                        <a href="#" data-filter=".k">K</a>
+		                        <a href="#" data-filter=".l">L</a>
+		                        <a href="#" data-filter=".m">M</a>
+		                        <a href="#" data-filter=".n">N</a>
+		                        <a href="#" data-filter=".o">O</a>
+		                        <a href="#" data-filter=".p">P</a>
+		                        <a href="#" data-filter=".q">Q</a>
+		                        <a href="#" data-filter=".r">R</a>
+		                        <a href="#" data-filter=".s">S</a>
+		                        <a href="#" data-filter=".t">T</a>
+		                        <a href="#" data-filter=".u">U</a>
+		                        <a href="#" data-filter=".v">V</a>
+		                        <a href="#" data-filter=".w">W</a>
+		                        <a href="#" data-filter=".x">X</a>
+		                        <a href="#" data-filter=".y">Y</a>
+		                        <a href="#" data-filter=".z">Z</a>
+		                        <a href="#" data-filter=".number">0-9</a>
+	                    	</div>
+							
 							<input type="radio" name="category" id="category" value="">전체
 							<input type="radio" name="category" id="category" value="발라드">발라드
 							<input type="radio" name="category" id="category" value="댄스/팝">댄스/팝
@@ -59,174 +88,126 @@
 							<input type="radio" name="category" id="category" value="재즈">재즈
 							<input type="radio" name="category" id="category" value="해외팝">해외팝
 							<input type="radio" name="category" id="category" value="인디">인디
-						</div>
-						<select name="rowPerPage" id="rowPerPage">
-							<c:if test="${rowPerPage == 10}">
-								<option value="10" selected="selected">10</option>
-								<option value="20">20</option>
-								<option value="30">30</option>
-							</c:if>
-							<c:if test="${rowPerPage == 20}">
-								<option value="10">10</option>
-								<option value="20" selected="selected">20</option>
-								<option value="30">30</option>
-							</c:if>
-							<c:if test="${rowPerPage == 30}">
-								<option value="10">10</option>
-								<option value="20">20</option>
-								<option value="30" selected="selected">30</option>
-							</c:if>
-						</select>
-						<select name="search" id="search">
-							<option value="gd.goods_title">앨범</option>
-							<option value="gd.goods_artist">가수</option>
-						</select>
-						
-						<input type="search" placeholder="Search" name="word" id="word" value="${word}">
-			     		<button type="button" id="searchBtn">검색</button>
-					</form>
-                    <div class="browse-by-catagories catagory-menu d-flex flex-wrap align-items-center mb-70">
-                        <a href="#" data-filter="*">Browse All</a>
-                        <a href="#" data-filter=".a" class="active">A</a>
-                        <a href="#" data-filter=".b">B</a>
-                        <a href="#" data-filter=".c">C</a>
-                        <a href="#" data-filter=".d">D</a>
-                        <a href="#" data-filter=".e">E</a>
-                        <a href="#" data-filter=".f">F</a>
-                        <a href="#" data-filter=".g">G</a>
-                        <a href="#" data-filter=".h">H</a>
-                        <a href="#" data-filter=".i">I</a>
-                        <a href="#" data-filter=".j">J</a>
-                        <a href="#" data-filter=".k">K</a>
-                        <a href="#" data-filter=".l">L</a>
-                        <a href="#" data-filter=".m">M</a>
-                        <a href="#" data-filter=".n">N</a>
-                        <a href="#" data-filter=".o">O</a>
-                        <a href="#" data-filter=".p">P</a>
-                        <a href="#" data-filter=".q">Q</a>
-                        <a href="#" data-filter=".r">R</a>
-                        <a href="#" data-filter=".s">S</a>
-                        <a href="#" data-filter=".t">T</a>
-                        <a href="#" data-filter=".u">U</a>
-                        <a href="#" data-filter=".v">V</a>
-                        <a href="#" data-filter=".w">W</a>
-                        <a href="#" data-filter=".x">X</a>
-                        <a href="#" data-filter=".y">Y</a>
-                        <a href="#" data-filter=".z">Z</a>
-                        <a href="#" data-filter=".number">0-9</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row oneMusic-albums">
-                <!-- #### list #### -->	
-                <c:forEach var="m" items="${list}" varStatus="s">
-                <c:if test="${s.index != 0 && s.index % 6 == 0 }">
-						</div><div>
-					</c:if>
-	                <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item t c p">
-	                    <div class="single-album">
-	                        <img src="${pageContext.request.contextPath}/goodsimg/${m.filename}" alt="">
-	                        <div class="album-info">
-	                            <a href="${pageContext.request.contextPath}/GoodsOne?goodsCode=${m.goodsCode}">
-	                                <h5>${m.goodsArtist}</h5>
-	                            </a>
-	                            <p>${m.goodsTitle}</p>
-	                            
-	                        </div>
-	                    </div>
+							
+							<div style="float: right; padding-bottom: 10px;">
+								<select name="rowPerPage" id="rowPerPage">
+									<c:if test="${rowPerPage == 10}">
+										<option value="10" selected="selected">10</option>
+										<option value="20">20</option>
+										<option value="30">30</option>
+									</c:if>
+									<c:if test="${rowPerPage == 20}">
+										<option value="10">10</option>
+										<option value="20" selected="selected">20</option>
+										<option value="30">30</option>
+									</c:if>
+									<c:if test="${rowPerPage == 30}">
+										<option value="10">10</option>
+										<option value="20">20</option>
+										<option value="30" selected="selected">30</option>
+									</c:if>
+								</select>
+								<select name="search" id="search">
+									<option value="gd.goods_title">앨범</option>
+									<option value="gd.goods_artist">가수</option>
+								</select>
+								<input type="search" placeholder="Search" name="word" id="word" value="${word}">
+					     		<button type="button" id="searchBtn">검색</button>
+							</div>
+	                    
+	                    </form>
 	                </div>
-                </c:forEach>
-            </div>
-        </div>
-    </section>
-    <!-- ##### Album Catagory Area End ##### -->
-
-    <!-- ##### 추천앨범 ##### -->
-    <div class="oneMusic-buy-now-area mb-100">
-        <div class="container">
-            <div class="row">
-
-                <!-- Single Album Area -->
-                <div class="col-12 col-sm-6 col-md-3">
-                    <div class="single-album-area">
-                        <div class="album-thumb">
-                            <img src="img/bg-img/b1.jpg" alt="">
-                            <!-- Album Price -->
-                            <div class="album-price">
-                                <p>$0.90</p>
-                            </div>
-                            <!-- Play Icon -->
-                            <div class="play-icon">
-                                <a href="#" class="video--play--btn"><span class="icon-play-button"></span></a>
-                            </div>
-                        </div>
-                        <div class="album-info">
-                            <a href="#">
-                                <h5>Garage Band</h5>
-                            </a>
-                            <p>Radio Station</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single Album Area -->
-                <div class="col-12 col-sm-6 col-md-3">
-                    <div class="single-album-area">
-                        <div class="album-thumb">
-                            <img src="img/bg-img/b2.jpg" alt="">
-                        </div>
-                        <div class="album-info">
-                            <a href="#">
-                                <h5>Noises</h5>
-                            </a>
-                            <p>Buble Gum</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single Album Area -->
-                <div class="col-12 col-sm-6 col-md-3">
-                    <div class="single-album-area">
-                        <div class="album-thumb">
-                            <img src="img/bg-img/b3.jpg" alt="">
-                        </div>
-                        <div class="album-info">
-                            <a href="#">
-                                <h5>Jess Parker</h5>
-                            </a>
-                            <p>The Album</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single Album Area -->
-                <div class="col-12 col-sm-6 col-md-3">
-                    <div class="single-album-area">
-                        <div class="album-thumb">
-                            <img src="img/bg-img/b4.jpg" alt="">
-                        </div>
-                        <div class="album-info">
-                            <a href="#">
-                                <h5>Noises</h5>
-                            </a>
-                            <p>Buble Gum</p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="row">
-                <div class="col-12">
-                    <div class="load-more-btn text-center">
-                        <a href="#" class="btn oneMusic-btn">Load More <i class="fa fa-angle-double-right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- ##### Buy Now Area End ##### -->
+	            </div>
+	
+	            <div class="row oneMusic-albums">
+	                <!-- #### list #### -->	
+	                <c:forEach var="m" items="${list}" varStatus="s">
+		                <c:if test="${s.index != 0 && s.index % 6 == 0 }">
+							</div><div>
+						</c:if>
+		                <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item t c p">
+		                    <div class="single-album">
+		                        <img src="${pageContext.request.contextPath}/goodsimg/${m.filename}" alt="">
+		                        <div class="album-info">
+		                            <a href="${pageContext.request.contextPath}/GoodsOne?goodsCode=${m.goodsCode}">
+		                                <h5>${m.goodsArtist}</h5>
+		                            </a>
+		                            <p>${m.goodsTitle}</p>
+		                            <p>${m.goodsPrice}</p>
+		                            <p>
+										<c:choose> 
+											<c:when test="${m.soldout eq 'N'}">
+												<a href="${pageContext.request.contextPath}/CartAdd?goodsCode=${m.goodsCode}&cartQuantity=1&filename=${m.filename}&goodsPrice=${m.goodsPrice}&goodsTitle=${m.goodsTitle}">cart</a>
+											</c:when> 
+											<c:otherwise>
+												품절
+											</c:otherwise> 
+										</c:choose> 
+									</p>
+									<c:if test="${loginEmp != null}">
+										<div>
+											<a href="${pageContext.request.contextPath}/GoodsModify?goodsCode=${m.goodsCode}">수정</a>
+										</div>
+									</c:if>
+		                            
+		                        </div>
+		                    </div>
+		                </div>
+	                </c:forEach>
+	            </div>
+	            <!-- Pagination -->
+	            <div class="oneMusic-pagination-area wow fadeInUp" data-wow-delay="300ms">
+	                <nav>
+	                    <ul class="pagination">
+	                        <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/GoodsList?rowPerPage=${rowPerPage}&currentPage=1">HOME</a></li>
+	                        <c:if test="${currentPage > 1}">
+								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/GoodsList?rowPerPage=${rowPerPage}&currentPage=${currentPage-1}"><<</a></li>
+							</c:if>
+							<c:forEach var="x" begin="${beginPage}" end="${endPage}" step="1">
+								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/GoodsList?rowPerPage=${rowPerPage}&currentPage=${x}">${x}</a></li>
+							</c:forEach>
+							<c:if test="${currentPage < lastPage}">
+								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/GoodsList?rowPerPage=${rowPerPage}&currentPage=${currentPage +1}">>></a></li>
+							</c:if>
+							<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/GoodsList?rowPerPage=${rowPerPage}&currentPage=${lastPage}">END</a></li>
+	                    </ul>
+	                </nav>
+	            </div>
+	            <!-- ##### 추천앨범 ##### -->
+			    <div class="oneMusic-buy-now-area mt-100">
+			        <div class="container">
+			            <div class="row">
+			                <!-- Single Album Area -->
+			                <c:forEach var="m" items="${hlist}" varStatus="s" begin="0" end="3" step="1">
+								<div class="col-12 col-sm-6 col-md-3">
+				                    <div class="single-album-area">
+				                        <div class="album-thumb">
+				                            <img src="${pageContext.request.contextPath}/goodsimg/${m.filename}" alt="">
+				                            <!-- Album Price -->
+				                            <div class="album-price">
+				                                <p>${m.goodsPrice}</p>
+				                            </div>
+				                            <!-- Play Icon -->
+				                            <div class="play-icon">
+				                                <a href="#" class="video--play--btn"><span class="icon-play-button"></span></a>
+				                            </div>
+				                        </div>
+				                        <div class="album-info">
+				                            <a href="${pageContext.request.contextPath}/GoodsOne?goodsCode=${m.goodsCode}">
+				                                <h5>${m.goodsTitle}</h5>
+				                            </a>
+				                            <p>${m.goodsArtist}</p>
+				                        </div>
+				                    </div>
+				                </div>
+							</c:forEach>
+			            </div>
+			        </div>
+	    		</div>
+	    		<!-- ##### 추천앨범 End ##### -->
+	        </div>
+	    </section>
+	    <!-- ##### Album Catagory Area End ##### -->
 
     <!-- ##### Add Area Start ##### -->
     <div class="add-area mb-100">
@@ -475,6 +456,10 @@
 			
 			<a href="${pageContext.request.contextPath}/GoodsList?rowPerPage=${rowPerPage}&currentPage=${lastPage}">마지막</a>
 		</div>
+		
+		
+		
+		
 	<!-- 메뉴 partial jsp 구성 -->
 	<div>
 		<jsp:include page="/inc/footer.jsp"></jsp:include>

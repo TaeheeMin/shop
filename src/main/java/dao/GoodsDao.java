@@ -71,7 +71,7 @@ public class GoodsDao {
 				+ " ON gd.goods_code = img.goods_code"
 				+ " WHERE " + search + " LIKE ?"
 				+ " AND gd.goods_category LIKE ?"
-				+ " ORDER BY hit DESC, goodsCode DESC"
+				+ " ORDER BY goodsCode DESC"
 				+ " LIMIT ?, ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, "%"+ word +"%");
@@ -127,9 +127,11 @@ public class GoodsDao {
 				+ ", gd.goods_title goodsTitle"
 				+ ", gd.goods_artist goodsArtist"
 				+ ", img.filename filename"
+				+ ", gd.goods_code goodsCode"
+				+ ", gd.goods_price goodsPrice"
 				+ " FROM goods gd INNER JOIN goods_img img"
 				+ " ON gd.goods_code = img.goods_code"
-				+ " ORDER BY gd.hit";
+				+ " ORDER BY gd.hit, gd.goods_code DESC";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();
 		while(rs.next()) {
@@ -138,11 +140,15 @@ public class GoodsDao {
 			m.put("goodsTitle", rs.getString("goodsTitle"));
 			m.put("goodsArtist",  rs.getString("goodsArtist"));
 			m.put("filename", rs.getString("filename"));
+			m.put("goodsPrice",  rs.getInt("goodsPrice"));
 			list.add(m);
 		}
 		System.out.println("[GoodsDao] list : "+list);
 		return list;
 	}
+	
+	// 2-2-4) 추천 앨범 hit 4개
+	
 	// 2-3) goods one
 	public ArrayList<HashMap<String, Object>> selectGoodsOne(Connection conn, int goodsCode) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
