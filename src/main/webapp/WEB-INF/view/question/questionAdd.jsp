@@ -14,7 +14,7 @@
 				주문 목록
 				<select name="ordersCode">
 					<c:forEach var="list" items="${list}">
-						<option value="${list.orderCode}">${list.orderCode}</option>
+						<option value="${list.orderCode}">${list.orderCode} ${list.goodsTitle}</option>
 					</c:forEach>
 				</select>
 			</div>

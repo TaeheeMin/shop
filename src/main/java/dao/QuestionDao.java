@@ -28,7 +28,7 @@ public class QuestionDao {
 	}
 	
 	// 2) list
-	// 2-1) 관리자list
+	// 2-0) 관리자list count
 	public int selectQuestionCount(Connection conn) throws Exception {
 		int count = 0;
 		String sql = "SELECT COUNT(*) FROM question";
@@ -39,8 +39,8 @@ public class QuestionDao {
 		}
 		return count;
 	}
-	// 문의 리스트
-	public ArrayList<HashMap<String, Object>> selectQuestionByAdmin(Connection conn) throws Exception {
+	// 2-1) 관리자list
+	public ArrayList<HashMap<String, Object>> selectQuestionByAdmin(Connection conn, int beginRow, int endRow, String category) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		String sql = "SELECT"
 				+ " q.question_code questionCode"
@@ -51,14 +51,20 @@ public class QuestionDao {
 				+ ", q.question_title questionTitle"
 				+ ", q.question_memo questionMemo"
 				+ ", q.createdate"
+				+ ", o.customer_id customerId"
 				+ " FROM question q INNER JOIN orders o"
 				+ " ON q.orders_code = o.order_code"
 				+ " INNER JOIN goods g"
 				+ " ON o.goods_code = g.goods_code"
 				+ " INNER JOIN goods_img img"
 				+ " ON g.goods_code = img.goods_code"
-				+ " ORDER BY q.question_code DESC";
+				+ " WHERE q.category LIKE ?"
+				+ " ORDER BY q.question_code DESC"
+				+ " LIMIT ?, ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, "%" + category + "%");
+		stmt.setInt(2, beginRow);
+		stmt.setInt(3, endRow);
 		ResultSet rs = stmt.executeQuery();
 		while(rs.next()) {
 			HashMap<String, Object> m = new HashMap<String, Object>();
@@ -69,6 +75,7 @@ public class QuestionDao {
 			m.put("category", rs.getString("category"));
 			m.put("questionTitle", rs.getString("questionTitle"));
 			m.put("createdate", rs.getString("createdate"));
+			m.put("customerId", rs.getString("customerId"));
 			list.add(m);
 		}
 		return list;

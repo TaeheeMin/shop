@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import dao.GoodsDao;
 import dao.NoticeDao;
 import dao.QuestionDao;
 import util.DBUtil;
@@ -43,13 +44,42 @@ public class QuestionService {
 	
 	// 2) get
 	// 2-1) 관리자
-	public ArrayList<HashMap<String, Object>> getQuestionListByAdmin() {
+	// 2-1-1) 관리자페이징
+	public int getQuestionListCount() {
+		int row = 0;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			this.questionDao = new QuestionDao();
+			row = questionDao.selectQuestionCount(conn);
+			conn.commit(); // DBUtil setAutoCommit false설정
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return row;
+	}
+	public ArrayList<HashMap<String, Object>> getQuestionListByAdmin(int currentPage, int rowPerPage, String category) {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();
 			this.questionDao = new QuestionDao();
-			list = questionDao.selectQuestionByAdmin(conn);
+			// 페이징
+			int beginRow = (currentPage - 1) * rowPerPage; // 시작 행
+			// System.out.println("beginRow : " + beginRow);
+			list = questionDao.selectQuestionByAdmin(conn, beginRow, rowPerPage, category);
 			conn.commit();
 		} catch (Exception e) {
 			try {

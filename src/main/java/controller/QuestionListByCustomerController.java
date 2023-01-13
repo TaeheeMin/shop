@@ -36,7 +36,7 @@ public class QuestionListByCustomerController extends HttpServlet {
 		
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		ArrayList<HashMap<String, Object>> comment = new ArrayList<HashMap<String, Object>>();
-		list = questionService.getQuestionListByAdmin();
+		list = questionService.getQuestionListbyCustomer(customerId);
 		comment = questionCommentService.getAllQuestionComment();
 		request.setAttribute("comment", comment);
 		request.setAttribute("list", list);
