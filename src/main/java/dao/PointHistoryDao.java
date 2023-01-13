@@ -82,4 +82,17 @@ public class PointHistoryDao {
 		return row;
 	}
 	
+	// 4) 주문포인트 사용내역
+	public int selectPointOne(Connection conn, Orders orders) throws Exception {
+		int point = 0;
+		String sql = "SELECT point FORM point_history WHERE order_code = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, orders.getOrderCode());
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			point = rs.getInt("point");
+		}
+		return point;
+	}
+	
 }

@@ -205,7 +205,7 @@ public class OrdersService {
 				}
 			return result;	
 		}
-	// 주문 
+	// 주문-포인트사용
 	public int AddOrderPoint(Orders orders,ArrayList<HashMap<String, Object>> cartList, String customerId) {
 		int result = 0;
 		int clearCart = 0;
@@ -218,8 +218,10 @@ public class OrdersService {
 				conn = DBUtil.getConnection();
 				result = ordersDao.AddOrders(conn, orders, cartList);
 				if(result == 1) {
-					point = pointHistoryDao.addPointHistory(conn, customerId);
-					clearCart = cartDao.clearCart(conn, customerId);
+					pointHistoryDao.addPointHistory(conn, customerId);
+					point = pointHistoryDao.selectPointOne(conn, orders);
+					// ordersDao.updateOrderPrice(conn, orders, point, result);
+					cartDao.clearCart(conn, customerId);
 					//디버깅
 					System.out.println("구매성공");
 				}
@@ -240,6 +242,7 @@ public class OrdersService {
 			}	
 			return result;
 		}
+	// 그냥 주문
 	public int addOrder(Orders orders,ArrayList<HashMap<String, Object>> cartList, String customerId) {
 		int result = 0;
 		int clearCart = 0;

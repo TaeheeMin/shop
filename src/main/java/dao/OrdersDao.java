@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.mariadb.jdbc.client.socket.impl.PacketReader;
+
 import vo.Cart;
 import vo.Customer;
 import vo.Orders;
@@ -135,7 +137,7 @@ public class OrdersDao {
 		
 		// 구매 
 	   public int AddOrders(Connection conn, Orders orders, ArrayList<HashMap<String, Object>> cartList) throws Exception {
-	      int row = 0;	
+	      int row = 0;
 	      for(HashMap<String, Object> c : cartList) {
 		      String sql = "INSERT INTO orders(goods_code, customer_id, address_code , order_quantity ,order_price , order_state) VALUES (?,?,?,?,?,'결제')";		      
 		      PreparedStatement stmt = conn.prepareStatement(sql);
@@ -145,7 +147,6 @@ public class OrdersDao {
 		      stmt.setInt(4, (int) c.get("cartQuantity"));
 		      stmt.setInt(5, (int) c.get("goodsPrice"));		    
 		      row = stmt.executeUpdate();
-		      
 	      }
 	      return row;
 	   }
@@ -179,4 +180,15 @@ public class OrdersDao {
 		      row = stmt.executeUpdate();
 		      return row;
 	   }  
+	   
+	   // 포인트 사용시 order Price수정
+	   public int updateOrderPrice(Connection conn, Orders orders, int point, int orderCode) throws Exception {
+		   int row = 0;
+		   String sql = "UPDATE orders SET order_price = ? where order_code = ?";
+		   PreparedStatement stmt = conn.prepareStatement(sql);
+		   stmt.setInt(1, orders.getOrderPrice()-point);
+		   stmt.setInt(2, orderCode);
+		   row = stmt.executeUpdate();
+		  return row;
+	   }
 }
