@@ -109,7 +109,7 @@ public class PointHistoryService {
 		try {
 			conn = DBUtil.getConnection();
 			pointHistoryDao = new PointHistoryDao();
-			row = pointHistoryDao.addPointHistory(conn, customerId);
+			//row = pointHistoryDao.addPointHistory(conn, customerId);
 			conn.commit();
 		} catch (Exception e) {
 			try {
