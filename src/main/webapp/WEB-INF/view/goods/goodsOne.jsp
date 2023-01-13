@@ -57,6 +57,9 @@
 							<form action="${pageContext.request.contextPath}/CartAdd" method="get">
 								<input type="number" name="cartQuantity">
 								<input type="hidden" name="goodsCode" value="${goodsOne.goodsCode}">
+								<input type="hidden" name="goodsTitle" value="${goodsOne.goodsTitle}">
+								<input type="hidden" name="filename" value="${goodsOne.filename}">
+								<input type="hidden" name="goodsPrice" value="${goodsOne.goodsPrice}">
 								<button type="submit">cart</button>
 							</form>
 						</td>
