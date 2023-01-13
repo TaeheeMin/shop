@@ -35,7 +35,7 @@ public class ReviewDao {
 					+ "	FROM review r INNER JOIN orders o"
 					+ "	ON r.order_code = o.order_code"
 					+ " INNER JOIN goods g"
-					+ " ON o.order_code = g.goods_code"
+					+ " ON o.goods_code = g.goods_code"
 					+ "	INNER JOIN goods_img gi"
 					+ " ON g.goods_code = gi.goods_code"
 					+ " LIMIT ?,?";
