@@ -18,10 +18,13 @@
 	    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style.css">
 	</head>
 	<body>
+	 <!-- ##### Header Area Start ##### -->
+    <header class="header-area">
 		<!-- 메뉴 partial jsp 구성 -->
 		<div>
 			<jsp:include page="../../inc/menu.jsp"></jsp:include>
 		</div>
+	</header>
     
     <!-- 홈화면 (요즘잘나가는트렌디한그룹의사진으로이쁘게) -->
     <!-- ##### Hero Area Start ##### -->
