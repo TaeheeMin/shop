@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import = "vo.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,53 +45,64 @@
                             <!-- Nav Start -->
                             <div class="classynav">
                                 <ul>
-                                    <li><a href="index.html">Home</a></li>
-                                    <li><a href="albums-store.html">Albums</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/Home2">Home</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/GoodsList">Albums</a></li>
                                     <li><a href="#">Pages</a>
                                         <ul class="dropdown">
-                                            <li><a href="index.html">Home</a></li>
-                                            <li><a href="albums-store.html">Albums</a></li>
-                                            <li><a href="event.html">Events</a></li>
-                                            <li><a href="blog.html">News</a></li>
-                                            <li><a href="contact.html">Contact</a></li>
-                                            <li><a href="elements.html">Elements</a></li>
-                                            <li><a href="login.html">Login</a></li>
-                                            <li><a href="#">Dropdown</a>
-                                                <ul class="dropdown">
-                                                    <li><a href="#">Even Dropdown</a></li>
-                                                    <li><a href="#">Even Dropdown</a></li>
-                                                    <li><a href="#">Even Dropdown</a></li>
-                                                    <li><a href="#">Even Dropdown</a>
-                                                        <ul class="dropdown">
-                                                            <li><a href="#">Deeply Dropdown</a></li>
-                                                            <li><a href="#">Deeply Dropdown</a></li>
-                                                            <li><a href="#">Deeply Dropdown</a></li>
-                                                            <li><a href="#">Deeply Dropdown</a></li>
-                                                            <li><a href="#">Deeply Dropdown</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li><a href="#">Even Dropdown</a></li>
-                                                </ul>
+                                            <li><a href="${pageContext.request.contextPath}/Home2">Home</a></li>
+                                            <li><a href="${pageContext.request.contextPath}/GoodsList">Albums</a></li>
+                                            <li><a href="${pageContext.request.contextPath}/QuestionListByCustomer">CustomerCenter</a></li>
+                                            <li><a href="${pageContext.request.contextPath}/NoticeList">News</a></li>
+                                            <li><a href="contact.html">Contact</a></li>                                        
+                                                                                  
+                                              
                                             </li>
                                         </ul>
                                     </li>
-                                    <li><a href="event.html">Events</a></li>
-                                    <li><a href="blog.html">News</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/QuestionListByCustomer">CustomerCenter</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/NoticeList">News</a></li>
                                     <li><a href="contact.html">Contact</a></li>
                                 </ul>
 
-                                <!-- Login/Register & Cart Button -->
-                                <div class="login-register-cart-button d-flex align-items-center">
+ 								<!-- 고객 Menu -->
+ 									
+ 									
+ 									                             
+                                   <!-- 관리자 Menu -->            
+					           
+					           	<c:if test="${loginEmp != null}">                
+					          		 	<ul>
+					          		 	<li><a href="#">EmployeePage</a>
+	                                        <ul class="dropdown">
+	                                            <li><a href="${pageContext.request.contextPath}/orders/ordersListByAdmin">Orders</a></li>
+	                                            <li><a href="${pageContext.request.contextPath}/AddEmp">AddEmployee</a></li>
+	                                            <li><a href="${pageContext.request.contextPath}/QuestionListByAdmin">CustomerCenter</a></li>
+	                                            <li><a href="${pageContext.request.contextPath}/NoticeList">News</a></li>
+	                                            <li><a href="${pageContext.request.contextPath}/review/reviewList">Reviews</a></li>
+	                                            <li><a href="contact.html">Contact</a></li>                                            
+	                                            <li><a href="${pageContext.request.contextPath}/Logout">Logout</a></li>                                     
+	                                        </ul>
+                                    	</li>
+                                    	</ul>	
+					          	</c:if>
+					           		
+					           	<c:if test="${loginEmp == null}"> 	
+					           		<!-- Login/Register & Cart Button -->
+                                	<div class="login-register-cart-button d-flex align-items-center">
                                     <!-- Login/Register -->
+       		  
                                     <div class="login-register-btn mr-50">
-                                        <a href="login.html" id="loginBtn">Login / Register</a>
+                                        <a href="${pageContext.request.contextPath}/LoginEmp" id="loginBtn">Login / Register</a>
                                     </div>
 
                                     <!-- Cart Button -->
                                     <div class="cart-btn">
-                                        <p><span class="icon-shopping-cart"></span> <span class="quantity">1</span></p>
+                                        <a href="${pageContext.request.contextPath}/CartList"><p><span class="icon-shopping-cart"></span><span class="quantity">1</span></p></a> 
                                     </div>
                                 </div>
+					          </c:if>
+           	
+           					
                             </div>
                             <!-- Nav End -->
 

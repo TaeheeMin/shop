@@ -26,7 +26,7 @@ public class EmpLoginController extends HttpServlet {
 		
 		// 사원로그인 되어있을 시, 로그인 폼 진입 불가 -> 홈화면 이동
 		if(loginEmp != null || loginCustomer != null) {
-			response.sendRedirect(request.getContextPath()+"/Home");
+			response.sendRedirect(request.getContextPath()+"/Home2");
 			return;
 		}
 		
@@ -68,7 +68,7 @@ public class EmpLoginController extends HttpServlet {
 		System.out.println("로그인 성공 -> 홈컨트롤러로 이동");
 		HttpSession session = request.getSession();
 		session.setAttribute("loginEmp",loginEmp);
-		response.sendRedirect(request.getContextPath()+"/Home");
+		response.sendRedirect(request.getContextPath()+"/Home2");
 	}
 
 }
