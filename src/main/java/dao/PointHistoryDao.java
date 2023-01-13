@@ -24,24 +24,20 @@ public class PointHistoryDao {
 	}
 	
 	// 포인트(사용)
-	public int addPointHistory(Connection conn, String customerId) throws Exception {
+	public int addPointHistory(Connection conn, String customerId, ArrayList<PointHistory> list) throws Exception {
 		int row = 0;
 		String sql = "INSERT INTO point_history("
 				+ " order_code"
 				+ ", point_kind"
 				+ ", POINT"
 				+ ", createdate"
-				+ ") VALUES("
-				+ "(SELECT order_code FROM orders"
-				+ " WHERE customer_id = ?"
-				+ " ORDER BY createdate DESC LIMIT 1)"
-				+ ", '사용'"
-				+ ", (SELECT point FROM customer WHERE customer_id= ?)"
-				+ ", NOW())";
-		PreparedStatement stmt = conn.prepareStatement(sql);	
-	    stmt.setString(1,customerId);
-	    stmt.setString(2,customerId);
-	    row = stmt.executeUpdate();
+				+ ") VALUES(?, '사용', (SELECT point FROM customer WHERE customer_id= ?), NOW())";
+		for(int i = 0; i < list.size(); i++) {
+			PreparedStatement stmt = conn.prepareStatement(sql);	
+			stmt.setInt(1, list.get(i).getOrderCode());
+			stmt.setString(2,customerId);
+			row = stmt.executeUpdate();
+		}
 	    return row;
 	}
 	
@@ -81,18 +77,4 @@ public class PointHistoryDao {
 		
 		return row;
 	}
-	
-	// 4) 주문포인트 사용내역
-	public int selectPointOne(Connection conn, Orders orders) throws Exception {
-		int point = 0;
-		String sql = "SELECT point FORM point_history WHERE order_code = ?";
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, orders.getOrderCode());
-		ResultSet rs = stmt.executeQuery();
-		if(rs.next()) {
-			point = rs.getInt("point");
-		}
-		return point;
-	}
-	
 }

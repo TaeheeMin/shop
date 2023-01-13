@@ -45,6 +45,38 @@
 	    
 	    <!-- ##### Album Catagory Area Start ##### -->
 	    <section class="album-catagory section-padding-100-0">
+    		<!-- ##### 추천앨범 ##### -->
+		    <div class="oneMusic-buy-now-area mt-50 mb-100">
+		        <div class="container">
+		            <div class="row">
+		                <!-- Single Album Area -->
+		                <c:forEach var="m" items="${hlist}" varStatus="s" begin="0" end="3" step="1">
+							<div class="col-12 col-sm-6 col-md-3">
+			                    <div class="single-album-area">
+			                        <div class="album-thumb">
+			                            <img src="${pageContext.request.contextPath}/goodsimg/${m.filename}" alt="">
+			                            <!-- Album Price -->
+			                            <div class="album-price">
+			                                <p>${m.goodsPrice}</p>
+			                            </div>
+			                            <!-- Play Icon -->
+			                            <div class="play-icon">
+			                                <a href="#" class="video--play--btn"><span class="icon-play-button"></span></a>
+			                            </div>
+			                        </div>
+			                        <div class="album-info">
+			                            <a href="${pageContext.request.contextPath}/GoodsOne?goodsCode=${m.goodsCode}">
+			                                <h5>${m.goodsTitle}</h5>
+			                            </a>
+			                            <p>${m.goodsArtist}</p>
+			                        </div>
+			                    </div>
+			                </div>
+						</c:forEach>
+		            </div>
+		        </div>
+    		</div>
+    		<!-- ##### 추천앨범 End ##### -->
 	        <div class="container">
 	            <div class="row">
 	                <div class="col-12">
@@ -173,38 +205,6 @@
 	                    </ul>
 	                </nav>
 	            </div>
-	            <!-- ##### 추천앨범 ##### -->
-			    <div class="oneMusic-buy-now-area mt-100">
-			        <div class="container">
-			            <div class="row">
-			                <!-- Single Album Area -->
-			                <c:forEach var="m" items="${hlist}" varStatus="s" begin="0" end="3" step="1">
-								<div class="col-12 col-sm-6 col-md-3">
-				                    <div class="single-album-area">
-				                        <div class="album-thumb">
-				                            <img src="${pageContext.request.contextPath}/goodsimg/${m.filename}" alt="">
-				                            <!-- Album Price -->
-				                            <div class="album-price">
-				                                <p>${m.goodsPrice}</p>
-				                            </div>
-				                            <!-- Play Icon -->
-				                            <div class="play-icon">
-				                                <a href="#" class="video--play--btn"><span class="icon-play-button"></span></a>
-				                            </div>
-				                        </div>
-				                        <div class="album-info">
-				                            <a href="${pageContext.request.contextPath}/GoodsOne?goodsCode=${m.goodsCode}">
-				                                <h5>${m.goodsTitle}</h5>
-				                            </a>
-				                            <p>${m.goodsArtist}</p>
-				                        </div>
-				                    </div>
-				                </div>
-							</c:forEach>
-			            </div>
-			        </div>
-	    		</div>
-	    		<!-- ##### 추천앨범 End ##### -->
 	        </div>
 	    </section>
 	    <!-- ##### Album Catagory Area End ##### -->

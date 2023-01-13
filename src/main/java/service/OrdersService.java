@@ -13,6 +13,7 @@ import dao.ReviewDao;
 import util.DBUtil;
 import vo.Customer;
 import vo.Orders;
+import vo.PointHistory;
 import vo.Review;
 
 
@@ -395,23 +396,20 @@ public class OrdersService {
 	// 주문-포인트사용
 	public int AddOrderPoint(Orders orders,ArrayList<HashMap<String, Object>> cartList, String customerId) {
 		int result = 0;
-		int clearCart = 0;
-		int point = 0;
 		Connection conn = null; 
 		ordersDao = new OrdersDao();
 		cartDao = new CartDao();
 		pointHistoryDao = new PointHistoryDao();
 			try {
 				conn = DBUtil.getConnection();
-				result = ordersDao.AddOrders(conn, orders, cartList);
-				if(result == 1) {
-					pointHistoryDao.addPointHistory(conn, customerId);
-					point = pointHistoryDao.selectPointOne(conn, orders);
-					// ordersDao.updateOrderPrice(conn, orders, point, result);
-					cartDao.clearCart(conn, customerId);
-					//디버깅
-					System.out.println("구매성공");
-				}
+				//order 추가하면서 oderCode 받아오기
+				ArrayList<PointHistory> list = ordersDao.AddOrdersPoint(conn, orders, cartList);
+				// pointHistory 추가
+				pointHistoryDao.addPointHistory(conn, customerId, list);
+				// 장바구니 비우기
+				cartDao.clearCart(conn, customerId);
+				//디버깅
+				System.out.println("구매성공");
 				conn.commit();
 			} catch (Exception e) {
 				try {System.out.println("구매실패");

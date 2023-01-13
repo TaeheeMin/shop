@@ -11,6 +11,7 @@ import org.mariadb.jdbc.client.socket.impl.PacketReader;
 import vo.Cart;
 import vo.Customer;
 import vo.Orders;
+import vo.PointHistory;
 
 public class OrdersDao {
 	// 월 상품별 취소수,금액 
@@ -176,7 +177,7 @@ public class OrdersDao {
 
 	
 	// 주문목록 관리자용 
- public ArrayList<HashMap<String, Object>> selectOrdersListByAdmin(Connection conn, int beginRow, int rowPerPage,String search, String word, String category) throws Exception {
+	public ArrayList<HashMap<String, Object>> selectOrdersListByAdmin(Connection conn, int beginRow, int rowPerPage,String search, String word, String category) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		String sql = "SELECT "
 				+ "	o.order_code orderCode"
@@ -209,7 +210,8 @@ public class OrdersDao {
 	      }			
 		return list;
 	}
-		// 주문목록 본인용 
+	
+	// 주문목록 본인용 
 	 public ArrayList<HashMap<String, Object>> selectOrdersList(Connection conn, int beginRow, int rowPerPage, Customer loginCustomer) throws Exception {
 			ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 			String sql = "SELECT "
@@ -240,7 +242,8 @@ public class OrdersDao {
 		      }			
 			return list;
 		}
-	 	//주문내역 상세보기 	
+	 	
+	 //주문내역 상세보기 	
 		public ArrayList<HashMap<String, Object>> selectOrdersOne(Connection conn, int orderCode) throws Exception {
 			ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 			String sql = "SELECT "
@@ -288,10 +291,31 @@ public class OrdersDao {
 			
 		}	
 		
-		// 구매 
-	   public int AddOrders(Connection conn, Orders orders, ArrayList<HashMap<String, Object>> cartList) throws Exception {
-	      int row = 0;
+		// 구매-포인트 사용
+		public ArrayList<PointHistory> AddOrdersPoint(Connection conn, Orders orders, ArrayList<HashMap<String, Object>> cartList) throws Exception {
+	      ArrayList<PointHistory> list = new ArrayList<PointHistory>();
 	      for(HashMap<String, Object> c : cartList) {
+		      String sql = "INSERT INTO orders(goods_code, customer_id, address_code , order_quantity ,order_price , order_state) VALUES (?,?,?,?,?,'결제')";		      
+		      PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+		      stmt.setInt(1, (int) c.get("goodsCode"));
+		      stmt.setString(2, orders.getCustomerId());
+		      stmt.setInt(3, orders.getAdrressCode());
+		      stmt.setInt(4, (int) c.get("cartQuantity"));
+		      stmt.setInt(5, (int) c.get("goodsPrice"));		    
+		      ResultSet rs = stmt.getGeneratedKeys();
+				if(rs.next()) {
+					PointHistory p = new PointHistory();
+					p.setOrderCode(rs.getInt(1));
+					list.add(p);
+				}
+	      }
+	      return list;
+	   }
+		
+		// 구매-포인트 미사용
+		public int AddOrders(Connection conn, Orders orders, ArrayList<HashMap<String, Object>> cartList) throws Exception {
+			int row = 0;
+			for(HashMap<String, Object> c : cartList) {
 		      String sql = "INSERT INTO orders(goods_code, customer_id, address_code , order_quantity ,order_price , order_state) VALUES (?,?,?,?,?,'결제')";		      
 		      PreparedStatement stmt = conn.prepareStatement(sql);
 		      stmt.setInt(1, (int) c.get("goodsCode"));
@@ -302,7 +326,7 @@ public class OrdersDao {
 		      row = stmt.executeUpdate();
 	      }
 	      return row;
-	   }
+		}
 	   // 주문내역 목록에서 삭제  
 	   public int removeOrders(Connection conn, Orders orders)throws Exception {
 		   int row = 0;
