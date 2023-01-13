@@ -20,6 +20,193 @@ public class OrdersService {
 	private OrdersDao ordersDao;
 	private CartDao cartDao;
 	private PointHistoryDao pointHistoryDao;
+	// 년도별 총 매출액 List 
+	public ArrayList<HashMap<String, Object>> selectOrdersListByYear() {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		Connection conn = null;
+		try {			
+			conn = DBUtil.getConnection();
+			ordersDao = new OrdersDao();
+			list = ordersDao.selectOrdersListByYear(conn);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	// 년도별 총 취소금액 List
+	public ArrayList<HashMap<String, Object>> selectOrdersCancelListByYear() {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		Connection conn = null;
+		try {			
+			conn = DBUtil.getConnection();
+			ordersDao = new OrdersDao();
+			list = ordersDao.selectOrdersCancelListByYear(conn);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
+	// 월별 총 매출 list
+	public ArrayList<HashMap<String, Object>> selectOrdersListByMonth() {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		Connection conn = null;
+		try {			
+			conn = DBUtil.getConnection();
+			ordersDao = new OrdersDao();
+			list = ordersDao.selectOrdersListByMonth(conn);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
+	// 월별 총 취소 list 
+	public ArrayList<HashMap<String, Object>> selectOrdersCancelListByMonth() {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		Connection conn = null;
+		try {			
+			conn = DBUtil.getConnection();
+			ordersDao = new OrdersDao();
+			list = ordersDao.selectOrdersCancelListByMonth(conn);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
+	// 월별 총주문 건수
+	public ArrayList<HashMap<String, Object>> selectOrdersCountByMonth() {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		Connection conn = null;
+		try {			
+			conn = DBUtil.getConnection();
+			ordersDao = new OrdersDao();
+			list = ordersDao.selectOrdersCountByMonth(conn);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	// 월 상품별 판매수,금액 
+	public ArrayList<HashMap<String, Object>> selectOrdersByGoods() {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		Connection conn = null;
+		try {			
+			conn = DBUtil.getConnection();
+			ordersDao = new OrdersDao();
+			list = ordersDao.selectOrdersByGoods(conn);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	//월 상품별 취소수,금액 List
+	public ArrayList<HashMap<String, Object>> selectOrdersCancelByGoods() {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		Connection conn = null;
+		try {			
+			conn = DBUtil.getConnection();
+			ordersDao = new OrdersDao();
+			list = ordersDao.selectOrdersCancelByGoods(conn);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
+	
 	// 주문 리스트 관리자용
 	public ArrayList<HashMap<String, Object>> selectOrdersListByAdmin(int currentPage, int rowPerPage) {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();

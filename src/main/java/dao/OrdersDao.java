@@ -13,6 +13,155 @@ import vo.Customer;
 import vo.Orders;
 
 public class OrdersDao {
+	// 월 상품별 취소수,금액 
+	public ArrayList<HashMap<String, Object>> selectOrdersCancelByGoods(Connection conn) throws Exception {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		String sql = "SELECT"
+				+ " YEAR(o.createdate) year"
+				+ ", MONTH(o.createdate) month"
+				+ ", g.goods_title goodsTitle"
+				+ ", SUM(o.order_quantity) AS cancelCount"
+				+ ", SUM(o.order_price) AS cancelPrice"
+				+ "	FROM orders o INNER JOIN goods g"
+				+ "	ON o.goods_code = g.goods_code"
+				+ "	WHERE o.order_state = '취소'"
+				+ "	GROUP BY g.goods_title";	              
+	      PreparedStatement stmt = conn.prepareStatement(sql);	   
+	      ResultSet rs = stmt.executeQuery();
+	      while(rs.next()) {
+	         HashMap<String, Object> m = new HashMap<String, Object>();
+	         m.put("cancelCount", rs.getInt("cancelCount"));
+	         m.put("cancelPrice", rs.getInt("cancelPrice"));
+	         m.put("year", rs.getString("year")); 
+	         m.put("month", rs.getString("month"));
+	         m.put("goodsTitle", rs.getString("goodsTitle")); 
+	         list.add(m);
+	      }			
+		return list;
+	}
+	
+	
+	// 월 상품별 판매수,금액 
+	public ArrayList<HashMap<String, Object>> selectOrdersByGoods(Connection conn) throws Exception {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		String sql = "SELECT"
+				+ " YEAR(o.createdate) year"
+				+ ", MONTH(o.createdate) month"
+				+ ", g.goods_title goodsTitle"
+				+ ", SUM(o.order_quantity) AS orderCount"
+				+ ", SUM(o.order_price) AS orderPrice"
+				+ "	FROM orders o INNER JOIN goods g"
+				+ "	ON o.goods_code = g.goods_code"
+				+ "	GROUP BY g.goods_title";	              
+	      PreparedStatement stmt = conn.prepareStatement(sql);	   
+	      ResultSet rs = stmt.executeQuery();
+	      while(rs.next()) {
+	         HashMap<String, Object> m = new HashMap<String, Object>();
+	         m.put("orderCount", rs.getInt("orderCount"));
+	         m.put("orderPrice", rs.getInt("orderPrice"));
+	         m.put("year", rs.getString("year")); 
+	         m.put("month", rs.getString("month")); 
+	         m.put("goodsTitle", rs.getString("goodsTitle"));
+	         list.add(m);
+	      }			
+		return list;
+	}
+	
+	// 월별 총주문 건수
+	public ArrayList<HashMap<String, Object>> selectOrdersCountByMonth(Connection conn) throws Exception {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		String sql = "SELECT YEAR(createdate) year,MONTH(createdate) month, COUNT(*) AS count FROM orders GROUP BY MONTH(createdate)";	              
+	      PreparedStatement stmt = conn.prepareStatement(sql);	   
+	      ResultSet rs = stmt.executeQuery();
+	      while(rs.next()) {
+	         HashMap<String, Object> m = new HashMap<String, Object>();
+	         m.put("count", rs.getInt("count"));
+	         m.put("year", rs.getString("year")); 
+	         m.put("month", rs.getString("month")); 
+	         list.add(m);
+	      }			
+		return list;
+	}
+	
+	
+	// 월별 총 취소 list 
+	public ArrayList<HashMap<String, Object>> selectOrdersCancelListByMonth(Connection conn) throws Exception {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		String sql = "SELECT"
+				+ " YEAR(createdate) year"
+				+ ", MONTH(createdate) month"
+				+ ", SUM(if(order_state='취소',order_price, NULL)) AS cancelPrice"
+				+ "	FROM orders"
+				+ "	GROUP BY MONTH(createdate)";	              
+	      PreparedStatement stmt = conn.prepareStatement(sql);	   
+	      ResultSet rs = stmt.executeQuery();
+	      while(rs.next()) {
+	         HashMap<String, Object> m = new HashMap<String, Object>();
+	         m.put("cancelPrice", rs.getInt("cancelPrice"));
+	         m.put("year", rs.getString("year"));
+	         m.put("month", rs.getString("month"));  
+	         list.add(m);
+	      }			
+		return list;
+	}	
+	
+	// 월별 총 매출 list
+	public ArrayList<HashMap<String, Object>> selectOrdersListByMonth(Connection conn) throws Exception {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		String sql = "SELECT"
+				+ " YEAR(createdate) year"
+				+ ", MONTH(createdate) month"
+				+ ", SUM(order_price) AS orderPrice"
+				+ "	FROM orders"
+				+ "	GROUP BY MONTH(createdate)";	              
+	      PreparedStatement stmt = conn.prepareStatement(sql);	   
+	      ResultSet rs = stmt.executeQuery();
+	      while(rs.next()) {
+	         HashMap<String, Object> m = new HashMap<String, Object>();
+	         m.put("orderPrice", rs.getInt("orderPrice"));
+	         m.put("year", rs.getString("year"));
+	         m.put("month", rs.getString("month"));  
+	         list.add(m);
+	      }			
+		return list;
+	}
+	// 년도별 총 취소금액 List
+	public ArrayList<HashMap<String, Object>> selectOrdersCancelListByYear(Connection conn) throws Exception {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		String sql = "SELECT"
+				+ "YEAR(createdate) year"
+				+ ", SUM(if(order_state='취소',order_price, NULL)) AS cancelPrice"
+				+ "	FROM orders";	              
+	      PreparedStatement stmt = conn.prepareStatement(sql);	   
+	      ResultSet rs = stmt.executeQuery();
+	      while(rs.next()) {
+	         HashMap<String, Object> m = new HashMap<String, Object>();
+	         m.put("cancelPrice", rs.getInt("cancelPrice"));
+	         m.put("year", rs.getString("year"));        
+	         list.add(m);
+	      }			
+		return list;
+	}	
+	
+	// 년도별 총 매출액 List 
+	public ArrayList<HashMap<String, Object>> selectOrdersListByYear(Connection conn) throws Exception {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		String sql = "SELECT"
+				+ "YEAR(createdate) year"
+				+ ", SUM(order_price) AS orderPrice"
+				+ "	FROM orders";	              
+	      PreparedStatement stmt = conn.prepareStatement(sql);	   
+	      ResultSet rs = stmt.executeQuery();
+	      while(rs.next()) {
+	         HashMap<String, Object> m = new HashMap<String, Object>();
+	         m.put("orderPrice", rs.getInt("orderPrice"));
+	         m.put("year", rs.getString("year"));        
+	         list.add(m);
+	      }			
+		return list;
+	}
+	
+	
 	// 주문목록 페이징
 	public int selectOrdersCount(Connection conn) throws Exception {
 		int row = 0;
