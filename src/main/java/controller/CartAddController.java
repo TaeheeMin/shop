@@ -30,19 +30,37 @@ public class CartAddController extends HttpServlet {
 		
 		// 1) 로그인 -> cart 추가
 		if(loginCustomer != null) {
-			// 값 받아오기
+			// 파라미터값 받아오기
+			int goodsCode = Integer.parseInt(request.getParameter("goodsCode"));
+			int cartQuantity = Integer.parseInt(request.getParameter("cartQuantity"));
+			String customerId = loginCustomer.getCustomerId();
 			// System.out.println(request.getParameter("goodsCode"));
+			// System.out.println(request.getParameter("cartQuantity"));
+
 			Cart cart = new Cart();
-			cart.setGoodsCode(Integer.parseInt(request.getParameter("goodsCode")));
-			cart.setCustomerId(loginCustomer.getCustomerId());
-			
+			cart.setGoodsCode(goodsCode);
+			cart.setCustomerId(customerId);
+			cart.setCartQuantity(cartQuantity);
 			this.cartService = new CartService();
-			row = cartService.addCart(cart);
 			
-			// 결과
-			if(row != 1) {
-				System.out.println("담기실패");
+			// cart내에 중복체크 (이미 장바구니 담긴 상품일시, 상품수량 추가)
+			boolean cartListCk = cartService.cartListCk(cart);
+			if(cartListCk) {
+				System.out.println("중복된 상품이 존재하여 수량만 추가합니다");
+				// 수량업데이트 service진행
+				int newCartQtt = cartQuantity + cart.getCartQuantity();
+				int modifyCart = cartService.modifyCart(newCartQtt, goodsCode, customerId);
+				if(modifyCart == 1) {
+					System.out.println("수량 추가 완료!");
+				}
+			} else {
+				System.out.println("새롭게 추가된 장바구니상품입니다");
+				row = cartService.addCart(cart);
+				if(row != 1) {
+					System.out.println("장바구니 담기 실패");
+				}
 			}
+
 			response.sendRedirect(request.getContextPath()+"/GoodsList");
 			return;
 		} 
@@ -61,6 +79,7 @@ public class CartAddController extends HttpServlet {
 			}
 			HashMap<String, Object> m = new HashMap<String, Object>();
 			m.put("goodsCode", request.getParameter("goodsCode"));
+			m.put("goodsTitle", request.getParameter("goodsTitle"));
 			m.put("cartQuantity", request.getParameter("cartQuantity"));
 			m.put("filename", request.getParameter("filename"));
 			m.put("goodsPrice", request.getParameter("goodsPrice"));

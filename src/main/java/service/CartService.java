@@ -37,6 +37,33 @@ public class CartService {
 		return row;
 	}
 	
+	// 1.5) cart 중복체크
+	public boolean cartListCk(Cart cart) {
+		boolean cartListCk = false;
+		Connection conn = null;
+		CartDao cartDao = new CartDao();
+		try {
+			conn = DBUtil.getConnection();
+			cartListCk = cartDao.cartListCk(conn, cart);
+			conn.commit();
+			
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return cartListCk;
+	}
+	
 	// 2) get cart
 	public ArrayList<HashMap<String, Object>> getCartList(String customerId) {
 		Connection conn = null;

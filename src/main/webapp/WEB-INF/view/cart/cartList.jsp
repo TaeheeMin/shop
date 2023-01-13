@@ -46,12 +46,12 @@
 							<input type="text" name="goodsPrice" value="${c.goodsPrice}" readonly="readonly">
 							
 						</td>
-						
+						<!-- 수량수정 -->
 						<td>
 							<select name="cartQuantity" id="cartQuantity${c.goodsCode}">
 								<c:forEach var="x" begin="1" end="10" step="1">
 									<c:choose> 
-										<c:when test="${x eq c.cartQuantity}">
+										<c:when test="${x == c.cartQuantity}">
 											<option value="${x}" selected="selected">${x}</option>
 										</c:when> 
 										<c:otherwise>

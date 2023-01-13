@@ -75,17 +75,24 @@ public class CustomerLoginController extends HttpServlet {
 			this.cartService = new CartService();
 			Cart cart = new Cart();
 			cart.setCustomerId(customerId);
+			
 			// 비로그인에서 담은 cartlist 불러오기
 			ArrayList<HashMap<String, Object>> cartlist = (ArrayList<HashMap<String,Object>>)session.getAttribute("cart");
 			int addCart = 0;
+			
+			System.out.println("---- 비로그인에서 담은 장바구니를 회원장바구니로 이동합니다 ----");
 			for(HashMap<String,Object> c : cartlist) { 
-				// foreach 문으로 각각의 goodsCode를 불러와 cart에대입하여 cart에 추가해주기
+				// foreach 문으로 각각의 goodsCode 및 cartQuantity를 불러와 cartDB에 추가해주기
 				cart.setGoodsCode(Integer.parseInt(String.valueOf(c.get("goodsCode"))));
+				cart.setCartQuantity(Integer.parseInt(String.valueOf(c.get("cartQuantity"))));
+				System.out.println("대입하려는 goodsCode : "+cart.getGoodsCode());
+				System.out.println("대입하려는 cartQty : "+cart.getCartQuantity());
 				addCart = cartService.addCart(cart);
 				if(addCart == 1) {
 					System.out.println(Integer.parseInt(String.valueOf(c.get("goodsCode")))+"번 상품 장바구니로 이동 성공");
 				}
 			}
+			System.out.println("------------ 이동완료 ------------");
 		}
 		response.sendRedirect(request.getContextPath()+"/Home");
 	}

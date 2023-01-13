@@ -54,7 +54,11 @@
 					<tr>
 						<th>ACTION</th>
 						<td>
-							<a href="${pageContext.request.contextPath}/CartAdd?goodsCode=${goodsOne.goodsCode}&cartQuantity=1&filename=${goodsOne.filename}&goodsPrice=${goodsOne.goodsPrice}&goodsTitle=${goodsOne.goodsTitle}">cart</a>
+							<form action="${pageContext.request.contextPath}/CartAdd" method="get">
+								<input type="number" name="cartQuantity">
+								<input type="hidden" name="goodsCode" value="${goodsOne.goodsCode}">
+								<button type="submit">cart</button>
+							</form>
 						</td>
 					</tr>
 				</c:if>

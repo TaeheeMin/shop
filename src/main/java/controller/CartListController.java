@@ -26,6 +26,7 @@ public class CartListController extends HttpServlet {
 			ArrayList<HashMap<String, Object>> list = cartService.getCartList(loginCustomer.getCustomerId());
 			request.setAttribute("list", list);
 		} else {
+			// 비회원일 시, 세션에 저장된 cart 목록 출력
 			ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>)session.getAttribute("cart");
 			request.getSession().setAttribute("list", list);
 		}

@@ -17,12 +17,31 @@ public class CartDao {
 				+ ", customer_id"
 				+ ", cart_quantity"
 				+ ", createdate"
-				+ ") VALUES (?, ?, 1, NOW())";
+				+ ") VALUES (?, ?, ?, NOW())";
 		PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 		stmt.setInt(1, cart.getGoodsCode());
 		stmt.setString(2, cart.getCustomerId());
+		stmt.setInt(3, cart.getCartQuantity());
 		row = stmt.executeUpdate();
 		return row;
+	}
+	
+	// 1.5) cart 중복체크
+	public boolean cartListCk(Connection conn, Cart cart) throws Exception {
+		boolean cartListCk = false;
+		
+		String sql = "SELECT goods_code"
+					+ " FROM cart"
+					+ " WHERE goods_code = ? AND customer_id = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, cart.getGoodsCode());
+		stmt.setString(2, cart.getCustomerId());
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) { // 중복 장바구니상품일경우, true반환
+			cartListCk = true;
+		}
+		
+		return cartListCk;
 	}
 	
 	// 2) cart list
