@@ -25,6 +25,14 @@ public class OrdersListController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
 		
+		// 로그인안될경우 홈으로 이동
+		if(loginCustomer == null) {
+			System.out.println("회원만 접근 가능합니다");
+			response.sendRedirect(request.getContextPath()+"/LoginCustomer");
+			return;
+		}		
+		
+		
 		// 3) 페이징
 		// 3-1) currentPage		
 		int currentPage = 1;

@@ -13,13 +13,59 @@
 		$('.orderState${o.orderCode}').change(function() {
            $('#orderFormByAdmin${o.orderCode}').submit();
         })
-     });		
+     });	
 
 	</script>
 	</c:forEach>
+	<script>
+	$(document).ready(function() {
+		$('#rowPerPage').change(function() {
+			$('#listForm').submit();
+		});
+		$('#searchBtn').click(function() {
+			$('#listForm').submit();
+		});
+	});
+	</script>
 </head>
 <body>
 	<h1>주문목록</h1>
+	
+	<!-- #### search #### -->
+		<form action="${pageContext.request.contextPath}/orders/ordersListByAdmin" method="get" id="listForm">
+			<div>
+				<input type="radio" name="category" id="category" value="">전체
+				<input type="radio" name="category" id="category" value="결제">결제
+				<input type="radio" name="category" id="category" value="취소">취소
+				<input type="radio" name="category" id="category" value="구매확정">구매확정
+				<input type="radio" name="category" id="category" value="배송중">배송중
+				<input type="radio" name="category" id="category" value="배송완료">배송완료
+			</div>
+			<select name="rowPerPage" id="rowPerPage">
+				<c:if test="${rowPerPage == 10}">
+					<option value="10" selected="selected">10</option>
+					<option value="20">20</option>
+					<option value="30">30</option>
+				</c:if>
+				<c:if test="${rowPerPage == 20}">
+					<option value="10">10</option>
+					<option value="20" selected="selected">20</option>
+					<option value="30">30</option>
+				</c:if>
+				<c:if test="${rowPerPage == 30}">
+					<option value="10">10</option>
+					<option value="20">20</option>
+					<option value="30" selected="selected">30</option>
+				</c:if>
+			</select>
+			<select name="search" id="search">
+				<option value="gd.goods_title">앨범</option>				
+			</select>
+			
+			<input type="search" placeholder="Search" name="word" id="word" value="${word}">
+     		<button type="button" id="searchBtn">검색</button>
+		</form>
+		
 		<table border="1">
 			<thead>
 			  	<tr>

@@ -176,7 +176,7 @@ public class OrdersDao {
 
 	
 	// 주문목록 관리자용 
- public ArrayList<HashMap<String, Object>> selectOrdersListByAdmin(Connection conn, int beginRow, int rowPerPage) throws Exception {
+ public ArrayList<HashMap<String, Object>> selectOrdersListByAdmin(Connection conn, int beginRow, int rowPerPage,String search, String word, String category) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		String sql = "SELECT "
 				+ "	o.order_code orderCode"
@@ -187,11 +187,15 @@ public class OrdersDao {
 				+ "	, o.order_price orderPrice"								
 				+ "	FROM orders o INNER JOIN goods g ON o.goods_code = g.goods_code"
 				+ "	INNER JOIN goods_img gi ON g.goods_code = gi.goods_code"
+				+ " WHERE g.goods_title LIKE ?"
+				+ " AND o.order_state LIKE ?"
 				+ "	LIMIT ?,?";
 	              
 	      PreparedStatement stmt = conn.prepareStatement(sql);
-	      stmt.setInt(1, beginRow);
-	      stmt.setInt(2, rowPerPage);
+	      stmt.setString(1, "%"+ word +"%");
+	      stmt.setString(2, "%"+ category +"%");
+	      stmt.setInt(3, beginRow);
+	      stmt.setInt(4, rowPerPage);
 	      ResultSet rs = stmt.executeQuery();
 	      while(rs.next()) {
 	         HashMap<String, Object> m = new HashMap<String, Object>();

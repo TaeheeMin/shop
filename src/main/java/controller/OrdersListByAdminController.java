@@ -29,9 +29,27 @@ public class OrdersListByAdminController extends HttpServlet {
 		// 직원로그인이 안되어있을경우, 직원등록폼 진입 불가 -> 홈으로 인동
 		if(loginEmp == null) {
 			System.out.println("직원만 접근 가능합니다");
-			response.sendRedirect(request.getContextPath()+"/Home");
+			response.sendRedirect(request.getContextPath()+"/LoginEmp");
 			return;
 		}	
+		
+		// 1) 카테고리선택
+		String category = request.getParameter("category"); 
+		if(category == null) {
+			category = "";
+		}
+		//System.out.println("category : " + category);
+		
+		// 2) 검색부분, 검색어
+		String search = request.getParameter("search");
+		if(search == null) {
+			search = "order_state";
+		}
+		//System.out.println("search : " + search);
+		String word = request.getParameter("word");
+		if(word == null) {
+			word = "";
+		}
 		// 3) 페이징
 		// 3-1) currentPage		
 		int currentPage = 1;
@@ -68,7 +86,7 @@ public class OrdersListByAdminController extends HttpServlet {
 		
 		ordersService = new OrdersService();
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-		list = ordersService.selectOrdersListByAdmin(currentPage, rowPerPage);
+		list = ordersService.selectOrdersListByAdmin(currentPage, rowPerPage, search, word, category);
 		request.setAttribute("list", list);
 		request.setAttribute("beginPage", beginPage);
 		request.setAttribute("page", page);

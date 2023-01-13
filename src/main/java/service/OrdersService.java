@@ -208,14 +208,14 @@ public class OrdersService {
 	
 	
 	// 주문 리스트 관리자용
-	public ArrayList<HashMap<String, Object>> selectOrdersListByAdmin(int currentPage, int rowPerPage) {
+	public ArrayList<HashMap<String, Object>> selectOrdersListByAdmin(int currentPage, int rowPerPage, String search, String word, String category) {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		Connection conn = null;
 		try {
 			int beginRow = (currentPage - 1) * rowPerPage; // 시작 행
 			conn = DBUtil.getConnection();
 			ordersDao = new OrdersDao();
-			list = ordersDao.selectOrdersListByAdmin(conn, beginRow, rowPerPage);
+			list = ordersDao.selectOrdersListByAdmin(conn, beginRow, rowPerPage, search, word, category);
 			conn.commit();
 		} catch (Exception e) {
 			try {
