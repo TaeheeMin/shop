@@ -129,6 +129,34 @@ public class GoodsService {
 		return list;
 	}
 	
+	// 2-2-2) 홈화면에 띄울 최신곡
+	public ArrayList<HashMap<String, Object>> selectHitSongList() {
+		Connection conn = null;
+		this.goodsDao = new GoodsDao();
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		System.out.println("[goodsService]");
+		try {
+			conn = DBUtil.getConnection();
+			list = goodsDao.selectHitSongList(conn);
+			System.out.println("list : "+list);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+		
 	// 2-3) goods one
 	public ArrayList<HashMap<String, Object>> getGoodsOne(int goodsCode) {
 		Connection conn = null;

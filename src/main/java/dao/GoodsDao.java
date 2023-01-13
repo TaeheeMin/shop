@@ -94,7 +94,7 @@ public class GoodsDao {
 		return list;
 	}
 	
-	// 2-2-2) 홈화면에 띄울 최신곡
+	// 2-2-2) 홈화면에 띄울 최신앨범
 	public ArrayList<HashMap<String, Object>> selectRecentlySongList(Connection conn) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		String sql = "SELECT"
@@ -119,6 +119,30 @@ public class GoodsDao {
 		return list;
 	}
 	
+	// 2-2-3) 홈화면에 띄울 hit곡 (best앨범 12개)
+	public ArrayList<HashMap<String, Object>> selectHitSongList(Connection conn) throws Exception {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		String sql = "SELECT"
+				+ " gd.goods_category goodsCategory"
+				+ ", gd.goods_title goodsTitle"
+				+ ", gd.goods_artist goodsArtist"
+				+ ", img.filename filename"
+				+ " FROM goods gd INNER JOIN goods_img img"
+				+ " ON gd.goods_code = img.goods_code"
+				+ " ORDER BY gd.hit";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next()) {
+			HashMap<String, Object> m = new HashMap<String, Object>();
+			m.put("goodsCategory", rs.getString("goodsCategory"));
+			m.put("goodsTitle", rs.getString("goodsTitle"));
+			m.put("goodsArtist",  rs.getString("goodsArtist"));
+			m.put("filename", rs.getString("filename"));
+			list.add(m);
+		}
+		System.out.println("[GoodsDao] list : "+list);
+		return list;
+	}
 	// 2-3) goods one
 	public ArrayList<HashMap<String, Object>> selectGoodsOne(Connection conn, int goodsCode) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();

@@ -20,9 +20,15 @@ public class Home2Controller extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("[Home폼 진입]");
 		this.goodsService = new GoodsService();
-		ArrayList<HashMap<String, Object>> list = goodsService.selectRecentlySongList();
-		System.out.println("최신곡 list : "+list);
-		request.setAttribute("list", list);
+		
+		// 최신앨범 목록 불러오기
+		ArrayList<HashMap<String, Object>> rlist = goodsService.selectRecentlySongList();
+		// System.out.println("최신곡 list : "+rlist);
+		request.setAttribute("rlist", rlist);
+		
+		// 히트앨범 목록 불러오기
+		ArrayList<HashMap<String, Object>> hlist = goodsService.selectHitSongList();
+		request.setAttribute("hlist", hlist);
 		request.getRequestDispatcher("/WEB-INF/view/home2.jsp").forward(request, response);
 	}
 }

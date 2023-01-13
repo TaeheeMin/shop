@@ -518,6 +518,7 @@
     </section>
     <!-- ##### Featured Artist Area End ##### -->
 
+	<!-- 장르별, 가수별, 추천곡 나열하기 -->
     <!-- ##### Miscellaneous Area Start ##### -->
     <section class="miscellaneous-area section-padding-100-0">
         <div class="container">
