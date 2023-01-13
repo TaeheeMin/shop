@@ -74,7 +74,7 @@ public class CartModifyController extends HttpServlet {
 			}
 			System.out.println("----------------------");
 			session.setAttribute("cart", cart); // 로그인시, 불러오기 위한 cart
-			session.setAttribute("list", cart); // 장바구니 view에서 불러오기 위한 cart
+			// session.setAttribute("list", cart); // 장바구니 view에서 불러오기 위한 cart
 		}
 		response.sendRedirect(request.getContextPath()+"/CartList");
 		return;

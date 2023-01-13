@@ -103,6 +103,23 @@ public class CartDao {
 		return list;
 	}
 	
+	// 2-3) cartOne (1개의 물품 수량정보만 불러오기)
+	public int cartOneQty(Connection conn, Cart cart) throws Exception {
+		int cartOneQty = 0;
+		
+		String sql = "SELECT cart_quantity FROM cart"
+					+ " WHERE goods_code = ? AND customer_id = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, cart.getGoodsCode());
+		stmt.setString(2, cart.getCustomerId());
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			cartOneQty = rs.getInt("cart_quantity");
+		}
+		
+		return cartOneQty;
+	}
+	
 	// 3) cart update
 	public int updateCart(Connection conn, int cartQuantity, int goodsCode, String customerId) throws Exception {
 		int row = 0;

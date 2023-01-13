@@ -1,6 +1,9 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,31 +21,44 @@ public class CartRemoveController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
-		
-		// 로그인되어있을 시, 로그인폼 진입 불가 -> 홈화면으로 이동
-		if(loginCustomer == null) {
-			response.sendRedirect(request.getContextPath()+"/Home");
-		}
-		// 값 받아오기
-		request.setCharacterEncoding("utf-8");
 		// System.out.println(request.getParameter("goodsCode"));
-		Cart cart = new Cart();
-		cart.setGoodsCode(Integer.parseInt(request.getParameter("goodsCode")));
-		cart.setCustomerId(loginCustomer.getCustomerId());
+		int goodsCode = Integer.parseInt(request.getParameter("goodsCode"));
 		
-		this.cartService = new CartService();
-		int row = cartService.removeCart(cart);
-		
-		// 결과
-		if(row == 1) {
-			System.out.println("삭제성공");
-			response.sendRedirect(request.getContextPath()+"/CartList");
+		// 로그인되어있을 시
+		if(loginCustomer != null) {
+			Cart cart = new Cart();
+			cart.setGoodsCode(goodsCode);
+			cart.setCustomerId(loginCustomer.getCustomerId());
+			
+			this.cartService = new CartService();
+			int row = cartService.removeCart(cart);
+			
+			// 결과
+			if(row == 1) {
+				System.out.println("삭제성공");	
+			} else {
+				System.out.println("삭제실패");
+			}
+			
 		} else {
-			System.out.println("삭제실패");
-			response.sendRedirect(request.getContextPath()+"/CartList");
+			// 비회원 장바구니 삭제하기
+			ArrayList<HashMap<String, Object>> cart = null;
+			if(session.getAttribute("cart") != null) {
+				cart = (ArrayList<HashMap<String, Object>>)session.getAttribute("cart");
+				for(HashMap<String,Object> c : cart) {
+					int thisGoodsCode = Integer.parseInt(String.valueOf(c.get("goodsCode")));
+					System.out.println("확인할 상품코드 : "+thisGoodsCode+" / 삭제할 상품코드 : "+goodsCode);
+					if(thisGoodsCode==goodsCode) {
+						cart.remove(c);
+						System.out.println("==> 코드 일치, 품목 삭제 성공");
+						break;
+					} else {
+						System.out.println("==> 코드 불일치, 변경값없음");
+					}
+				}
+				session.setAttribute("cart", cart);
+			}
 		}
+		response.sendRedirect(request.getContextPath()+"/CartList");
 	}
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	}
-
 }

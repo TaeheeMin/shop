@@ -90,6 +90,31 @@ public class CartService {
 		}
 		return list;
 	}
+	// 2-1) cartOne (1개 품목 수량정보)
+	public int cartOneQty(int cartQuantity, Cart cart) {
+		Connection conn = null;
+		CartDao cartDao = new CartDao();
+		int cartOneQty = 0;
+		try {
+			conn = DBUtil.getConnection();
+			cartOneQty = cartDao.cartOneQty(conn, cart);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return cartOneQty;
+	}
 	
 	// 3) modify cart
 	public int modifyCart(int cartQuantity, int goodsCode, String customerId) {
