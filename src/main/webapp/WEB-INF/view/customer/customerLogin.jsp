@@ -17,12 +17,8 @@
 </head>
 <body>
 	<!-- ##### Header Area Start ##### -->
-    <header class="header-area">
-		<!-- 메뉴 partial jsp 구성 -->
-		<div>
-			<jsp:include page="../../../inc/menu.jsp"></jsp:include>
-		</div>
-	</header>
+	<!-- 상단 메뉴 nav bar 구성 -->
+	<jsp:include page="../../../inc/menu.jsp"></jsp:include>
 	
 	
     <!-- ##### Breadcumb Area Start ##### -->
@@ -43,17 +39,18 @@
                         <h3>Welcome Back</h3>
                         <!-- Login Form -->
                         <div class="login-form">
-                            <form action="#" method="post">
+                            <form action="${pageContext.request.contextPath}/LoginCustomer" method="post">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Id</label>
-                                    <input type="text" class="form-control" id="" aria-describedby="" placeholder="아이디를 입력하세요">
+                                    <input type="text" name="customerId" class="form-control" id="" aria-describedby="" placeholder="아이디를 입력하세요">
                                     <small id="" class="form-text text-muted"><i class="fa fa-lock mr-2"></i>모든 계정은 철저히 감시되고 있습니다</small>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Password</label>
-                                    <input type="password" class="form-control" id="" placeholder="비밀번호를 입력하세요">
+                                    <input type="password" name="customerPw" class="form-control" id="" placeholder="비밀번호를 입력하세요">
                                 </div>
                                 <button type="submit" class="btn oneMusic-btn mt-30">Login</button>
+                                <span style="f"><a href="">&nbsp;</a></span>
                             </form>
                         </div>
                     </div>
@@ -62,11 +59,12 @@
         </div>
     </section>
     <!-- ##### Login Area End ##### -->
-	    <div>
-			<jsp:include page="../../../inc/footer.jsp"></jsp:include>
-		</div>
-    <!-- ##### Footer Area Start ##### -->
-    <footer class="footer-area">
+    
+    <!-- footer 하단 bar -->
+    <div>
+		<jsp:include page="../../../inc/footer.jsp"></jsp:include>
+	</div>
+
     
     <!-- ##### All Javascript Script ##### -->
     <!-- jQuery-2.2.4 js -->
@@ -79,24 +77,5 @@
     <script src="${pageContext.request.contextPath}/resources/js/plugins/plugins.js"></script>
     <!-- Active js -->
     <script src="${pageContext.request.contextPath}/resources/js/active.js"></script>
-		
-    </footer>
-    
-	<h1>로그인</h1>
-	<form action="${pageContext.request.contextPath}/LoginCustomer" method="post">
-		<table>
-			<tr>
-				<th>아이디</th>
-				<td><input type="text" name="customerId"></td>
-			</tr>
-			<tr>
-				<th>비밀번호</th>
-				<td><input type="password" name="customerPw"></td>
-			</tr>
-		</table>
-		<div>
-			<button type="submit">로그인</button>
-		</div>		
-	</form>
 </body>
 </html>

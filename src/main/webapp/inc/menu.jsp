@@ -1,23 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import = "vo.*" %>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<meta name="description" content="">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-	<!-- Favicon -->
-    <link rel="icon" href="${pageContext.request.contextPath}/resources/img/core-img/favicon.ico">
-
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style.css">
-</head>
-<body>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<!-- inclue창 -->
-		<!-- ##### Header Area Start ##### -->
     <header class="header-area">
         <!-- Navbar Area -->
         <div class="oneMusic-main-menu">
@@ -92,7 +75,7 @@
                                     <!-- Login/Register -->
        		  
                                     <div class="login-register-btn mr-50">
-                                        <a href="${pageContext.request.contextPath}/LoginEmp" id="loginBtn">Login / Register</a>
+                                        <a href="${pageContext.request.contextPath}/LoginCustomer" id="loginBtn">Login / Register</a>
                                     </div>
 
                                     <!-- Cart Button -->
@@ -112,19 +95,3 @@
             </div>
         </div>
     </header>
-    <!-- ##### Header Area End ##### -->
-    
-    <!-- ##### All Javascript Script ##### -->
-    <!-- jQuery-2.2.4 js -->
-    <script src="${pageContext.request.contextPath}/resources/js/jquery/jquery-2.2.4.min.js"></script>
-    <!-- Popper js -->
-    <script src="${pageContext.request.contextPath}/resources/js/bootstrap/popper.min.js"></script>
-    <!-- Bootstrap js -->
-    <script src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap.min.js"></script>
-    <!-- All Plugins js -->
-    <script src="${pageContext.request.contextPath}/resources/js/plugins/plugins.js"></script>
-    <!-- Active js -->
-    <script src="${pageContext.request.contextPath}/resources/js/active.js"></script>
-	
-</body>
-</html>

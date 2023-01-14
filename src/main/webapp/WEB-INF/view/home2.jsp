@@ -18,13 +18,9 @@
 	    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style.css">
 	</head>
 	<body>
-	 <!-- ##### Header Area Start ##### -->
-    <header class="header-area">
-		<!-- 메뉴 partial jsp 구성 -->
-		<div>
-			<jsp:include page="../../inc/menu.jsp"></jsp:include>
-		</div>
-	</header>
+	<!-- ##### Header Area Start ##### -->
+	<!-- 상단 메뉴 nav bar 구성 -->
+	<jsp:include page="../../inc/menu.jsp"></jsp:include>
     
     <!-- 홈화면 (요즘잘나가는트렌디한그룹의사진으로이쁘게) -->
     <!-- ##### Hero Area Start ##### -->
@@ -51,7 +47,7 @@
             <!-- Single Hero Slide -->
             <div class="single-hero-slide d-flex align-items-center justify-content-center">
                 <!-- Slide Img -->
-                <div class="slide-img bg-img" style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/newjeans.jpg);"></div>
+                <div class="slide-img bg-img" style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/bg-2.jpg);"></div>
                 <!-- Slide Content -->
                 <div class="container">
                     <div class="row">
@@ -93,15 +89,15 @@
                     <div class="albums-slideshow owl-carousel">
                     
                     	<c:forEach var="m" items="${rlist}" begin="1" end="8" step="1">
-                    	<div class="single-album">
-	                    	<img src="${pageContext.request.contextPath}/goodsimg/${m.filename}" alt="">
-                            <div class="album-info">
-                                <a href="#">
-                                    <h5>${m.goodsTitle}</h5>
-                                </a>
-                                <p>${m.goodsArtist}</p>
-                            </div>
-                    	</div>
+	                    	<div class="single-album">
+		                    	<img src="${pageContext.request.contextPath}/goodsimg/${m.filename}" alt="">
+	                            <div class="album-info">
+	                                <a href="#">
+	                                    <h5>${m.goodsTitle}</h5>
+	                                </a>
+	                                <p>${m.goodsArtist}</p>
+	                            </div>
+	                    	</div>
                     	</c:forEach>                      
                     </div>
                 </div>
