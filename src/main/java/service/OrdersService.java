@@ -1,6 +1,7 @@
 package service;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -393,8 +394,10 @@ public class OrdersService {
 				}
 			return result;	
 		}
-	// 주문-포인트사용
-	public int AddOrderPoint(Orders orders,ArrayList<HashMap<String, Object>> cartList, String customerId) {
+	
+	// 1) 주문
+	// 1-1) 포인트 사용 주문
+	public int AddOrderPoint(Orders orders, String customerId, int sharePoint, int point) {
 		int result = 0;
 		Connection conn = null; 
 		ordersDao = new OrdersDao();
@@ -403,13 +406,18 @@ public class OrdersService {
 			try {
 				conn = DBUtil.getConnection();
 				//order 추가하면서 oderCode 받아오기
-				ArrayList<PointHistory> list = ordersDao.AddOrdersPoint(conn, orders, cartList);
+				ArrayList<PointHistory> list = new ArrayList<PointHistory>();
+				list = ordersDao.AddOrdersPoint(conn, orders);
 				// pointHistory 추가
-				pointHistoryDao.addPointHistory(conn, customerId, list);
+				pointHistoryDao.addPointHistory(conn, list, sharePoint);
 				// 장바구니 비우기
 				cartDao.clearCart(conn, customerId);
+				// 고객 정보 수정
+				result = pointHistoryDao.modifyCustomerPoint(conn, customerId, point);
 				//디버깅
-				System.out.println("구매성공");
+				if(result ==1) {
+					System.out.println("구매성공");
+				}
 				conn.commit();
 			} catch (Exception e) {
 				try {System.out.println("구매실패");
@@ -427,10 +435,10 @@ public class OrdersService {
 			}	
 			return result;
 		}
-	// 그냥 주문
+	
+	// 1-2) 포인트 미사용 주문
 	public int addOrder(Orders orders,ArrayList<HashMap<String, Object>> cartList, String customerId) {
 		int result = 0;
-		int clearCart = 0;
 		Connection conn = null; 
 		ordersDao = new OrdersDao();
 		cartDao = new CartDao();
@@ -439,8 +447,8 @@ public class OrdersService {
 				conn = DBUtil.getConnection();
 				result = ordersDao.AddOrders(conn, orders, cartList);
 				if(result == 1) {
-					clearCart = cartDao.clearCart(conn, customerId);
-					//디버깅
+					// 장바구니 비우기
+					cartDao.clearCart(conn, customerId);
 					System.out.println("구매성공");
 				}
 				conn.commit();

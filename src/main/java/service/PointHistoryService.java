@@ -51,7 +51,7 @@ public class PointHistoryService {
 			pointHistoryDao = new PointHistoryDao();
 			map = pointHistoryDao.selectPoint(conn, loginCustomer);
 			point = (int)(map.get("importPoint"))-(int)(map.get("exportPoint"))+100;
-			row = pointHistoryDao.modifyCustomerPoint(conn, loginCustomer, point);
+			row = pointHistoryDao.modifyCustomerPoint(conn, loginCustomer.getCustomerId(), point);
 			conn.commit();
 		} catch (Exception e) {
 			try {
@@ -82,7 +82,7 @@ public class PointHistoryService {
 			pointHistoryDao = new PointHistoryDao();
 			map = pointHistoryDao.selectPoint(conn, loginCustomer);
 			point = (int)(map.get("importPoint"))-(int)(map.get("exportPoint"))+100;
-			row = pointHistoryDao.modifyCustomerPoint(conn, loginCustomer, point);
+			row = pointHistoryDao.modifyCustomerPoint(conn, loginCustomer.getCustomerId(), point);
 			conn.commit();
 		} catch (Exception e) {
 			try {
@@ -101,33 +101,4 @@ public class PointHistoryService {
 		}
 		return point;
 	}
-	
-	// 3) 포인트 사용
-	public int addPointHistory(String customerId) {
-		int row = 0;
-		Connection conn = null;
-		try {
-			conn = DBUtil.getConnection();
-			pointHistoryDao = new PointHistoryDao();
-			//row = pointHistoryDao.addPointHistory(conn, customerId);
-			conn.commit();
-		} catch (Exception e) {
-			try {
-				conn.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-			e.printStackTrace();
-			
-		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return row;
-	}
-
 }

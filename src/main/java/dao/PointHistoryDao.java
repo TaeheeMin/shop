@@ -24,18 +24,18 @@ public class PointHistoryDao {
 	}
 	
 	// 포인트(사용)
-	public int addPointHistory(Connection conn, String customerId, ArrayList<PointHistory> list) throws Exception {
+	public int addPointHistory(Connection conn, ArrayList<PointHistory> list, int point) throws Exception {
 		int row = 0;
 		String sql = "INSERT INTO point_history("
 				+ " order_code"
 				+ ", point_kind"
 				+ ", POINT"
 				+ ", createdate"
-				+ ") VALUES(?, '사용', (SELECT point FROM customer WHERE customer_id= ?), NOW())";
+				+ ") VALUES(?, '사용', ?, NOW())";
 		for(int i = 0; i < list.size(); i++) {
 			PreparedStatement stmt = conn.prepareStatement(sql);	
 			stmt.setInt(1, list.get(i).getOrderCode());
-			stmt.setString(2,customerId);
+			stmt.setInt(2 ,point);
 			row = stmt.executeUpdate();
 		}
 	    return row;
@@ -66,15 +66,13 @@ public class PointHistoryDao {
 	}
 	
 	// 3) customer포인트에 누적포인트 덮어쓰기
-	public int modifyCustomerPoint(Connection conn, Customer loginCustomer, int point) throws Exception {
+	public int modifyCustomerPoint(Connection conn, String customerId, int point) throws Exception {
 		int row = 0;
-		
 		String sql = "UPDATE customer SET point = ? WHERE customer_id = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, point);
-		stmt.setString(2, loginCustomer.getCustomerId());
+		stmt.setString(2, customerId);
 		row = stmt.executeUpdate();
-		
 		return row;
 	}
 }

@@ -77,51 +77,52 @@ public class OrdersAddController extends HttpServlet {
 		System.out.println("[OrdersAdd컨트롤러 post]");
 
 		// 값 받아오기
-		Orders orders = new Orders();;	
 		int addressCode = Integer.parseInt(request.getParameter("addressCode"));				
 		String customerId = request.getParameter("customerId");	
-		int point = Integer.parseInt(request.getParameter("point")); // 잔여 포인트 
-		String[] pointCkList = request.getParameterValues("pointCk"); // 포인트 사용 goods
-		
-		//값 저장 
-		ArrayList<HashMap<String,Object>> cartList = cartService.getCartList(loginCustomer.getCustomerId());
-		orders.setAdrressCode(addressCode);		
-		orders.setCustomerId(customerId);
-		
-		//디버깅	
 		System.out.println("addressCode : " + addressCode);	
 		System.out.println("customerId : " + customerId);
-		for (int i = 0; i < pointCkList.length; i++) {            
-			System.out.println(pointCkList[i]);   
-		}
+				
+		//int point = Integer.parseInt(request.getParameter("point")); // 잔여 포인트 
+		//String[] pointCkList = request.getParameterValues("pointCk"); // 포인트 사용 goods
+		String[] goodsCode = request.getParameterValues("goodsCode");
+		String[] cartQuantity = request.getParameterValues("cartQuantity");
+		String[] orderPrice = request.getParameterValues("orderPrice");
+		String sharePoint = request.getParameter("sharePoint");
+		System.out.println("sharePoint : " + sharePoint);
+		int point = Integer.parseInt(request.getParameter("point"));
+		System.out.println("point : " + point);
 		
-		// 포인트 일부사용
-		
-		// 포인트 전액사용(카트 모두 사용)
+		// 서비스 호출
 		int row = 0;
-		if(request.getParameter("pointAll") != null) {
-			// 주문add
-			row = ordersService.AddOrderPoint(orders, cartList, customerId);
+		ArrayList<HashMap<String,Object>> cartList = cartService.getCartList(customerId);
+		Orders orders = new Orders();
+		for(int i = 0; i < orderPrice.length; i++) {
+			orders.setCustomerId(customerId);
+			orders.setAdrressCode(addressCode);
+			orders.setGoodsCode(Integer.parseInt(goodsCode[i]));
+			orders.setOrderQuantity(Integer.parseInt(cartQuantity[i]));
+			orders.setOrderPrice(Integer.parseInt(orderPrice[i]));
 			
-			
-			// 잔여 포인트 조회
-			int customerPoint = pointHistoryService.remainCustomerPoint(loginCustomer);
-			loginCustomer.setPoint(customerPoint);
-			System.out.println("잔여 포인트 : " + customerPoint);
-		} else {
-			row = ordersService.addOrder(orders, cartList, customerId);	
+			if(request.getParameter("pointAll") == null && sharePoint == null) {
+				// 포인트 미사용
+				row = ordersService.addOrder(orders, cartList, customerId);	
+			} else {
+				// 포인트 사용
+				row = ordersService.AddOrderPoint(orders, customerId, Integer.parseInt(sharePoint), point);
+			}
 		}
 		
 		// 결과
 		if(row == 1) {
 			// 리스트로 이동
-			System.out.println("성공");
+			System.out.println("구매성공");
 			response.sendRedirect(request.getContextPath()+"/orders/ordersComplete"); 
 		} else {
 			// 폼이동
-			System.out.println("실패");
+			System.out.println("구매실패");
 			response.sendRedirect(request.getContextPath()+"/orders/ordersAdd");
 		}
+	
 	}
 }
 
