@@ -48,7 +48,21 @@
                                 </ul>
 
  								<!-- 고객 Menu -->
- 									
+ 								<c:if test="${loginCustomer != null}">                
+					          		 	<ul>
+					          		 	<li><a href="#">MyPage</a>
+	                                        <ul class="dropdown">
+	                                            <li><a href="${pageContext.request.contextPath}/orders/ordersList">Orders</a></li>
+	                                            <li><a href="${pageContext.request.contextPath}/CustomerOne">MemberInformation</a></li>
+	                                            <li><a href="${pageContext.request.contextPath}/QuestionListByCustomer">CustomerCenter</a></li>
+	                                            <li><a href="${pageContext.request.contextPath}/NoticeList">News</a></li>	                                        
+	                                            <li><a href="contact.html">Contact</a></li>                                            
+	                                            <li><a href="${pageContext.request.contextPath}/Logout">Logout</a></li>                                     
+	                                        </ul>
+                                    	</li>
+                                    	</ul>	
+					          	</c:if>	
+					          	
  									
  									                             
                                    <!-- 관리자 Menu -->            
@@ -69,7 +83,7 @@
                                     	</ul>	
 					          	</c:if>
 					           		
-					           	<c:if test="${loginEmp == null}"> 	
+					           	<c:if test="${loginEmp == null && loginCustomer == null}"> 	
 					           		<!-- Login/Register & Cart Button -->
                                 	<div class="login-register-cart-button d-flex align-items-center">
                                     <!-- Login/Register -->
