@@ -29,12 +29,13 @@ public class NoticeAddController extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
 		// 값 받아오기
-		request.setCharacterEncoding("utf-8");
 		Notice notice = new Notice();
 		notice.setNoticeTitle(request.getParameter("noticeTitle"));
 		notice.setNoticeContent(request.getParameter("noticeContent"));
-		notice.setEmpId(request.getParameter("empId"));
+		notice.setEmpId(loginEmp.getEmpId());
 		
 		int row = 0;
 		NoticeService noticeService = new NoticeService();

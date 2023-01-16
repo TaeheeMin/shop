@@ -26,7 +26,6 @@ public class NoticeModifyController extends HttpServlet {
 			return;
 		}
 		// 값 받아오기
-		request.setCharacterEncoding("utf-8");
 		// System.out.println(request.getParameter("noticeCode"));
 		int noticeCode = Integer.parseInt(request.getParameter("noticeCode"));
 		NoticeService noticeService = new NoticeService();
@@ -40,7 +39,6 @@ public class NoticeModifyController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 값 받아오기
-		request.setCharacterEncoding("utf-8");
 		Notice notice = new Notice();
 		notice.setNoticeCode(Integer.parseInt(request.getParameter("noticeCode")));
 		notice.setNoticeTitle(request.getParameter("title"));

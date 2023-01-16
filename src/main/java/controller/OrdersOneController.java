@@ -22,7 +22,7 @@ public class OrdersOneController extends HttpServlet {
 		int orderCode = Integer.parseInt(request.getParameter("orderCode"));
 		list = ordersService.selectOrdersOneList(orderCode);
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("/WEB-INF/view/orders/ordersOne.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/orders/test.jsp").forward(request, response);
 	
 	}
 }

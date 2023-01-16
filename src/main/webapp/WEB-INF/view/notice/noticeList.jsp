@@ -38,7 +38,11 @@
 	        <div class="container">
 	            <div class="row">
 	                <div class="col-12 col-lg-9">
-						
+						<c:if test="${loginEmp != null}">
+							<div style="float: right; margin-bottom: 10px;">
+	                        	<a href="${pageContext.request.contextPath}/NoticeAdd">공지등록</a>
+							</div>
+						</c:if>
 	                    <!-- Single Post Start -->
 						<c:forEach var="n" items="${notice}">
 		                    <div class="single-blog-post mb-100 wow fadeInUp panel single-accordion" data-wow-delay="100ms">
@@ -70,8 +74,15 @@
 				                                    <span class="accor-close"><i class="fa fa-minus" aria-hidden="true"></i></span>
 				                                </a>
 				                            </h6>
-				                            <div id="collapse${n.noticeCode }" class="accordion-content collapse">
+				                            <div id="collapse${n.noticeCode}" class="accordion-content collapse">
 				                                <p>${n.noticeContent}</p>
+				                            	<c:if test="${loginEmp != null}">
+					                            	<P>
+					                            		<a href="${pageContext.request.contextPath}/NoticeModify?noticeCode=${n.noticeCode}">수정</a>
+					                            		<a href="${pageContext.request.contextPath}/NoticeRemove?noticeCode=${n.noticeCode}">삭제</a>
+					                            	</P>
+												</c:if>
+				                            	
 				                            </div>
 				                     </div>
 		                            
@@ -97,9 +108,6 @@
 					
 	                <div class="col-12 col-lg-3">
 	                    <div class="blog-sidebar-area">
-							<c:if test="${loginEmp != null}">
-	                        	<a href="${pageContext.request.contextPath}/NoticeAdd" class="btn oneMusic-btn m-2">공지등록 <i class="fa fa-angle-double-right"></i></a>
-							</c:if>
 	                        <!-- Widget Area -->
 	                        <div class="single-widget-area mb-30">
 	                            <div class="widget-title">
