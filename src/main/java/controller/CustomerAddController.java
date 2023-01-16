@@ -30,6 +30,11 @@ public class CustomerAddController extends HttpServlet {
 			return;
 		}
 		
+		// 아이디 중복일경우, msg 출력하게끔하기
+		if(request.getParameter("msg") != null) {
+			request.setAttribute("overlap", request.getParameter("msg"));
+		}
+		
 		// 비로그인일 경우, 회원가입폼 view로 이동
 		request.getRequestDispatcher("/WEB-INF/view/customer/customerSignin.jsp").forward(request, response);
 	}
@@ -68,7 +73,8 @@ public class CustomerAddController extends HttpServlet {
 		if(checkId) {
 			// 중복일 경우 회원가입폼으로 이동
 			System.out.println("중복된 아이디가 존재합니다");
-			response.sendRedirect(request.getContextPath()+"/AddCustomer");
+			String msg = "already";
+			response.sendRedirect(request.getContextPath()+"/AddCustomer?msg="+msg);
 			return;
 		} else {
 			// 중복 아닐경우 회원가입 진행

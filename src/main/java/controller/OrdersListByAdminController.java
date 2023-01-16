@@ -94,7 +94,7 @@ public class OrdersListByAdminController extends HttpServlet {
 		request.setAttribute("lastPage", lastPage);
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("rowPerPage", rowPerPage);
-		request.getRequestDispatcher("/WEB-INF/view/orders/ordersListByAdmin.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/orders/test.jsp").forward(request, response);
 	}
 
 }

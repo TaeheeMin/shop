@@ -30,6 +30,11 @@ public class EmpLoginController extends HttpServlet {
 			return;
 		}
 		
+		// 아이디나 비밀번호 잘못된경우, msg 출력하게끔하기
+		if(request.getParameter("empMsg") != null) {
+			request.setAttribute("wrongEmp", request.getParameter("empMsg"));
+		}
+				
 		// 비로그인일경우, 사원로그인폼 view로 이동
 		request.getRequestDispatcher("/WEB-INF/view/emp/empLogin.jsp").forward(request, response);
 	}
@@ -59,8 +64,8 @@ public class EmpLoginController extends HttpServlet {
 		// 로그인 실패 시, -> 로그인 get으로 돌아가기
 		if(loginEmp == null) {
 			System.out.println("로그인 실패 -> 사원로그인컨트롤러 get으로 이동");
-			String msg = "login fail"; // 아이디 혹은 비밀번호가 맞지 않습니다
-			response.sendRedirect(request.getContextPath()+"/LoginEmp?msg="+msg);
+			String empMsg = "login fail"; // 아이디 혹은 비밀번호가 맞지 않습니다
+			response.sendRedirect(request.getContextPath()+"/LoginEmp?empMsg="+empMsg);
 			return;
 		}
 		

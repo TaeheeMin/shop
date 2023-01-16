@@ -17,6 +17,34 @@
     <!-- Stylesheet -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style.css">
     
+    <!-- J-Query -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script>
+	    $(document).ready(function() {
+			// 유효성검사
+			$('#logInBtn').click(function(){
+				// 아이디 유효성 체크
+				if($('#customerId').val() == '') {
+					$('#customerIdMsg').text('아이디를 입력해주세요');
+					$('#privacy').text('');
+					$('#customerId').focus();
+					return;
+				} else {
+					$('#customerIdMsg').text('');
+				}
+				// 패스워드 유효성 체크
+				if($('#customerPw').val() == '') {
+					$('#customerPwMsg').text('패스워드를 입력해주세요');
+					$('#customerPw').focus();
+					return;
+				} else {
+					$('#customerPwMsg').text('');
+				}
+				
+				$('#loginForm').submit();
+			});
+		});
+    </script>
 </head>
 <body>
 	<!-- ##### Header Area Start ##### -->
@@ -40,21 +68,29 @@
                 <div class="col-12 col-lg-8">
                     <div class="login-content">
                         <h3>Welcome Back</h3>
+                        
+                        <!-- 아이디나 비밀번호 잘못입력한 경우 -->
+                        <c:if test="${wrong != null}">
+                        	<span class="text-danger">아이디나 비밀번호를 잘못입력하였습니다.</span>
+						</c:if>
+						
                         <!-- Login Form -->
                         <div class="login-form">
-                            <form action="${pageContext.request.contextPath}/LoginCustomer" method="post">
+                            <form id="loginForm" action="${pageContext.request.contextPath}/LoginCustomer" method="post">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Id</label>
-                                    <input type="text" name="customerId" class="form-control" id="" aria-describedby="" placeholder="아이디를 입력하세요">
-                                    <small id="" class="form-text text-muted"><i class="fa fa-lock mr-2"></i>모든 계정은 철저히 감시되고 있습니다</small>
+                                    <input type="text" name="customerId" class="form-control" id="customerId" placeholder="아이디를 입력하세요">
+                                    <small id="privacy" class="form-text text-muted"><i class="fa fa-lock mr-2"></i>모든 계정은 철저히 감시되고 있습니다</small>
+                                    <small id="customerIdMsg" class="form-text text-danger"></small>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Password</label>
-                                    <input type="password" name="customerPw" class="form-control" id="" placeholder="비밀번호를 입력하세요">
+                                    <input type="password" id="customerPw" name="customerPw" class="form-control" placeholder="비밀번호를 입력하세요">
+                                    <small id="customerPwMsg" class="form-text text-danger"></small>
                                 </div>
-                                <button type="submit" class="btn oneMusic-btn mt-30">Login</button>
+                                <button id="logInBtn" type="button" class="btn oneMusic-btn mt-30">Login</button>
                             </form>
-                            <span style="float:left"><a href="">&nbsp;&nbsp;</a></span>
+                            <span style="float:left"><a href="${pageContext.request.contextPath}/LoginEmp">&nbsp;&nbsp;</a></span>
                             <span style="float:right"><a class="btn" href="${pageContext.request.contextPath}/AddCustomer">Join</a></span>
                         </div>
                     </div>
