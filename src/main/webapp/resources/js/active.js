@@ -108,6 +108,14 @@
                     filter: filterValue
                 });
             });
+            
+            $('.catagory-menu').on('click', 'z', function () {
+                var filterValue = $(this).attr('data-filter');
+                $grid.isotope({
+                    filter: filterValue
+                });
+            });
+            
             // init Isotope
             var $grid = $('.oneMusic-albums').isotope({
                 itemSelector: '.single-album-item',

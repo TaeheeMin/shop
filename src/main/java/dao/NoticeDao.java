@@ -12,13 +12,14 @@ public class NoticeDao {
 	// 1-2) list
 	public ArrayList<Notice> selectNoticeList(Connection conn) throws Exception {
 		ArrayList<Notice> notice = new ArrayList<Notice>();
-		String sql = "SELECT notice_code noticeCode, notice_title noticeTitle, createdate FROM notice";
+		String sql = "SELECT notice_code noticeCode, notice_title noticeTitle, notice_content noticeContent, createdate FROM notice";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();
 		while(rs.next()) {
 			Notice n = new Notice();
 			n.setNoticeCode(rs.getInt("noticeCode"));
 			n.setNoticeTitle(rs.getString("noticeTitle"));
+			n.setNoticeContent(rs.getString("noticeContent"));
 			n.setCreatedate(rs.getString("createdate"));
 			notice.add(n);
 		}

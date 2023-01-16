@@ -103,7 +103,7 @@ public class OrdersAddController extends HttpServlet {
 			orders.setOrderQuantity(Integer.parseInt(cartQuantity[i]));
 			orders.setOrderPrice(Integer.parseInt(orderPrice[i]));
 			
-			if(request.getParameter("pointAll") == null && sharePoint == null) {
+			if(request.getParameter("pointAll") == null && request.getParameter("usePoint") == null) {
 				// 포인트 미사용
 				row = ordersService.addOrder(orders, cartList, customerId);	
 			} else {
