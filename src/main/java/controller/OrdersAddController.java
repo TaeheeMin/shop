@@ -58,7 +58,7 @@ public class OrdersAddController extends HttpServlet {
 		}
 
 		request.setAttribute("myAddress", cusAddress);
-		request.getRequestDispatcher("/WEB-INF/view/orders/ordersPage.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/orders/test.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

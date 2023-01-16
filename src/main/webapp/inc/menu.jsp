@@ -52,9 +52,9 @@
 					          		 	<ul>
 					          		 	<li><a href="#">MyPage</a>
 	                                        <ul class="dropdown">
-	                                            <li><a href="${pageContext.request.contextPath}/orders/ordersList">Orders</a></li>
-	                                            <li><a href="${pageContext.request.contextPath}/CustomerOne">MemberInformation</a></li>
-	                                            <li><a href="${pageContext.request.contextPath}/QuestionListByCustomer">CustomerCenter</a></li>
+	                                            <li><a href="${pageContext.request.contextPath}/orders/ordersList">Order Page</a></li>
+	                                            <li><a href="${pageContext.request.contextPath}/CustomerOne">Member Information</a></li>
+	                                            <li><a href="${pageContext.request.contextPath}/QuestionListByCustomer">Customer Center</a></li>
 	                                            <li><a href="${pageContext.request.contextPath}/NoticeList">News</a></li>	                                        
 	                                            <li><a href="contact.html">Contact</a></li>                                            
 	                                            <li><a href="${pageContext.request.contextPath}/Logout">Logout</a></li>                                     
@@ -72,8 +72,8 @@
 					          		 	<li><a href="#">EmployeePage</a>
 	                                        <ul class="dropdown">
 	                                            <li><a href="${pageContext.request.contextPath}/orders/ordersListByAdmin">Order Page</a></li>
-	                                            <li><a href="${pageContext.request.contextPath}/AddEmp">AddEmployee</a></li>
-	                                            <li><a href="${pageContext.request.contextPath}/QuestionListByAdmin">CustomerCenter</a></li>
+	                                            <li><a href="${pageContext.request.contextPath}/AddEmp">Add Employee</a></li>
+	                                            <li><a href="${pageContext.request.contextPath}/QuestionListByAdmin">Customer Center</a></li>
 	                                            <li><a href="${pageContext.request.contextPath}/NoticeList">News</a></li>
 	                                            <li><a href="${pageContext.request.contextPath}/review/reviewList">Reviews</a></li>
 	                                            <li><a href="contact.html">Contact</a></li>                                            
@@ -82,6 +82,11 @@
                                     	</li>
                                     	</ul>	
 					          	</c:if>
+					          		<!-- Cart Button -->
+								<div class="cart-btn">
+                                	<a href="${pageContext.request.contextPath}/CartList"><p><span class="icon-shopping-cart"></span><span class="quantity">1</span></p></a> 
+								</div>
+					          	
 					           		
 					           	<c:if test="${loginEmp == null && loginCustomer == null}"> 	
 					           		<!-- Login/Register & Cart Button -->

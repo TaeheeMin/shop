@@ -76,7 +76,7 @@ public class OrdersListController extends HttpServlet {
 		request.setAttribute("lastPage", lastPage);
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("rowPerPage", rowPerPage);
-		request.getRequestDispatcher("/WEB-INF/view/orders/test.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/orders/ordersList.jsp").forward(request, response);
 	
 	}
 }
