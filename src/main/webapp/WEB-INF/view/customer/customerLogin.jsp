@@ -8,6 +8,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
+    <!-- Title -->
+    <title>Recorder Music Log-in Customer</title>
+    
     <!-- Favicon -->
     <link rel="icon" href="${pageContext.request.contextPath}/resources/img/core-img/favicon.ico">
 
@@ -50,8 +53,9 @@
                                     <input type="password" name="customerPw" class="form-control" id="" placeholder="비밀번호를 입력하세요">
                                 </div>
                                 <button type="submit" class="btn oneMusic-btn mt-30">Login</button>
-                                <span style="f"><a href="">&nbsp;</a></span>
                             </form>
+                            <span style="float:left"><a href="">&nbsp;&nbsp;</a></span>
+                            <span style="float:right"><a class="btn" href="${pageContext.request.contextPath}/AddCustomer">Join</a></span>
                         </div>
                     </div>
                 </div>
