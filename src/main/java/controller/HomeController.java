@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import service.CartService;
 import service.GoodsService;
 import service.SiteCounterService;
 import vo.Customer;
@@ -21,10 +23,12 @@ import vo.Emp;
 public class HomeController extends HttpServlet {
 	private SiteCounterService siteCounterService;
 	private GoodsService goodsService;
+	private CartService cartService;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 홈 View
 		this.goodsService = new GoodsService();
+		System.out.println("[Home컨트롤러]");
 		
 		// (누적,오늘,현재) 접속자수 불러오기
 		this.siteCounterService = new SiteCounterService();
@@ -38,7 +42,14 @@ public class HomeController extends HttpServlet {
 		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
 		// 고객 로그인세션 불러오기
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
+		if(loginCustomer != null) {
+			this.cartService = new CartService();
+			int ttlCntCart = cartService.ttlCntCart(loginCustomer.getCustomerId());
+			session.setAttribute("ttlCntCart", ttlCntCart);
+		}
 		
+		System.out.println("==갯수== : "+session.getAttribute("ttlCntCart"));
+
 		// 최신앨범 목록 불러오기
 		ArrayList<HashMap<String, Object>> rlist = goodsService.selectRecentlySongList();
 		// System.out.println("최신곡 list : "+rlist);

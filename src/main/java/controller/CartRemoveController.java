@@ -32,6 +32,8 @@ public class CartRemoveController extends HttpServlet {
 			
 			this.cartService = new CartService();
 			int row = cartService.removeCart(cart);
+			int ttlCntCart = cartService.ttlCntCart(loginCustomer.getCustomerId());
+			session.setAttribute("ttlCntCart", ttlCntCart);
 			
 			// 결과
 			if(row == 1) {

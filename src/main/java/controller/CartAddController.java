@@ -65,7 +65,9 @@ public class CartAddController extends HttpServlet {
 					System.out.println("장바구니 담기 실패");
 				}
 			}
-
+			
+			int ttlCntCart = cartService.ttlCntCart(loginCustomer.getCustomerId());
+			session.setAttribute("ttlCntCart", ttlCntCart);
 			response.sendRedirect(request.getContextPath()+"/GoodsList");
 			return;
 		}

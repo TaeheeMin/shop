@@ -77,6 +77,9 @@ public class CustomerLoginController extends HttpServlet {
 		session.setAttribute("loginCustomer",loginCustomer);
 		
 		this.cartService = new CartService();
+		int ttlCntCart = cartService.ttlCntCart(loginCustomer.getCustomerId());
+		session.setAttribute("ttlCntCart", ttlCntCart);
+		
 		Cart cart = new Cart();
 		cart.setCustomerId(customerId);
 		

@@ -106,11 +106,11 @@ public class GoodsService {
 		Connection conn = null;
 		this.goodsDao = new GoodsDao();
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-		System.out.println("[goodsService]");
+		// System.out.println("[goodsService]");
 		try {
 			conn = DBUtil.getConnection();
 			list = goodsDao.selectRecentlySongList(conn);
-			System.out.println("list : "+list);
+			// System.out.println("list : "+list);
 			conn.commit();
 		} catch (Exception e) {
 			try {
@@ -134,11 +134,11 @@ public class GoodsService {
 		Connection conn = null;
 		this.goodsDao = new GoodsDao();
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-		System.out.println("[goodsService]");
+		// System.out.println("[goodsService]");
 		try {
 			conn = DBUtil.getConnection();
 			list = goodsDao.selectHitSongList(conn);
-			System.out.println("list : "+list);
+			// System.out.println("list : "+list);
 			conn.commit();
 		} catch (Exception e) {
 			try {

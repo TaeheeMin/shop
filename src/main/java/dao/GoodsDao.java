@@ -115,7 +115,7 @@ public class GoodsDao {
 			m.put("filename", rs.getString("filename"));
 			list.add(m);
 		}
-		System.out.println("[GoodsDao] list : "+list);
+		// System.out.println("[GoodsDao] list : "+list);
 		return list;
 	}
 	
@@ -143,7 +143,7 @@ public class GoodsDao {
 			m.put("goodsPrice",  rs.getInt("goodsPrice"));
 			list.add(m);
 		}
-		System.out.println("[GoodsDao] list : "+list);
+		// System.out.println("[GoodsDao] list : "+list);
 		return list;
 	}
 	

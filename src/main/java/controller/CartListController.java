@@ -24,6 +24,7 @@ public class CartListController extends HttpServlet {
 			//response.sendRedirect(request.getContextPath()+"/Home");
 			this.cartService = new CartService();
 			ArrayList<HashMap<String, Object>> list = cartService.getCartList(loginCustomer.getCustomerId());
+			System.out.println("장바구니에 담긴 상품 갯수 : "+list.size());
 			request.setAttribute("list", list);
 		} else {
 			// 비회원일 시, 세션에 저장된 cart 목록 출력

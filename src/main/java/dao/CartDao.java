@@ -154,8 +154,16 @@ public class CartDao {
 	}
 	
 	// 4-3) 장바구니 굿즈갯수
-	public int ttlCntCart(Connection conn) throws Exception {
+	public int ttlCntCart(Connection conn, String customerId) throws Exception {
 		int ttlCntCart = 0;
+		
+		String sql = "SELECT COUNT(*) from cart WHERE customer_id = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customerId);
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			ttlCntCart = rs.getInt("COUNT(*)");
+		}
 		
 		return ttlCntCart;
 	}

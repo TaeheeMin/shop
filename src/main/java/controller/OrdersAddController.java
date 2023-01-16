@@ -112,6 +112,9 @@ public class OrdersAddController extends HttpServlet {
 			}
 		}
 		
+		int ttlCntCart = cartService.ttlCntCart(loginCustomer.getCustomerId());
+		session.setAttribute("ttlCntCart", ttlCntCart);
+		
 		// 결과
 		if(row == 1) {
 			// 리스트로 이동

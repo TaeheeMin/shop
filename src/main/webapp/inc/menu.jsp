@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="vo.*"%>
+<%@ page import="service.*"%>
 	<!-- inclue창 -->
     <header class="header-area">
         <!-- Navbar Area -->
@@ -28,6 +30,7 @@
                             <!-- Nav Start -->
                             <div class="classynav">
                                 <ul>
+                                	<li>${ttlCntCart}</li>
                                     <li><a href="${pageContext.request.contextPath}/Home">Home</a></li>
                                     <li><a href="${pageContext.request.contextPath}/GoodsList">Albums</a></li>
                                     <li><a href="#">Pages</a>
@@ -62,7 +65,7 @@
                                     	</ul>
                                     	   	<div class="login-register-cart-button d-flex align-items-center">	
 											<div class="cart-btn">
-			                                	<a href="${pageContext.request.contextPath}/CartList"><p><span class="icon-shopping-cart"></span><span class="quantity">1</span></p></a> 
+			                                	<a href="${pageContext.request.contextPath}/CartList"><p><span class="icon-shopping-cart"></span><span class="quantity">${ttlCntCart}</span></p></a> 
 											</div>
 								          	</div>	
 					          	</c:if>	
@@ -87,7 +90,7 @@
                                     	</ul>
                                       	<div class="login-register-cart-button d-flex align-items-center">	
 										<div class="cart-btn">
-		                                	<a href="${pageContext.request.contextPath}/CartList"><p><span class="icon-shopping-cart"></span><span class="quantity">1</span></p></a> 
+		                                	<a href="${pageContext.request.contextPath}/CartList"><p><span class="icon-shopping-cart"></span><span class="quantity">M</span></p></a> 
 										</div>
 							          	</div> 		
 					          	</c:if>
@@ -105,15 +108,7 @@
                                     <!-- Cart Button -->
                                     <div class="cart-btn">
                                         <a href="${pageContext.request.contextPath}/CartList">
-                                        	<p>
-                                        		<span class="icon-shopping-cart"></span>
-                                        		<c:if test="${loginCustomer != null}">
-                                        			<span class="quantity">${list.size()}</span>
-                                        		</c:if>
-                                        		<c:if test="${loginCustomer == null}">
-                                        			<span class="quantity">${list.size()}</span>
-                                        		</c:if>
-                                        	</p>
+                                        	<p><span class="icon-shopping-cart"></span><span class="quantity">${cart.size()}</span></p>
                                         </a> 
                                     </div>
                                 </div>
