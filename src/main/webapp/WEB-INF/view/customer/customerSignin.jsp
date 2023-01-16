@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +30,11 @@
 			let reg_name = /^[가-힣a-zA-Z]{1,15}$/;
 			let reg_phone = /^010[0-9]{8}$/;  
 			
-			let allCheck = false;
+			let idCk = false;
+			let pwCk = false;
+			let pwCkCk = false;
+			let nameCk = false;
+			let phoneCk = false;
 			
 			$('#customerId').focus();
 			
@@ -40,6 +45,7 @@
 					$('#customerIdMsg').text('아이디는 영문소문자와 숫자 4~12자리로 입력하세요.');
 				} else {
 					$('#customerIdMsg').text('');
+					idCk = true;
 				}
 			});
 			
@@ -49,6 +55,7 @@
 					$('#customerPwMsg').text('8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.');
 				} else {
 					$('#customerPwMsg').text('');
+					pwCk = true;
 				}
 			});
 			
@@ -58,6 +65,7 @@
 					$('#customerPwCkMsg').text('비밀번호가 일치하지 않습니다.');
 				} else {
 					$('#customerPwCkMsg').text('');
+					pwCkCk = true;
 				}
 			});
 			
@@ -68,6 +76,7 @@
 					$('#customerNameMsg').text('이름은 한글과 영어대소문자 15자리 이하로 입력하세요');
 				} else {
 					$('#customerNameMsg').text('');
+					nameCk = true;
 				}
 			});
 			
@@ -78,13 +87,13 @@
 					$('#customerPhoneMsg').text('휴대폰번호 11자리를 입력하세요');
 				} else {
 					$('#customerPhoneMsg').text('');
-					allCheck = true;
+					phoneCk = true;
 				}
 			});
 			
 			// btn눌러 form action으로 제출하기
 			$('#joinBtn').click(function(){
-				if(allCheck) {
+				if(idCk && pwCk && pwCkCk && nameCk && phoneCk) {
 					$('#joinForm').submit();
 				} else {
 					alert('모든 항목을 입력해주세요.');
@@ -115,6 +124,14 @@
                 <div class="col-12 col-lg-8">
                     <div class="login-content">
                         <h3>Welcome to Recorder Music</h3>
+                        
+                        <!-- 아이디 중복값 있을 경우 -->
+                        <c:if test="${overlap != null}">
+                        	<script>
+								alert('중복된 아이디가 존재합니다.');
+							</script>
+						</c:if>
+						
                         <!-- Login Form -->
                         <div class="login-form">
                             <form id= "joinForm" action="${pageContext.request.contextPath}/AddCustomer" method="post">
@@ -143,7 +160,7 @@
                                     <input type="number" id="customerPhone" name="customerPhone" class="form-control" id="" placeholder="휴대폰번호를 입력하세요">
                                     <small id="customerPhoneMsg" class="form-text text-danger"></small>
                                 </div>
-                                <button id="joinBtn" type="submit" class="btn oneMusic-btn mt-30">Join</button>
+                                <button id="joinBtn" type="button" class="btn oneMusic-btn mt-30">Join</button>
                             </form>                            
                         </div>
                     </div>

@@ -35,6 +35,11 @@ public class CustomerLoginController extends HttpServlet {
 			return;
 		}
 		
+		// 아이디나 비밀번호 잘못된경우, msg 출력하게끔하기
+		if(request.getParameter("msg") != null) {
+			request.setAttribute("wrong", request.getParameter("msg"));
+		}
+		
 		// 비로그인일 경우, 로그인폼 view로 이동
 		request.getRequestDispatcher("/WEB-INF/view/customer/customerLogin.jsp").forward(request, response);
 	}
