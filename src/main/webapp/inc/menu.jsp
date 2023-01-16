@@ -60,7 +60,12 @@
 	                                            <li><a href="${pageContext.request.contextPath}/Logout">Logout</a></li>                                     
 	                                        </ul>
                                     	</li>
-                                    	</ul>	
+                                    	</ul>
+                                    	   	<div class="login-register-cart-button d-flex align-items-center">	
+											<div class="cart-btn">
+			                                	<a href="${pageContext.request.contextPath}/CartList"><p><span class="icon-shopping-cart"></span><span class="quantity">1</span></p></a> 
+											</div>
+								          	</div>	
 					          	</c:if>	
 					          	
  									
@@ -80,14 +85,14 @@
 	                                            <li><a href="${pageContext.request.contextPath}/Logout">Logout</a></li>                                     
 	                                        </ul>
                                     	</li>
-                                    	</ul>	
+                                    	</ul>
+                                      	<div class="login-register-cart-button d-flex align-items-center">	
+										<div class="cart-btn">
+		                                	<a href="${pageContext.request.contextPath}/CartList"><p><span class="icon-shopping-cart"></span><span class="quantity">1</span></p></a> 
+										</div>
+							          	</div> 		
 					          	</c:if>
-					          		<!-- Cart Button -->
-					          		
-								<div class="cart-btn">
-                                	<a href="${pageContext.request.contextPath}/CartList"><p><span class="icon-shopping-cart"></span><span class="quantity">1</span></p></a> 
-								</div>
-					          	
+					          
 					           		
 					           	<c:if test="${loginEmp == null && loginCustomer == null}"> 	
 					           		<!-- Login/Register & Cart Button -->

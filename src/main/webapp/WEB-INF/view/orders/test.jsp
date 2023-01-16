@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -18,75 +17,27 @@
 	    <!-- Stylesheet -->
 	    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style.css">
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+			<c:forEach var="o" items="${list}">
 				<script>
-			$(document).ready(function() {
-			   let total = $('#totalPrice').val(); // 주문금액 
-			   let orderPriceCount = ${fn:length(cartList)}; // 상품 개수 
-			   let orderPriceList = document.querySelectorAll('.orderPrice'); // 상품별 가격
-			   let cartOrderPriceList = document.querySelectorAll('.cartOrderPrice'); // 상품별 원래 가격
-			   let customerPoint = $('#point').val(); // 고객 포인트
-			   
-			   // 포인트 일부사용
-			   $('#usePoint').blur(function() {
-				   let usePoint = $('#usePoint').val(); // 사용 포인트
-				   if(usePoint != 0) {
-					   let sharePoint = Math.round(usePoint / orderPriceCount) // 상품별 사용 포인트
-					   //console.log('나머지 : ' + usePoint % orderPriceCount);
-					   console.log('sharePoint : ' + sharePoint);
-					   for(let i = 0; i<orderPriceCount; i++) { // 상품 개수만큼 반복
-							let orderPrice = $(orderPriceList[i]).val()-sharePoint; // 상품별 가격에 사용 포인트 차감
-							//console.log(orderPrice)
-						   $(orderPriceList[i]).val(orderPrice);// 가격수정
-					   }
-					   $('#totalPrice').attr('value', total-$('#usePoint').val()); // 주문금액 - 사용포인트 
-					   $('#point').attr('value',${loginCustomer.point}-$('#usePoint').val()) // 잔여 포인트
-					   $('#sharePoint').attr('value', sharePoint);
-				   } else{ // 원래 값으로 변경
-					   for(let i = 0; i<orderPriceCount; i++) {
-							let cartOrderPrice = $(cartOrderPriceList[i]).val();
-							// console.log(cartOrderPrice)
-						   $(orderPriceList[i]).val(cartOrderPrice);
-					   }
-					   $('#totalPrice').attr('value', total);
-					   $('#point').attr('value',customerPoint);
-					   $('#sharePoint').attr('value', 0);
-				   }
+				//관리자용
+				$(document).ready(function() {
+					$('.orderState${o.orderCode}').change(function() {
+			           $('#orderFormByAdmin${o.orderCode}').submit();
+			        })
+			     });	
+			
+				</script>
+			</c:forEach>
+				<script>
+				$(document).ready(function() {
+					$('#rowPerPage').change(function() {
+						$('#listForm').submit();
+					});
+					$('#searchBtn').click(function() {
+						$('#listForm').submit();
+					});
 				});
-			   
-			   // 포인트 전액사용
-			   $('#pointAll').change(function() {
-				   let sharePoint = Math.floor(customerPoint / orderPriceCount) // 상품별 사용 포인트
-				   if($("#pointAll").is(":checked")){ // 전액사용
-					   if(total-${loginCustomer.point} < 0){ // 주문 금액 < 잔여포인트
-						   for(let i = 0; i<orderPriceCount; i++) { // 상품 개수만큼 반복
-							   $(orderPriceList[i]).val(0);// 가격수정
-						   }
-						   $('#totalPrice').attr('value', 0); // 주문금액 0
-						   $('#point').attr('value',${loginCustomer.point}-total) // 잔여포인트 계산
-						   $('#sharePoint').attr('value', sharePoint);
-					   }else{ // 주문금액 > 포인트 
-						   let totalPrice = total-${loginCustomer.point};
-						   $('#totalPrice').attr('value', totalPrice); // 주문금액
-						   for(let i = 0; i<orderPriceCount; i++) {
-							   $(orderPriceList[i]).val(Math.round(totalPrice/orderPriceCount));
-						   }
-						   $('#point').attr('value', 0) // 잔여포인트 0
-						   $('#sharePoint').attr('value', sharePoint);
-					   }
-				   
-			        } else { // 전액 사용 X	
-			        	for(let i = 0; i<orderPriceCount; i++) {
-							let cartOrderPrice = $(cartOrderPriceList[i]).val();
-							// console.log(cartOrderPrice)
-						   $(orderPriceList[i]).val(cartOrderPrice);
-					   }
-					   $('#totalPrice').attr('value', total);
-					   $('#point').attr('value',customerPoint);
-					   $('#sharePoint').attr('value', 0);
-			        }
-				});
-			});
-		</script>
+				</script>
 	</head>
 	<body>
 		<!-- 메뉴 partial jsp 구성 -->
@@ -98,125 +49,120 @@
 	    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/breadcumb3.jpg);">
 	        <div class="bradcumbContent">
 	            
-	            <h2>Order</h2>
+	            <h2>Order Page</h2>
 	        </div>
 	    </section>
-	    <!-- ##### Breadcumb Area End ##### -->
+	    <!-- #### search #### -->
+		<div>
+		<form action="${pageContext.request.contextPath}/orders/ordersListByAdmin" method="get" id="listForm">
+			<div>
+				<input type="radio" name="category" id="category" value="">전체
+				<input type="radio" name="category" id="category" value="결제">결제
+				<input type="radio" name="category" id="category" value="취소">취소
+				<input type="radio" name="category" id="category" value="구매확정">구매확정
+				<input type="radio" name="category" id="category" value="배송중">배송중
+				<input type="radio" name="category" id="category" value="배송완료">배송완료
+			</div>
+			<select name="rowPerPage" id="rowPerPage">
+				<c:if test="${rowPerPage == 10}">
+					<option value="10" selected="selected">10</option>
+					<option value="20">20</option>
+					<option value="30">30</option>
+				</c:if>
+				<c:if test="${rowPerPage == 20}">
+					<option value="10">10</option>
+					<option value="20" selected="selected">20</option>
+					<option value="30">30</option>
+				</c:if>
+				<c:if test="${rowPerPage == 30}">
+					<option value="10">10</option>
+					<option value="20">20</option>
+					<option value="30" selected="selected">30</option>
+				</c:if>
+			</select>
+			<select name="search" id="search">
+				<option value="gd.goods_title">앨범</option>				
+			</select>
+			
+			<input type="search" placeholder="Search" name="word" id="word" value="${word}">
+     		<button type="button" id="searchBtn">검색</button>
+		</form>
+	    </div>
 	    
-	    <!-- ##### Album Catagory Area Start ##### -->
 	    <section class="album-catagory section-padding-100-0">
     		
     		
 	        <div class="container">
-	         <div class="col-12">	        
-					
-			<form method="post" action="${pageContext.request.contextPath}/orders/ordersAdd">
-			<!-- 주문할 상품 목록 -->			
-			<table class = "table w-100 rounded" style="table-layout: auto; width: 100%; table-layout: fixed;">
-				<tr>
-					<td>포인트 사용</td>
-					<td>앨범이름</td>
-					<td>앨범</td>
-					<td>가격</td>
-					<td>주문수량</td>
-					<td>주문가격</td>
-				</tr>
-				<c:forEach var="c" items="${cartList}">
-					<tr>
-						<td>
-							<input type="checkbox" name="pointCk" id="pointCk" class="pointCk" value="${c.goodsCode}" checked="checked">
-						</td>
-						<td>${c.goodsTitle}</td>
-						<td><img src="${pageContext.request.contextPath}/goodsimg/${c.filename}" width="200" height="200"></td>
-						<td>${c.goodsPrice}</td>
-						<td>${c.cartQuantity }</td>
-						<td>
-							<input type="text" id="orderPrice" class="orderPrice" name="orderPrice" value="${c.cartQuantity*c.goodsPrice}" >
-							<input type="hidden" name="goodsCode" value="${c.goodsCode}">
-							<input type="hidden" name="cartQuantity" value="${c.cartQuantity}" >
-							<input type="hidden" id="cartOrderPrice" class="cartOrderPrice" value="${c.cartQuantity*c.goodsPrice}" >
-						</td>
-					</tr>
-				</c:forEach>
-			</table>		
-					
-			<!-- 고객 정보 -->
-	    <section class="contact-area section-padding-0-100">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section-heading">                    
-                       
-                      
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-12">
-                    <!-- Contact Form Area -->
-                    <div class="contact-form-area">                       
-                            <div class="row">
-                                <div class="col-md-6 col-lg-3">
-                                    <div class="form-group">
-                                        <input type="text" name="customerId" value="${loginCustomer.customerId}" readonly="readonly" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-3">
-                                    <div class="form-group">
-                                        <input type="text" name="customerName" value="${loginCustomer.customerName}" readonly="readonly" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <input type="text" name="customerPhone" value="${loginCustomer.customerPhone}" readonly="readonly" class="form-control">
-                                    </div>
-                                </div>
-                                 <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <input type="text" name="point" id="point" value="${loginCustomer.point}" readonly="readonly" class="form-control">
-                                    </div>
-                                </div>                                     
-                                <div class="col-12">
-                                	<c:if test="${myAddress != null}">	
-                                    <div class="form-group">
-                                        <input type="text" name="address" value="${myAddress.address}" readonly="readonly" class="form-control">
-										<input type="hidden" name="addressCode" value="${myAddress.addressCode}">										
-                                    </div>
-                                    </c:if>
-                                </div>
-                                <div>
-                                <a href="${pageContext.request.contextPath}/AddressList">배송지선택</a>
-                                </div>    
-                            </div>                       
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>			
-			<br>
-			<br>			
-			<!-- 총 주문가격 -->
-			<c:set var = "total" value = "0" />
-			<c:forEach var="result" items="${cartList}">			
-				<c:set var= "total" value="${total + result.goodsPrice*result.cartQuantity}"/>
-			</c:forEach>
-			<div class="col-md-6 col-lg-3">
-			total price: <input type="text" name="totalPrice" id="totalPrice" value="${total}" class="form-control">
-			</div>
-			<div class="col-md-6 col-lg-3">
-			point : <input type="text" name="usePoint" id="usePoint" class="form-control">
-			</div>
-			<div class="col-md-6 col-lg-3">
-			<p>전액사용 <input type="checkbox" id="pointAll" name="pointAll" value=""></p>
-			</div>
-			<input type="hidden" id="sharePoint" name="sharePoint" value="">
-			<div class="col-12 text-center wow fadeInUp" data-wow-delay="500ms">
-            	<button class="btn oneMusic-btn mt-30" type="submit">결제<i class="fa fa-angle-double-right"></i></button>
-            </div> 
-			
-		</form>		
-
+	         <div class="col-12">	         
+			   <table class = "table table-hover w-100 rounded" style="table-layout: auto; width: 100%; table-layout: fixed;">
+		         	<thead>
+		              <tr>
+		                  <th>주문번호</th>
+		                  <th>상품이름</th>
+		                  <th>상품이미지</th>
+		                  <th>주문일자</th>
+		                  <th>주문상태</th>
+		                  <th>주문가격</th>
+		             </tr>
+		           </thead>
+		           <tbody>
+		              <c:forEach var="o" items="${list}">
+		                 <tr>
+		                    <td>${o.orderCode}</td>
+		                    <td><a href='${pageContext.request.contextPath}/orders/ordersOne?orderCode=${o.orderCode}'>${o.goodsTitle}</a></td>
+		                  <td>
+		                     <img src="${pageContext.request.contextPath}/goodsimg/${o.filename}" width="200" height="200">
+		                  </td>
+		                  <td>${o.createdate}</td>
+		                  <td>${o.orderState}
+								<!-- 관리자용 -->
+						<form id="orderFormByAdmin${o.orderCode}" method="post" action="${pageContext.request.contextPath}/orders/ordersModifyByAdmin">		     			
+		     			<input type="hidden" name="orderCode" value="${o.orderCode}">		     		     			
+		     			<select name="orderState" class="orderState${o.orderCode}">			
+							<c:if test="${o.orderState eq '결제' || o.orderState eq '구매확정'}">
+								<option value="결제" selected="selected">결제</option>
+								<option value="취소">취소</option>
+								<option value="배송중">배송중</option>
+								<option value="배송완료">배송완료</option>								
+							</c:if>
+							<c:if test="${o.orderState eq '취소'}">								
+								<option value="취소" selected="selected" >취소</option>																
+							</c:if>		
+							<c:if test="${o.orderState eq '배송중'}">
+								<option value="결제">결제</option>
+								<option value="취소">취소</option>
+								<option value="배송중" selected="selected">배송중</option>
+								<option value="배송완료">배송완료</option>							
+							</c:if>
+							<c:if test="${o.orderState eq '배송완료'}">							
+								<option value="배송완료" selected="selected">배송완료</option>								
+							</c:if>
+						</select>
+						</form>                   
+		                  </td>                  
+		                  <td>${o.orderPrice}</td>
+		                </tr>
+		            </c:forEach>
+		           </tbody>
+		      </table>
+	            <!-- Pagination -->
+	            <div class="oneMusic-pagination-area wow fadeInUp" data-wow-delay="300ms">
+	                <nav>
+	                    <ul class="pagination">
+	                        <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/orders/ordersList?rowPerPage=${rowPerPage}&currentPage=1">HOME</a></li>
+	                        <c:if test="${currentPage > 1}">
+								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/orders/ordersList?rowPerPage=${rowPerPage}&currentPage=${currentPage-1}"><<</a></li>
+							</c:if>
+							<c:forEach var="x" begin="${beginPage}" end="${endPage}" step="1">
+								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/orders/ordersList?rowPerPage=${rowPerPage}&currentPage=${x}">${x}</a></li>
+							</c:forEach>
+							<c:if test="${currentPage < lastPage}">
+								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/orders/ordersList?rowPerPage=${rowPerPage}&currentPage=${currentPage +1}">>></a></li>
+							</c:if>
+							<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/orders/ordersList?rowPerPage=${rowPerPage}&currentPage=${lastPage}">END</a></li>
+	                    </ul>
+	                </nav>
+	            </div>
 			        
 			</div>
 		</div>
