@@ -9,9 +9,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import service.GoodsService;
 import service.SiteCounterService;
+import vo.Customer;
+import vo.Emp;
 
 
 @WebServlet("/Home")
@@ -29,6 +32,12 @@ public class HomeController extends HttpServlet {
 		int totalCount = siteCounterService.selectTotalCount();
 		request.setAttribute("todayCount", todayCount);
 		request.setAttribute("totalCount", totalCount);
+		
+		// 직원로그인세션 불러오기 - 직원이상만 가능
+		HttpSession session = request.getSession();
+		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
+		// 고객 로그인세션 불러오기
+		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
 		
 		// 최신앨범 목록 불러오기
 		ArrayList<HashMap<String, Object>> rlist = goodsService.selectRecentlySongList();

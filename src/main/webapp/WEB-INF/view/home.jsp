@@ -198,29 +198,32 @@
     </section>
     <!-- ##### Buy Now Area End ##### -->
     
-    <!-- ##### Featured Artist Area Start ##### -->
+    <!-- 추천 가수 및 앨범 명반 멋드러진 가수랑 앨범 하나 가져오기 (하나 고정값) -->
+	<!-- ##### Featured Artist Area Start ##### -->
     <section class="featured-artist-area section-padding-100 bg-img bg-overlay bg-fixed" style="background-image: url(img/bg-img/bg-4.jpg);">
         <div class="container">
             <div class="row align-items-end">
                 <div class="col-12 col-md-5 col-lg-4">
                     <div class="featured-artist-thumb">
-                        <img src="img/bg-img/fa.jpg" alt="">
+                        <img src="${pageContext.request.contextPath}/goodsimg/10cm_4.0.jpg" alt="">
                     </div>
                 </div>
                 <div class="col-12 col-md-7 col-lg-8">
                     <div class="featured-artist-content">
                         <!-- Section Heading -->
                         <div class="section-heading white text-left mb-30">
-                            <p>See what’s new</p>
-                            <h2>Buy What’s New</h2>
+                            <p>10CM</p>
+                            <h2>4.0</h2>
                         </div>
-                        <p>Nam tristique ex vel magna tincidunt, ut porta nisl finibus. Vivamus eu dolor eu quam varius rutrum. Fusce nec justo id sem aliquam fringilla nec non lacus. Suspendisse eget lobortis nisi, ac cursus odio. Vivamus nibh velit, rutrum at ipsum ac, dignissim iaculis ante. Donec in velit non elit pulvinar pellentesque et non eros.</p>
+                        <p>[4.0]은 '십센치(10cm)'의 통산 네 번째 정규앨범이다. 여덟 곡의 새로운 노래들과 인스트루멘탈 하나, 이렇게 총 아홉 트랙을 수록하고 있는 앨범은 무엇보다도 최근 십센치가 듀오에서 '권정열' 1인 체제로의 큰 변화를 이행한 이후 처음으로 공개하는 작품이라는 점에서 남다른 의미가 있다.
+                        	'나'를 "너의 강아지처럼 길들여줘"라 짓궂게 고백하는 'pet'과 같은 곡들에서 여전히 건재한 십센치 고유의 감성과 센스를 만날 수 있다.
+                        </p>
                         <div class="song-play-area">
                             <div class="song-name">
-                                <p>01. Main Hit Song</p>
+                                <p>02. pet</p>
                             </div>
                             <audio preload="auto" controls>
-                                <source src="audio/dummy-audio.mp3">
+                                <source src="${pageContext.request.contextPath}/resources/audio/10CM-Pet.mp3">
                             </audio>
                         </div>
                     </div>
@@ -553,7 +556,11 @@
     </section>
     <!-- ##### Contact Area End ##### -->
     
-    
+    	<!-- 하단 footer navbar 구성 -->
+		<div>
+			<jsp:include page="../../inc/footer.jsp"></jsp:include>
+		</div>
+	
 		
 		 <!-- ##### All Javascript Script ##### -->
 	    <!-- jQuery-2.2.4 js -->

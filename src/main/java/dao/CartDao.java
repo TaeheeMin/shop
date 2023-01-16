@@ -152,4 +152,11 @@ public class CartDao {
 		row = stmt.executeUpdate();
 		return row;
 	}
+	
+	// 4-3) 장바구니 굿즈갯수
+	public int ttlCntCart(Connection conn) throws Exception {
+		int ttlCntCart = 0;
+		
+		return ttlCntCart;
+	}
 }

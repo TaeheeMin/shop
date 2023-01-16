@@ -28,11 +28,11 @@
                             <!-- Nav Start -->
                             <div class="classynav">
                                 <ul>
-                                    <li><a href="${pageContext.request.contextPath}/Home2">Home</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/Home">Home</a></li>
                                     <li><a href="${pageContext.request.contextPath}/GoodsList">Albums</a></li>
                                     <li><a href="#">Pages</a>
                                         <ul class="dropdown">
-                                            <li><a href="${pageContext.request.contextPath}/Home2">Home</a></li>
+                                            <li><a href="${pageContext.request.contextPath}/Home">Home</a></li>
                                             <li><a href="${pageContext.request.contextPath}/GoodsList">Albums</a></li>
                                             <li><a href="${pageContext.request.contextPath}/QuestionListByCustomer">CustomerCenter</a></li>
                                             <li><a href="${pageContext.request.contextPath}/NoticeList">News</a></li>
@@ -105,7 +105,17 @@
 
                                     <!-- Cart Button -->
                                     <div class="cart-btn">
-                                        <a href="${pageContext.request.contextPath}/CartList"><p><span class="icon-shopping-cart"></span><span class="quantity">1</span></p></a> 
+                                        <a href="${pageContext.request.contextPath}/CartList">
+                                        	<p>
+                                        		<span class="icon-shopping-cart"></span>
+                                        		<c:if test="${loginCustomer != null}">
+                                        			<span class="quantity">${list.size()}</span>
+                                        		</c:if>
+                                        		<c:if test="${loginCustomer == null}">
+                                        			<span class="quantity">${list.size()}</span>
+                                        		</c:if>
+                                        	</p>
+                                        </a> 
                                     </div>
                                 </div>
 					          </c:if>
