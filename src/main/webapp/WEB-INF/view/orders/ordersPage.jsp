@@ -25,7 +25,7 @@
 			   let orderPriceList = document.querySelectorAll('.orderPrice'); // 상품별 가격
 			   let cartOrderPriceList = document.querySelectorAll('.cartOrderPrice'); // 상품별 원래 가격
 			   let customerPoint = $('#point').val(); // 고객 포인트
-			   
+			   $('#usePoint').attr('readonly', false);
 			   // 포인트 일부사용
 			   $('#usePoint').blur(function() {
 				   let usePoint = $('#usePoint').val(); // 사용 포인트
@@ -57,6 +57,8 @@
 			   $('#pointAll').change(function() {
 				   let sharePoint = Math.floor(customerPoint / orderPriceCount) // 상품별 사용 포인트
 				   if($("#pointAll").is(":checked")){ // 전액사용
+					   $('#usePoint').val('');
+					   $('#usePoint').attr('readonly', true); // 전액 사용시 포인트 이부 사용 불가
 					   if(total-${loginCustomer.point} < 0){ // 주문 금액 < 잔여포인트
 						   for(let i = 0; i<orderPriceCount; i++) { // 상품 개수만큼 반복
 							   $(orderPriceList[i]).val(0);// 가격수정
@@ -75,6 +77,7 @@
 					   }
 				   
 			        } else { // 전액 사용 X	
+			        	$('#usePoint').attr('readonly', false);
 			        	for(let i = 0; i<orderPriceCount; i++) {
 							let cartOrderPrice = $(cartOrderPriceList[i]).val();
 							// console.log(cartOrderPrice)
@@ -205,7 +208,7 @@
 			total price: <input type="text" name="totalPrice" id="totalPrice" value="${total}" class="form-control">
 			</div>
 			<div class="col-md-6 col-lg-3">
-			point : <input type="text" name="usePoint" id="usePoint" class="form-control">
+			point : <input type="text" name="usePoint" id="usePoint" class="form-control" readonly="" value="0">
 			</div>
 			<div class="col-md-6 col-lg-3">
 			<p>전액사용 <input type="checkbox" id="pointAll" name="pointAll" value=""></p>

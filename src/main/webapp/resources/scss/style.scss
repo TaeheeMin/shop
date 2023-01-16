@@ -1910,7 +1910,6 @@ img {
             position: relative;
             font-size: 14px;
             text-transform: capitalize;
-            border: 1px solid $dark-color;
             span {
                 background: transparent;
                 @include trans-duration(500ms);

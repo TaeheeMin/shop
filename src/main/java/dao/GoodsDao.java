@@ -131,7 +131,7 @@ public class GoodsDao {
 				+ ", gd.goods_price goodsPrice"
 				+ " FROM goods gd INNER JOIN goods_img img"
 				+ " ON gd.goods_code = img.goods_code"
-				+ " ORDER BY gd.hit, gd.goods_code DESC";
+				+ " ORDER BY gd.hit DESC, gd.goods_code DESC";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();
 		while(rs.next()) {
