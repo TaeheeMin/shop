@@ -74,8 +74,12 @@
 			                </div>
 						</c:forEach>
 		            </div>
+		            <div class="col-12 text-center">
+                        <a href="${pageContext.request.contextPath}/GoodsAdd" class="btn oneMusic-btn m-2">상품등록 <i class="fa fa-angle-double-right"></i></a>
+                    </div>
 		        </div>
     		</div>
+    		
     		<!-- ##### 추천앨범 End ##### -->
 	        <div class="container">
 	            <div class="row">
@@ -112,7 +116,9 @@
 		                        <a href="#" data-filter=".z">Z</a>
 		                        <a href="#" data-filter=".number">0-9</a>
 	                    	</div>
-							
+	                    	<div>
+								
+	                    	</div>
 							<input type="radio" name="category" id="category" value="">전체
 							<input type="radio" name="category" id="category" value="발라드">발라드
 							<input type="radio" name="category" id="category" value="댄스/팝">댄스/팝

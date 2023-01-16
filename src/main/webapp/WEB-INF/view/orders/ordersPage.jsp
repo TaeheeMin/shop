@@ -144,59 +144,59 @@
 			</table>		
 					
 			<!-- 고객 정보 -->
-	    <section class="contact-area section-padding-0-100">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section-heading">                    
-                       
-                      
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-12">
-                    <!-- Contact Form Area -->
-                    <div class="contact-form-area">                       
-                            <div class="row">
-                                <div class="col-md-6 col-lg-3">
-                                    <div class="form-group">
-                                        <input type="text" name="customerId" value="${loginCustomer.customerId}" readonly="readonly" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-3">
-                                    <div class="form-group">
-                                        <input type="text" name="customerName" value="${loginCustomer.customerName}" readonly="readonly" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <input type="text" name="customerPhone" value="${loginCustomer.customerPhone}" readonly="readonly" class="form-control">
-                                    </div>
-                                </div>
-                                 <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <input type="text" name="point" id="point" value="${loginCustomer.point}" readonly="readonly" class="form-control">
-                                    </div>
-                                </div>                                     
-                                <div class="col-12">
-                                	<c:if test="${myAddress != null}">	
-                                    <div class="form-group">
-                                        <input type="text" name="address" value="${myAddress.address}" readonly="readonly" class="form-control">
-										<input type="hidden" name="addressCode" value="${myAddress.addressCode}">										
-                                    </div>
-                                    </c:if>
-                                </div>
-                                <div>
-                                <a href="${pageContext.request.contextPath}/AddressList">배송지선택</a>
-                                </div>    
-                            </div>                       
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>			
+		    <section class="contact-area section-padding-0-100">
+		        <div class="container">
+		            <div class="row">
+		                <div class="col-12">
+		                    <div class="section-heading">                    
+		                       
+		                      
+		                    </div>
+		                </div>
+		            </div>
+		
+		            <div class="row">
+		                <div class="col-12">
+		                    <!-- Contact Form Area -->
+		                    <div class="contact-form-area">                       
+		                            <div class="row">
+		                                <div class="col-md-6 col-lg-3">
+		                                    <div class="form-group">
+		                                        <input type="text" name="customerId" value="${loginCustomer.customerId}" readonly="readonly" class="form-control">
+		                                    </div>
+		                                </div>
+		                                <div class="col-md-6 col-lg-3">
+		                                    <div class="form-group">
+		                                        <input type="text" name="customerName" value="${loginCustomer.customerName}" readonly="readonly" class="form-control">
+		                                    </div>
+		                                </div>
+		                                <div class="col-lg-3">
+		                                    <div class="form-group">
+		                                        <input type="text" name="customerPhone" value="${loginCustomer.customerPhone}" readonly="readonly" class="form-control">
+		                                    </div>
+		                                </div>
+		                                 <div class="col-lg-3">
+		                                    <div class="form-group">
+		                                        <input type="text" name="point" id="point" value="${loginCustomer.point}" readonly="readonly" class="form-control">
+		                                    </div>
+		                                </div>                                     
+		                                <div class="col-12">
+		                                	<c:if test="${myAddress != null}">	
+		                                    <div class="form-group">
+		                                        <input type="text" name="address" value="${myAddress.address}" readonly="readonly" class="form-control">
+												<input type="hidden" name="addressCode" value="${myAddress.addressCode}">										
+		                                    </div>
+		                                    </c:if>
+		                                </div>
+		                                <div>
+		                                <a href="${pageContext.request.contextPath}/AddressList">배송지선택</a>
+		                                </div>    
+		                            </div>                       
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </section>			
 			<br>
 			<br>			
 			<!-- 총 주문가격 -->
