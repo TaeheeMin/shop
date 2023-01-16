@@ -71,7 +71,7 @@
 					          		 	<ul>
 					          		 	<li><a href="#">EmployeePage</a>
 	                                        <ul class="dropdown">
-	                                            <li><a href="${pageContext.request.contextPath}/orders/ordersListByAdmin">Orders</a></li>
+	                                            <li><a href="${pageContext.request.contextPath}/orders/ordersListByAdmin">Order Page</a></li>
 	                                            <li><a href="${pageContext.request.contextPath}/AddEmp">AddEmployee</a></li>
 	                                            <li><a href="${pageContext.request.contextPath}/QuestionListByAdmin">CustomerCenter</a></li>
 	                                            <li><a href="${pageContext.request.contextPath}/NoticeList">News</a></li>

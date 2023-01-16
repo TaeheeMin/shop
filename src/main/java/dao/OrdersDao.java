@@ -224,6 +224,7 @@ public class OrdersDao {
 					+ "	FROM orders o INNER JOIN goods g ON o.goods_code = g.goods_code"
 					+ "	INNER JOIN goods_img gi ON g.goods_code = gi.goods_code"
 					+ "	WHERE o.customer_id = ?"
+					+ "	ORDER BY createdate DESC"
 					+ " LIMIT ?,?";		              
 		      PreparedStatement stmt = conn.prepareStatement(sql);
 		      stmt.setString(1, loginCustomer.getCustomerId());

@@ -42,7 +42,7 @@ public class OrdersListController extends HttpServlet {
 		// System.out.println("currentPage : " + currentPage);
 		
 		// 3-2) rowPerPage
-		int rowPerPage = 10;
+		int rowPerPage = 6;
 		if(request.getParameter("rowPerPage") != null) {
 			rowPerPage = Integer.parseInt(request.getParameter("rowPerPage"));
 		}
@@ -76,7 +76,7 @@ public class OrdersListController extends HttpServlet {
 		request.setAttribute("lastPage", lastPage);
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("rowPerPage", rowPerPage);
-		request.getRequestDispatcher("/WEB-INF/view/orders/ordersList.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/orders/test.jsp").forward(request, response);
 	
 	}
 }
