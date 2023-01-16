@@ -111,8 +111,7 @@
 	         <div class="col-12">	        
 					
 			<form method="post" action="${pageContext.request.contextPath}/orders/ordersAdd">
-			<!-- 주문할 상품 목록 -->
-			<h2>상품정보</h2>
+			<!-- 주문할 상품 목록 -->			
 			<table class = "table w-100 rounded" style="table-layout: auto; width: 100%; table-layout: fixed;">
 				<tr>
 					<td>포인트 사용</td>
@@ -142,52 +141,80 @@
 			</table>		
 					
 			<!-- 고객 정보 -->
-			<h2>주문자정보</h2>
-			<a href="${pageContext.request.contextPath}/AddressList">배송지선택</a>
-			<table border="1">
-				 <tr>
-					<th>ID</th>
-					<td><input type="text" name="customerId" value="${loginCustomer.customerId}" readonly="readonly"></td>
-				</tr>
-				<tr>
-					<th>이름</th>
-					<td><input type="text" name="customerName" value="${loginCustomer.customerName}" readonly="readonly"></td>
-				</tr>
-				<tr>	
-					<th>연락처</th>		
-					<td><input type="text" name="customerPhone" value="${loginCustomer.customerPhone}" readonly="readonly"></td>
-				</tr>
-				<tr>		
-					<th>포인트</th>
-					<td><input type="text" name="point" id="point" value="${loginCustomer.point}" readonly="readonly"></td>				
-				</tr>
-				<tr>
-					<th>배송주소</th>
-					<td>
-						<c:if test="${myAddress != null}">			
-							<div>
-								<input type="text" name="address" value="${myAddress.address}" readonly="readonly">
-								<input type="hidden" name="addressCode" value="${myAddress.addressCode}">
-							</div>
-						</c:if>
-					</td>
-				</tr> 			
-			</table>
-			
+	    <section class="contact-area section-padding-0-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading">                    
+                       
+                      
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <!-- Contact Form Area -->
+                    <div class="contact-form-area">                       
+                            <div class="row">
+                                <div class="col-md-6 col-lg-3">
+                                    <div class="form-group">
+                                        <input type="text" name="customerId" value="${loginCustomer.customerId}" readonly="readonly" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-3">
+                                    <div class="form-group">
+                                        <input type="text" name="customerName" value="${loginCustomer.customerName}" readonly="readonly" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <input type="text" name="customerPhone" value="${loginCustomer.customerPhone}" readonly="readonly" class="form-control">
+                                    </div>
+                                </div>
+                                 <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <input type="text" name="point" id="point" value="${loginCustomer.point}" readonly="readonly" class="form-control">
+                                    </div>
+                                </div>                                     
+                                <div class="col-12">
+                                	<c:if test="${myAddress != null}">	
+                                    <div class="form-group">
+                                        <input type="text" name="address" value="${myAddress.address}" readonly="readonly" class="form-control">
+										<input type="hidden" name="addressCode" value="${myAddress.addressCode}">										
+                                    </div>
+                                    </c:if>
+                                </div>
+                                <div>
+                                <a href="${pageContext.request.contextPath}/AddressList">배송지선택</a>
+                                </div>    
+                            </div>                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>			
 			<br>
-			<br>
-			
+			<br>			
 			<!-- 총 주문가격 -->
 			<c:set var = "total" value = "0" />
 			<c:forEach var="result" items="${cartList}">			
 				<c:set var= "total" value="${total + result.goodsPrice*result.cartQuantity}"/>
 			</c:forEach>
-			총주문 가격 : <input type="text" name="totalPrice" id="totalPrice" value="${total}">
-			<p>포인트 사용 : <input type="text" name="usePoint" id="usePoint"></p>
+			<div class="col-md-6 col-lg-3">
+			total price: <input type="text" name="totalPrice" id="totalPrice" value="${total}" class="form-control">
+			</div>
+			<div class="col-md-6 col-lg-3">
+			point : <input type="text" name="usePoint" id="usePoint" class="form-control">
+			</div>
+			<div class="col-md-6 col-lg-3">
 			<p>전액사용 <input type="checkbox" id="pointAll" name="pointAll" value=""></p>
+			</div>
 			<input type="hidden" id="sharePoint" name="sharePoint" value="">
-			 
-			<button type="submit">결제</button>
+			<div class="col-12 text-center wow fadeInUp" data-wow-delay="500ms">
+            	<button class="btn oneMusic-btn mt-30" type="submit">결제<i class="fa fa-angle-double-right"></i></button>
+            </div> 
+			
 		</form>		
 
 			        

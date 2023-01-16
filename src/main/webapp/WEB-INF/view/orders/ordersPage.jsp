@@ -5,9 +5,20 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-		<script>
+		<meta name="description" content="">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    	
+    	<!-- Title -->
+		<title>Recoder Musice - World Best Music</title>
+		
+		<!-- Favicon -->
+	    <link rel="icon" href="${pageContext.request.contextPath}/resources/img/core-img/favicon.ico">
+	
+	    <!-- Stylesheet -->
+	    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style.css">
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+				<script>
 			$(document).ready(function() {
 			   let total = $('#totalPrice').val(); // 주문금액 
 			   let orderPriceCount = ${fn:length(cartList)}; // 상품 개수 
@@ -78,11 +89,30 @@
 		</script>
 	</head>
 	<body>
-		<h1>구매페이지</h1>
-		<form method="post" action="${pageContext.request.contextPath}/orders/ordersAdd">
-			<!-- 주문할 상품 목록 -->
-			<h2>상품정보</h2>
-			<table border='1'>
+		<!-- 메뉴 partial jsp 구성 -->
+		<div>
+			<jsp:include page="/inc/menu.jsp"></jsp:include>
+		</div>
+		
+    	<!-- ##### Breadcumb Area Start ##### -->
+	    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/breadcumb3.jpg);">
+	        <div class="bradcumbContent">
+	            
+	            <h2>Order</h2>
+	        </div>
+	    </section>
+	    <!-- ##### Breadcumb Area End ##### -->
+	    
+	    <!-- ##### Album Catagory Area Start ##### -->
+	    <section class="album-catagory section-padding-100-0">
+    		
+    		
+	        <div class="container">
+	         <div class="col-12">	        
+					
+			<form method="post" action="${pageContext.request.contextPath}/orders/ordersAdd">
+			<!-- 주문할 상품 목록 -->			
+			<table class = "table w-100 rounded" style="table-layout: auto; width: 100%; table-layout: fixed;">
 				<tr>
 					<td>포인트 사용</td>
 					<td>앨범이름</td>
@@ -111,52 +141,124 @@
 			</table>		
 					
 			<!-- 고객 정보 -->
-			<h2>고객정보</h2>
-			<a href="${pageContext.request.contextPath}/AddressList">배송지선택</a>
-			<table border="1">
-				 <tr>
-					<th>ID</th>
-					<td><input type="text" name="customerId" value="${loginCustomer.customerId}" readonly="readonly"></td>
-				</tr>
-				<tr>
-					<th>이름</th>
-					<td><input type="text" name="customerName" value="${loginCustomer.customerName}" readonly="readonly"></td>
-				</tr>
-				<tr>	
-					<th>연락처</th>		
-					<td><input type="text" name="customerPhone" value="${loginCustomer.customerPhone}" readonly="readonly"></td>
-				</tr>
-				<tr>		
-					<th>포인트</th>
-					<td><input type="text" name="point" id="point" value="${loginCustomer.point}" readonly="readonly"></td>				
-				</tr>
-				<tr>
-					<th>배송주소</th>
-					<td>
-						<c:if test="${myAddress != null}">			
-							<div>
-								<input type="text" name="address" value="${myAddress.address}" readonly="readonly">
-								<input type="hidden" name="addressCode" value="${myAddress.addressCode}">
-							</div>
-						</c:if>
-					</td>
-				</tr> 			
-			</table>
-			
+	    <section class="contact-area section-padding-0-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading">                    
+                       
+                      
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <!-- Contact Form Area -->
+                    <div class="contact-form-area">                       
+                            <div class="row">
+                                <div class="col-md-6 col-lg-3">
+                                    <div class="form-group">
+                                        <input type="text" name="customerId" value="${loginCustomer.customerId}" readonly="readonly" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-3">
+                                    <div class="form-group">
+                                        <input type="text" name="customerName" value="${loginCustomer.customerName}" readonly="readonly" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <input type="text" name="customerPhone" value="${loginCustomer.customerPhone}" readonly="readonly" class="form-control">
+                                    </div>
+                                </div>
+                                 <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <input type="text" name="point" id="point" value="${loginCustomer.point}" readonly="readonly" class="form-control">
+                                    </div>
+                                </div>                                     
+                                <div class="col-12">
+                                	<c:if test="${myAddress != null}">	
+                                    <div class="form-group">
+                                        <input type="text" name="address" value="${myAddress.address}" readonly="readonly" class="form-control">
+										<input type="hidden" name="addressCode" value="${myAddress.addressCode}">										
+                                    </div>
+                                    </c:if>
+                                </div>
+                                <div>
+                                <a href="${pageContext.request.contextPath}/AddressList">배송지선택</a>
+                                </div>    
+                            </div>                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>			
 			<br>
-			<br>
-			
+			<br>			
 			<!-- 총 주문가격 -->
 			<c:set var = "total" value = "0" />
 			<c:forEach var="result" items="${cartList}">			
 				<c:set var= "total" value="${total + result.goodsPrice*result.cartQuantity}"/>
 			</c:forEach>
-			총주문 가격 : <input type="text" name="totalPrice" id="totalPrice" value="${total}">
-			<p>포인트 사용 : <input type="text" name="usePoint" id="usePoint"></p>
+			<div class="col-md-6 col-lg-3">
+			total price: <input type="text" name="totalPrice" id="totalPrice" value="${total}" class="form-control">
+			</div>
+			<div class="col-md-6 col-lg-3">
+			point : <input type="text" name="usePoint" id="usePoint" class="form-control">
+			</div>
+			<div class="col-md-6 col-lg-3">
 			<p>전액사용 <input type="checkbox" id="pointAll" name="pointAll" value=""></p>
+			</div>
 			<input type="hidden" id="sharePoint" name="sharePoint" value="">
-			 
-			<button type="submit">결제</button>
+			<div class="col-12 text-center wow fadeInUp" data-wow-delay="500ms">
+            	<button class="btn oneMusic-btn mt-30" type="submit">결제<i class="fa fa-angle-double-right"></i></button>
+            </div> 
+			
 		</form>		
+
+			        
+			</div>
+		</div>
+	    </section>
+	    <!-- ##### Album Catagory Area End ##### -->
+
+    <!-- ##### Add Area Start ##### -->
+    <div class="add-area mb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="adds">
+                        <a href="#"><img src="img/bg-img/add3.gif" alt=""></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Add Area End ##### -->
+
+  
+
+		
+		
+		
+		
+	<!-- 메뉴 partial jsp 구성 -->
+	<div>
+		<jsp:include page="/inc/footer.jsp"></jsp:include>
+	</div>
+		
+	<!-- ##### All Javascript Script ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src="${pageContext.request.contextPath}/resources/js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Popper js -->
+    <script src="${pageContext.request.contextPath}/resources/js/bootstrap/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap.min.js"></script>
+    <!-- All Plugins js -->
+    <script src="${pageContext.request.contextPath}/resources/js/plugins/plugins.js"></script>
+    <!-- Active js -->
+    <script src="${pageContext.request.contextPath}/resources/js/active.js"></script>
+		
 	</body>
 </html>
