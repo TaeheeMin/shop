@@ -55,7 +55,7 @@
     <!-- ##### Breadcumb Area Start ##### -->
     <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/breadcumb3.jpg);">
         <div class="bradcumbContent">
-            <p>See what’s new</p>
+            <p>회원 로그인</p>
             <h2>Log in</h2>
         </div>
     </section>

@@ -24,13 +24,19 @@ public class EmpAddController extends HttpServlet {
 		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
 		
 		// 직원로그인이 안되어있을경우, 직원등록폼 진입 불가 -> 홈으로 인동
-		if(loginEmp == null) {
-			System.out.println("직원만 접근 가능합니다");
-			response.sendRedirect(request.getContextPath()+"/Home");
+		if(loginEmp == null || loginEmp.getAuthCode() == 0 || !(loginEmp.getActive()).equals("재직")) {
+			System.out.println("사원이상의 재직자만 접근 가능합니다");
+			String empAdd = "accesslimit";
+			response.sendRedirect(request.getContextPath()+"/Home?empAdd="+empAdd);
 			return;
 		}
-		
 		System.out.println("로그인된 직원 : "+loginEmp.getEmpId());
+		
+		// 이미 중복된 직원아이디가 존재할 경우
+		if(request.getParameter("overlapEmp") != null) {
+			request.setAttribute("overlapEmp", request.getParameter("overlapEmp"));
+		}
+		
 		// 인턴이상의 직원아이디가 로그인되어있을 경우, 직원등록 가능 -> 직원등록폼 view로 이동
 		request.getRequestDispatcher("/WEB-INF/view/emp/empAdd.jsp").forward(request, response);
 	}
@@ -66,7 +72,8 @@ public class EmpAddController extends HttpServlet {
 			return;
 		} else {
 			System.out.println("직원등록 실패");
-			response.sendRedirect(request.getContextPath()+"/AddEmp");
+			String overlapEmp = "overlapId";
+			response.sendRedirect(request.getContextPath()+"/AddEmp?overlapEmp="+overlapEmp);
 		}
 	}
 

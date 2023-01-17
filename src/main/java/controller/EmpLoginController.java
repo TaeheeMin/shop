@@ -26,13 +26,19 @@ public class EmpLoginController extends HttpServlet {
 		
 		// 사원로그인 되어있을 시, 로그인 폼 진입 불가 -> 홈화면 이동
 		if(loginEmp != null || loginCustomer != null) {
-			response.sendRedirect(request.getContextPath()+"/Home2");
+			response.sendRedirect(request.getContextPath()+"/Home");
 			return;
 		}
 		
 		// 아이디나 비밀번호 잘못된경우, msg 출력하게끔하기
 		if(request.getParameter("empMsg") != null) {
 			request.setAttribute("wrongEmp", request.getParameter("empMsg"));
+		}
+		
+		// 사직처리된 직원아이디로 로그인할시, alert출력하기
+		if(request.getParameter("outEmp") != null) {
+			String outEmp =request.getParameter("outEmp");
+			request.setAttribute("outEmp",outEmp);
 		}
 				
 		// 비로그인일경우, 사원로그인폼 view로 이동
@@ -73,7 +79,15 @@ public class EmpLoginController extends HttpServlet {
 		System.out.println("로그인 성공 -> 홈컨트롤러로 이동");
 		HttpSession session = request.getSession();
 		session.setAttribute("loginEmp",loginEmp);
-		response.sendRedirect(request.getContextPath()+"/Home2");
+		
+		// 사직처리된 직원일 경우, 로그인 불가하게끔
+		if((loginEmp.getActive()).equals("사직")) {
+			System.out.println("사직처리된 직원입니다.");
+			String outEmp = "fire";
+			response.sendRedirect(request.getContextPath()+"/Logout?outEmp="+outEmp);
+			return;
+		}
+		response.sendRedirect(request.getContextPath()+"/Home");
 	}
 
 }

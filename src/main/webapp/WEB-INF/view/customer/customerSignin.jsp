@@ -128,7 +128,7 @@
                         <!-- 아이디 중복값 있을 경우 -->
                         <c:if test="${overlap != null}">
                         	<script>
-								alert('중복된 아이디가 존재합니다.');
+								alert('이미 존재하거나 탈퇴한 아이디입니다.');
 							</script>
 						</c:if>
 						

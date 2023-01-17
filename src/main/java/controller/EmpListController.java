@@ -26,8 +26,8 @@ public class EmpListController extends HttpServlet {
 		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
 		
 		// 2) 직원로그인이 안되어있거나 인턴일 경우, 직원목록 페이지 조회불가 -> 홈으로 인동
-		if(loginEmp == null || loginEmp.getAuthCode() == 0) {
-			System.out.println("사원 이상의 직급만 접근 가능합니다");
+		if(loginEmp == null) {
+			System.out.println("직원만 접근 가능합니다");
 			response.sendRedirect(request.getContextPath()+"/Home");
 			return;
 		}

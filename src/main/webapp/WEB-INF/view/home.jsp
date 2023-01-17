@@ -18,6 +18,11 @@
 
 	</head>
 	<body>
+		<c:if test="${empAdd != null}">
+			<script>
+				alert('사원 이상의 재직자만 접근 가능합니다.');
+			</script>
+		</c:if>
 		<!-- ##### Header Area Start ##### -->
 		<!-- 상단 메뉴 nav bar 구성 -->
 		<jsp:include page="../../inc/menu.jsp"></jsp:include>

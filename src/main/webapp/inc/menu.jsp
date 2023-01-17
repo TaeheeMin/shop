@@ -79,6 +79,7 @@
 	                                        <ul class="dropdown">
 	                                            <li><a href="${pageContext.request.contextPath}/orders/ordersListByAdmin">Order Page</a></li>
 	                                            <li><a href="${pageContext.request.contextPath}/AddEmp">Add Employee</a></li>
+	                                            <li><a href="${pageContext.request.contextPath}/EmpList">Employee List</a></li>
 	                                            <li><a href="${pageContext.request.contextPath}/QuestionListByAdmin">Customer Center</a></li>
 	                                            <li><a href="${pageContext.request.contextPath}/NoticeList">News</a></li>
 	                                            <li><a href="${pageContext.request.contextPath}/review/reviewList">Reviews</a></li>

@@ -40,6 +40,12 @@ public class HomeController extends HttpServlet {
 		// 직원로그인세션 불러오기 - 직원이상만 가능
 		HttpSession session = request.getSession();
 		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
+		
+		// 직원등록(인턴이 접근시, 접근불가 alert출력)
+		if(request.getParameter("empAdd") != null) {
+			request.setAttribute("empAdd", request.getParameter("empAdd"));
+		}
+		
 		// 고객 로그인세션 불러오기
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
 		if(loginCustomer != null) {

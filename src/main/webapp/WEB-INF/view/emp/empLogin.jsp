@@ -68,6 +68,13 @@
                     <div class="login-content">
                         <h3>Manager Login</h3>
                         
+                        <!-- 사직처리된 직원아이디 로그인할 경우 alert 출력 -->
+                        <c:if test="${outEmp != null}">
+                        	<script>
+                        		alert('사직처리된 직원 아이디로 사용 불가합니다.');
+                        	</script>
+                        </c:if>
+                        
                         <!-- 아이디나 비밀번호 잘못입력한 경우 -->
                         <c:if test="${wrongEmp != null}">
                         	<span class="text-danger">아이디나 비밀번호를 잘못입력하였습니다.</span>
