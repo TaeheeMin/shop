@@ -90,7 +90,7 @@
     </section>
     <!-- ##### Breadcumb Area End ##### -->
     
-     <!-- ##### Login Area Start ##### -->
+    <!-- ##### Modify Area Start ##### -->
     <section class="login-area section-padding-100">
         <div class="container">
             <div class="row justify-content-center">

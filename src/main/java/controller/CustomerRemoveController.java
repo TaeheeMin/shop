@@ -28,6 +28,11 @@ public class CustomerRemoveController extends HttpServlet {
 			return;
 		}
 		
+		// 비밀번호 불일치 시, 문구출력
+		if(request.getParameter("removeMsg") != null) {
+			request.setAttribute("removeMsg", request.getParameter("removeMsg"));
+		}
+		
 		request.getRequestDispatcher("/WEB-INF/view/customer/customerRemove.jsp").forward(request, response);	
 	}
 
@@ -54,7 +59,8 @@ public class CustomerRemoveController extends HttpServlet {
 			return;
 		} else {
 			System.out.println("회원탈퇴 실패 - 비밀번호 불일치");
-			response.sendRedirect(request.getContextPath()+"/CustomerRemove");
+			String removeMsg = "fail";
+			response.sendRedirect(request.getContextPath()+"/CustomerRemove?removeMsg="+removeMsg);
 		}
 		
 	}

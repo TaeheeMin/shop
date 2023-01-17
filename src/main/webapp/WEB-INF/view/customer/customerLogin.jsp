@@ -67,7 +67,7 @@
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-8">
                     <div class="login-content">
-                        <h3>Welcome Back</h3>
+                        <h3>Customer Login</h3>
                         
                         <!-- 아이디나 비밀번호 잘못입력한 경우 -->
                         <c:if test="${wrong != null}">
@@ -90,7 +90,7 @@
                                 </div>
                                 <button id="logInBtn" type="button" class="btn oneMusic-btn mt-30">Login</button>
                             </form>
-                            <span style="float:left"><a href="${pageContext.request.contextPath}/LoginEmp">&nbsp;&nbsp;</a></span>
+                            <span style="float:left"><a href="${pageContext.request.contextPath}/LoginEmp"><i class="icon-key"></i></a></span>
                             <span style="float:right"><a class="btn" href="${pageContext.request.contextPath}/AddCustomer">Join</a></span>
                         </div>
                     </div>

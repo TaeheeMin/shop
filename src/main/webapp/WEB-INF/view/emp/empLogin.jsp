@@ -89,7 +89,7 @@
                                 </div>
                                 <button id="empBtn" type="button" class="btn oneMusic-btn mt-30">Login</button>
                             </form>
-                            <span style="float:left"><a href="">&nbsp;&nbsp;</a></span>
+                            <span style="float:left"><a href="${pageContext.request.contextPath}/LoginCustomer"><i class="icon-user"></i></a></span>
                             <span style="float:right"><a class="btn" href="${pageContext.request.contextPath}/AddCustomer">Join</a></span>
                         </div>
                     </div>
