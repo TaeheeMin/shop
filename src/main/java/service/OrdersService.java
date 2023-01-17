@@ -236,6 +236,7 @@ public class OrdersService {
 		}
 		return list;
 	}
+	
 	// 주문 리스트 페이징
 	public int getOrdersListCount() {
 		int row = 0;
@@ -262,9 +263,6 @@ public class OrdersService {
 		}
 		return row;
 	}
-	
-	
-	
 	
 	// 주문 리스트 고객용
 	public ArrayList<HashMap<String, Object>> selectOrdersList(Customer loginCustomer,int currentPage, int rowPerPage) {
@@ -403,38 +401,38 @@ public class OrdersService {
 		ordersDao = new OrdersDao();
 		cartDao = new CartDao();
 		pointHistoryDao = new PointHistoryDao();
+		try {
+			conn = DBUtil.getConnection();
+			//order 추가하면서 oderCode 받아오기
+			ArrayList<PointHistory> list = new ArrayList<PointHistory>();
+			list = ordersDao.AddOrdersPoint(conn, orders);
+			// pointHistory 추가
+			pointHistoryDao.addPointHistory(conn, list, sharePoint);
+			// 장바구니 비우기
+			cartDao.clearCart(conn, customerId);
+			// 고객 정보 수정
+			result = pointHistoryDao.modifyCustomerPoint(conn, customerId, point);
+			//디버깅
+			if(result ==1) {
+				System.out.println("구매성공");
+			}
+			conn.commit();
+		} catch (Exception e) {
+			try {System.out.println("구매실패");
+				conn.rollback(); 
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
 			try {
-				conn = DBUtil.getConnection();
-				//order 추가하면서 oderCode 받아오기
-				ArrayList<PointHistory> list = new ArrayList<PointHistory>();
-				list = ordersDao.AddOrdersPoint(conn, orders);
-				// pointHistory 추가
-				pointHistoryDao.addPointHistory(conn, list, sharePoint);
-				// 장바구니 비우기
-				cartDao.clearCart(conn, customerId);
-				// 고객 정보 수정
-				result = pointHistoryDao.modifyCustomerPoint(conn, customerId, point);
-				//디버깅
-				if(result ==1) {
-					System.out.println("구매성공");
-				}
-				conn.commit();
-			} catch (Exception e) {
-				try {System.out.println("구매실패");
-					conn.rollback(); 
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
+				conn.close();
+			} catch (SQLException e) {
 				e.printStackTrace();
-			} finally {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}	
-			return result;
-		}
+			}
+		}	
+		return result;
+	}
 	
 	// 1-2) 포인트 미사용 주문
 	public int addOrder(Orders orders,ArrayList<HashMap<String, Object>> cartList, String customerId) {
@@ -468,4 +466,7 @@ public class OrdersService {
 			}	
 			return result;
 		}
-}
+	}
+	
+	// 1-3) 주문 완료 페이지
+

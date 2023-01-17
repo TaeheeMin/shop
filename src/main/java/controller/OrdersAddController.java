@@ -79,8 +79,8 @@ public class OrdersAddController extends HttpServlet {
 		// 값 받아오기
 		int addressCode = Integer.parseInt(request.getParameter("addressCode"));				
 		String customerId = request.getParameter("customerId");	
-		System.out.println("addressCode : " + addressCode);	
-		System.out.println("customerId : " + customerId);
+		//System.out.println("addressCode : " + addressCode);	
+		//System.out.println("customerId : " + customerId);
 				
 		//int point = Integer.parseInt(request.getParameter("point")); // 잔여 포인트 
 		//String[] pointCkList = request.getParameterValues("pointCk"); // 포인트 사용 goods
@@ -88,11 +88,11 @@ public class OrdersAddController extends HttpServlet {
 		String[] cartQuantity = request.getParameterValues("cartQuantity");
 		String[] orderPrice = request.getParameterValues("orderPrice");
 		String sharePoint = request.getParameter("sharePoint");
-		System.out.println("sharePoint : " + sharePoint);
 		int point = Integer.parseInt(request.getParameter("point"));
-		System.out.println("point : " + point);		
-
-	
+		//System.out.println("sharePoint : " + sharePoint);
+		//System.out.println("point : " + point);
+		//System.out.println("pointAll : " + request.getParameter("pointAll"));
+		//System.out.println("usePoint : " + request.getParameter("usePoint"));
 		
 		// 서비스 호출
 		int row = 0;
@@ -108,7 +108,7 @@ public class OrdersAddController extends HttpServlet {
 			orders.setOrderQuantity(Integer.parseInt(cartQuantity[i]));
 			orders.setOrderPrice(Integer.parseInt(orderPrice[i]));
 			
-			if(request.getParameter("pointAll") == null && request.getParameter("usePoint") == null) {
+			if(request.getParameter("pointAll") == null && request.getParameter("usePoint").equals("")) {
 				// 포인트 미사용
 				row = ordersService.addOrder(orders, cartList, customerId);	
 			} else {
