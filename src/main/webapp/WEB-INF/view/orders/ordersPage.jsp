@@ -130,7 +130,7 @@
 						<td>${c.goodsPrice}</td>
 						<td>${c.cartQuantity }</td>
 						<td>
-							<input type="text" id="orderPrice" class="orderPrice" name="orderPrice" value="${c.cartQuantity*c.goodsPrice}" >
+							<input type="text" id="orderPrice" class="orderPrice" name="orderPrice" value="${c.cartQuantity*c.goodsPrice}" readonly="readonly">
 							<input type="hidden" name="goodsCode" value="${c.goodsCode}">
 							<input type="hidden" name="cartQuantity" value="${c.cartQuantity}" >
 							<input type="hidden" id="cartOrderPrice" class="cartOrderPrice" value="${c.cartQuantity*c.goodsPrice}" >
@@ -201,7 +201,7 @@
 				<c:set var= "total" value="${total + result.goodsPrice*result.cartQuantity}"/>
 			</c:forEach>
 			<div class="col-md-6 col-lg-3">
-			total price: <input type="text" name="totalPrice" id="totalPrice" value="${total}" class="form-control">
+			total price: <input type="text" name="totalPrice" id="totalPrice" value="${total}" class="form-control" readonly="readonly">
 			</div>
 			<div class="col-md-6 col-lg-3">
 			point : <input type="text" name="usePoint" id="usePoint" class="form-control" readonly="" value="">
