@@ -38,7 +38,7 @@
                                             <li><a href="${pageContext.request.contextPath}/GoodsList">Albums</a></li>
                                             <li><a href="${pageContext.request.contextPath}/QuestionListByCustomer">CustomerCenter</a></li>
                                             <li><a href="${pageContext.request.contextPath}/NoticeList">News</a></li>
-                                            <li><a href="contact.html">Contact</a></li>                                        
+                                            <li><a href="${pageContext.request.contextPath}/Contact">Contact</a></li>                                        
                                                                                   
                                               
                                             </li>
@@ -57,7 +57,7 @@
 	                                            <li><a href="${pageContext.request.contextPath}/CustomerOne">Member Information</a></li>
 	                                            <li><a href="${pageContext.request.contextPath}/QuestionListByCustomer">Customer Center</a></li>
 	                                            <li><a href="${pageContext.request.contextPath}/NoticeList">News</a></li>	                                        
-	                                            <li><a href="contact.html">Contact</a></li>                                            
+	                                            <li><a href="${pageContext.request.contextPath}/Contact">Contact</a></li>                                            
 	                                            <li><a href="${pageContext.request.contextPath}/Logout">Logout</a></li>                                     
 	                                        </ul>
                                     	</li>
@@ -82,7 +82,7 @@
 	                                            <li><a href="${pageContext.request.contextPath}/QuestionListByAdmin">Customer Center</a></li>
 	                                            <li><a href="${pageContext.request.contextPath}/NoticeList">News</a></li>
 	                                            <li><a href="${pageContext.request.contextPath}/review/reviewList">Reviews</a></li>
-	                                            <li><a href="contact.html">Contact</a></li>                                            
+	                                            <li><a href="${pageContext.request.contextPath}/Contact">Contact</a></li>                                            
 	                                            <li><a href="${pageContext.request.contextPath}/Logout">Logout</a></li>                                     
 	                                        </ul>
                                     	</li>
