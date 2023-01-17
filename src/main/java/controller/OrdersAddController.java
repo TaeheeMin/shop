@@ -90,11 +90,16 @@ public class OrdersAddController extends HttpServlet {
 		String sharePoint = request.getParameter("sharePoint");
 		System.out.println("sharePoint : " + sharePoint);
 		int point = Integer.parseInt(request.getParameter("point"));
-		System.out.println("point : " + point);
+		System.out.println("point : " + point);		
+
+	
 		
 		// 서비스 호출
 		int row = 0;
 		ArrayList<HashMap<String,Object>> cartList = cartService.getCartList(customerId);
+		// 주문완료시 출력
+		
+		
 		Orders orders = new Orders();
 		for(int i = 0; i < orderPrice.length; i++) {
 			orders.setCustomerId(customerId);
@@ -119,7 +124,7 @@ public class OrdersAddController extends HttpServlet {
 		if(row == 1) {
 			// 리스트로 이동
 			System.out.println("구매성공");
-			response.sendRedirect(request.getContextPath()+"/orders/ordersComplete"); 
+			request.getRequestDispatcher("/WEB-INF/view/orders/ordersComplete.jsp").forward(request, response); 
 		} else {
 			// 폼이동
 			System.out.println("구매실패");
