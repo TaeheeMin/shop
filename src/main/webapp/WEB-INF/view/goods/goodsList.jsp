@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -91,32 +92,32 @@
 						<form action="${pageContext.request.contextPath}/GoodsList" method="get" id="listForm">
 							<div class="browse-by-catagories catagory-menu d-flex flex-wrap align-items-center mb-70">
 		                        <a href="#" data-filter="*">Browse All</a>
-		                        <a href="#" data-filter=".a">A</a>
-		                        <a href="#" data-filter=".b">B</a>
-		                        <a href="#" data-filter=".c">C</a>
-		                        <a href="#" data-filter=".d">D</a>
-		                        <a href="#" data-filter=".e">E</a>
-		                        <a href="#" data-filter=".f">F</a>
-		                        <a href="#" data-filter=".g">G</a>
-		                        <a href="#" data-filter=".h">H</a>
-		                        <a href="#" data-filter=".i">I</a>
-		                        <a href="#" data-filter=".j">J</a>
-		                        <a href="#" data-filter=".k">K</a>
-		                        <a href="#" data-filter=".l">L</a>
-		                        <a href="#" data-filter=".m">M</a>
-		                        <a href="#" data-filter=".n">N</a>
-		                        <a href="#" data-filter=".o">O</a>
-		                        <a href="#" data-filter=".p">P</a>
-		                        <a href="#" data-filter=".q">Q</a>
-		                        <a href="#" data-filter=".r">R</a>
-		                        <a href="#" data-filter=".s">S</a>
-		                        <a href="#" data-filter=".t">T</a>
-		                        <a href="#" data-filter=".u">U</a>
-		                        <a href="#" data-filter=".v">V</a>
-		                        <a href="#" data-filter=".w">W</a>
-		                        <a href="#" data-filter=".x">X</a>
-		                        <a href="#" data-filter=".y">Y</a>
-		                        <a href="#" data-filter=".z">Z</a>
+		                        <a href="#" data-filter=".A">A</a>
+		                        <a href="#" data-filter=".B">B</a>
+		                        <a href="#" data-filter=".C">C</a>
+		                        <a href="#" data-filter=".D">D</a>
+		                        <a href="#" data-filter=".E">E</a>
+		                        <a href="#" data-filter=".F">F</a>
+		                        <a href="#" data-filter=".G">G</a>
+		                        <a href="#" data-filter=".H">H</a>
+		                        <a href="#" data-filter=".I">I</a>
+		                        <a href="#" data-filter=".J">J</a>
+		                        <a href="#" data-filter=".K">K</a>
+		                        <a href="#" data-filter=".L">L</a>
+		                        <a href="#" data-filter=".M">M</a>
+		                        <a href="#" data-filter=".N">N</a>
+		                        <a href="#" data-filter=".O">O</a>
+		                        <a href="#" data-filter=".P">P</a>
+		                        <a href="#" data-filter=".Q">Q</a>
+		                        <a href="#" data-filter=".R">R</a>
+		                        <a href="#" data-filter=".S">S</a>
+		                        <a href="#" data-filter=".T">T</a>
+		                        <a href="#" data-filter=".U">U</a>
+		                        <a href="#" data-filter=".V">V</a>
+		                        <a href="#" data-filter=".W">W</a>
+		                        <a href="#" data-filter=".X">X</a>
+		                        <a href="#" data-filter=".Y">Y</a>
+		                        <a href="#" data-filter=".Z">Z</a>
 		                        <a href="#" data-filter=".number">0-9</a>
 	                    	</div>
 	                    	<div>
@@ -166,7 +167,7 @@
 		                <c:if test="${s.index != 0 && s.index % 6 == 0 }">
 							</div><div class="row oneMusic-albums">
 						</c:if>
-		                <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item ">
+		                <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item ${fn:substring(m.goodsTitle,0,1)}">
 		                    <div class="single-album">
 		                        <img src="${pageContext.request.contextPath}/goodsimg/${m.filename}" alt="">
 		                        <div class="album-info">
