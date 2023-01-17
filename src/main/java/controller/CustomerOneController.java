@@ -53,11 +53,16 @@ public class CustomerOneController extends HttpServlet {
 
 		// 회원 포인트 불러오기
 		this.pointHistoryService = new PointHistoryService();
-		int customerPoint = pointHistoryService.modifyCustomerPoint(loginCustomer);
+		int customerPoint = pointHistoryService.modifyCustomerPoint(customerOne);
 		if(customerPoint == 1) {
 			System.out.println("고객 잔여 포인트 로딩");
 		}
-		
+
+		// 잔여 포인트 실시간 업데이트
+		int remainPoint = pointHistoryService.remainCustomerPoint(loginCustomer);
+		customerOne.setPoint(remainPoint);
+		System.out.println("잔여포인트 : "+customerOne.getPoint());
+
 		// 회원 주소추가 불가능할시, 문구 넘기기 (3개로 제한)
 		if(request.getParameter("addressMsg") != null) {
 			request.setAttribute("addressMsg", request.getParameter("addressMsg"));

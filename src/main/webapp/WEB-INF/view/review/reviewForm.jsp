@@ -63,7 +63,7 @@
 		                            <div class="row">
 		                                <div class="col-md-6 col-lg-4">
 		                                    <div class="form-group">
-		                                    	<input type="text" name="orderCode" id="orderCode" class="form-control" value="${orderCode}" placeholder="orderCode">
+		                                    	<input type="text" name="orderCode" id="orderCode" class="form-control" value="${orderCode}" placeholder="orderCode" readonly="readonly">
 		                                 
 		                                    </div>
 		                                </div>
