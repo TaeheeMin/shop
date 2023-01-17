@@ -12,6 +12,16 @@ import vo.PointHistory;
 import vo.Review;
 
 public class PointHistoryDao {
+	// 취소시 포인트 환불 
+	public int refundPoint(Connection conn, int orderCode) throws Exception {
+		int row = 0;
+		String sql = "UPDATE point_history SET POINT = 0 WHERE order_code = ? AND point_kind='사용'";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, orderCode);
+		row = stmt.executeUpdate();
+		return row;
+	}
+	
 	
 	// 1) 포인트 추가 (적립)
 	public int AddPoint(Connection conn, Review review) throws Exception {

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import dao.PointHistoryDao;
+import dao.ReviewDao;
 import util.DBUtil;
 import vo.Customer;
 import vo.PointHistory;
@@ -13,6 +14,34 @@ import vo.PointHistory;
 
 public class PointHistoryService {
 	private PointHistoryDao pointHistoryDao;
+	// 포인트 환불 
+	public int refundPoint(int orderCode) {
+		int row = 0;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			pointHistoryDao = new PointHistoryDao();
+			row = pointHistoryDao.refundPoint(conn, orderCode);
+			conn.commit(); // DBUtil setAutoCommit false설정
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return row;
+	}
+	
+	
 	// 1) 포인트 적립,사용 리스트
 	public HashMap<String, Object> selectPoint(Customer loginCustomer) {
 		HashMap<String, Object> map = new HashMap<String, Object>();

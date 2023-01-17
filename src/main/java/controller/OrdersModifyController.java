@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import service.OrdersService;
+import service.PointHistoryService;
 import vo.Orders;
 
 @WebServlet("/orders/ordersModify")
@@ -30,14 +31,29 @@ public class OrdersModifyController extends HttpServlet {
 		
 		int row = 0;
 		OrdersService ordersService = new OrdersService();
+		
 		row = ordersService.modifyByCustomerOrders(row, orders);
-	
+		
+		
+		
+		if(request.getParameter("orderState").equals("취소")) {
+			PointHistoryService pointHistoryService = new PointHistoryService();
+			int pointRow = pointHistoryService.refundPoint(Integer.parseInt(request.getParameter("orderCode")));
+			if(pointRow == 1) {
+				System.out.println("포인트환불성공");
+				response.sendRedirect(request.getContextPath()+"/orders/ordersList");
+			} else {
+				System.out.println("포인트환불실패");
+				response.sendRedirect(request.getContextPath()+"/orders/ordersList");
+			}
+		} else {
 		if(row == 1) {			
 			System.out.println("수정성공");
 			response.sendRedirect(request.getContextPath()+"/orders/ordersList"); 
 		} else { 
 			System.out.println("수정실패");
 			response.sendRedirect(request.getContextPath()+"/orders/ordersModify="+orders.getOrderCode());
+			}
 		}
 	
 	}
