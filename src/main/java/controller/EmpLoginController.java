@@ -40,6 +40,12 @@ public class EmpLoginController extends HttpServlet {
 			String outEmp =request.getParameter("outEmp");
 			request.setAttribute("outEmp",outEmp);
 		}
+		
+		// 직원 주문목록 재직직원만 조회 및 관리 가능, 휴직 및 사직자는 접근불가 alert 출력하기
+		if(request.getParameter("orderEmp") != null) {
+			String orderEmp =request.getParameter("orderEmp");
+			request.setAttribute("orderEmp",orderEmp);
+		}
 				
 		// 비로그인일경우, 사원로그인폼 view로 이동
 		request.getRequestDispatcher("/WEB-INF/view/emp/empLogin.jsp").forward(request, response);

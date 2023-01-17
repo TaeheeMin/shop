@@ -71,6 +71,16 @@ public class GoodsListController extends HttpServlet {
 		}
 		// System.out.println("endPage : " + endPage);
 		
+		// 휴직 및 사직 직원은 상품등록 접근불가 alert출력
+		if(request.getParameter("goodsAddEmp") != null) {
+			request.setAttribute("goodsAddEmp", request.getParameter("goodsAddEmp"));
+		}
+		
+		// 휴직 및 사직 직원은 상품등록 접근불가 alert출력
+		if(request.getParameter("goodsModifyEmp") != null) {
+			request.setAttribute("goodsModifyEmp", request.getParameter("goodsModifyEmp"));
+		}
+		
 		// 앨범리스트 
 		ArrayList<HashMap<String, Object>> list = goodsService.getGoodsList(currentPage, rowPerPage, search, word, category);
 		// 추천상품 리스

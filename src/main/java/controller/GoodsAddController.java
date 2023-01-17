@@ -21,6 +21,20 @@ public class GoodsAddController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		// 로그인 세션 불러오기
+		HttpSession session = request.getSession();
+		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
+		System.out.println("[goodsAdd 컨트롤러]");
+		
+		// 휴직 및 사직 직원은 접근불가 -> GoodsList로 인동
+		if(loginEmp == null || !loginEmp.getActive().equals("재직")) {
+			System.out.println("재직중인 직원만 접근 가능합니다");
+			String goodsAddEmp = "accesslimit";
+			response.sendRedirect(request.getContextPath()+"/GoodsList?goodsAddEmp="+goodsAddEmp);
+			return;
+		}	
+
 		request.getRequestDispatcher("/WEB-INF/view/goods/goodsAddForm.jsp").forward(request, response);
 	}
 

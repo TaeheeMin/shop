@@ -19,12 +19,14 @@ public class NoticeAddController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
 		
-		// 직원로그인이 안되어있을경우, 직원등록폼 진입 불가 -> 홈으로 인동
-		if(loginEmp == null) {
-			System.out.println("직원만 접근 가능");
-			response.sendRedirect(request.getContextPath()+"/Home");
+		// 재직중인 사원이상의 직원만 공지등록 가능
+		if(loginEmp == null || loginEmp.getAuthCode() == 0 || !(loginEmp.getActive()).equals("재직")) {
+			System.out.println("[noticeAdd컨트롤러] 재직중인 사원이상의 직원만 접근 가능");
+			String limitNotice = "accesslimit";
+			response.sendRedirect(request.getContextPath()+"/NoticeList?limitNotice="+limitNotice);
 			return;
 		}
+		
 		request.getRequestDispatcher("/WEB-INF/view/notice/noticeForm.jsp").forward(request, response);
 	}
 	

@@ -35,6 +35,20 @@
 			<jsp:include page="/inc/menu.jsp"></jsp:include>
 		</div>
 		
+		<!-- 휴직, 사직 직원들은 상품등록 접근불가 -->
+		<c:if test="${goodsAddEmp != null}">
+			<script>
+				alert('재직중인 직원만 접근 가능합니다.');
+			</script>
+		</c:if>
+		
+		<!-- 휴직, 사직 직원들은 상품수정 접근불가 -->
+		<c:if test="${goodsModifyEmp != null}">
+			<script>
+				alert('재직중인 직원만 접근 가능합니다.');
+			</script>
+		</c:if>
+		
     	<!-- ##### Breadcumb Area Start ##### -->
 	    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/breadcumb3.jpg);">
 	        <div class="bradcumbContent">
@@ -75,7 +89,7 @@
 			                </div>
 						</c:forEach>
 		            </div>
-					<c:if test="${loginEmp != null}">
+					<c:if test="${loginEmp != null || loginEmp.active eq '재직'}">
                         <div class="col-12 text-center">
 	                        <a href="${pageContext.request.contextPath}/GoodsAdd" class="btn oneMusic-btn m-2">상품등록 <i class="fa fa-angle-double-right"></i></a>
 	                    </div>

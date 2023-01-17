@@ -27,9 +27,10 @@ public class OrdersListByAdminController extends HttpServlet {
 		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
 		
 		// 직원로그인이 안되어있을경우, 직원등록폼 진입 불가 -> 홈으로 인동
-		if(loginEmp == null) {
-			System.out.println("직원만 접근 가능합니다");
-			response.sendRedirect(request.getContextPath()+"/LoginEmp");
+		if(loginEmp == null || !(loginEmp.getActive()).equals("재직")) {
+			System.out.println("재직중인 직원만 접근 가능합니다");
+			String orderEmp = "accesslimit";
+			response.sendRedirect(request.getContextPath()+"/LoginEmp?orderEmp="+orderEmp);
 			return;
 		}	
 		

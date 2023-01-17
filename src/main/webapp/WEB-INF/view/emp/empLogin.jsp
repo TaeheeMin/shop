@@ -75,6 +75,13 @@
                         	</script>
                         </c:if>
                         
+                        <!-- 재직자가 아닌 직원이 orderListByAdimin에 접근할 경우 alert 출력 -->
+                        <c:if test="${orderEmp != null}">
+                        	<script>
+                        		alert('재직중인 직원만 접근 가능합니다.');
+                        	</script>
+                        </c:if>
+                        
                         <!-- 아이디나 비밀번호 잘못입력한 경우 -->
                         <c:if test="${wrongEmp != null}">
                         	<span class="text-danger">아이디나 비밀번호를 잘못입력하였습니다.</span>

@@ -22,12 +22,13 @@ public class GoodsModifyController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
 		
-		// 직원로그인이 안되어있을경우, 직원등록폼 진입 불가 -> 홈으로 인동
-		if(loginEmp == null) {
-			System.out.println("직원만 접근 가능");
-			response.sendRedirect(request.getContextPath()+"/Home");
+		// 휴직 및 사직 직원은 상품수정 불가 -> GoodsList로 인동
+		if(loginEmp == null || !loginEmp.getActive().equals("재직")) {
+			System.out.println("재직중인 직원만 접근 가능합니다");
+			String goodsModifyEmp = "accesslimit";
+			response.sendRedirect(request.getContextPath()+"/GoodsList?goodsModifyEmp="+goodsModifyEmp);
 			return;
-		}
+		}	
 		// 값 받아오기
 		request.setCharacterEncoding("utf-8");
 		int goodsCode = Integer.parseInt(request.getParameter("goodsCode"));

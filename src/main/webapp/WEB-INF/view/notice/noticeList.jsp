@@ -23,7 +23,14 @@
 		<div>
 			<jsp:include page="/inc/menu.jsp"></jsp:include>
 		</div>
-
+	
+		<!-- 사원이상의 재직자만 공지등록 가능 -->
+		<c:if test="${limitNotice != null}">
+			<script>
+				alert('사원이상의 재직자만 접근 가능합니다');
+			</script>
+		</c:if>
+		
 	    <!-- ##### Breadcumb Area Start ##### -->
 	    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/breadcumb3.jpg);">
 	        <div class="bradcumbContent">
@@ -38,11 +45,13 @@
 	        <div class="container">
 	            <div class="row">
 	                <div class="col-12 col-lg-9">
+	                	<!-- 직원만 공지등록 버튼 조회 가능 -->
 						<c:if test="${loginEmp != null}">
 							<div style="float: right; margin-bottom: 10px;">
 	                        	<a href="${pageContext.request.contextPath}/NoticeAdd">공지등록</a>
 							</div>
 						</c:if>
+
 	                    <!-- Single Post Start -->
 						<c:forEach var="n" items="${notice}">
 		                    <div class="single-blog-post mb-100 wow fadeInUp panel single-accordion" data-wow-delay="100ms">

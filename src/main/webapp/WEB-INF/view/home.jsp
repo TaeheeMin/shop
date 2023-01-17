@@ -18,11 +18,20 @@
 
 	</head>
 	<body>
+		<!-- 인턴, 휴직, 사직 직원들은 직원등록 접근불가 -->
 		<c:if test="${empAdd != null}">
 			<script>
 				alert('사원 이상의 재직자만 접근 가능합니다.');
 			</script>
 		</c:if>
+		
+		<!-- 휴직, 사직 직원들은 리뷰관리 접근불가 -->
+		<c:if test="${reviewLimit != null}">
+			<script>
+				alert('재직중인 직원만 접근 가능합니다.');
+			</script>
+		</c:if>
+		
 		<!-- ##### Header Area Start ##### -->
 		<!-- 상단 메뉴 nav bar 구성 -->
 		<jsp:include page="../../inc/menu.jsp"></jsp:include>
