@@ -177,7 +177,7 @@ public class OrdersDao {
 
 	
 	// 주문목록 관리자용 
-	public ArrayList<HashMap<String, Object>> selectOrdersListByAdmin(Connection conn, int beginRow, int rowPerPage,String search, String word, String category) throws Exception {
+	public ArrayList<HashMap<String, Object>> selectOrdersListByAdmin(Connection conn, int beginRow, int rowPerPage, String search, String word, String category) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		String sql = "SELECT "
 				+ "	o.order_code orderCode"

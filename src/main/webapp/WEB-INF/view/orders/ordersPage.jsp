@@ -117,7 +117,6 @@
 			<!-- 주문할 상품 목록 -->			
 			<table class = "table w-100 rounded" style="table-layout: auto; width: 100%; table-layout: fixed;">
 				<tr>
-					<td>포인트 사용</td>
 					<td>앨범이름</td>
 					<td>앨범</td>
 					<td>가격</td>
@@ -126,9 +125,6 @@
 				</tr>
 				<c:forEach var="c" items="${cartList}">
 					<tr>
-						<td>
-							<input type="checkbox" name="pointCk" id="pointCk" class="pointCk" value="${c.goodsCode}" checked="checked">
-						</td>
 						<td>${c.goodsTitle}</td>
 						<td><img src="${pageContext.request.contextPath}/goodsimg/${c.filename}" width="200" height="200"></td>
 						<td>${c.goodsPrice}</td>
@@ -208,7 +204,7 @@
 			total price: <input type="text" name="totalPrice" id="totalPrice" value="${total}" class="form-control">
 			</div>
 			<div class="col-md-6 col-lg-3">
-			point : <input type="text" name="usePoint" id="usePoint" class="form-control" readonly="" value="0">
+			point : <input type="text" name="usePoint" id="usePoint" class="form-control" readonly="" value="">
 			</div>
 			<div class="col-md-6 col-lg-3">
 			<p>전액사용 <input type="checkbox" id="pointAll" name="pointAll" value=""></p>

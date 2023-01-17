@@ -38,83 +38,99 @@
 	    </section>
 	    <!-- ##### Breadcumb Area End ##### -->
 		
-		
 		<!-- #### list #### -->
-		<table border="1">
+		<section class="album-catagory section-padding-100-0">
 			<c:forEach var="goodsOne" items="${goodsOne}">
-				<tr>
-					<th>NO</th>
-					<td><c:out value="${goodsOne.goodsCode}"></c:out></td>
-				</tr>
-				<tr>
-					<th>CATEGORY</th>
-					<td><c:out value="${goodsOne.goodsCategory}"></c:out></td>
-				</tr>
-				<tr>
-					<th>TITLE</th>
-					<td><c:out value="${goodsOne.goodsTitle}"></c:out></td>
-				</tr>
-				<tr>
-					<th>IMG</th>
-					<td>
-						<img src="${pageContext.request.contextPath}/goodsimg/${goodsOne.filename}" width="200" height="200">
-					</td>
-				</tr>
-				<tr>
-					<th>ARTIST</th>
-					<td><c:out value="${goodsOne.goodsArtist}"></c:out></td>
-				</tr>
-				<tr>
-					<th>CONTENT</th>
-					<td><c:out value="${goodsOne.goodsContent}"></c:out></td>
-				</tr>
-				<tr>
-					<th>PRICE</th>
-					<td><c:out value="${goodsOne.goodsPrice}"></c:out></td>
-				</tr>
-				<tr>
-					<th>VIEW</th>
-					<td><c:out value="${goodsOne.view}"></c:out></td>
-				</tr>
-				<c:if test="${goodsOne.soldout eq 'N'}">
-					<tr>
-						<th>ACTION</th>
-						<td>
-							<form action="${pageContext.request.contextPath}/CartAdd" method="get">
-								<input type="number" name="cartQuantity">
-								<input type="hidden" name="goodsCode" value="${goodsOne.goodsCode}">
-								<input type="hidden" name="goodsTitle" value="${goodsOne.goodsTitle}">
-								<input type="hidden" name="filename" value="${goodsOne.filename}">
-								<input type="hidden" name="goodsPrice" value="${goodsOne.goodsPrice}">
-								<button type="submit">cart</button>
-							</form>
-						</td>
-					</tr>
-				</c:if>
+	    		<!-- ##### 상세보 ##### -->
+			    <div class="oneMusic-buy-now-area mb-100">
+			        <div class="container">
+			            <div class="row">
+							
+							<!-- img Content -->
+	                        <div class="blog-content" style="padding-right: 50px;">
+								<div class="col-12">
+										<img src="${pageContext.request.contextPath}/goodsimg/${goodsOne.filename}" width="500" height="500">
+	                        		<div class="album-info">
+		                                ${goodsOne.goodsTitle}
+		                            	
+	                        		</div>
+	                        	</div>
+	                       	</div>
+                       		
+                       		<!-- 앨범 정보 -->
+                        	<div class="col-md-6 col-lg-4">
+                        		<h1>${goodsOne.goodsTitle}</h1>
+                        		<p>${goodsOne.goodsArtist}</p>
+                        		<h3>${goodsOne.goodsPrice}</h3>
+                        		<form action="${pageContext.request.contextPath}/CartAdd" method="get" id="cartQuantityForm">
+                        			<div class="contact-form-area">
+	                        			<div class="form-group">
+		                                    
+											<input type="hidden" name="goodsCode" value="${goodsOne.goodsCode}">
+											<input type="hidden" name="goodsTitle" value="${goodsOne.goodsTitle}">
+											<input type="hidden" name="filename" value="${goodsOne.filename}">
+											<input type="hidden" name="goodsPrice" value="${goodsOne.goodsPrice}">
+		                                    <select name="cartQuantity" id="cartQuantity" class="form-control" >
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3<option>
+												<option value="4">4</option>
+												<option value="5">5</option>
+											</select>
+											<button class="btn oneMusic-btn mt-30" type="button" id="cartQuantityBtn">Cart <i class="fa fa-angle-double-right"></i></button>
+		                        		</div>
+	                        		</div>
+                        		</form>
+                            </div>
+                            <div class="col-md-3 col-lg">
+                            	<br>
+                            	<span class="badge badge-light">HIT ${goodsOne.view}</span>
+                            </div>
+                            
+                        	<!-- content Area -->
+                        	<div class="row" style="width: 100%">
+                				<div class="col-12">
+				                    <div class="contact-form-area">
+		                                <div class="col-12">
+		                                    <div class="form-group mt-100 mb-100">
+		                                        <textarea class="form-control" cols="100" rows="10" readonly="readonly">${goodsOne.goodsContent}</textarea>
+		                                    </div>
+		                                </div>
+				                    </div>
+			                    </div>
+		                    </div>
+	                    </div>
+                    </div>
+                 </div>
 			</c:forEach>
-		</table>
 		
-		<!-- #### review #### -->
-		<h3>리뷰</h3>
-		<c:if test="${review != null}">
-		<table border="1">
-			<c:forEach var="review" items="${review}">
-				<tr>
-					<th>CUSTOMERID</th>
-					<td><c:out value="${review.customerId}"></c:out></td>
-				</tr>
-				<tr>
-					<th>REVIEW</th>
-					<td><c:out value="${review.reviewMemo}"></c:out></td>
-				</tr>
-				<tr>
-					<th>CREATEDATE</th>
-					<td><c:out value="${review.createdate}"></c:out></td>
-				</tr>
-			</c:forEach>
-		</table>
-		</c:if>
-	<!-- 메뉴 partial jsp 구성 -->
+			<!-- #### review #### -->
+			<h3>리뷰</h3>
+			<div class="container">
+            	<div class="row">
+	                <div class="col-12">
+	                    <div class="contact-form-area">
+	                        <div class="row">
+		                        <c:forEach var="review" items="${review}">
+		                            <div class="col-md-6 col-lg-2">
+		                                <div class="form-group">
+		                                    <input type="text" class="form-control" id="name" value="${review.customerId}">
+		                                </div>
+		                            </div>
+		                            <div class="col-md-6 col-lg-6">
+		                                <div class="form-group">
+		                                    <input type="text" class="form-control" id="reviewMemo" value="${review.reviewMemo}">
+		                                </div>
+		                            </div>
+		                            ${review.createdate}
+	                            </c:forEach>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+            </div>
+		</section>
+		<!-- 메뉴 partial jsp 구성 -->
 		<div>
 			<jsp:include page="/inc/footer.jsp"></jsp:include>
 		</div>
