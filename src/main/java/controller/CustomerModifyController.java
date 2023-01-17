@@ -31,6 +31,16 @@ public class CustomerModifyController extends HttpServlet {
 			return;
 		}
 		
+		// 바꾸려는 비밀번호가 이전 비밀번호 최근이력 3개와 중복될 경우
+		if(request.getParameter("overlapPw") != null) {
+			request.setAttribute("overlapPw", request.getParameter("overlapPw"));
+		}
+		
+		// 기존비밀번호 불일치 시
+		if(request.getParameter("noPwMsg") != null) {
+			request.setAttribute("noPwMsg", request.getParameter("noPwMsg"));
+		}
+		
 		request.getRequestDispatcher("/WEB-INF/view/customer/customerModify.jsp").forward(request, response);
 	}
 	
@@ -48,7 +58,7 @@ public class CustomerModifyController extends HttpServlet {
 		String customerName = request.getParameter("customerName");
 		String customerPhone = request.getParameter("customerPhone");
 		System.out.println("[회원정보수정액션컨트롤러 진입]");
-		System.out.println("(1)받아온 pw값 : "+customerPw+"/newPw : "+customerNewPw);
+		// System.out.println("(1)받아온 pw값 : "+customerPw+"/newPw : "+customerNewPw);
 		
 		// 두개의 customer에 set
 		// 기존정보
@@ -79,7 +89,8 @@ public class CustomerModifyController extends HttpServlet {
 		
 		if(pwHistoryCk) {
 			System.out.println("최근 변경했던 비밀번호들과 중복됩니다");
-			response.sendRedirect(request.getContextPath()+"/CustomerModify");
+			String overlapPw = "overlapPw";
+			response.sendRedirect(request.getContextPath()+"/CustomerModify?overlapPw="+overlapPw);
 			return;
 		}
 		
@@ -98,8 +109,9 @@ public class CustomerModifyController extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/CustomerOne");
 			return;
 		} else {
-			System.out.println("(4)회원정보 수정 실패");
-			response.sendRedirect(request.getContextPath()+"/CustomerModify");
+			System.out.println("(4)회원정보 수정 실패 - 비밀번호가 다릅니다");
+			String noPwMsg = "noPw";
+			response.sendRedirect(request.getContextPath()+"/CustomerModify?noPwMsg="+noPwMsg);
 		}
 	}
 }

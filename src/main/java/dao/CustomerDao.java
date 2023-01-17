@@ -63,6 +63,7 @@ public class CustomerDao {
 		if(rs.next()) {
 			loginCustomer = new Customer();
 			loginCustomer.setCustomerId(rs.getString("customer_id"));
+			loginCustomer.setCustomerPw(rs.getString("customer_pw"));
 			loginCustomer.setCustomerName(rs.getString("customer_name"));
 			loginCustomer.setCustomerPhone(rs.getString("customer_phone"));
 			loginCustomer.setPoint(rs.getInt("point"));

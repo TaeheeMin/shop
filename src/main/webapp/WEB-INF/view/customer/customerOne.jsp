@@ -52,36 +52,48 @@
 								</div>
 								
 					    	</div>
-					    	<div class="col">
+					    	<div class="col text-right">
 					    		<div>
-									<a href="${pageContext.request.contextPath}/CustomerModify">회원정보수정</a>
+									<a class="btn btn-sm btn-outline-dark" href="${pageContext.request.contextPath}/CustomerModify">회원정보수정<i class="icon-settings"></i></a>
 								</div>
 								<div class="mt-3">
-									<a href="${pageContext.request.contextPath}/CustomerRemove">회원탈퇴</a>
+									<a class="btn btn-sm btn-outline-dark" href="${pageContext.request.contextPath}/CustomerRemove">회원탈퇴</a>
 								</div>
 					    	</div>
 					    </div>          
 						<hr>
-						<div>
+						
+						<div class="font-bold pb-3">
 							주소목록
 						</div>
-						<c:forEach var="a" items="${list}">
-							<p>
-								${a.address}
-								<span><a href="${pageContext.request.contextPath}/AddressRemove?customerId=${a.customerId}&address=${a.address}">삭제</a></span>
-							</p>
-						</c:forEach>
 						
+						<c:forEach var="a" items="${list}">
+							<div class="row">
+								<div class="col-9 text-left">
+									<div class="pb-3">
+										${a.address}
+									</div>
+								</div>
+									<div class="col-3 mb-3">
+										<span><a class="btn btn-sm btn-outline-danger" href="${pageContext.request.contextPath}/AddressRemove?customerId=${a.customerId}&address=${a.address}">X</a></span>
+									</div>
+							</div>
+						</c:forEach>
+						<hr>
 						
 						<form action="${pageContext.request.contextPath}/AddressAdd" method="post">
-							<div>
+							<div class="font-bold pb-3">
 								주소추가
 							</div>
+							<!-- 주소 3개초과로 추가할 시 문구출력 -->
+							<c:if test="${addressMsg != null}">
+							<span style="color:red">주소는 최대 3개까지 저장 가능합니다.</span>
+							</c:if>
 							<div>
-								<textarea rows="4" cols="40" name="address"></textarea>
+								<textarea rows="4" cols="70" name="address"></textarea>
 							</div>
 							<input type="hidden" name="customerId" value="${customerOne.customerId}">
-							<div><button type="submit">추가</button></div>
+							<div><button type="submit" class="btn btn-sm btn-outline-dark mt-3">추가</button></div>
 						</form>	
 						<hr>
                     </div>

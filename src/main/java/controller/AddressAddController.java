@@ -22,7 +22,6 @@ public class AddressAddController extends HttpServlet {
 	private CustomerAddressService customerAddressService;
 	// 주소추가 액션
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8"); // 한글인코딩
 		
 		// 파라미타값 받아오기
 		String customerId = request.getParameter("customerId");
@@ -43,7 +42,8 @@ public class AddressAddController extends HttpServlet {
 			return;
 		} else {
 			System.out.println("주소추가 실패");
-			response.sendRedirect(request.getContextPath()+"/CustomerOne");
+			String addressMsg = "overAddrress";
+			response.sendRedirect(request.getContextPath()+"/CustomerOne?addressMsg="+addressMsg);
 		}
 		
 	}

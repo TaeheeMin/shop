@@ -57,6 +57,12 @@ public class CustomerOneController extends HttpServlet {
 		if(customerPoint == 1) {
 			System.out.println("고객 잔여 포인트 로딩");
 		}
+		
+		// 회원 주소추가 불가능할시, 문구 넘기기 (3개로 제한)
+		if(request.getParameter("addressMsg") != null) {
+			request.setAttribute("addressMsg", request.getParameter("addressMsg"));
+		}
+		
 		request.setAttribute("list", list);
 		request.setAttribute("customerOne", customerOne);
 		request.getRequestDispatcher("/WEB-INF/view/customer/customerOne.jsp").forward(request, response);
