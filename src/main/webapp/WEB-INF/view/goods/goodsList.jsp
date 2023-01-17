@@ -74,9 +74,12 @@
 			                </div>
 						</c:forEach>
 		            </div>
-		            <div class="col-12 text-center">
-                        <a href="${pageContext.request.contextPath}/GoodsAdd" class="btn oneMusic-btn m-2">상품등록 <i class="fa fa-angle-double-right"></i></a>
-                    </div>
+					<c:if test="${loginEmp != null}">
+                        <div class="col-12 text-center">
+	                        <a href="${pageContext.request.contextPath}/GoodsAdd" class="btn oneMusic-btn m-2">상품등록 <i class="fa fa-angle-double-right"></i></a>
+	                    </div>
+					</c:if>
+		            
 		        </div>
     		</div>
     		
@@ -161,7 +164,7 @@
 	                <!-- #### list #### -->	
 	                <c:forEach var="m" items="${list}" varStatus="s">
 		                <c:if test="${s.index != 0 && s.index % 6 == 0 }">
-							</div><div>
+							</div><div class="row oneMusic-albums">
 						</c:if>
 		                <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item ">
 		                    <div class="single-album">
@@ -187,7 +190,6 @@
 											<a href="${pageContext.request.contextPath}/GoodsModify?goodsCode=${m.goodsCode}">수정</a>
 										</div>
 									</c:if>
-		                            
 		                        </div>
 		                    </div>
 		                </div>

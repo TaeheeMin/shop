@@ -55,7 +55,6 @@
 	    <!-- ##### Breadcumb Area End ##### -->
 	    
 		<section class="album-catagory section-padding-100-0">
-			<!-- ##### Contact Area Start ##### -->
 		    <section class="contact-area section-padding-0-100">
 		        <div class="container">
 		            <div class="row">
@@ -65,13 +64,13 @@
 		                            <div class="row">
 		                                <div class="col-md-6 col-lg-4">
 		                                    <div class="form-group">
-		                                    	<input type="text" name="noticeTitle" id="noticeTitle" class="form-control">
+		                                    	<input type="text" name="noticeTitle" id="noticeTitle" class="form-control" placeholder="title">
 		                                         <small id="titleMsg" class="form-text text-danger"></small>
 		                                    </div>
 		                                </div>
 		                                <div class="col-12">
 		                                    <div class="form-group">
-		                                        <textarea name="noticeContent" class="form-control" id="noticeContent" cols="30" rows="10"></textarea>
+		                                        <textarea name="noticeContent" class="form-control" id="noticeContent" cols="30" rows="10" placeholder="content"></textarea>
 		                                        <small id="contentMsg" class="form-text text-danger"></small>
 		                                    </div>
 		                                </div>

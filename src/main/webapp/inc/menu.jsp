@@ -30,7 +30,6 @@
                             <!-- Nav Start -->
                             <div class="classynav">
                                 <ul>
-                                	<li>${ttlCntCart}</li>
                                     <li><a href="${pageContext.request.contextPath}/Home">Home</a></li>
                                     <li><a href="${pageContext.request.contextPath}/GoodsList">Albums</a></li>
                                     <li><a href="#">Pages</a>

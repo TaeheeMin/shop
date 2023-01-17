@@ -29,7 +29,6 @@ public class GoodsAddController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Emp loginEmp = (Emp)session.getAttribute("loginEmp");
 				
-		
 		// 파일저장 경로 및 설정	
 		String dir = request.getServletContext().getRealPath("goodsimg");
 		int maxFileSize = 1024 * 1024 * 100; // 100Mb까지(1kb = 1024) 
@@ -40,7 +39,6 @@ public class GoodsAddController extends HttpServlet {
 		String contentType = mreq.getContentType("goodsFile");
 		System.out.println("contentType : " + contentType);
 		if(contentType.equals("image/gif") || contentType.equals("image/png") || contentType.equals("image/jpg") || contentType.equals("image/jpeg")) {
-			
 			// 값 받아오기
 			Goods goods = new Goods();
 			goods.setGoodsTitle(mreq.getParameter("goodsTitle"));

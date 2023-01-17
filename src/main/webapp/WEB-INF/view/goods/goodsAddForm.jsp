@@ -17,6 +17,37 @@
 	    <!-- Stylesheet -->
 	    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style.css">
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				// 유효성검사
+				$('#addGoodsBtn').click(function() {
+					if($('#goodsCategory').val() == '') {
+						$('#categoryMsg').text('장르를 선택해주세요');
+						return;
+					} else {
+						$('#categoryMsg').text('');
+					}
+					console.log(isNaN($('#goodsPrice').val())); // 숫자 입력F), 그외(T)
+					if($('#goodsPrice').val('')) {
+						$('#priceMsg').text('가격을 입력해주세요');
+						$('#goodsPrice').focus();
+						
+					} else {
+						
+					}
+						
+					if(isNaN($('#goodsPrice').val())) {
+						$('#priceMsg').text('숫자만 입력해주세요');
+						$('#goodsPrice').focus();
+						return;
+					} else {
+						$('#priceMsg').text('');
+					}
+					
+					$('#addGoodsForm').submit();
+				});
+			});
+		</script>
 	</head>
 	<body>
 		<!-- 메뉴 partial jsp 구성 -->
@@ -31,58 +62,67 @@
 	            <h2>Goods</h2>
 	        </div>
 	    </section>
-	    
 	    <!-- ##### Breadcumb Area End ##### -->
-		<h1>상품등록</h1>
-		<form enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/GoodsAdd">
-			<table>
-				<tr>
-					<th>장르</th>
-					<td>
-						<select name="goodsCategory">
-							<option value="발라드">발라드</option>
-							<option value="댄스/팝">댄스/팝</option>
-							<option value="랩/힙합">랩/힙합</option>
-							<option value="재즈">재즈</option>
-							<option value="해외팝">해외팝</option>
-							<option value="인디">인디</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<th>이름</th>
-					<td>
-						<input type="text" name="goodsTitle">
-					</td>
-				</tr>
-				<tr>
-					<th>가수</th>
-					<td>
-						<input type="text" name="goodsArtist">
-					</td>
-				</tr>
-				<tr>
-					<th>설명</th>
-					<td>
-						<textarea rows="10" cols="50" name="goodsContent"></textarea>
-					</td>
-				</tr>
-				<tr>
-					<th>가격</th>
-					<td>
-						<input type="text" name="goodsPrice">
-					</td>
-				</tr>
-				<tr>
-					<th>사진</th>
-					<td>
-						 <input type="file" name="goodsFile">
-					</td>
-				</tr>
-			</table>
-			<button type="submit" id="addBtn">등록</button>
-		</form>
-		
+		<section class="album-catagory section-padding-100-0">
+		    <section class="contact-area section-padding-0-100">
+		        <div class="container">
+		            <div class="row">
+		                <div class="col-12">
+		                    <div class="contact-form-area">
+		                        <form enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/GoodsAdd" id="addGoodsForm">
+		                            <div class="row">
+		                                <div class="col-md-6 col-lg-4">
+		                                    <div class="form-group">
+			                                    <select name="goodsCategory" id="goodsCategory" class="form-control" >
+													<option value="">Category</option>
+													<option value="발라드">발라드</option>
+													<option value="댄스/팝">댄스/팝</option>
+													<option value="랩/힙합">랩/힙합</option>
+													<option value="재즈">재즈</option>
+													<option value="해외팝">해외팝</option>
+													<option value="인디">인디</option>
+												</select>
+		                                        <small id="categoryMsg" class="form-text text-danger"></small>
+		                                    </div>
+		                                </div>
+		                                <div class="col-md-6 col-12">
+		                                    <div class="form-group">
+												<input type="text" name="goodsPrice" id="goodsPrice" placeholder="Price" class="form-control">
+		                                        <small id="priceMsg" class="form-text text-danger"></small>
+		                                   	</div>
+		                                </div>
+		                                
+		                                <div class="col-md-6 col-12">
+		                                    <div class="form-group">
+												<input type="text" name="goodsArtist" id="goodsArtist" placeholder="Artist" class="form-control">
+		                                        <small id="artistMsg" class="form-text text-danger"></small>
+		                                   	</div>
+		                                </div>
+		                                <div class="col-md-6 col-lg-4">
+		                                    <div class="form-group">
+												<input type="file" name="goodsFile" id="goodsFile"  class="form-control">
+		                                        <small id="fileMsg" class="form-text text-danger"></small>
+		                                   	</div>
+		                                </div>
+		                                <div class="col-12">
+		                                    <div class="form-group">
+		                                    	<input type="text" name="goodsTitle" id="goodsTitle" placeholder="Title" class="form-control">
+		                                        <small id="titleMsg" class="form-text text-danger"></small>
+		                                        <textarea name="goodsContent" class="form-control" id="goodsContent" cols="30" rows="10" placeholder="Content"></textarea>
+		                                        <small id="contentMsg" class="form-text text-danger"></small>
+		                                    </div>
+		                                </div>
+		                                <div class="col-12 text-center">
+		                                    <button class="btn oneMusic-btn mt-30" type="button" id="addGoodsBtn">Send <i class="fa fa-angle-double-right"></i></button>
+		                                </div>
+		                            </div>
+		                        </form>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </section>
+		</section>
 		<!-- 메뉴 partial jsp 구성 -->
 		<div>
 			<jsp:include page="/inc/footer.jsp"></jsp:include>
