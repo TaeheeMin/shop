@@ -52,6 +52,7 @@ public class QuestionDao {
 				+ ", q.question_memo questionMemo"
 				+ ", q.createdate"
 				+ ", o.customer_id customerId"
+				+ ", g.goods_code goodsCode"
 				+ " FROM question q INNER JOIN orders o"
 				+ " ON q.orders_code = o.order_code"
 				+ " INNER JOIN goods g"
@@ -76,6 +77,7 @@ public class QuestionDao {
 			m.put("questionTitle", rs.getString("questionTitle"));
 			m.put("createdate", rs.getString("createdate"));
 			m.put("customerId", rs.getString("customerId"));
+			m.put("goodsCode", rs.getInt("goodsCode"));
 			list.add(m);
 		}
 		return list;

@@ -50,7 +50,7 @@ public class GoodsAddController extends HttpServlet {
 			System.out.println("goodsTitle : " + goods.getGoodsTitle());
 			System.out.println("goodsArtist : " + goods.getGoodsArtist());
 			System.out.println("goodsContent : " + goods.getGoodsContent());
-			System.out.println("goodsPrice : " + goods.getGoodsPrice());
+			System.out.println("goodsPrice : " + mreq.getParameter("goodsPrice"));
 			
 			GoodsImg goodsImg = new GoodsImg();
 			goodsImg.setFilename(mreq.getFilesystemName("goodsFile"));

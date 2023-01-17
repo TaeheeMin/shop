@@ -21,27 +21,54 @@
 			$(document).ready(function() {
 				// 유효성검사
 				$('#addGoodsBtn').click(function() {
+					// 카테고리
 					if($('#goodsCategory').val() == '') {
 						$('#categoryMsg').text('장르를 선택해주세요');
 						return;
 					} else {
 						$('#categoryMsg').text('');
 					}
-					console.log(isNaN($('#goodsPrice').val())); // 숫자 입력F), 그외(T)
-					if($('#goodsPrice').val('')) {
+					
+					// 가격
+					//console.log(isNaN($('#goodsPrice').val())); // 숫자 입력(F), 그외(T)
+					if($('#goodsPrice').val() == '' || isNaN($('#goodsPrice').val())) {
 						$('#priceMsg').text('가격을 입력해주세요');
 						$('#goodsPrice').focus();
-						
-					} else {
-						
-					}
-						
-					if(isNaN($('#goodsPrice').val())) {
-						$('#priceMsg').text('숫자만 입력해주세요');
-						$('#goodsPrice').focus();
-						return;
+						return
 					} else {
 						$('#priceMsg').text('');
+					}
+					
+					// 가수 
+					if($('#goodsArtist').val() == '') {
+						$('#artistMsg').text('가수를 입력해주세요');
+						return;
+					} else {
+						$('#artistMsg').text('');
+					}
+					
+					// 파일
+					if($('#goodsFile').val() == '') {
+						$('#fileMsg').text('파일을 등록해주세요');
+						return;
+					} else {
+						$('#fileMsg').text('');
+					}
+					
+					// 타이틀
+					if($('#goodsTitle').val() == '') {
+						$('#titleMsg').text('제목을 입력해주세요');
+						return;
+					} else {
+						$('#titleMsg').text('');
+					}
+					
+					// 내용
+					if($('#goodsContent').val() == '') {
+						$('#contentMsg').text('내용을 입력해주세요');
+						return;
+					} else {
+						$('#contentMsg').text('');
 					}
 					
 					$('#addGoodsForm').submit();

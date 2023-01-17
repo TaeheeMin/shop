@@ -4,20 +4,39 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>문의사항</title>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-		<script>
-			$(document).ready(function() {
-				$('#rowPerPage').change(function() {
-					$('#listForm').submit();
-				});
-			});
-		</script>
+		<meta name="description" content="">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    	
+    	<!-- Title -->
+		<title>Recoder Musice - World Best Music</title>
+		
+		<!-- Favicon -->
+	    <link rel="icon" href="${pageContext.request.contextPath}/resources/img/core-img/favicon.ico">
+	
+	    <!-- Stylesheet -->
+	    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style.css">
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	</head>
 	<body>
-		<h1>문의사항-관리자용</h1>
-		<a href="${pageContext.request.contextPath}/Home">홈으로</a>
-		<!-- #### search #### -->
+		<!-- 메뉴 partial jsp 구성 -->
+		<div>
+			<jsp:include page="/inc/menu.jsp"></jsp:include>
+		</div>
+		
+		<!-- ##### Breadcumb Area Start ##### -->
+	    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/breadcumb3.jpg);">
+	        <div class="bradcumbContent">
+	            <h2>Q&A</h2>
+	        </div>
+	    </section>
+	    <!-- ##### Breadcumb Area End ##### -->
+		
+		<section class="album-catagory section-padding-100-0">
+		
+	        <div class="container">
+	         <div class="col-12">	         
+	        <!-- #### search #### -->
 		<form action="${pageContext.request.contextPath}/QuestionListByAdmin" method="get" id="listForm">
 			<select name="rowPerPage" id="rowPerPage">
 				<c:if test="${rowPerPage == 10}">
@@ -43,63 +62,95 @@
 			<input type="radio" name="category" value="교환">교환
 			<input type="radio" name="category" value="기타">기타
 		</form>
-		<table border="1">
-			<tr>
-				<th>문의사항 번호</th>
-				<th>주문번호</th>
-				<th>카테고리</th>
-				<th>상품</th>
-				<th>문의제목</th>
-				<th>작성자</th>
-				<th>등록일</th>
-				<th>답변</th>
-			</tr>
-			<c:forEach var="q" items="${list}">
-				<tr>
-					<td>${q.questionCode}</td>
-					<td>${q.ordersCode}</td>
-					<td>${q.category}</td>
-					<td>
-						<div>
-							<img src="${pageContext.request.contextPath}/goodsimg/${q.filename}" width="100" height="100">
-						</div>
-						${q.goodsTitle}
-					</td>
-					<td>
-						<a href="${pageContext.request.contextPath}/QuestionOne?questionCode=${q.questionCode}">${q.questionTitle}</a>
-					</td>
-					<td>${q.customerId}</td>
-					<td>${q.createdate.substring(0,10)}</td>
-					<td>
-						<c:forEach var="c" items="${comment}">
-							<c:choose> 
-								<c:when test="${c.questionCode eq q.questionCode}">
-									답변완료
-								</c:when> 
-								<c:otherwise>
-									<a href="${pageContext.request.contextPath}/QuestionOne?questionCode=${q.questionCode}">미답변</a>
-								</c:otherwise> 
-							</c:choose> 
-						</c:forEach>
-					</td>
-				</tr>
-			</c:forEach>
-		</table>
-		<div>
-			<a href="${pageContext.request.contextPath}/QuestionListByAdmin?rowPerPage=${rowPerPage}&currentPage=1">처음</a>
-			
-			<c:if test="${currentPage > 1}">
-				<a href="${pageContext.request.contextPath}/QuestionListByAdmin?rowPerPage=${rowPerPage}&currentPage=${currentPage-1}">이전</a>
-			</c:if>
-			
-			<c:forEach var="x" begin="${beginPage}" end="${endPage}" step="1">
-				<a href="${pageContext.request.contextPath}/QuestionListByAdmin?rowPerPage=${rowPerPage}&currentPage=${x}">${x}</a>
-			</c:forEach>
-			<c:if test="${currentPage < lastPage}">
-				<a href="${pageContext.request.contextPath}/QuestionListByAdmin?rowPerPage=${rowPerPage}&currentPage=${currentPage +1}">다음</a>
-			</c:if>
-			
-			<a href="${pageContext.request.contextPath}/QuestionListByAdmin?rowPerPage=${rowPerPage}&currentPage=${lastPage}">마지막</a>
+			   <table class = "table table-hover w-100 rounded" style="table-layout: auto; width: 100%; table-layout: fixed;">
+					<tr>
+						<th>문의사항 번호</th>
+						<th>카테고리</th>
+						<th>상품</th>
+						<th>문의제목</th>
+						<th>작성자</th>
+						<th>등록일</th>
+						<th>답변</th>
+					</tr>
+					<c:forEach var="q" items="${list}">
+						<tr>
+							<td>${q.questionCode}</td>
+							<td>${q.category}</td>
+							<td>
+							<div class="single-album-area">
+								<div class="album-thumb">
+			                            <img src="${pageContext.request.contextPath}/goodsimg/${q.filename}" width="150" height="150" alt="">
+			                            <!-- Play Icon -->
+			                            <div class="play-icon">
+			                                <a href="${pageContext.request.contextPath}/GoodsOne?goodsCode=${q.goodsCode}" class="video--play--btn"><span class="icon-music"></span></a>
+			                            </div>
+			                        </div>
+			                        
+			                        <div class="album-info">
+			                                ${q.goodsTitle}
+			                        </div>
+		                        </div>
+								
+									
+							</td>
+							<td>
+								<a href="${pageContext.request.contextPath}/QuestionOne?questionCode=${q.questionCode}">${q.questionTitle}</a>
+							</td>
+							<td>${q.customerId}</td>
+							<td>${q.createdate.substring(0,10)}</td>
+							<td>
+								<c:forEach var="c" items="${comment}">
+									<c:choose> 
+										<c:when test="${c.questionCode eq q.questionCode}">
+											<p>답변완료</p>
+										</c:when> 
+										<c:otherwise>
+											<a href="${pageContext.request.contextPath}/QuestionOne?questionCode=${q.questionCode}"> <p class="text-danger">미답변</p></a>
+										</c:otherwise> 
+									</c:choose> 
+								</c:forEach>
+							</td>
+						</tr>
+					</c:forEach>
+				</table>
+		
+	            <!-- Pagination -->
+	            <div class="oneMusic-pagination-area wow fadeInUp mb-50" data-wow-delay="300ms">
+	                <nav>
+	                    <ul class="pagination">
+	                        <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/QuestionListByAdmin?rowPerPage=${rowPerPage}&currentPage=1">HOME</a></li>
+	                        <c:if test="${currentPage > 1}">
+								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/QuestionListByAdmin?rowPerPage=${rowPerPage}&currentPage=${currentPage-1}"><<</a></li>
+							</c:if>
+							<c:forEach var="x" begin="${beginPage}" end="${endPage}" step="1">
+								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/QuestionListByAdmin?rowPerPage=${rowPerPage}&currentPage=${x}">${x}</a></li>
+							</c:forEach>
+							<c:if test="${currentPage < lastPage}">
+								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/QuestionListByAdmin?rowPerPage=${rowPerPage}&currentPage=${currentPage +1}">>></a></li>
+							</c:if>
+							<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/QuestionListByAdmin?rowPerPage=${rowPerPage}&currentPage=${lastPage}">END</a></li>
+	                    </ul>
+	                </nav>
+	            </div>
+			</div>
 		</div>
+	    </section>
+		
+		<!-- 메뉴 partial jsp 구성 -->
+		<div>
+			<jsp:include page="/inc/footer.jsp"></jsp:include>
+		</div>
+			
+		<!-- ##### All Javascript Script ##### -->
+	    <!-- jQuery-2.2.4 js -->
+	    <script src="${pageContext.request.contextPath}/resources/js/jquery/jquery-2.2.4.min.js"></script>
+	    <!-- Popper js -->
+	    <script src="${pageContext.request.contextPath}/resources/js/bootstrap/popper.min.js"></script>
+	    <!-- Bootstrap js -->
+	    <script src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap.min.js"></script>
+	    <!-- All Plugins js -->
+	    <script src="${pageContext.request.contextPath}/resources/js/plugins/plugins.js"></script>
+	    <!-- Active js -->
+	    <script src="${pageContext.request.contextPath}/resources/js/active.js"></script>
 	</body>
 </html>
