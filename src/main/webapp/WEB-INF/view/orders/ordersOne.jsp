@@ -2,73 +2,142 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-	<script>
-	//고객용 
-		$(document).ready(function() {
-			$('#orderState').change(function() {
-               $('#orderForm').submit();
-            })
-         });
-    </script>
-    
-<title>Insert title here</title>
-</head>
-<body>
-	<h1>주문상세보기</h1>
-		<table border="1">
-			<thead>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="description" content="">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    	
+    	<!-- Title -->
+		<title>Recoder Musice - World Best Music</title>
+		
+		<!-- Favicon -->
+	    <link rel="icon" href="${pageContext.request.contextPath}/resources/img/core-img/favicon.ico">
+	
+	    <!-- Stylesheet -->
+	    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style.css">
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+			
+	</head>
+	<body>
+		<!-- 메뉴 partial jsp 구성 -->
+		<div>
+			<jsp:include page="/inc/menu.jsp"></jsp:include>
+		</div>
+		<!-- 리뷰 중복값 있을 경우 -->
+		<c:if test="${overlap != null}">
+ 			<script>
+				alert('이번 주문 관련하여 이전에 리뷰를 작성하셨습니다');
+			</script>
+		</c:if>
+    	<!-- ##### Breadcumb Area Start ##### -->
+	    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/breadcumb3.jpg);">
+	        <div class="bradcumbContent">
+	            
+	            <h2>Order Page</h2>
+	        </div>
+	    </section>
+	   
+	    
+	    <section class="album-catagory section-padding-100-0">
+    		
+    		
+	        <div class="container">
+	         <div class="col-12">
+	          <!-- #### search #### -->	
+	          <c:forEach var="od" items="${list}">	        		
+			   <table class = "table w-100 rounded" style="table-layout: auto; width: 100%; table-layout: fixed;">     
 			  	<tr>
+			  		<th>앨범</th>
+			  		<td>
+						<img src="${pageContext.request.contextPath}/goodsimg/${od.filename}" width="300" height="300">
+					</td>
+				</tr>
+				<tr>		
 			  		<th>주문번호</th>
-			      	<th>주문수량</th>
-			      	<th>주문가격</th>
-			      	<th>주문상태</th>
-			      	<th>주문일자</th>
-			      	<th>상품이름</th>
-			      	<th>상품가격</th>
-			      	<th>주문자이름</th>
-			      	<th>주문자연락처</th>
-			      	<th>배송지</th>
-			      	<th>상품이미지</th>
-			      	<th>리뷰작성</th>
-			      	<th>삭제</th>			      	
+			      	<td>${od.orderCode}</td>
 			    </tr>
-		  	</thead>
-		  	<tbody>
-		  		<c:forEach var="od" items="${list}">
-		     		<tr>
-		     			<td>${od.orderCode}</td>
-		     			<td>${od.orderQuantity}</td>
-		     			<td>${od.orderPrice}</td>
-		     			<td>${od.orderState}</td>
-		     			<td>${od.createdate}</td>
-		     			<td>${od.goodsTitle}</td>
-		     			<td>${od.goodsPrice}</td>
-		     			<td>${od.customerName}</td>
-		     			<td>${od.customerPhone}</td>
-		     			<td>${od.address}</td>
-						<td>
-							<img src="${pageContext.request.contextPath}/goodsimg/${od.filename}" width="200" height="200">
-						</td>
-						
-						<td>
-							<c:if test="${od.orderState eq '구매확정'}">						
+			    <tr> 	
+			      	<th>앨범제목</th>
+			    	<td>${od.goodsTitle}</td>
+			    </tr>
+			    <tr>  
+			      	<th>수량</th>
+			      	<td>${od.orderQuantity}</td>
+			    </tr>  	
+			    <tr>
+			      	<th>앨범가격</th>
+			    	<td>${od.goodsPrice}</td>			    
+			    </tr>
+			    <tr>
+			    	<th>이름</th>
+			    	<td>${od.customerName}</td>
+			    </tr>
+			    <tr>
+			    	<th>연락처</th>
+			    	<td>${od.customerPhone}</td>
+			    </tr>
+			    <tr>
+			    	<th>주소</th>
+			    	<td>${od.address}</td>
+			    </tr>
+			    <tr>
+			    	<th>주문일자</th>
+			    	<td>${od.createdate}</td>
+			    </tr>
+			    <tr>
+			    	<th>리뷰작성</th>
+					<td>
+						<c:if test="${od.orderState eq '구매확정'}">						
 							<a href="${pageContext.request.contextPath}/review/reviewAdd?orderCode=${od.orderCode}">
-							리뷰작성하기
+							<i class="icon-edit">리뷰작성</i>
 							</a>
-							</c:if>
-						</td>
-						<td>
-							<!-- 로그인 세션적용되면 커스터머아이디받아야 삭제가능 -->
-							<a href="${pageContext.request.contextPath}/orders/ordersRemove?orderCode=${od.orderCode}">
-							삭제
-							</a>
-						</td>	
-	    			</tr>
-				</c:forEach>
-		  	</tbody>
-		</table>
-</body>
+						</c:if>
+					</td>
+			    </tr>			
+		     	</table>
+		     	</c:forEach> 	
+			</div>
+		</div>
+	    </section>
+	    <!-- ##### Album Catagory Area End ##### -->
+
+    <!-- ##### Add Area Start ##### -->
+    <div class="add-area mb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="adds">
+                        <a href="#"><img src="img/bg-img/add3.gif" alt=""></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Add Area End ##### -->
+
+  
+
+		
+		
+		
+		
+	<!-- 메뉴 partial jsp 구성 -->
+	<div>
+		<jsp:include page="/inc/footer.jsp"></jsp:include>
+	</div>
+		
+	<!-- ##### All Javascript Script ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src="${pageContext.request.contextPath}/resources/js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Popper js -->
+    <script src="${pageContext.request.contextPath}/resources/js/bootstrap/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap.min.js"></script>
+    <!-- All Plugins js -->
+    <script src="${pageContext.request.contextPath}/resources/js/plugins/plugins.js"></script>
+    <!-- Active js -->
+    <script src="${pageContext.request.contextPath}/resources/js/active.js"></script>
+		
+	</body>
 </html>

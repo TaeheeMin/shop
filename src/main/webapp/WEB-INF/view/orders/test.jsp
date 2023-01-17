@@ -24,7 +24,12 @@
 		<div>
 			<jsp:include page="/inc/menu.jsp"></jsp:include>
 		</div>
-		
+		<!-- 리뷰 중복값 있을 경우 -->
+		<c:if test="${overlap != null}">
+ 			<script>
+				alert('이번 주문 관련하여 이전에 리뷰를 작성하셨습니다');
+			</script>
+		</c:if>
     	<!-- ##### Breadcumb Area Start ##### -->
 	    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/breadcumb3.jpg);">
 	        <div class="bradcumbContent">
@@ -40,59 +45,58 @@
 	        <div class="container">
 	         <div class="col-12">
 	          <!-- #### search #### -->	
-	          <h3>상품정보</h3>			
-			   <table class = "table w-100 rounded" style="table-layout: auto; width: 100%; table-layout: fixed;">
-		         
-			
+	          <c:forEach var="od" items="${list}">	        		
+			   <table class = "table w-100 rounded" style="table-layout: auto; width: 100%; table-layout: fixed;">     
 			  	<tr>
+			  		<th>앨범</th>
+			  		<td>
+						<img src="${pageContext.request.contextPath}/goodsimg/${od.filename}" width="300" height="300">
+					</td>
+				</tr>
+				<tr>		
 			  		<th>주문번호</th>
-			      	<th>앨범제목</th>
-			      	<th>앨범</th>
-			      	<th>수량</th>
-			      	<th>앨범가격</th>
+			      	<td>${od.orderCode}</td>
 			    </tr>
-			    <c:forEach var="od" items="${list}">
-		     	<tr>
-		     			<td>${od.orderCode}</td>
-		     			<td>${od.goodsTitle}</td>
-		     			<td>
-							<img src="${pageContext.request.contextPath}/goodsimg/${od.filename}" width="200" height="200">
-						</td>
-		     			<td>${od.orderQuantity}</td>
-		     			<td>${od.goodsPrice}</td>
-		     	</tr>	
-
-		     	</c:forEach>
+			    <tr> 	
+			      	<th>앨범제목</th>
+			    	<td>${od.goodsTitle}</td>
+			    </tr>
+			    <tr>  
+			      	<th>수량</th>
+			      	<td>${od.orderQuantity}</td>
+			    </tr>  	
+			    <tr>
+			      	<th>앨범가격</th>
+			    	<td>${od.goodsPrice}</td>			    
+			    </tr>
+			    <tr>
+			    	<th>이름</th>
+			    	<td>${od.customerName}</td>
+			    </tr>
+			    <tr>
+			    	<th>연락처</th>
+			    	<td>${od.customerPhone}</td>
+			    </tr>
+			    <tr>
+			    	<th>주소</th>
+			    	<td>${od.address}</td>
+			    </tr>
+			    <tr>
+			    	<th>주문일자</th>
+			    	<td>${od.createdate}</td>
+			    </tr>
+			    <tr>
+			    	<th>리뷰작성</th>
+					<td>
+						<c:if test="${od.orderState eq '구매확정'}">						
+							<a href="${pageContext.request.contextPath}/review/reviewAdd?orderCode=${od.orderCode}">
+							<i class="icon-edit">리뷰작성</i>
+							</a>
+						</c:if>
+					</td>
+			    </tr>			
 		     	</table>
-		     	<div>
-		     	<h3>주문자정보</h3>
-				</div>
-		     	 <table class = "table w-100 rounded" style="table-layout: auto; width: 100%; table-layout: fixed;">		         
-				    <tr>  	
-				      	<th>이름</th>
-				      	<th>연락처</th>
-				      	<th>배송지</th>
-				      	<th>주문일자</th>			      	
-				      	<th>리뷰작성</th>			      		      	
-				    </tr>			  
-			
-			  		<c:forEach var="od" items="${list}">		
-			     		<tr>		     			
-			     			<td>${od.customerName}</td>
-			     			<td>${od.customerPhone}</td>
-			     			<td>${od.address}</td>
-			     			<td>${od.createdate}</td>						
-							<td>
-								<c:if test="${od.orderState eq '구매확정'}">						
-								<a href="${pageContext.request.contextPath}/review/reviewAdd?orderCode=${od.orderCode}">
-								리뷰작성하기
-								</a>
-								</c:if>
-							</td>
-		    			</tr>
-					</c:forEach>		  
-				</table>    	    
-			        
+		     	</c:forEach> 	
 			</div>
 		</div>
 	    </section>

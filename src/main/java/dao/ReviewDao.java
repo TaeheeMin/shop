@@ -11,6 +11,19 @@ import vo.Orders;
 import vo.Review;
 
 public class ReviewDao {
+		// 리뷰 삭제후 재등록 불가능
+		public Boolean reviewCheck(Connection conn, int orderCode) throws Exception {
+			boolean reviewCheck = false;
+			String sql = "SELECT POINT FROM point_history WHERE order_code = ? AND point_kind = '적립'";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, orderCode);
+			ResultSet rs = stmt.executeQuery();
+			if(rs.next()) {// true이면 값존재로 이전에 리뷰작성있음 
+				reviewCheck = true;
+			}
+			return reviewCheck;
+		}
+	
 		// 리뷰목록 페이징
 		public int selectReviewCount(Connection conn) throws Exception {
 			int row = 0;

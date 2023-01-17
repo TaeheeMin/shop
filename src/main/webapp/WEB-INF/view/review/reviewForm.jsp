@@ -7,6 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
+	 <!-- 리뷰 중복값 있을 경우 -->
+                        <c:if test="${overlap != null}">
+                        	<script>
+								alert('리뷰 작성을 실패하였습니다.');
+							</script>
+						</c:if>
 	<h1>리뷰등록</h1>	
 		<form method="post" action="${pageContext.request.contextPath}/review/reviewAdd">
 			<div> 

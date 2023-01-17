@@ -17,7 +17,36 @@ import vo.Review;
 public class ReviewService {
 	private ReviewDao reviewDao;
 	private PointHistoryDao pointHistoryDao;
-	// 주문 리스트 페이징
+	// 리뷰 중복체크 
+	public boolean reviewCheck(int orderCode) {
+		boolean reviewCheck = false;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			reviewDao = new ReviewDao();
+			reviewCheck = reviewDao.reviewCheck(conn, orderCode);
+			conn.commit(); // DBUtil setAutoCommit false설정
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		return reviewCheck;
+	}
+	
+	// 리뷰 리스트 페이징
 		public int getReviewListCount() {
 			int row = 0;
 			Connection conn = null;
@@ -81,7 +110,9 @@ public class ReviewService {
 		pointHistoryDao = new PointHistoryDao();
 		try {
 			conn = DBUtil.getConnection();
-			addReviewRow = reviewDao.addReview(conn, review);	
+			addReviewRow = reviewDao.addReview(conn, review);
+			
+		
 			if(addReviewRow == 1) {
 				System.out.println("[ReviewService]리뷰 추가완료");
 				row = pointHistoryDao.AddPoint(conn, review);
@@ -92,7 +123,8 @@ public class ReviewService {
 				}
 			} else {
 				System.out.println("[ReviewService]리뷰 추가실패");
-			}
+				}
+		
 			conn.commit();
 		} catch (Exception e) {
 			try {
