@@ -23,7 +23,7 @@
 				$('#addReviewBtn').click(function() {				
 					if($('#reviewMemo').val() == '') {
 						$('#contentMsg').text('내용을 입력해주세요');
-						$('#noticeContent').focus();
+						$('#reviewMemo').focus();
 						return;
 					} else {
 						$('#contentMsg').text('');

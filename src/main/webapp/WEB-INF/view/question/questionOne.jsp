@@ -4,20 +4,57 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>문의사항 상세보기</title>
+		<meta name="description" content="">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    	
+    	<!-- Title -->
+		<title>Recoder Musice - World Best Music</title>
+		
+		<!-- Favicon -->
+	    <link rel="icon" href="${pageContext.request.contextPath}/resources/img/core-img/favicon.ico">
+	
+	    <!-- Stylesheet -->
+	    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style.css">
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				// 유효성검사
+				$('#addAnswerBtn').click(function() {				}
+					if($('#commentMemo').val() == '') {
+						$('#contentMsg').text('내용을 입력해주세요');
+						$('#commentMemo').focus();
+						return;
+					} else {
+						$('#contentMsg').text('');
+					}
+					$('#addAnswerBtn').submit();
+				});
+			});
+		</script>	
 	</head>
 	<body>
-		<h1>문의사항-상세보기</h1>
-		<a href="${pageContext.request.contextPath}/Home">홈으로</a>
-		<c:if test="${loginEmp != null}">
-			<a href="${pageContext.request.contextPath}/QuestionListByAdmin">관리자 문의사항 목록</a>
-		</c:if>
-		<c:if test="${loginCustomer != null}">
-			<a href="${pageContext.request.contextPath}/QuestionListByCustomer">문의사항 목록</a>
-		</c:if>
-		<form action="${pageContext.request.contextPath}/QuestionCommentAdd" method="post">
-			<table border="1">
-				<c:forEach var="list" items="${list}">
+		<!-- 메뉴 partial jsp 구성 -->
+		<div>
+			<jsp:include page="/inc/menu.jsp"></jsp:include>
+		</div>
+    	<!-- ##### Breadcumb Area Start ##### -->
+	    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/breadcumb3.jpg);">
+	        <div class="bradcumbContent">
+	            
+	            <h2>Q&A</h2>
+	        </div>
+	    </section>
+	   
+	    
+	    <section class="album-catagory section-padding-100-0">
+    		
+    		<form action="${pageContext.request.contextPath}/QuestionCommentAdd" method="post">
+	        <div class="container">
+	         <div class="col-12">       	
+       		<h3>Question</h3>
+			   <table class = "table w-100 rounded" style="table-layout: auto; width: 100%; table-layout: fixed;">     
+			  				<c:forEach var="list" items="${list}">
 					<tr>
 						<th>문의사항 번호</th>
 						<td>
@@ -50,18 +87,13 @@
 						<td><c:out value="${list.createdate}"></c:out></td>
 					</tr>
 				</c:forEach>
-			</table>
+			</table>	
 			
-			<c:if test="${loginEmp != null}">
-				<h3>답변 등록</h3>
-				<textarea rows="5" cols="30" name="commentMemo"></textarea>
-				<button type="submit">등록</button>
-			</c:if>
-		</form>
-		
-		<h3>답변보기</h3>
+			</div>
+			<br>
+		<h3>Answer</h3>
 		<c:forEach var="comment" items="${comment}">
-			<table border="1">
+			<table class = "table w-100 rounded" style="table-layout: auto; width: 100%; table-layout: fixed;">
 				<tr>
 					<th>번호</th>
 					<td>${comment.questionCode}</td>
@@ -74,7 +106,66 @@
 					<th>내용</th>
 					<td>${comment.commentMemo}</td>
 				</tr>
-			</table>		
-		</c:forEach>
+			</table>
+			</c:forEach>
+			<br>
+			<c:if test="${loginEmp != null}">
+		<h3>Add Answer</h3>				
+			<div class="col-12">
+		    	<div class="form-group">
+					<textarea name="commentMemo" class="form-control" id="commentMemo" cols="30" rows="10" placeholder="content"></textarea>
+		            <small id="contentMsg" class="form-text text-danger"></small>
+				</div>
+ 				<div class="col-12 text-center">
+ 					<button class="btn oneMusic-btn mt-30" type="Submit" id="addAnswerBtn">답변완료<i class="fa fa-angle-double-right"></i></button>
+		        </div>
+			</div>
+			</c:if>
+		                                		
+		</div>
+		</form>		
+	
+		
+		
+	    </section>
+	    <!-- ##### Album Catagory Area End ##### -->
+
+    <!-- ##### Add Area Start ##### -->
+    <div class="add-area mb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="adds">
+                        <a href="#"><img src="img/bg-img/add3.gif" alt=""></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Add Area End ##### -->
+
+  
+
+		
+		
+		
+		
+	<!-- 메뉴 partial jsp 구성 -->
+	<div>
+		<jsp:include page="/inc/footer.jsp"></jsp:include>
+	</div>
+		
+	<!-- ##### All Javascript Script ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src="${pageContext.request.contextPath}/resources/js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Popper js -->
+    <script src="${pageContext.request.contextPath}/resources/js/bootstrap/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap.min.js"></script>
+    <!-- All Plugins js -->
+    <script src="${pageContext.request.contextPath}/resources/js/plugins/plugins.js"></script>
+    <!-- Active js -->
+    <script src="${pageContext.request.contextPath}/resources/js/active.js"></script>
+		
 	</body>
 </html>
