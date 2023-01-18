@@ -34,7 +34,7 @@ public class PointHistoryDao {
 	}
 	
 	// 포인트(사용)
-	public int addPointHistory(Connection conn, ArrayList<PointHistory> list, int point) throws Exception {
+	public int addPointHistory(Connection conn, ArrayList<Orders> list, int point) throws Exception {
 		int row = 0;
 		String sql = "INSERT INTO point_history("
 				+ " order_code"

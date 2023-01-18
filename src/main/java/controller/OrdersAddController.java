@@ -18,6 +18,7 @@ import service.PointHistoryService;
 import vo.Customer;
 import vo.CustomerAddress;
 import vo.Orders;
+import vo.PointHistory;
 import service.CartService;
 
 
@@ -27,7 +28,7 @@ public class OrdersAddController extends HttpServlet {
 	private GoodsService goodsService;
 	private CartService cartService;
 	private PointHistoryService pointHistoryService;
-	
+	private OrdersService ordersService;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 1-1) 로그인세션 불러오기
 		HttpSession session = request.getSession();
@@ -63,9 +64,9 @@ public class OrdersAddController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.cartService = new CartService();
-		OrdersService ordersService = new OrdersService();
 		this.pointHistoryService = new PointHistoryService();
-		
+		this.ordersService = new OrdersService();
+
 		// 로그인세션 불러오기
 		HttpSession session = request.getSession();
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
@@ -95,11 +96,13 @@ public class OrdersAddController extends HttpServlet {
 		//System.out.println("usePoint : " + request.getParameter("usePoint"));
 		
 		// 서비스 호출
-		int row = 0;
 		ArrayList<HashMap<String,Object>> cartList = cartService.getCartList(customerId);
+		
 		// 주문완료시 출력
-		
-		
+		ArrayList<Orders> orderCode = new ArrayList<Orders>();
+		ArrayList<Orders> list = new ArrayList<Orders>();
+		ArrayList<HashMap<String, Object>> orderOne = new ArrayList<HashMap<String, Object>>();
+		HashMap<String, Object> m = new HashMap<String, Object>();
 		Orders orders = new Orders();
 		for(int i = 0; i < orderPrice.length; i++) {
 			orders.setCustomerId(customerId);
@@ -110,21 +113,27 @@ public class OrdersAddController extends HttpServlet {
 			
 			if(request.getParameter("pointAll") == null && request.getParameter("usePoint").equals("")) {
 				// 포인트 미사용
-				row = ordersService.addOrder(orders, cartList, customerId);	
+				orderCode = ordersService.addOrder(orders, cartList, customerId);
 			} else {
 				// 포인트 사용
-				row = ordersService.AddOrderPoint(orders, customerId, Integer.parseInt(sharePoint), point);
+				orderCode = ordersService.AddOrderPoint(orders, customerId, Integer.parseInt(sharePoint), point);
 			}
 		}
+		
+		for(int i =0; i< orderCode.size(); i++) {
+			System.out.println("orderCode1 : " + orderCode.get(i).getOrderCode());
+			orderOne = ordersService.selectOrdersOneList(orderCode.get(i).getOrderCode());
+		}
+		session.setAttribute("orderOne", orderOne);
 		
 		int ttlCntCart = cartService.ttlCntCart(loginCustomer.getCustomerId());
 		session.setAttribute("ttlCntCart", ttlCntCart);
 		
 		// 결과
-		if(row == 1) {
+		if(orderOne != null) {
 			// 리스트로 이동
 			System.out.println("구매성공");
-			request.getRequestDispatcher("/WEB-INF/view/orders/ordersComplete.jsp").forward(request, response); 
+			request.getRequestDispatcher("/WEB-INF/view/orders/ordersComplete.jsp").forward(request, response);
 		} else {
 			// 폼이동
 			System.out.println("구매실패");

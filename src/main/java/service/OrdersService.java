@@ -344,23 +344,25 @@ public class OrdersService {
 	
 	// 1) 주문
 	// 1-1) 포인트 사용 주문
-	public int AddOrderPoint(Orders orders, String customerId, int sharePoint, int point) {
+	public ArrayList<Orders> AddOrderPoint(Orders orders, String customerId, int sharePoint, int point) {
 		int result = 0;
 		Connection conn = null; 
 		ordersDao = new OrdersDao();
 		cartDao = new CartDao();
 		pointHistoryDao = new PointHistoryDao();
+		ArrayList<Orders> list = new ArrayList<Orders>();
 		try {
 			conn = DBUtil.getConnection();
 			//order 추가하면서 oderCode 받아오기
-			ArrayList<PointHistory> list = new ArrayList<PointHistory>();
 			list = ordersDao.AddOrdersPoint(conn, orders);
 			// pointHistory 추가
-			pointHistoryDao.addPointHistory(conn, list, sharePoint);
+			result = pointHistoryDao.addPointHistory(conn, list, sharePoint);
+			System.out.println("포인트히스토리 결과 : " + result);
+			// 고객 정보 수정
+			//result = pointHistoryDao.modifyCustomerPoint(conn, customerId, point);
+			//System.out.println("고객 포인트 수정 결과 : " + result);
 			// 장바구니 비우기
 			cartDao.clearCart(conn, customerId);
-			// 고객 정보 수정
-			result = pointHistoryDao.modifyCustomerPoint(conn, customerId, point);
 			//디버깅
 			if(result ==1) {
 				System.out.println("구매성공");
@@ -380,19 +382,20 @@ public class OrdersService {
 				e.printStackTrace();
 			}
 		}	
-		return result;
+		return list;
 	}
 	
 	// 1-2) 포인트 미사용 주문
-	public int addOrder(Orders orders,ArrayList<HashMap<String, Object>> cartList, String customerId) {
+	public ArrayList<Orders> addOrder(Orders orders,ArrayList<HashMap<String, Object>> cartList, String customerId) {
 		int result = 0;
+		ArrayList<Orders> list = new ArrayList<Orders>();
 		Connection conn = null; 
 		ordersDao = new OrdersDao();
 		cartDao = new CartDao();
 		pointHistoryDao = new PointHistoryDao();
 			try {
 				conn = DBUtil.getConnection();
-				result = ordersDao.AddOrders(conn, orders, cartList);
+				list = ordersDao.AddOrders(conn, orders, cartList);
 				if(result == 1) {
 					// 장바구니 비우기
 					cartDao.clearCart(conn, customerId);
@@ -413,9 +416,6 @@ public class OrdersService {
 					e.printStackTrace();
 				}
 			}	
-			return result;
+			return list;
 		}
-	}
-	
-	// 1-3) 주문 완료 페이지
-
+}

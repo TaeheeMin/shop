@@ -35,12 +35,9 @@
 	    
 	    <!-- ##### Album Catagory Area Start ##### -->
 	    <section class="album-catagory section-padding-100-0">
-    		
-    		
 	        <div class="container">
-	        <h1>주문이 완료 되었습니다 감사합니다</h1>        
-	         
-		</div>
+	        	<h1>주문이 완료 되었습니다 감사합니다</h1>        
+			</div>
 	    </section>
 	    <!-- ##### Album Catagory Area End ##### -->
 
@@ -50,6 +47,26 @@
             <div class="row">
                 <div class="col-12">
                     <div class="adds">
+                    	<div>
+							<table border="1">
+								<tr>
+								
+								 <c:forEach var="orderOne" items="${orderOne}">
+					
+									<td>${orderOne.orderCode}</td>
+									<td>${orderOne.orderQuantity}</td>
+									<td>${orderOne.orderPrice}</td>
+									<td>${orderOne.orderState}</td>
+									<td>${orderOne.createdate}</td>
+									<td>${orderOne.goodsTitle}</td>
+									<td>${orderOne.customerName}</td>
+									<td>${orderOne.customerPhone}</td>
+									<td>${orderOne.address}</td>
+									<td>${orderOne.filename}</td>
+									</c:forEach>
+								</tr>
+							</table>
+						</div>			
                         <a href="#"><img src="img/bg-img/add3.gif" alt=""></a>
                     </div>
                 </div>
