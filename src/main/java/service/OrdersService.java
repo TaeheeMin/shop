@@ -415,20 +415,21 @@ public class OrdersService {
 	
 	// 1-2) 포인트 미사용 주문
 	public ArrayList<Orders> addOrder(Orders orders,ArrayList<HashMap<String, Object>> cartList, String customerId) {
-		int result = 0;
 		ArrayList<Orders> list = new ArrayList<Orders>();
+		list = null;
 		Connection conn = null; 
 		ordersDao = new OrdersDao();
 		cartDao = new CartDao();
 		pointHistoryDao = new PointHistoryDao();
+		System.out.println("[orderService 진입]");
 			try {
 				conn = DBUtil.getConnection();
 				list = ordersDao.AddOrders(conn, orders, cartList);
-				if(result == 1) {
+				if(list != null) {
 					// 장바구니 비우기
 					int clearCart = cartDao.clearCart(conn, customerId);
 					System.out.println(clearCart);
-					System.out.println("구매성공");
+					System.out.println("구매성공 -> 장바구니를 비웁니다");
 				}
 				conn.commit();
 			} catch (Exception e) {

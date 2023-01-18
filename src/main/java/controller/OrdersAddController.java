@@ -119,12 +119,14 @@ public class OrdersAddController extends HttpServlet {
 			orders.setGoodsCode(Integer.parseInt(goodsCode[i]));
 			orders.setOrderQuantity(Integer.parseInt(cartQuantity[i]));
 			orders.setOrderPrice(Integer.parseInt(orderPrice[i]));
-			
+			System.out.println("-----"+orders.getGoodsCode()+"번 상품 주문작업 중----");
 			if(request.getParameter("pointAll") == null && request.getParameter("usePoint").equals("")) {
 				// 포인트 미사용
+				System.out.println("포인트 미사용 주문건입니다");
 				orderCode = ordersService.addOrder(orders, cartList, customerId);
 			} else {
 				// 포인트 사용
+				System.out.println("포인트 사용 주문건입니다");
 				orderCode = ordersService.AddOrderPoint(orders, customerId, Integer.parseInt(sharePoint), point);
 			}
 		}

@@ -307,7 +307,7 @@ public class OrdersDao {
 			stmt.setString(2, orders.getCustomerId());
 			stmt.setInt(3, orders.getAdrressCode());
 			stmt.setInt(4, orders.getOrderQuantity());
-			stmt.setInt(5, orders.getOrderPrice());	
+			stmt.setInt(5, orders.getOrderPrice() * orders.getOrderQuantity());	
 			row = stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();
 			if(rs.next()) {
@@ -329,7 +329,7 @@ public class OrdersDao {
 			      stmt.setString(2, orders.getCustomerId());
 			      stmt.setInt(3, orders.getAdrressCode());
 			      stmt.setInt(4, (int) c.get("cartQuantity"));
-			      stmt.setInt(5, (int) c.get("goodsPrice"));		    
+			      stmt.setInt(5, (int) c.get("goodsPrice") * (int) c.get("cartQuantity"));		    
 			      row = stmt.executeUpdate();
 			      ResultSet rs = stmt.getGeneratedKeys();
 			      if(rs.next()) {
