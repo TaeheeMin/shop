@@ -63,7 +63,7 @@ public class ReviewAddController extends HttpServlet {
 		if(row == 1) {
 			// 리스트로 이동
 			System.out.println("리뷰작성성공");
-			response.sendRedirect(request.getContextPath()+"/Home2");
+			response.sendRedirect(request.getContextPath()+"/Home?msg="+1);
 			return;	
 			
 		} else {

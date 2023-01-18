@@ -49,7 +49,7 @@ public class OrdersModifyController extends HttpServlet {
 		} else {
 		if(row == 1) {			
 			System.out.println("수정성공");
-			response.sendRedirect(request.getContextPath()+"/orders/ordersList"); 
+			response.sendRedirect(request.getContextPath()+"/orders/ordersList?msg="+1); 
 		} else { 
 			System.out.println("수정실패");
 			response.sendRedirect(request.getContextPath()+"/orders/ordersModify="+orders.getOrderCode());

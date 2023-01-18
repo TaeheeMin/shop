@@ -22,7 +22,7 @@ public class OrdersService {
 	private OrdersDao ordersDao;
 	private CartDao cartDao;
 	private PointHistoryDao pointHistoryDao;
-	// 년도별 총 매출액 List 
+	// 년도별 총 매출액,취소액 List 
 	public ArrayList<HashMap<String, Object>> selectOrdersListByYear() {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		Connection conn = null;
@@ -48,34 +48,9 @@ public class OrdersService {
 		}
 		return list;
 	}
-	// 년도별 총 취소금액 List
-	public ArrayList<HashMap<String, Object>> selectOrdersCancelListByYear() {
-		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-		Connection conn = null;
-		try {			
-			conn = DBUtil.getConnection();
-			ordersDao = new OrdersDao();
-			list = ordersDao.selectOrdersCancelListByYear(conn);
-			conn.commit();
-		} catch (Exception e) {
-			try {
-				conn.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-			e.printStackTrace();
-			
-		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return list;
-	}
+
 	
-	// 월별 총 매출 list
+	// 월별 총 매출,취소 list
 	public ArrayList<HashMap<String, Object>> selectOrdersListByMonth() {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		Connection conn = null;
@@ -100,36 +75,10 @@ public class OrdersService {
 			}
 		}
 		return list;
-	}
+	}	
+
 	
-	// 월별 총 취소 list 
-	public ArrayList<HashMap<String, Object>> selectOrdersCancelListByMonth() {
-		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-		Connection conn = null;
-		try {			
-			conn = DBUtil.getConnection();
-			ordersDao = new OrdersDao();
-			list = ordersDao.selectOrdersCancelListByMonth(conn);
-			conn.commit();
-		} catch (Exception e) {
-			try {
-				conn.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-			e.printStackTrace();
-			
-		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return list;
-	}
-	
-	// 월별 총주문 건수
+	// 월별 총주문,취소 건수
 	public ArrayList<HashMap<String, Object>> selectOrdersCountByMonth() {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		Connection conn = null;

@@ -28,8 +28,13 @@
 		      })
 		     });   
 		
-		   </script>
+		   </script>		   
    		</c:forEach>
+   		<c:if test="${msg==1}">	
+		<script type="text/javascript">
+			alert("주문상태 변경완료");
+   		 </script>
+		</c:if>
 	</head>
 	<body>
 		<!-- 메뉴 partial jsp 구성 -->
@@ -79,14 +84,21 @@
 		                     <c:if test="${o.orderState eq '결제' || o.orderState eq '배송중' || o.orderState eq '배송완료'}">
 		                        <option value="결제" selected="selected">결제</option>
 		                        <option value="취소">취소</option>
-		                        <option value="구매확정">구매확정</option>                     
+		                        <option value="구매확정">구매확정</option>
+		                        <option value="반품신청">반품신청</option>                     
 		                     </c:if>
 		                     <c:if test="${o.orderState eq '취소'}">                        
 		                        <option value="취소" selected="selected" >취소</option>                                                
 		                     </c:if>      
 		                     <c:if test="${o.orderState eq '구매확정'}">                        
 		                        <option value="구매확정" selected="selected">구매확정</option>                                          
-		                     </c:if>                  
+		                     </c:if>
+		                     <c:if test="${o.orderState eq '반품신청'}">                        
+		                        <option value="구매확정" selected="selected">반품신청</option>		                                                             
+		                     </c:if>
+		                     <c:if test="${o.orderState eq '반품완료'}">                        
+		                        <option value="구매확정" selected="selected">반품완료</option>		                                                             
+		                     </c:if>                   
 		                  </select>
 		                  </form>                     
 		                  </td>                  

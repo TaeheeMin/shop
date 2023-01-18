@@ -71,48 +71,29 @@ public class OrdersDao {
 	// 월별 총주문 건수
 	public ArrayList<HashMap<String, Object>> selectOrdersCountByMonth(Connection conn) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-		String sql = "SELECT YEAR(createdate) year,MONTH(createdate) month, COUNT(*) AS count FROM orders GROUP BY MONTH(createdate)";	              
+		String sql = "SELECT YEAR(createdate) year,MONTH(createdate) month, COUNT(*) AS orderCnt,COUNT(if(order_state='취소',order_state,NULL)) AS cancelCnt FROM orders GROUP BY MONTH(createdate)";	              
 	      PreparedStatement stmt = conn.prepareStatement(sql);	   
 	      ResultSet rs = stmt.executeQuery();
 	      while(rs.next()) {
 	         HashMap<String, Object> m = new HashMap<String, Object>();
-	         m.put("count", rs.getInt("count"));
+	         m.put("orderCnt", rs.getInt("orderCnt"));
+	         m.put("cancelCnt", rs.getInt("cancelCnt"));
 	         m.put("year", rs.getString("year")); 
 	         m.put("month", rs.getString("month")); 
 	         list.add(m);
 	      }			
 		return list;
 	}
+
 	
-	
-	// 월별 총 취소 list 
-	public ArrayList<HashMap<String, Object>> selectOrdersCancelListByMonth(Connection conn) throws Exception {
-		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-		String sql = "SELECT"
-				+ " YEAR(createdate) year"
-				+ ", MONTH(createdate) month"
-				+ ", SUM(if(order_state='취소',order_price, NULL)) AS cancelPrice"
-				+ "	FROM orders"
-				+ "	GROUP BY MONTH(createdate)";	              
-	      PreparedStatement stmt = conn.prepareStatement(sql);	   
-	      ResultSet rs = stmt.executeQuery();
-	      while(rs.next()) {
-	         HashMap<String, Object> m = new HashMap<String, Object>();
-	         m.put("cancelPrice", rs.getInt("cancelPrice"));
-	         m.put("year", rs.getString("year"));
-	         m.put("month", rs.getString("month"));  
-	         list.add(m);
-	      }			
-		return list;
-	}	
-	
-	// 월별 총 매출 list
+	// 월별 총 매출,취소금액 list
 	public ArrayList<HashMap<String, Object>> selectOrdersListByMonth(Connection conn) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		String sql = "SELECT"
 				+ " YEAR(createdate) year"
 				+ ", MONTH(createdate) month"
 				+ ", SUM(order_price) AS orderPrice"
+				+ ", SUM(if(order_state='취소',order_price, NULL)) AS cancelPrice"
 				+ "	FROM orders"
 				+ "	GROUP BY MONTH(createdate)";	              
 	      PreparedStatement stmt = conn.prepareStatement(sql);	   
@@ -120,42 +101,24 @@ public class OrdersDao {
 	      while(rs.next()) {
 	         HashMap<String, Object> m = new HashMap<String, Object>();
 	         m.put("orderPrice", rs.getInt("orderPrice"));
+	         m.put("cancelPrice", rs.getInt("cancelPrice"));
 	         m.put("year", rs.getString("year"));
 	         m.put("month", rs.getString("month"));  
 	         list.add(m);
 	      }			
 		return list;
 	}
-	// 년도별 총 취소금액 List
-	public ArrayList<HashMap<String, Object>> selectOrdersCancelListByYear(Connection conn) throws Exception {
-		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-		String sql = "SELECT"
-				+ "YEAR(createdate) year"
-				+ ", SUM(if(order_state='취소',order_price, NULL)) AS cancelPrice"
-				+ "	FROM orders";	              
-	      PreparedStatement stmt = conn.prepareStatement(sql);	   
-	      ResultSet rs = stmt.executeQuery();
-	      while(rs.next()) {
-	         HashMap<String, Object> m = new HashMap<String, Object>();
-	         m.put("cancelPrice", rs.getInt("cancelPrice"));
-	         m.put("year", rs.getString("year"));        
-	         list.add(m);
-	      }			
-		return list;
-	}	
 	
-	// 년도별 총 매출액 List 
+	// 년도별 총 매출액,취소액 List 
 	public ArrayList<HashMap<String, Object>> selectOrdersListByYear(Connection conn) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-		String sql = "SELECT"
-				+ "YEAR(createdate) year"
-				+ ", SUM(order_price) AS orderPrice"
-				+ "	FROM orders";	              
+		String sql = "SELECT YEAR(createdate) year, SUM(order_price) AS orderPrice, SUM(if(order_state='취소',order_price, NULL)) AS cancelPrice FROM orders";              
 	      PreparedStatement stmt = conn.prepareStatement(sql);	   
 	      ResultSet rs = stmt.executeQuery();
 	      while(rs.next()) {
 	         HashMap<String, Object> m = new HashMap<String, Object>();
 	         m.put("orderPrice", rs.getInt("orderPrice"));
+	         m.put("cancelPrice", rs.getInt("cancelPrice"));
 	         m.put("year", rs.getString("year"));        
 	         list.add(m);
 	      }			

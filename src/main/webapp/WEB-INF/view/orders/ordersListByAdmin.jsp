@@ -69,6 +69,8 @@
 						<input type="radio" name="category" id="category" value="구매확정">구매확정
 						<input type="radio" name="category" id="category" value="배송중">배송중
 						<input type="radio" name="category" id="category" value="배송완료">배송완료
+						<input type="radio" name="category" id="category" value="반품신청">반품신청
+						<input type="radio" name="category" id="category" value="반품완료">반품완료
 					
 					<div style="float: right; padding-bottom: 10px;">
 						<select name="rowPerPage" id="rowPerPage">
@@ -144,7 +146,13 @@
 							<c:if test="${o.orderState eq '구매확정'}">							
 								<option value="구매확정" selected="selected">구매확정</option>								
 							</c:if>
-							
+							<c:if test="${o.orderState eq '반품신청'}">
+								<option value="반품신청" selected="selected">반품신청</option>								
+								<option value="반품완료" >반품완료</option>								
+							</c:if>
+							<c:if test="${o.orderState eq '반품완료'}">							
+								<option value="구매확정" selected="selected">반품완료</option>								
+							</c:if>
 						</select>
 						</form>                   
 		                  </td>                  
@@ -157,17 +165,17 @@
 	            <div class="oneMusic-pagination-area wow fadeInUp" data-wow-delay="300ms">
 	                <nav>
 	                    <ul class="pagination">
-	                        <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/orders/ordersList?rowPerPage=${rowPerPage}&currentPage=1">HOME</a></li>
+	                        <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/orders/ordersListByAdmin?rowPerPage=${rowPerPage}&currentPage=1">HOME</a></li>
 	                        <c:if test="${currentPage > 1}">
-								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/orders/ordersList?rowPerPage=${rowPerPage}&currentPage=${currentPage-1}"><<</a></li>
+								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/orders/ordersListByAdmin?rowPerPage=${rowPerPage}&currentPage=${currentPage-1}"><<</a></li>
 							</c:if>
 							<c:forEach var="x" begin="${beginPage}" end="${endPage}" step="1">
-								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/orders/ordersList?rowPerPage=${rowPerPage}&currentPage=${x}">${x}</a></li>
+								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/orders/ordersListByAdmin?rowPerPage=${rowPerPage}&currentPage=${x}">${x}</a></li>
 							</c:forEach>
 							<c:if test="${currentPage < lastPage}">
-								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/orders/ordersList?rowPerPage=${rowPerPage}&currentPage=${currentPage +1}">>></a></li>
+								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/orders/ordersListByAdmin?rowPerPage=${rowPerPage}&currentPage=${currentPage +1}">>></a></li>
 							</c:if>
-							<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/orders/ordersList?rowPerPage=${rowPerPage}&currentPage=${lastPage}">END</a></li>
+							<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/orders/ordersListByAdmin?rowPerPage=${rowPerPage}&currentPage=${lastPage}">END</a></li>
 	                    </ul>
 	                </nav>
 	            </div>
