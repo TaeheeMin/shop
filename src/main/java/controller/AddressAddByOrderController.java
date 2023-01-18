@@ -15,11 +15,11 @@ public class AddressAddByOrderController extends HttpServlet {
 
 	private CustomerAddressService customerAddressService;
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8"); // 한글인코딩
+		System.out.println("[배송지추가orderPage]");
 		
 		// 파라미타값 받아오기
 		String customerId = request.getParameter("customerId");
-		String address = request.getParameter("address");
+		String address = request.getParameter("addressAdd");
 		System.out.println("입력한 주소값 : "+address);
 		
 		// cusAddress에 set
@@ -32,11 +32,12 @@ public class AddressAddByOrderController extends HttpServlet {
 		int addMyAddress = customerAddressService.addMyAddress(cusAddress);
 		if(addMyAddress == 1) {
 			System.out.println("주소추가 완료");
-			response.sendRedirect(request.getContextPath()+"/AddressList");
+			response.sendRedirect(request.getContextPath()+"/orders/ordersAdd");
 			return;
 		} else {
 			System.out.println("주소추가 실패");
-			response.sendRedirect(request.getContextPath()+"/AddressList");
+			String maxAddress = "over";
+			response.sendRedirect(request.getContextPath()+"/orders/ordersAdd?maxAddress="+maxAddress);
 		}
 	}
 

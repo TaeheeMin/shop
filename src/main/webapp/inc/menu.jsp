@@ -45,7 +45,7 @@
                                         </ul>
                                     <li><a href="${pageContext.request.contextPath}/QuestionListByCustomer">CustomerCenter</a></li>
                                     <li><a href="${pageContext.request.contextPath}/NoticeList">News</a></li>
-                                    <li><a href="contact.html">Contact</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/Contact">Contact</a></li>
                                 </ul>
 
  								<!-- 고객 Menu -->

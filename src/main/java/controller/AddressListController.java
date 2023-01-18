@@ -23,16 +23,13 @@ public class AddressListController extends HttpServlet {
 		// 주소목록 불러오기
 		HttpSession session = request.getSession();
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
+		
 		CustomerAddress cusAddress = new CustomerAddress();
 		cusAddress.setCustomerId(loginCustomer.getCustomerId());
 		this.customerAddressService = new CustomerAddressService();
+		
 		ArrayList<CustomerAddress> list = customerAddressService.myAddressList(cusAddress);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/WEB-INF/view/customer/customerAddressList.jsp").forward(request, response);
 	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-	}
-
 }
