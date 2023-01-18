@@ -184,6 +184,7 @@ public class OrdersDao {
 					+ "	, o.createdate createdate"
 					+ "	, o.order_state orderState"
 					+ "	, o.order_price orderPrice"
+					+ "	, o.order_quantity orderQuantity"
 					+ "	FROM orders o INNER JOIN goods g ON o.goods_code = g.goods_code"
 					+ "	INNER JOIN goods_img gi ON g.goods_code = gi.goods_code"
 					+ "	WHERE o.customer_id = ?"
@@ -202,6 +203,41 @@ public class OrdersDao {
 		         m.put("createdate", rs.getString("createdate"));
 		         m.put("orderState", rs.getString("orderState"));
 		         m.put("orderPrice", rs.getString("orderPrice"));
+		         m.put("orderQuantity", rs.getString("orderQuantity"));
+		         list.add(m);
+		      }			
+			return list;
+		}
+	 
+	// 주문완료  
+	 public ArrayList<HashMap<String, Object>> completeOrderList(Connection conn, Customer loginCustomer, int orderLength) throws Exception {
+			ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+			String sql = "SELECT "
+					+ "	o.order_code orderCode"
+					+ "	, g.goods_title goodsTitle"
+					+ "	, gi.filename filename"
+					+ "	, o.createdate createdate"
+					+ "	, o.order_state orderState"
+					+ "	, o.order_price orderPrice"
+					+ "	, o.order_quantity orderQuantity"
+					+ "	FROM orders o INNER JOIN goods g ON o.goods_code = g.goods_code"
+					+ "	INNER JOIN goods_img gi ON g.goods_code = gi.goods_code"
+					+ "	WHERE o.customer_id = ?"
+					+ "	ORDER BY createdate DESC"
+					+ " LIMIT 0,?";		              
+		      PreparedStatement stmt = conn.prepareStatement(sql);
+		      stmt.setString(1, loginCustomer.getCustomerId());
+		      stmt.setInt(2, orderLength);
+		      ResultSet rs = stmt.executeQuery();
+		      while(rs.next()) {
+		         HashMap<String, Object> m = new HashMap<String, Object>();
+		         m.put("orderCode", rs.getInt("orderCode"));
+		         m.put("goodsTitle", rs.getString("goodsTitle"));
+		         m.put("filename", rs.getString("filename"));
+		         m.put("createdate", rs.getString("createdate"));
+		         m.put("orderState", rs.getString("orderState"));
+		         m.put("orderPrice", rs.getString("orderPrice"));
+		         m.put("orderQuantity", rs.getString("orderQuantity"));
 		         list.add(m);
 		      }			
 			return list;
@@ -252,7 +288,6 @@ public class OrdersDao {
 				list.add(m);
 			}
 			return list;
-			
 		}	
 		
 		// 구매-포인트 사용

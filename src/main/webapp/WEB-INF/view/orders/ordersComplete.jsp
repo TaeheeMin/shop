@@ -35,9 +35,10 @@
 	    
 	    <!-- ##### Album Catagory Area Start ##### -->
 	    <section class="album-catagory section-padding-100-0">
-	        <div class="container">
+	        <div class="container text-center">
 	        	<h1>주문이 완료 되었습니다 감사합니다</h1>        
 			</div>
+			<br>
 	    </section>
 	    <!-- ##### Album Catagory Area End ##### -->
 
@@ -48,39 +49,51 @@
                 <div class="col-12">
                     <div class="adds">
                     	<div>
-							<table border="1">
+							<table class = "table w-100 rounded" style="table-layout: auto; width: 100%; table-layout: fixed;">
 								<tr>
+									<th>주문번호</th>
+									<th>앨범이름</th>
+									<th>앨범</th>
+									<th>주문가격</th>
+									<th>주문일자</th>
+								</tr>
 								
-								 <c:forEach var="orderOne" items="${orderOne}">
-					
-									<td>${orderOne.orderCode}</td>
-									<td>${orderOne.orderQuantity}</td>
-									<td>${orderOne.orderPrice}</td>
-									<td>${orderOne.orderState}</td>
-									<td>${orderOne.createdate}</td>
-									<td>${orderOne.goodsTitle}</td>
-									<td>${orderOne.customerName}</td>
-									<td>${orderOne.customerPhone}</td>
-									<td>${orderOne.address}</td>
-									<td>${orderOne.filename}</td>
+								 <c:forEach var="c" items="${completeList}">
+								<tr>
+									<td>${c.orderCode}</td>
+									<td>${c.goodsTitle}</td>
+									<td><img src="${pageContext.request.contextPath}/goodsimg/${c.filename}" width="200" height="200"></td>
+									<td>
+										${c.orderPrice}<br><br>
+										(${c.orderQuantity}개)
+									</td>
+									<td>${c.createdate}</td>									
+								</tr>
 									</c:forEach>
+								<tr>
+									<td colspan="5">배송 정보</td>
+								</tr>
+								<tr>
+									<td colspan="2">이름</td>
+									<td colspan="3">${loginCustomer.customerName}</td>
+								</tr>
+								<tr>
+									<td colspan="2">연락처</td>
+									<td colspan="3">${loginCustomer.customerPhone}</td>
+								</tr>
+								<tr>
+									<td colspan="2">배송지</td>
+									<td colspan="3">${myAddress}</td>
 								</tr>
 							</table>
 						</div>			
-                        <a href="#"><img src="img/bg-img/add3.gif" alt=""></a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- ##### Add Area End ##### -->
-
-  
-
-		
-		
-		
-		
+	
 	<!-- 메뉴 partial jsp 구성 -->
 	<div>
 		<jsp:include page="/inc/footer.jsp"></jsp:include>

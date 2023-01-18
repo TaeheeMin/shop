@@ -62,7 +62,7 @@
 		              <tr>
 		                  <th>주문번호</th>
 		                  <th>상품이름</th>
-		                  <th>상품이미지</th>
+		                  <th>이미지</th>
 		                  <th>주문일자</th>
 		                  <th>주문상태</th>
 		                  <th>주문가격</th>
@@ -102,7 +102,10 @@
 		                  </select>
 		                  </form>                     
 		                  </td>                  
-		                  <td>${o.orderPrice}</td>
+		                  <td>
+		                  	${o.orderPrice}<br><br>
+		                  	(${o.orderQuantity}개)
+		                  </td>
 		                </tr>
 		            </c:forEach>
 		           </tbody>

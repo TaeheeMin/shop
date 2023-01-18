@@ -38,14 +38,14 @@ public class CustomerAddressService {
 		return list;
 	}
 	
-	// 6-1) 배송희망 주소 불러오기 (1개)
-	public CustomerAddress myAddress(String customerId, int addressCode) {
-		CustomerAddress myAddress = null;
+	// 6-1) 배송 주소 불러오기 (1개)
+	public String myAddress(int addressCode) {
+		String myAddress = null;
 		Connection conn = null;
 		this.customerAddressDao = new CustomerAddressDao();
 		try {
 			conn = DBUtil.getConnection();
-			myAddress = customerAddressDao.myAddress(conn, customerId, addressCode);
+			myAddress = customerAddressDao.myAddress(conn, addressCode);
 			conn.commit();
 		} catch (Exception e) {
 			try {

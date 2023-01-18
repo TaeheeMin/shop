@@ -240,6 +240,34 @@ public class OrdersService {
 		}
 		return list;
 	}
+	
+	// 주문 리스트 고객용
+	public ArrayList<HashMap<String, Object>> completeOrdersList(Customer loginCustomer, int orderLength) {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			ordersDao = new OrdersDao();
+			list = ordersDao.completeOrderList(conn, loginCustomer, orderLength);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+		
 	//주문상세 리스트 
 	public ArrayList<HashMap<String, Object>> selectOrdersOneList(int orderCode) {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
@@ -398,7 +426,8 @@ public class OrdersService {
 				list = ordersDao.AddOrders(conn, orders, cartList);
 				if(result == 1) {
 					// 장바구니 비우기
-					cartDao.clearCart(conn, customerId);
+					int clearCart = cartDao.clearCart(conn, customerId);
+					System.out.println(clearCart);
 					System.out.println("구매성공");
 				}
 				conn.commit();

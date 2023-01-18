@@ -88,15 +88,16 @@ public class OrdersAddController extends HttpServlet {
 
 		// 값 받아오기
 		int addressCode = Integer.parseInt(request.getParameter("addressCode"));				
-		String customerId = request.getParameter("customerId");	
+		String customerId = loginCustomer.getCustomerId();
 		//System.out.println("addressCode : " + addressCode);	
-		//System.out.println("customerId : " + customerId);
+		System.out.println("customerId : " + customerId);
 				
 		//int point = Integer.parseInt(request.getParameter("point")); // 잔여 포인트 
 		//String[] pointCkList = request.getParameterValues("pointCk"); // 포인트 사용 goods
 		String[] goodsCode = request.getParameterValues("goodsCode");
 		String[] cartQuantity = request.getParameterValues("cartQuantity");
 		String[] orderPrice = request.getParameterValues("orderPrice");
+		System.out.println(orderPrice[0]);
 		String sharePoint = request.getParameter("sharePoint");
 		int point = Integer.parseInt(request.getParameter("point"));
 		//System.out.println("sharePoint : " + sharePoint);
@@ -106,12 +107,11 @@ public class OrdersAddController extends HttpServlet {
 		
 		// 서비스 호출
 		ArrayList<HashMap<String,Object>> cartList = cartService.getCartList(customerId);
-		
+		ArrayList<Orders> list = new ArrayList<Orders>();
+		HashMap<String, Object> m = new HashMap<String, Object>();
 		// 주문완료시 출력
 		ArrayList<Orders> orderCode = new ArrayList<Orders>();
-		ArrayList<Orders> list = new ArrayList<Orders>();
 		ArrayList<HashMap<String, Object>> orderOne = new ArrayList<HashMap<String, Object>>();
-		HashMap<String, Object> m = new HashMap<String, Object>();
 		Orders orders = new Orders();
 		for(int i = 0; i < orderPrice.length; i++) {
 			orders.setCustomerId(customerId);
@@ -142,7 +142,10 @@ public class OrdersAddController extends HttpServlet {
 		if(orderOne != null) {
 			// 리스트로 이동
 			System.out.println("구매성공");
-			request.getRequestDispatcher("/WEB-INF/view/orders/ordersComplete.jsp").forward(request, response);
+			int orderLength = (orderCode.size());
+			System.out.println(orderLength);
+			response.sendRedirect(request.getContextPath()+"/orders/ordersComplete?orderLength="+orderLength+"&addressCode="+addressCode);
+			// request.getRequestDispatcher("/WEB-INF/view/orders/ordersComplete.jsp").forward(request, response);
 		} else {
 			// 폼이동
 			System.out.println("구매실패");
