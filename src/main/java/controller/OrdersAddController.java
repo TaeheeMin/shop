@@ -33,12 +33,14 @@ public class OrdersAddController extends HttpServlet {
 		// 1-1) 로그인세션 불러오기
 		HttpSession session = request.getSession();
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
-		
-		// 1-2) 로그인되지 않은경우, 주문페이지 폼 진입 불가 -> 홈화면으로 이동
+
+		// 1-2) 로그인되지 않은경우, 주문페이지 폼 진입 불가 -> 장바구니로 이동 + alert출력
 		if(loginCustomer == null) {
-			response.sendRedirect(request.getContextPath()+"/Home");
+			String notLogin = "accesslimit";
+			response.sendRedirect(request.getContextPath()+"/CartList?notLogin="+notLogin);
 			return;
 		}
+		
 		System.out.println("[OrdersAdd컨트롤러 진입]");
 
 		// 2) Service
@@ -49,6 +51,9 @@ public class OrdersAddController extends HttpServlet {
 		// 3) 주문할 상품목록(장바구니) 불러오기 
 		ArrayList<HashMap<String,Object>> cartList = cartService.getCartList(loginCustomer.getCustomerId());
 		request.setAttribute("cartList", cartList);
+		
+		// 3-1) 장바구니가 비어있는데 주문할 경우
+		
 		
 		// 4) 회원주소 불러오기 (모달)
 		CustomerAddress cusAddress = new CustomerAddress();
@@ -73,9 +78,10 @@ public class OrdersAddController extends HttpServlet {
 		// 로그인세션 불러오기
 		HttpSession session = request.getSession();
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
-		// 로그인되지 않은경우, 주문페이지 폼 진입 불가 -> 홈화면으로 이동
+		
+		// 로그인되지 않은경우, 주문페이지 폼 진입 불가 -> 장바구니로 이동
 		if(loginCustomer == null) {
-			response.sendRedirect(request.getContextPath()+"/Home");
+			response.sendRedirect(request.getContextPath()+"/CartList");
 			return;
 		}
 		System.out.println("[OrdersAdd컨트롤러 post]");

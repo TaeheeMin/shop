@@ -31,6 +31,11 @@ public class CartListController extends HttpServlet {
 			ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>)session.getAttribute("cart");
 			request.getSession().setAttribute("list", list);
 		}
+		
+		if(request.getParameter("notLogin") != null) {
+			request.setAttribute("notLogin", request.getParameter("notLogin"));
+		}
+		
 		request.getRequestDispatcher("/WEB-INF/view/cart/cartList.jsp").forward(request, response);
 	}
 

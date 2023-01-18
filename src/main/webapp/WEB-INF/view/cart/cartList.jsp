@@ -42,6 +42,11 @@
 			<jsp:include page="../../../inc/menu.jsp"></jsp:include>
 		</div>
 		
+		<!-- 비회원이 주문버튼 클릭시, 로그인부터 하라는 alert출력 -->
+		<c:if test="${notLogin != null}">
+			<script>alert('회원만 주문 가능합니다. 로그인해주세요.')</script>
+		</c:if>
+		
 		<!-- ##### Breadcumb Area Start ##### -->
 	    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/breadcumb3.jpg);">
 	        <div class="bradcumbContent">
@@ -107,20 +112,24 @@
 									</td>
 								</tr>
 							</c:forEach>
-							<tr>
-								<th colspan="3"><span style="font-size:24px">Total Order Price</span></th>
-								<th>
-									<c:set var = "cartPrice" value = "0" />
-										<c:forEach var="c" items="${list}">
-											<c:set var= "cartPrice" value="${cartPrice + (c.goodsPrice*c.cartQuantity)}"/>
-										</c:forEach>
-									<span style="font-size:23px; color:red;">${cartPrice}</span>
-									<input type="hidden" name="cartPrice" value="${cartPrice}" readonly="readonly">
-								</th>
-								<td>
-									<button class="btn btn-sm" style="background-color:#E4F7BA" type="submit">Order</button>
-								</td>
-							</tr>
+							
+							<!-- 총주문금액 (상품갯수 하나 이상일때만 조회가능)-->
+							<c:if test="${list.size() != 0}">
+								<tr>
+									<th colspan="3"><span style="font-size:24px">Total Order Price</span></th>
+									<th>
+										<c:set var = "cartPrice" value = "0" />
+											<c:forEach var="c" items="${list}">
+												<c:set var= "cartPrice" value="${cartPrice + (c.goodsPrice*c.cartQuantity)}"/>
+											</c:forEach>
+										<span style="font-size:23px; color:red;">${cartPrice}</span>
+										<input type="hidden" name="cartPrice" value="${cartPrice}" readonly="readonly">
+									</th>
+									<td>
+										<button class="btn btn-sm" style="background-color:#E4F7BA" type="submit">Order</button>
+									</td>
+								</tr>
+							</c:if>
 						</table>
 						<br>
 						
