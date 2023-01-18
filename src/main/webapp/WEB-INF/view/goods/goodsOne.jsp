@@ -105,9 +105,9 @@
 			</c:forEach>
 		
 			<!-- #### review #### -->
-			<h3>리뷰</h3>
-			<div class="container">
+			<div class="container mb-100">
             	<div class="row">
+					<h3>Review</h3>
 	                <div class="col-12">
 	                    <div class="contact-form-area">
 	                        <div class="row">

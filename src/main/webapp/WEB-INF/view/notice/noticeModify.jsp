@@ -93,7 +93,6 @@
 		    </section>
 		</section>
 		<!-- 메뉴 partial jsp 구성 -->
-		
 		<div>
 			<jsp:include page="/inc/footer.jsp"></jsp:include>
 		</div>
