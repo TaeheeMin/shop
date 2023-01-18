@@ -50,14 +50,17 @@ public class OrdersAddController extends HttpServlet {
 		ArrayList<HashMap<String,Object>> cartList = cartService.getCartList(loginCustomer.getCustomerId());
 		request.setAttribute("cartList", cartList);
 		
-		// 4) 선택된 회원주소 불러오기
+		// 4) 회원주소 불러오기 (모달)
 		CustomerAddress cusAddress = new CustomerAddress();
-		if(request.getParameter("addressCode") != null) {
-			String customerId = loginCustomer.getCustomerId();
-			int addressCode = Integer.parseInt(request.getParameter("addressCode"));
-			cusAddress = customerAddressService.myAddress(customerId, addressCode);
-		}
+		cusAddress.setCustomerId(loginCustomer.getCustomerId());
+		this.customerAddressService = new CustomerAddressService();
+		ArrayList<CustomerAddress> list = customerAddressService.myAddressList(cusAddress);
+		request.setAttribute("list", list);
 
+		// 5) 주소 최대 3개 저장가능 -> 초과추가할시 alert출력
+		if(request.getParameter("maxAddress") != null) {
+			request.setAttribute("maxAddress", request.getParameter("maxAddress"));
+		}
 		request.setAttribute("myAddress", cusAddress);
 		request.getRequestDispatcher("/WEB-INF/view/orders/ordersPage.jsp").forward(request, response);
 	}

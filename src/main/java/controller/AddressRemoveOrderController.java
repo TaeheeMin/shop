@@ -38,11 +38,11 @@ public class AddressRemoveOrderController extends HttpServlet {
 		int removeAddress = customerAddressService.removeAddress(cusAddress);
 		if(removeAddress == 1) {
 			System.out.println("주소삭제 성공");
-			response.sendRedirect(request.getContextPath()+"/AddressList");
+			response.sendRedirect(request.getContextPath()+"/orders/ordersAdd");
 			return;
 		} else {
 			System.out.println("주소삭제 실패");
-			response.sendRedirect(request.getContextPath()+"/AddressList");
+			response.sendRedirect(request.getContextPath()+"/orders/ordersAdd");
 		}
 	}
 }
