@@ -44,14 +44,15 @@
 				
 				// 배송지 추가
 				$('#addressAddBtn').click(function(){
-					let searchAddress = $('#sample3_address');
-					console.log(searchAddress.val());
+					let postCode = $('#sample3_postcode'); // 우편번호
+					let searchAddress = $('#sample3_address'); // 주소지
+					console.log(searchAddress.val()); // 상세주소
 					let detailAddress = $('#sample3_detailAddress');
 					if(searchAddress.val() == '' || detailAddress.val() == '') {
 						alert('주소를 입력해주세요.');
 						return;
 					}
-					let addAddress = searchAddress.val()+' '+detailAddress.val();
+					let addAddress = '('+postCode.val()+') '+searchAddress.val()+' '+detailAddress.val();
 					console.log(addAddress);
 					
 					// 히든폼 addressAdd에 address value 기입하기
@@ -59,7 +60,6 @@
 					
 					// addressAdd 컨트롤러 폼으로 보내기
 					$('#addressAddForm').submit();
-					
 				});
 				
 				// 주문관련
@@ -131,6 +131,16 @@
 					   $('#sharePoint').attr('value', 0);
 			        }
 				});
+			   
+				// 배송지 미선택으로 주문요청시 return
+				$('#orderBtn').click(function(){
+					if($('#myAddress').val() == ''){
+						alert('배송지를 입력하세요.');
+						return;
+					}
+					$('#orderForm').submit();
+				});
+				
 			});
 		</script>
 	</head>
@@ -161,7 +171,7 @@
 	        <div class="container">
 	         <div class="col-12">	        
 					
-			<form method="post" action="${pageContext.request.contextPath}/orders/ordersAdd">
+			<form id="orderForm" method="post" action="${pageContext.request.contextPath}/orders/ordersAdd">
 			<!-- 주문할 상품 목록 -->			
 			<table class = "table w-100 rounded" style="table-layout: auto; width: 100%; table-layout: fixed;">
 				<tr>
@@ -178,7 +188,8 @@
 						<td>${c.goodsPrice}</td>
 						<td>${c.cartQuantity }</td>
 						<td>
-							<input type="text" id="orderPrice" class="orderPrice" name="orderPrice" value="${c.cartQuantity*c.goodsPrice}" readonly="readonly">
+							${c.cartQuantity*c.goodsPrice}
+							<input type="hidden" id="orderPrice" class="orderPrice" name="orderPrice" value="${c.cartQuantity*c.goodsPrice}" readonly="readonly">
 							<input type="hidden" name="goodsCode" value="${c.goodsCode}">
 							<input type="hidden" name="cartQuantity" value="${c.cartQuantity}" >
 							<input type="hidden" id="cartOrderPrice" class="cartOrderPrice" value="${c.cartQuantity*c.goodsPrice}" >
@@ -225,17 +236,15 @@
 		                                    </div>
 		                                </div>                                     
 		                                <div class="col-12">
-		                                	<c:if test="${myAddress != null}">	
 		                                    <div class="form-group">
 		                                    	<input type="hidden" name="addressCode" value="" readonly="readonly">
-		                                    	<input type="text" name="address" value="" readonly="readonly" class="form-control">										
+		                                    	<input type="text" id="myAddress" name="address" value="" readonly="readonly" class="form-control">										
 		                                    </div>
-		                                    </c:if>
 		                                </div>
 		                                
 		                                <!-- 배송지 선택 모달-->
 		                                <!-- Trigger the modal with a button -->
-										<button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#myModal">배송지 선택</button>
+										<button type="button" class="ml-3 btn btn-secondary btn-sm" data-toggle="modal" data-target="#myModal">배송지 선택</button>
 		                                
 		                                <!-- Modal -->
 										<div id="myModal" class="modal fade" role="dialog">
@@ -254,7 +263,7 @@
 																<input type="hidden" id="address${a.addressCode}" value="${a.address}">
 															</span>
 																${a.address}
-															<span style="float:right"><a href="${pageContext.request.contextPath}/AddressRemoveOrder?customerId=${a.customerId}&address=${a.address}"><i class="icon-trash"></i></a></span>
+															<span style="float:right"><a class="btn btn-sm btn-outline-danger" href="${pageContext.request.contextPath}/AddressRemoveOrder?customerId=${a.customerId}&address=${a.address}"><i class="icon-trash"></i></a></span>
 														</p>
 													</c:forEach>
 										      </div>
@@ -386,7 +395,7 @@
 			</div>
 			<input type="hidden" id="sharePoint" name="sharePoint" value="">
 			<div class="col-12 text-center wow fadeInUp" data-wow-delay="500ms">
-            	<button class="btn oneMusic-btn mt-30" type="submit">결제<i class="fa fa-angle-double-right"></i></button>
+            	<button class="btn oneMusic-btn mt-30" type="button" id="orderBtn">결제<i class="fa fa-angle-double-right"></i></button>
             </div> 	
 		</form>		
 		

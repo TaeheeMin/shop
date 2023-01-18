@@ -32,17 +32,6 @@
                                 <ul>
                                     <li><a href="${pageContext.request.contextPath}/Home">Home</a></li>
                                     <li><a href="${pageContext.request.contextPath}/GoodsList">Albums</a></li>
-                                    <li><a href="#">Pages</a>
-                                        <ul class="dropdown">
-                                            <li><a href="${pageContext.request.contextPath}/Home">Home</a></li>
-                                            <li><a href="${pageContext.request.contextPath}/GoodsList">Albums</a></li>
-                                            <li><a href="${pageContext.request.contextPath}/QuestionListByCustomer">CustomerCenter</a></li>
-                                            <li><a href="${pageContext.request.contextPath}/NoticeList">News</a></li>
-                                            <li><a href="${pageContext.request.contextPath}/Contact">Contact</a></li>                                        
-                                                                                  
-                                              
-                                            </li>
-                                        </ul>
                                     <li><a href="${pageContext.request.contextPath}/QuestionListByCustomer">CustomerCenter</a></li>
                                     <li><a href="${pageContext.request.contextPath}/NoticeList">News</a></li>
                                     <li><a href="${pageContext.request.contextPath}/Contact">Contact</a></li>

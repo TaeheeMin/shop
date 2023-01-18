@@ -45,8 +45,8 @@
     	<!-- ##### Breadcumb Area Start ##### -->
 	    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/breadcumb3.jpg);">
 	        <div class="bradcumbContent">
-	            
-	            <h2>Order Page</h2>
+	            <p>주문내역</p>
+	            <h2>Order History</h2>
 	        </div>
 	    </section>
 	    <!-- ##### Breadcumb Area End ##### -->
