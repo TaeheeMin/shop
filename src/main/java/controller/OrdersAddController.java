@@ -41,6 +41,11 @@ public class OrdersAddController extends HttpServlet {
 			return;
 		}
 		
+		// 1-3) 회원 잔여포인트 실시간반영
+		this.pointHistoryService = new PointHistoryService();
+		int remainPoint = pointHistoryService.remainCustomerPoint(loginCustomer);
+		loginCustomer.setPoint(remainPoint);
+		
 		System.out.println("[OrdersAdd컨트롤러 진입]");
 
 		// 2) Service
@@ -144,7 +149,7 @@ public class OrdersAddController extends HttpServlet {
 		if(orderOne != null) {
 			// 리스트로 이동
 			System.out.println("구매성공");
-			int orderLength = (orderCode.size());
+			int orderLength = (orderPrice.length);
 			System.out.println(orderLength);
 			response.sendRedirect(request.getContextPath()+"/orders/ordersComplete?orderLength="+orderLength+"&addressCode="+addressCode);
 			// request.getRequestDispatcher("/WEB-INF/view/orders/ordersComplete.jsp").forward(request, response);
@@ -153,7 +158,6 @@ public class OrdersAddController extends HttpServlet {
 			System.out.println("구매실패");
 			response.sendRedirect(request.getContextPath()+"/orders/ordersAdd");
 		}
-	
 	}
 }
 
