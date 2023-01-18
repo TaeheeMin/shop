@@ -19,7 +19,17 @@
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 		<script>
 			$(document).ready(function() {
-				
+				// 유효성검사
+				$('#addGoodsBtn').click(function() {
+					// 카테고리
+					if($('#goodsCategory').val() == '') {
+						$('#categoryMsg').text('장르를 선택해주세요');
+						return;
+					} else {
+						$('#categoryMsg').text('');
+					}
+					$('#addGoodsForm').submit();
+				});
 			});
 		</script>
 	</head>
@@ -65,19 +75,26 @@
                         		<form action="${pageContext.request.contextPath}/CartAdd" method="get" id="cartQuantityForm">
                         			<div class="contact-form-area">
 	                        			<div class="form-group">
-		                                    
 											<input type="hidden" name="goodsCode" value="${goodsOne.goodsCode}">
 											<input type="hidden" name="goodsTitle" value="${goodsOne.goodsTitle}">
 											<input type="hidden" name="filename" value="${goodsOne.filename}">
 											<input type="hidden" name="goodsPrice" value="${goodsOne.goodsPrice}">
-		                                    <select name="cartQuantity" id="cartQuantity" class="form-control" >
-												<option value="1">1</option>
-												<option value="2">2</option>
-												<option value="3">3<option>
-												<option value="4">4</option>
-												<option value="5">5</option>
-											</select>
-											<button class="btn oneMusic-btn mt-30" type="button" id="cartQuantityBtn">Cart <i class="fa fa-angle-double-right"></i></button>
+											<input type="hidden" name="soldout" id="soldout"value="${goodsOne.soldout}">
+											<c:choose> 
+												<c:when test="${goodsOne.soldout eq 'N'}">
+													<select name="cartQuantity" id="cartQuantity" class="form-control" >
+														<option value="1">1</option>
+														<option value="2">2</option>
+														<option value="3">3<option>
+														<option value="4">4</option>
+														<option value="5">5</option>
+													</select>
+													<button class="btn oneMusic-btn mt-30" type="button" id="cartQuantityBtn">Cart <i class="fa fa-angle-double-right"></i></button>
+												</c:when> 
+												<c:otherwise>
+													품절
+												</c:otherwise> 
+											</c:choose> 
 		                        		</div>
 	                        		</div>
                         		</form>

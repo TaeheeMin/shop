@@ -211,7 +211,7 @@
 	                </c:forEach>
 	            </div>
 	            <!-- Pagination -->
-	            <div class="oneMusic-pagination-area wow fadeInUp" data-wow-delay="300ms">
+	            <div class="oneMusic-pagination-area wow fadeInUp mb-100" data-wow-delay="300ms">
 	                <nav>
 	                    <ul class="pagination">
 	                        <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/GoodsList?rowPerPage=${rowPerPage}&currentPage=1">HOME</a></li>
@@ -238,7 +238,7 @@
 	            <div class="row">
 	                <div class="col-12">
 	                    <div class="adds">
-	                        <a href="#"><img src="img/bg-img/add3.gif" alt=""></a>
+	                        <a href="#"><img src="${pageContext.request.contextPath}/resources/img/bg-img/add3.gif" alt=""></a>
 	                    </div>
 	                </div>
 	            </div>
@@ -255,14 +255,14 @@
 	                <div class="col-12">
 	                    <div class="single-song-area mb-30 d-flex flex-wrap align-items-end">
 	                        <div class="song-thumbnail">
-	                            <img src="img/bg-img/s1.jpg" alt="">
+	                            <img src="${pageContext.request.contextPath}/resources/img/bg-img/s1.jpg" alt="">
 	                        </div>
 	                        <div class="song-play-area">
 	                            <div class="song-name">
 	                                <p>01. Main Hit Song</p>
 	                            </div>
 	                            <audio preload="auto" controls>
-	                                <source src="audio/dummy-audio.mp3">
+	                                <source src="${pageContext.request.contextPath}/resources/audio/dummy-audio.mp3">
 	                            </audio>
 	                        </div>
 	                    </div>
@@ -272,14 +272,14 @@
 	                <div class="col-12">
 	                    <div class="single-song-area mb-30 d-flex flex-wrap align-items-end">
 	                        <div class="song-thumbnail">
-	                            <img src="img/bg-img/s2.jpg" alt="">
+	                            <img src="${pageContext.request.contextPath}/resources/img/bg-img/s2.jpg" alt="">
 	                        </div>
 	                        <div class="song-play-area">
 	                            <div class="song-name">
 	                                <p>01. Main Hit Song</p>
 	                            </div>
 	                            <audio preload="auto" controls>
-	                                <source src="audio/dummy-audio.mp3">
+	                                <source src="${pageContext.request.contextPath}/resources/audio/dummy-audio.mp3">
 	                            </audio>
 	                        </div>
 	                    </div>
@@ -289,14 +289,14 @@
 	                <div class="col-12">
 	                    <div class="single-song-area mb-30 d-flex flex-wrap align-items-end">
 	                        <div class="song-thumbnail">
-	                            <img src="img/bg-img/s3.jpg" alt="">
+	                            <img src="${pageContext.request.contextPath}/resources/img/bg-img/s3.jpg" alt="">
 	                        </div>
 	                        <div class="song-play-area">
 	                            <div class="song-name">
 	                                <p>01. Main Hit Song</p>
 	                            </div>
 	                            <audio preload="auto" controls>
-	                                <source src="audio/dummy-audio.mp3">
+	                                <source src="${pageContext.request.contextPath}/resources/audio/dummy-audio.mp3">
 	                            </audio>
 	                        </div>
 	                    </div>
@@ -306,14 +306,14 @@
 	                <div class="col-12">
 	                    <div class="single-song-area mb-30 d-flex flex-wrap align-items-end">
 	                        <div class="song-thumbnail">
-	                            <img src="img/bg-img/s4.jpg" alt="">
+	                            <img src="${pageContext.request.contextPath}/resources/img/bg-img/s4.jpg" alt="">
 	                        </div>
 	                        <div class="song-play-area">
 	                            <div class="song-name">
 	                                <p>01. Main Hit Song</p>
 	                            </div>
 	                            <audio preload="auto" controls>
-	                                <source src="audio/dummy-audio.mp3">
+	                                <source src="${pageContext.request.contextPath}/resources/audio/dummy-audio.mp3">
 	                            </audio>
 	                        </div>
 	                    </div>
