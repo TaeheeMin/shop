@@ -234,6 +234,20 @@ public class GoodsDao {
 		return list;
 	}
 	
+	// 2-6) goods Artist 추천
+	public ArrayList<Goods> goodsArtist(Connection conn) throws Exception {
+		ArrayList<Goods> list = new ArrayList<Goods>();
+		String sql = "SELECT DISTINCT goods_artist goodsArtist FROM goods ORDER BY hit DESC";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next()) {
+			Goods g = new Goods();
+			g.setGoodsArtist(rs.getString("goodsArtist"));
+			list.add(g);
+		}
+		return list;
+	}
+	
 	// 3) update
 	// 3-1) view update
 	public int updateGoodsView(Connection conn, int goodsCode) throws Exception {

@@ -240,6 +240,33 @@ public class GoodsService {
 		}
 		return list;
 	}
+	
+	// 2-6) 홈화면에 띄울 추천가수
+	public ArrayList<Goods> getGoodsArtist() {
+		Connection conn = null;
+		ArrayList<Goods> list = new ArrayList<Goods>();
+		try {
+			conn = DBUtil.getConnection();
+			this.goodsDao = new GoodsDao();
+			list = goodsDao.goodsArtist(conn);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
 
 	// 3) modify goods
 	public int modifyGoods(Goods goods) {

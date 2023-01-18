@@ -17,6 +17,7 @@ import service.GoodsService;
 import service.SiteCounterService;
 import vo.Customer;
 import vo.Emp;
+import vo.Goods;
 
 
 @WebServlet("/Home")
@@ -69,6 +70,10 @@ public class HomeController extends HttpServlet {
 		// 히트앨범 목록 불러오기
 		ArrayList<HashMap<String, Object>> hlist = goodsService.selectHitSongList();
 		request.setAttribute("hlist", hlist);
+		
+		// 추천 artist
+		ArrayList<Goods> alist = goodsService.getGoodsArtist();
+		request.setAttribute("alist", alist);
 		
 		request.getRequestDispatcher("/WEB-INF/view/home.jsp").forward(request, response);
 	}
