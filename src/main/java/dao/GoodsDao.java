@@ -123,7 +123,8 @@ public class GoodsDao {
 	public ArrayList<HashMap<String, Object>> selectHitSongList(Connection conn) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		String sql = "SELECT"
-				+ " gd.goods_category goodsCategory"
+				+ " gd.goods_code goodsCode"
+				+ ", gd.goods_category goodsCategory"
 				+ ", gd.goods_title goodsTitle"
 				+ ", gd.goods_artist goodsArtist"
 				+ ", img.filename filename"
@@ -136,6 +137,7 @@ public class GoodsDao {
 		ResultSet rs = stmt.executeQuery();
 		while(rs.next()) {
 			HashMap<String, Object> m = new HashMap<String, Object>();
+			m.put("goodsCode", rs.getInt("goodsCode"));
 			m.put("goodsCategory", rs.getString("goodsCategory"));
 			m.put("goodsTitle", rs.getString("goodsTitle"));
 			m.put("goodsArtist",  rs.getString("goodsArtist"));

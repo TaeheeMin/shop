@@ -80,11 +80,14 @@
 			                            </div>
 			                        </div>
 			                        <div class="album-info">
+			                           
 			                            <a href="${pageContext.request.contextPath}/GoodsOne?goodsCode=${m.goodsCode}">
 			                                <h5>${m.goodsTitle}</h5>
 			                            </a>
+			                            
 			                            <p>${m.goodsArtist}</p>
 			                        </div>
+			                        
 			                    </div>
 			                </div>
 						</c:forEach>

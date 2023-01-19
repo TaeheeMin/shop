@@ -115,20 +115,20 @@
 							
 							<!-- 총주문금액 (상품갯수 하나 이상일때만 조회가능)-->
 							<c:if test="${list.size() != 0}">
-								<tr>
-									<th colspan="3"><span style="font-size:24px">Total Order Price</span></th>
-									<th>
-										<c:set var = "cartPrice" value = "0" />
-											<c:forEach var="c" items="${list}">
-												<c:set var= "cartPrice" value="${cartPrice + (c.goodsPrice*c.cartQuantity)}"/>
-											</c:forEach>
-										<span style="font-size:23px; color:red;">${cartPrice}</span>
-										<input type="hidden" name="cartPrice" value="${cartPrice}" readonly="readonly">
-									</th>
-									<td>
-										<button class="btn btn-sm" style="background-color:#E4F7BA" type="submit">Order</button>
-									</td>
-								</tr>
+									<tr>
+										<th colspan="3"><span style="font-size:24px">Total Order Price</span></th>
+										<th>
+											<c:set var = "cartPrice" value = "0" />
+												<c:forEach var="c" items="${list}">
+													<c:set var= "cartPrice" value="${cartPrice + (c.goodsPrice*c.cartQuantity)}"/>
+												</c:forEach>
+											<span style="font-size:23px; color:red;">${cartPrice}</span>
+											<input type="hidden" name="cartPrice" value="${cartPrice}" readonly="readonly">
+										</th>
+										<td>
+											<button class="btn btn-sm" style="background-color:#E4F7BA" type="submit">Order</button>
+										</td>
+									</tr>
 							</c:if>
 						</table>
 						<br>

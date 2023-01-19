@@ -18,6 +18,7 @@ public class GoodsOneController extends HttpServlet {
 	private GoodsService goodsService;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 값 받아오기
+		System.out.println("[goodsOne 진입]");
 		System.out.println(request.getParameter("goodsCode"));
 		
 		int goodsCode = Integer.parseInt(request.getParameter("goodsCode"));
