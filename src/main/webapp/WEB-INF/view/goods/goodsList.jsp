@@ -152,7 +152,7 @@
 								<select name="rowPerPage" id="rowPerPage">
 									<c:if test="${rowPerPage == 18}">
 										<option value="18" selected="selected">18</option>
-										<option value="30">32</option>
+										<option value="30">30</option>
 										<option value="48">48</option>
 									</c:if>
 									<c:if test="${rowPerPage == 30}">

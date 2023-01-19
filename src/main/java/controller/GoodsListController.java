@@ -49,7 +49,7 @@ public class GoodsListController extends HttpServlet {
 		// System.out.println("currentPage : " + currentPage);
 		
 		// 3-2) rowPerPage
-		int rowPerPage = 16;
+		int rowPerPage = 18;
 		if(request.getParameter("rowPerPage") != null) {
 			rowPerPage = Integer.parseInt(request.getParameter("rowPerPage"));
 		}
