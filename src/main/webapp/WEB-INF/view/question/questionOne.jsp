@@ -109,17 +109,17 @@
 			</table>
 			</c:forEach>
 			<br>
-			<c:if test="${loginEmp != null}">
-		<h3>Add Answer</h3>				
-			<div class="col-12">
-		    	<div class="form-group">
-					<textarea name="commentMemo" class="form-control" id="commentMemo" cols="30" rows="10" placeholder="content"></textarea>
-		            <small id="contentMsg" class="form-text text-danger"></small>
+			<c:if test="${loginEmp != null && commentCk == false}">
+				<h3>Add Answer</h3>				
+				<div class="col-12">
+			    	<div class="form-group">
+						<textarea name="commentMemo" class="form-control" id="commentMemo" cols="30" rows="10" placeholder="content"></textarea>
+			            <small id="contentMsg" class="form-text text-danger"></small>
+					</div>
+	 				<div class="col-12 text-center">
+	 					<button class="btn oneMusic-btn mt-30" type="Submit" id="addAnswerBtn">답변완료<i class="fa fa-angle-double-right"></i></button>
+			        </div>
 				</div>
- 				<div class="col-12 text-center">
- 					<button class="btn oneMusic-btn mt-30" type="Submit" id="addAnswerBtn">답변완료<i class="fa fa-angle-double-right"></i></button>
-		        </div>
-			</div>
 			</c:if>
 		                                		
 		</div>

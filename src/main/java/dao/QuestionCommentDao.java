@@ -25,6 +25,20 @@ public class QuestionCommentDao {
 		return row;
 	}
 	
+	// 1-2)insert 체크
+	// question code 존재하면 이미 답변 등록->insert못함
+	public boolean insertCheck(Connection conn, int questionCode) throws Exception {
+		boolean questionCh = false;
+		String sql = "SELECT comment_code FORM question_comment WHERE qusetion_code = ? ";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, questionCode);
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			questionCh = true;
+		}
+		return questionCh;
+	}
+	
 	// 2) get
 	public ArrayList<HashMap<String, Object>> selectQuestionComment(Connection conn, int questionCode) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();

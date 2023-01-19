@@ -12,6 +12,7 @@ import vo.*;
 
 public class QuestionCommentService {
 	private QuestionCommentDao questionCommentDao;
+	private QuestionDao questionDao;
 	// 1) add
 	public int addQuestionComment(QuestionComment questionComment) {
 		int row = 0;
@@ -38,6 +39,34 @@ public class QuestionCommentService {
 			}
 		}
 		return row;
+	}
+	
+	// 1-2)중복체크
+	public boolean questionCh(int questionCode) {
+		this.questionCommentDao = new QuestionCommentDao();
+		boolean questionCh = false;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			questionCh = questionCommentDao.insertCheck(conn, questionCode);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+				System.out.println("예외발생");
+			}
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return questionCh;
 	}
 	// 2) get
 	public ArrayList<HashMap<String, Object>> getQuestionComment(int questionCode) {

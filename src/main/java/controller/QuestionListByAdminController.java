@@ -77,6 +77,7 @@ public class QuestionListByAdminController extends HttpServlet {
 		ArrayList<HashMap<String, Object>> comment = new ArrayList<HashMap<String, Object>>();
 		list = questionService.getQuestionListByAdmin(currentPage, rowPerPage, category);
 		comment = questionCommentService.getAllQuestionComment();
+		
 		request.setAttribute("comment", comment);
 		request.setAttribute("list", list);
 		request.setAttribute("beginPage", beginPage);
