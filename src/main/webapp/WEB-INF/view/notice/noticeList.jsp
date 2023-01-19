@@ -94,14 +94,27 @@
 				                            	
 				                            </div>
 				                     </div>
-		                            
-                        
-		                            
 		                        </div>
 		                    </div>
 						</c:forEach>
-	
-	
+						<!-- Pagination -->
+			            <div class="oneMusic-pagination-area wow fadeInUp mb-50" data-wow-delay="300ms">
+			                <nav>
+			                    <ul class="pagination">
+			                        <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/NoticeList?rowPerPage=${rowPerPage}&currentPage=1">HOME</a></li>
+			                        <c:if test="${currentPage > 1}">
+										<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/NoticeList?rowPerPage=${rowPerPage}&currentPage=${currentPage-1}"><<</a></li>
+									</c:if>
+									<c:forEach var="x" begin="${beginPage}" end="${endPage}" step="1">
+										<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/NoticeList?rowPerPage=${rowPerPage}&currentPage=${x}">${x}</a></li>
+									</c:forEach>
+									<c:if test="${currentPage < lastPage}">
+										<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/NoticeList?rowPerPage=${rowPerPage}&currentPage=${currentPage +1}">>></a></li>
+									</c:if>
+									<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/NoticeList?rowPerPage=${rowPerPage}&currentPage=${lastPage}">END</a></li>
+			                    </ul>
+			                </nav>
+			            </div>
 	                    <!-- Pagination -->
 	                    <div class="oneMusic-pagination-area wow fadeInUp" data-wow-delay="300ms">
 	                        <nav>

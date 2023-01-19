@@ -11,14 +11,43 @@ import vo.*;
 public class NoticeService {
 	private NoticeDao noticeDao;
 	// 1) select
+	// 1-0) count
+	public int getNoticeListCount() {
+		int row = 0;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			this.noticeDao = new NoticeDao();
+			row = noticeDao.selectNoticeCount(conn);
+			conn.commit(); // DBUtil setAutoCommit false설정
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return row;
+	}
 	// 1-1) notice list
-	public ArrayList<Notice> getNoticeList() {
+	public ArrayList<Notice> getNoticeList(int currentPage, int rowPerPage) {
 		ArrayList<Notice> notice = new ArrayList<Notice>();
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();
 			noticeDao = new NoticeDao();
-			notice = noticeDao.selectNoticeList(conn);
+			// 페이징
+			int beginRow = (currentPage - 1) * rowPerPage; // 시작 행
+			// System.out.println("beginRow : " + beginRow);
+			notice = noticeDao.selectNoticeList(conn, beginRow, rowPerPage);
 			conn.commit();
 		} catch (Exception e) {
 			try {

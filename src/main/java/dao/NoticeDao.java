@@ -9,11 +9,30 @@ import vo.*;
 public class NoticeDao {
 	// 1) list
 	// 1-1) count(페이징 처리)
-	// 1-2) list
-	public ArrayList<Notice> selectNoticeList(Connection conn) throws Exception {
-		ArrayList<Notice> notice = new ArrayList<Notice>();
-		String sql = "SELECT notice_code noticeCode, notice_title noticeTitle, notice_content noticeContent, createdate FROM notice ORDER BY notice_code DESC";
+	public int selectNoticeCount(Connection conn) throws Exception {
+		int count = 0;
+		String sql = "SELECT COUNT(*) FROM notice";
 		PreparedStatement stmt = conn.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			count = rs.getInt("COUNT(*)");
+		}
+		return count;
+	}
+	// 1-2) list
+	public ArrayList<Notice> selectNoticeList(Connection conn, int beginRow, int endRow) throws Exception {
+		ArrayList<Notice> notice = new ArrayList<Notice>();
+		String sql = "SELECT"
+				+ " notice_code noticeCode"
+				+ ", notice_title noticeTitle"
+				+ ", notice_content noticeContent"
+				+ ", createdate"
+				+ " FROM notice"
+				+ " ORDER BY notice_code DESC"
+				+ " LIMIT ?, ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, beginRow);
+		stmt.setInt(2, endRow);
 		ResultSet rs = stmt.executeQuery();
 		while(rs.next()) {
 			Notice n = new Notice();

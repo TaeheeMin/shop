@@ -49,7 +49,7 @@ public class QuestionListByAdminController extends HttpServlet {
 		if(request.getParameter("rowPerPage") != null) {
 			rowPerPage = Integer.parseInt(request.getParameter("rowPerPage"));
 		}
-		// System.out.println("rowPerPage : " + rowPerPage);
+		System.out.println("rowPerPage : " + rowPerPage);
 		
 		// 1-3) 전체 페이지
 		int count = questionService.getQuestionListCount();
@@ -71,7 +71,7 @@ public class QuestionListByAdminController extends HttpServlet {
 		if(category == null) {
 			category = "";
 		}
-		// System.out.println("category : " +  category);
+		System.out.println("category : " +  category);
 	
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		ArrayList<HashMap<String, Object>> comment = new ArrayList<HashMap<String, Object>>();
