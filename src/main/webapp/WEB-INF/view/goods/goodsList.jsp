@@ -189,9 +189,9 @@
 		                        <img src="${pageContext.request.contextPath}/goodsimg/${m.filename}" alt="">
 		                        <div class="album-info">
 		                            <a href="${pageContext.request.contextPath}/GoodsOne?goodsCode=${m.goodsCode}">
-		                                <h5>${m.goodsArtist}</h5>
+		                                <h5>${m.goodsTitle}</h5>
 		                            </a>
-		                            <p>${m.goodsTitle}</p>
+		                            <p>${m.goodsArtist}</p>
 		                            <p>${m.goodsPrice}</p>
 		                            <p>
 										<c:choose> 
