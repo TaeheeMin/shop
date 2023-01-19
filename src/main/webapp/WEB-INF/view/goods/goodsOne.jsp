@@ -131,12 +131,12 @@
 		                        <c:forEach var="review" items="${review}">
 		                            <div class="col-md-6 col-lg-2">
 		                                <div class="form-group">
-		                                    <input type="text" class="form-control" id="name" value="${review.customerId}">
+		                                    <input type="text" class="form-control" id="name" value="${review.customerId}" readonly="readonly">
 		                                </div>
 		                            </div>
 		                            <div class="col-md-6 col-lg-6">
 		                                <div class="form-group">
-		                                    <input type="text" class="form-control" id="reviewMemo" value="${review.reviewMemo}">
+		                                    <input type="text" class="form-control" id="reviewMemo" value="${review.reviewMemo}" readonly="readonly">
 		                                </div>
 		                            </div>
 		                            ${review.createdate}

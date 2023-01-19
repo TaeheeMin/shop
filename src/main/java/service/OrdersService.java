@@ -241,7 +241,7 @@ public class OrdersService {
 		return list;
 	}
 	
-	// 주문 리스트 고객용
+	// 주문 완료
 	public ArrayList<HashMap<String, Object>> completeOrdersList(Customer loginCustomer, int orderLength) {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		Connection conn = null;
