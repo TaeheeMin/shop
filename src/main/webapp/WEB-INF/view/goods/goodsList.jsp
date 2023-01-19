@@ -150,19 +150,19 @@
 							
 							<div style="float: right; padding-bottom: 10px;">
 								<select name="rowPerPage" id="rowPerPage">
-									<c:if test="${rowPerPage == 16}">
-										<option value="16" selected="selected">16</option>
-										<option value="32">32</option>
+									<c:if test="${rowPerPage == 18}">
+										<option value="18" selected="selected">18</option>
+										<option value="30">32</option>
 										<option value="48">48</option>
 									</c:if>
-									<c:if test="${rowPerPage == 32}">
-										<option value="16">16</option>
-										<option value="32" selected="selected">32</option>
+									<c:if test="${rowPerPage == 30}">
+										<option value="18">18</option>
+										<option value="30" selected="selected">30</option>
 										<option value="48">48</option>
 									</c:if>
 									<c:if test="${rowPerPage == 48}">
-										<option value="16">16</option>
-										<option value="32">32</option>
+										<option value="18">18</option>
+										<option value="30">30</option>
 										<option value="48" selected="selected">48</option>
 									</c:if>
 								</select>
