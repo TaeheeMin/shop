@@ -79,13 +79,13 @@
                             <form id="loginForm" action="${pageContext.request.contextPath}/LoginCustomer" method="post">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Id</label>
-                                    <input type="text" name="customerId" class="form-control" id="customerId" placeholder="아이디를 입력하세요">
+                                    <input type="text" name="customerId" class="form-control" id="customerId" placeholder="아이디를 입력하세요" value="test">
                                     <small id="privacy" class="form-text text-muted"><i class="fa fa-lock mr-2"></i>모든 계정은 철저히 감시되고 있습니다</small>
                                     <small id="customerIdMsg" class="form-text text-danger"></small>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Password</label>
-                                    <input type="password" id="customerPw" name="customerPw" class="form-control" placeholder="비밀번호를 입력하세요">
+                                    <input type="password" id="customerPw" name="customerPw" class="form-control" placeholder="비밀번호를 입력하세요" value="1234">
                                     <small id="customerPwMsg" class="form-text text-danger"></small>
                                 </div>
                                 <button id="logInBtn" type="button" class="btn oneMusic-btn mt-30">Login</button>

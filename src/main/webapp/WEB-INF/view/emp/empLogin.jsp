@@ -92,13 +92,13 @@
                             <form id="empForm" action="${pageContext.request.contextPath}/LoginEmp" method="post">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Id</label>
-                                    <input type="text" name="empId" class="form-control" id="empId" placeholder="아이디를 입력하세요">
+                                    <input type="text" name="empId" class="form-control" id="empId" placeholder="아이디를 입력하세요" value="admin">
                                     <small id="privacy" class="form-text text-muted"><i class="fa fa-lock mr-2"></i>관리자 계정으로 로그인하세요</small>
                                     <small id="empIdMsg" class="form-text text-danger"></small>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Password</label>
-                                    <input type="password" id="empPw" name="empPw" class="form-control" placeholder="비밀번호를 입력하세요">
+                                    <input type="password" id="empPw" name="empPw" class="form-control" placeholder="비밀번호를 입력하세요" value="1234">
                                     <small id="empPwMsg" class="form-text text-danger"></small>
                                 </div>
                                 <button id="empBtn" type="button" class="btn oneMusic-btn mt-30">Login</button>
