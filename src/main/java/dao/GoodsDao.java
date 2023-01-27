@@ -151,7 +151,66 @@ public class GoodsDao {
 		return list;
 	}
 	
-	// 2-2-4) 추천 앨범 hit 4개
+	// 2-2-4) 홈화면 밑부분에 소개할 해외음악
+	public ArrayList<HashMap<String, Object>> selectPopSongList(Connection conn) throws Exception {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		String sql = "SELECT"
+				+ " gd.goods_code goodsCode"
+				+ ", gd.goods_category goodsCategory"
+				+ ", gd.goods_title goodsTitle"
+				+ ", gd.goods_artist goodsArtist"
+				+ ", img.filename filename"
+				+ ", gd.goods_code goodsCode"
+				+ ", gd.goods_price goodsPrice"
+				+ " FROM goods gd INNER JOIN goods_img img"
+				+ " ON gd.goods_code = img.goods_code"
+				+ " WHERE gd.goods_category = '해외팝'"
+				+ " ORDER BY gd.hit DESC, gd.goods_code DESC";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next()) {
+			HashMap<String, Object> m = new HashMap<String, Object>();
+			m.put("goodsCode", rs.getInt("goodsCode"));
+			m.put("goodsCategory", rs.getString("goodsCategory"));
+			m.put("goodsTitle", rs.getString("goodsTitle"));
+			m.put("goodsArtist",  rs.getString("goodsArtist"));
+			m.put("filename", rs.getString("filename"));
+			m.put("goodsPrice",  rs.getInt("goodsPrice"));
+			list.add(m);
+		}
+		// System.out.println("[GoodsDao] 팝송list : "+list);
+		return list;
+	}
+	
+	// 2-2-5) 홈화면 밑부분에 소개할 인디음악
+	public ArrayList<HashMap<String, Object>> selectIndieSongList(Connection conn) throws Exception {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		String sql = "SELECT"
+				+ " gd.goods_code goodsCode"
+				+ ", gd.goods_category goodsCategory"
+				+ ", gd.goods_title goodsTitle"
+				+ ", gd.goods_artist goodsArtist"
+				+ ", img.filename filename"
+				+ ", gd.goods_code goodsCode"
+				+ ", gd.goods_price goodsPrice"
+				+ " FROM goods gd INNER JOIN goods_img img"
+				+ " ON gd.goods_code = img.goods_code"
+				+ " WHERE gd.goods_category = '인디'"
+				+ " ORDER BY gd.hit DESC, gd.goods_code DESC";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next()) {
+			HashMap<String, Object> m = new HashMap<String, Object>();
+			m.put("goodsCode", rs.getInt("goodsCode"));
+			m.put("goodsCategory", rs.getString("goodsCategory"));
+			m.put("goodsTitle", rs.getString("goodsTitle"));
+			m.put("goodsArtist",  rs.getString("goodsArtist"));
+			m.put("filename", rs.getString("filename"));
+			m.put("goodsPrice",  rs.getInt("goodsPrice"));
+			list.add(m);
+		}
+		return list;
+	}
 	
 	// 2-3) goods one
 	public ArrayList<HashMap<String, Object>> selectGoodsOne(Connection conn, int goodsCode) throws Exception {

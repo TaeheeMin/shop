@@ -48,8 +48,8 @@
 	                    <div class="row">
 	                        <div class="col-12">
 	                            <div class="hero-slides-content text-center">
-	                                <h6 data-animation="fadeInUp" data-delay="100ms">Latest album</h6>
-	                                <h2 data-animation="fadeInUp" data-delay="300ms">New Jeans<span>New Jeans</span></h2>
+	                                <h6 data-animation="fadeInUp" data-delay="100ms">Legend Comback</h6>
+	                                <h2 data-animation="fadeInUp" data-delay="300ms">Post Malone<span>Post Malone</span></h2>
 	                                <a data-animation="fadeInUp" data-delay="500ms" href="${pageContext.request.contextPath}/GoodsList" class="btn oneMusic-btn mt-50">Discover <i class="fa fa-angle-double-right"></i></a>
 	                            </div>
 	                        </div>
@@ -66,8 +66,8 @@
 	                    <div class="row">
 	                        <div class="col-12">
 	                            <div class="hero-slides-content text-center">
-	                                <h6 data-animation="fadeInUp" data-delay="100ms">Legend Comback</h6>
-	                                <h2 data-animation="fadeInUp" data-delay="300ms">Post Malone<span>Post Malone</span></h2>
+	                            	<h6 data-animation="fadeInUp" data-delay="100ms">Latest album</h6>
+	                                <h2 data-animation="fadeInUp" data-delay="300ms">New Jeans<span>New Jeans</span></h2>
 	                                <a data-animation="fadeInUp" data-delay="500ms" href="${pageContext.request.contextPath}/GoodsList" class="btn oneMusic-btn mt-50">Discover <i class="fa fa-angle-double-right"></i></a>
 	                            </div>
 	                        </div>
@@ -206,19 +206,19 @@
                 <div class="col-12 col-lg-4">
                     <div class="weeks-top-area mb-100">
                         <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
-                            <p>See what’s new</p>
-                            <h2>This week’s top</h2>
+                            <p>오늘의 팝송</p>
+                            <h2>Today Pop Song</h2>
                         </div>
 
                         <!-- Single Top Item -->
-                        <c:forEach var="r" items="${rlist}" begin="1" end="6" step="1">
+                        <c:forEach var="p" items="${plist}" begin="1" end="6" step="1">
 	                        <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="100ms">
 	                            <div class="thumbnail">
-	                                 <img src="${pageContext.request.contextPath}/goodsimg/${r.filename}" alt="">
+	                                 <img src="${pageContext.request.contextPath}/goodsimg/${p.filename}" alt="">
 	                            </div>
 	                            <div class="content-">
-	                                <h5>${r.goodsTitle}</h5>
-	                                <p>${r.goodsArtist}</p>
+	                                <h5>${p.goodsTitle}</h5>
+	                                <p>${p.goodsArtist}</p>
 	                            </div>
 	                        </div>
                         </c:forEach>
@@ -229,19 +229,19 @@
                 <div class="col-12 col-lg-4">
                     <div class="new-hits-area mb-100">
                         <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
-                            <p>See what’s new</p>
-                            <h2>New Hits</h2>
+                            <p>오늘의 인디음악</p>
+                            <h2>Today Indie Music</h2>
                         </div>
                         <!-- Single Top Item -->
-	                    <c:forEach var="h" items="${hlist}" begin="1" end="6" step="1">
+	                    <c:forEach var="i" items="${ilist}" begin="1" end="6" step="1">
 	                        <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="100ms">
 	                            <div class="first-part d-flex align-items-center">
 	                                <div class="thumbnail">
-	                                    <img src="${pageContext.request.contextPath}/goodsimg/${h.filename}" alt="">
+	                                    <img src="${pageContext.request.contextPath}/goodsimg/${i.filename}" alt="">
 	                                </div>
 	                                <div class="content-">
-	                                  	<h6>${h.goodsTitle}</h6>
-	                            		<p>${h.goodsArtist}</p>
+	                                  	<h6>${i.goodsTitle}</h6>
+	                            		<p>${i.goodsArtist}</p>
 	                                </div>
 	                            </div>
 	                            <audio preload="auto" controls>
@@ -257,7 +257,7 @@
                 <div class="col-12 col-lg-4">
                     <div class="popular-artists-area mb-100">
                         <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
-                            <p>See what’s new</p>
+                            <p>Hot Musician</p>
                             <h2>Popular Artist</h2>
                         </div>
 						

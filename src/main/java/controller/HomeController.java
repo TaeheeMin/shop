@@ -71,6 +71,14 @@ public class HomeController extends HttpServlet {
 		ArrayList<HashMap<String, Object>> hlist = goodsService.selectHitSongList();
 		request.setAttribute("hlist", hlist);
 		
+		// 팝송 목록 불러오기
+		ArrayList<HashMap<String, Object>> plist = goodsService.selectPopSongList();
+		request.setAttribute("plist", plist);
+
+		// 인디음악 목록 불러오기
+		ArrayList<HashMap<String, Object>> ilist = goodsService.selectIndieSongList();
+		request.setAttribute("ilist", ilist);
+		
 		// 추천 artist
 		ArrayList<Goods> alist = goodsService.getGoodsArtist();
 		request.setAttribute("alist", alist);

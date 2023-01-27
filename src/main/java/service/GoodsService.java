@@ -129,7 +129,7 @@ public class GoodsService {
 		return list;
 	}
 	
-	// 2-2-2) 홈화면에 띄울 최신곡
+	// 2-2-3) 홈화면에 띄울 히트곡
 	public ArrayList<HashMap<String, Object>> selectHitSongList() {
 		Connection conn = null;
 		this.goodsDao = new GoodsDao();
@@ -156,6 +156,60 @@ public class GoodsService {
 		}
 		return list;
 	}
+	
+	// 2-2-4) 홈화면 밑부분에 소개할 해외음악
+	public ArrayList<HashMap<String, Object>> selectPopSongList() {
+		Connection conn = null;
+		this.goodsDao = new GoodsDao();
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		// System.out.println("[goodsService]");
+		try {
+			conn = DBUtil.getConnection();
+			list = goodsDao.selectPopSongList(conn);
+			// System.out.println("팝송list service : "+list);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
+	// 2-2-4) 홈화면 밑부분에 소개할 인디음악
+		public ArrayList<HashMap<String, Object>> selectIndieSongList() {
+			Connection conn = null;
+			this.goodsDao = new GoodsDao();
+			ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+			try {
+				conn = DBUtil.getConnection();
+				list = goodsDao.selectIndieSongList(conn);
+				conn.commit();
+			} catch (Exception e) {
+				try {
+					conn.rollback();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				
+			} finally {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			return list;
+		}
 		
 	// 2-3) goods one
 	public ArrayList<HashMap<String, Object>> getGoodsOne(int goodsCode) {
