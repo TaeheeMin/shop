@@ -42,7 +42,7 @@
 	            <!-- Single Hero Slide -->
 	            <div class="single-hero-slide d-flex align-items-center justify-content-center">
 	                <!-- Slide Img -->
-	                <div class="slide-img bg-img" style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/newjeans2.jpg);"></div>
+	                <div class="slide-img bg-img" style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/postMalone_bg4.jpg);"></div>
 	                <!-- Slide Content -->
 	                <div class="container">
 	                    <div class="row">
@@ -60,7 +60,7 @@
 	            <!-- Single Hero Slide -->
 	            <div class="single-hero-slide d-flex align-items-center justify-content-center">
 	                <!-- Slide Img -->
-	                <div class="slide-img bg-img" style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/postMalone_bg4.jpg);"></div>
+	                <div class="slide-img bg-img" style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/newjeans2.jpg);"></div>
 	                <!-- Slide Content -->
 	                <div class="container">
 	                    <div class="row">
