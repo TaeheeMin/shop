@@ -60,14 +60,14 @@
 	            <!-- Single Hero Slide -->
 	            <div class="single-hero-slide d-flex align-items-center justify-content-center">
 	                <!-- Slide Img -->
-	                <div class="slide-img bg-img" style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/bg-2.jpg);"></div>
+	                <div class="slide-img bg-img" style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/postMalone_bg4.jpg);"></div>
 	                <!-- Slide Content -->
 	                <div class="container">
 	                    <div class="row">
 	                        <div class="col-12">
 	                            <div class="hero-slides-content text-center">
-	                                <h6 data-animation="fadeInUp" data-delay="100ms">Latest album</h6>
-	                                <h2 data-animation="fadeInUp" data-delay="300ms">Colorlib Music <span>Colorlib Music</span></h2>
+	                                <h6 data-animation="fadeInUp" data-delay="100ms">Legend Comback</h6>
+	                                <h2 data-animation="fadeInUp" data-delay="300ms">Post Malone<span>Post Malone</span></h2>
 	                                <a data-animation="fadeInUp" data-delay="500ms" href="${pageContext.request.contextPath}/GoodsList" class="btn oneMusic-btn mt-50">Discover <i class="fa fa-angle-double-right"></i></a>
 	                            </div>
 	                        </div>
@@ -92,7 +92,7 @@
 	            <div class="row justify-content-center">
 	                <div class="col-12 col-lg-9">
 	                    <div class="ablums-text text-center mb-70">
-	                        <p>방금 막 공개된 따끈따끈한 최신앨범들을 구경해보세요!! (좀더 장문으로 이쁘고 멋진소개글 쓰기)</p>
+	                        <p>최근에 발매된 신상품들입니다.</p>
 	                    </div>
 	                </div>
 	            </div>
@@ -260,18 +260,62 @@
                             <p>See what’s new</p>
                             <h2>Popular Artist</h2>
                         </div>
-
-                        <!-- Single Artist -->
-                        <c:forEach var="a" items="${alist}" begin="1" end="6" step="1">
-	                        <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="100ms">
-	                            <div class="thumbnail">
-	                                <img src="${pageContext.request.contextPath}/resources/img/bg-img/pa1.jpg" alt="">
-	                            </div>
-	                            <div class="content-">
-	                                <p>${a.goodsArtist}</p>
-	                            </div>
-	                        </div>
-                        </c:forEach>
+						
+						<!-- Single Artist -->
+						<div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="100ms">
+                            <div class="thumbnail">
+                                <img src="${pageContext.request.contextPath}/resources/img/bg-img/SZA1_artist.jpg" alt="">
+                            </div>
+                            <div class="content-">
+                                <p>SZA</p>
+                            </div>
+                        </div>
+                        
+                        <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="100ms">
+                            <div class="thumbnail">
+                                <img src="${pageContext.request.contextPath}/resources/img/bg-img/xxxtentacion_artist.jpg" alt="">
+                            </div>
+                            <div class="content-">
+                                <p>XXXTENTACION</p>
+                            </div>
+                        </div>
+                        
+                        <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="100ms">
+                            <div class="thumbnail">
+                                <img src="${pageContext.request.contextPath}/resources/img/bg-img/BeaMiller_artist.jpg" alt="">
+                            </div>
+                            <div class="content-">
+                                <p>Bea Miller</p>
+                            </div>
+                        </div>
+                        
+                        <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="100ms">
+                            <div class="thumbnail">
+                                <img src="${pageContext.request.contextPath}/resources/img/bg-img/kwanJina_artist.jpg" alt="">
+                            </div>
+                            <div class="content-">
+                                <p>권진아</p>
+                            </div>
+                        </div>
+                        
+	                    <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="100ms">
+                            <div class="thumbnail">
+                                <img src="${pageContext.request.contextPath}/resources/img/bg-img/newjeans_artist.jpg" alt="">
+                            </div>
+                            <div class="content-">
+                                <p>뉴진스 (New Jeans)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="100ms">
+                            <div class="thumbnail">
+                                <img src="${pageContext.request.contextPath}/resources/img/bg-img/postMalone_artist.jpg" alt="">
+                            </div>
+                            <div class="content-">
+                                <p>포스트말론 (Post Malone)</p>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
