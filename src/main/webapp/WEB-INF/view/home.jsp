@@ -105,7 +105,7 @@
 		                    	<div class="single-album">
 			                    	<img src="${pageContext.request.contextPath}/goodsimg/${m.filename}" alt="">
 		                            <div class="album-info">
-		                                <a href="#">
+		                                <a href="${pageContext.request.contextPath}/GoodsOne?goodsCode=${m.goodsCode}">
 		                                    <h5>${m.goodsTitle}</h5>
 		                                </a>
 		                                <p>${m.goodsArtist}</p>
@@ -140,7 +140,7 @@
                             <img src="${pageContext.request.contextPath}/goodsimg/${h.filename}" alt="">
                         </div>
                         <div class="album-info">
-                            <a href="#">
+                            <a href="${pageContext.request.contextPath}/GoodsOne?goodsCode=${h.goodsCode}">
                                 <h5>${h.goodsTitle}</h5>
                             </a>
                             <p>${h.goodsArtist}</p>
