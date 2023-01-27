@@ -20,14 +20,12 @@
 		<c:forEach var="o" items="${list}">
 		   <script>
 		   //고객용
-		   
 		   $(document).ready(function() {
 		      $('.orderState${o.orderCode}').change(function() {
 		           $('#orderForm${o.orderCode}').submit();
 		     
 		      })
 		     });   
-		
 		   </script>		   
    		</c:forEach>
    		<c:if test="${msg==1}">	
@@ -53,8 +51,6 @@
 	    
 	    <!-- ##### Album Catagory Area Start ##### -->
 	    <section class="album-catagory section-padding-100-0">
-    		
-    		
 	        <div class="container">
 	         <div class="col-12">	         
 			   <table class = "table table-hover w-100 rounded" style="table-layout: auto; width: 100%; table-layout: fixed;">
@@ -128,48 +124,26 @@
 	                    </ul>
 	                </nav>
 	            </div>
-			        
 			</div>
 		</div>
 	    </section>
 	    <!-- ##### Album Catagory Area End ##### -->
-
-    <!-- ##### Add Area Start ##### -->
-    <div class="add-area mb-100">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="adds">
-                        <a href="#"><img src="img/bg-img/add3.gif" alt=""></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- ##### Add Area End ##### -->
-
-  
-
-		
-		
-		
-		
-	<!-- 메뉴 partial jsp 구성 -->
-	<div>
-		<jsp:include page="/inc/footer.jsp"></jsp:include>
-	</div>
-		
-	<!-- ##### All Javascript Script ##### -->
-    <!-- jQuery-2.2.4 js -->
-    <script src="${pageContext.request.contextPath}/resources/js/jquery/jquery-2.2.4.min.js"></script>
-    <!-- Popper js -->
-    <script src="${pageContext.request.contextPath}/resources/js/bootstrap/popper.min.js"></script>
-    <!-- Bootstrap js -->
-    <script src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap.min.js"></script>
-    <!-- All Plugins js -->
-    <script src="${pageContext.request.contextPath}/resources/js/plugins/plugins.js"></script>
-    <!-- Active js -->
-    <script src="${pageContext.request.contextPath}/resources/js/active.js"></script>
-		
+	    
+		<!-- 메뉴 partial jsp 구성 -->
+		<div>
+			<jsp:include page="/inc/footer.jsp"></jsp:include>
+		</div>
+			
+		<!-- ##### All Javascript Script ##### -->
+	    <!-- jQuery-2.2.4 js -->
+	    <script src="${pageContext.request.contextPath}/resources/js/jquery/jquery-2.2.4.min.js"></script>
+	    <!-- Popper js -->
+	    <script src="${pageContext.request.contextPath}/resources/js/bootstrap/popper.min.js"></script>
+	    <!-- Bootstrap js -->
+	    <script src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap.min.js"></script>
+	    <!-- All Plugins js -->
+	    <script src="${pageContext.request.contextPath}/resources/js/plugins/plugins.js"></script>
+	    <!-- Active js -->
+	    <script src="${pageContext.request.contextPath}/resources/js/active.js"></script>
 	</body>
 </html>
