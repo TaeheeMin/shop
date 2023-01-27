@@ -217,7 +217,9 @@
 	                                 <img src="${pageContext.request.contextPath}/goodsimg/${p.filename}" alt="">
 	                            </div>
 	                            <div class="content-">
-	                                <h5>${p.goodsTitle}</h5>
+		                            <a href="${pageContext.request.contextPath}/GoodsOne?goodsCode=${p.goodsCode}">
+	                                	<h5>${p.goodsTitle}</h5>
+	                            	</a>
 	                                <p>${p.goodsArtist}</p>
 	                            </div>
 	                        </div>
@@ -240,13 +242,12 @@
 	                                    <img src="${pageContext.request.contextPath}/goodsimg/${i.filename}" alt="">
 	                                </div>
 	                                <div class="content-">
-	                                  	<h6>${i.goodsTitle}</h6>
+	                                  	<a href="${pageContext.request.contextPath}/GoodsOne?goodsCode=${i.goodsCode}">
+	                                		<h5>${i.goodsTitle}</h5>
+	                            		</a>
 	                            		<p>${i.goodsArtist}</p>
 	                                </div>
 	                            </div>
-	                            <audio preload="auto" controls>
-	                                <source src="audio/dummy-audio.mp3">
-	                            </audio>
 	                        </div>
 	                    </c:forEach>
                     </div>
