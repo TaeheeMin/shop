@@ -87,21 +87,18 @@
 								<td>${q.questionCode}</td>
 								<td>${q.category}</td>
 								<td>
-								<div class="single-album-area">
-									<div class="album-thumb">
+									<div class="single-album-area">
+										<div class="album-thumb">
 				                            <img src="${pageContext.request.contextPath}/goodsimg/${q.filename}" width="150" height="150" alt="">
 				                            <!-- Play Icon -->
 				                            <div class="play-icon">
 				                                <a href="${pageContext.request.contextPath}/GoodsOne?goodsCode=${q.goodsCode}" class="video--play--btn"><span class="icon-music"></span></a>
 				                            </div>
 				                        </div>
-				                        
 				                        <div class="album-info">
 				                                ${q.goodsTitle}
 				                        </div>
 			                        </div>
-									
-										
 								</td>
 								<td>
 									<a href="${pageContext.request.contextPath}/QuestionOne?questionCode=${q.questionCode}">${q.questionTitle}</a>
@@ -109,16 +106,14 @@
 								<td>${q.customerId}</td>
 								<td>${q.createdate.substring(0,10)}</td>
 								<td>
-									<c:forEach var="c" items="${comment}">
-										<c:choose> 
-											<c:when test="${c.questionCode eq q.questionCode}">
-												<p>답변완료</p>
-											</c:when> 
-											<c:otherwise>
-												<a href="${pageContext.request.contextPath}/QuestionOne?questionCode=${q.questionCode}"> <p class="text-danger">미답변</p></a>
-											</c:otherwise> 
-										</c:choose> 
-									</c:forEach>
+									<c:choose> 
+										<c:when test="${q.commentCode <= 0}">
+											<a href="${pageContext.request.contextPath}/QuestionOne?questionCode=${q.questionCode}"> <p class="text-danger">미답변</p></a>
+										</c:when> 
+										<c:otherwise>
+											<p>답변완료</p>
+										</c:otherwise> 
+									</c:choose> 
 								</td>
 							</tr>
 						</c:forEach>

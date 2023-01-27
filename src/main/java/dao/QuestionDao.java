@@ -47,18 +47,21 @@ public class QuestionDao {
 				+ ", q.orders_code ordersCode"
 				+ ", g.goods_title goodsTitle"
 				+ ", img.filename filename"
-				+ ", q.category"
+				+ ", q.category category"
 				+ ", q.question_title questionTitle"
 				+ ", q.question_memo questionMemo"
-				+ ", q.createdate"
+				+ ", q.createdate createdate"
 				+ ", o.customer_id customerId"
 				+ ", g.goods_code goodsCode"
+				+ ", c.comment_code commentCode"
 				+ " FROM question q INNER JOIN orders o"
 				+ " ON q.orders_code = o.order_code"
 				+ " INNER JOIN goods g"
 				+ " ON o.goods_code = g.goods_code"
 				+ " INNER JOIN goods_img img"
 				+ " ON g.goods_code = img.goods_code"
+				+ " LEFT JOIN question_comment c"
+				+ " ON q.question_code = c.question_code"
 				+ " WHERE q.category LIKE ?"
 				+ " ORDER BY q.question_code DESC"
 				+ " LIMIT ?, ?";
@@ -78,6 +81,7 @@ public class QuestionDao {
 			m.put("createdate", rs.getString("createdate"));
 			m.put("customerId", rs.getString("customerId"));
 			m.put("goodsCode", rs.getInt("goodsCode"));
+			m.put("commentCode", rs.getInt("commentCode"));
 			list.add(m);
 		}
 		return list;
@@ -94,12 +98,15 @@ public class QuestionDao {
 				+ ", q.category category"
 				+ ", q.question_title questionTitle"
 				+ ", q.createdate createdate"
+				+ ", c.comment_code commentCode"
 				+ " FROM question q INNER JOIN orders o"
 				+ " ON q.orders_code = o.order_code"
 				+ " INNER JOIN goods g"
 				+ " ON o.goods_code = g.goods_code"
 				+ " INNER JOIN goods_img img"
 				+ " ON g.goods_code = img.goods_code"
+				+ " LEFT JOIN question_comment c"
+				+ " ON q.question_code = c.question_code"
 				+ " WHERE o.customer_id = ?"
 				+ " ORDER BY q.question_code DESC";
 		PreparedStatement stmt = conn.prepareStatement(sql);
@@ -114,6 +121,7 @@ public class QuestionDao {
 			m.put("category", rs.getString("category"));
 			m.put("questionTitle", rs.getString("questionTitle"));
 			m.put("createdate", rs.getString("createdate"));
+			m.put("commentCode", rs.getInt("commentCode"));
 			list.add(m);
 		}
 		return list;

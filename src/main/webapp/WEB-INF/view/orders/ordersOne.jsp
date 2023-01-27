@@ -33,15 +33,11 @@
     	<!-- ##### Breadcumb Area Start ##### -->
 	    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/breadcumb3.jpg);">
 	        <div class="bradcumbContent">
-	            
 	            <h2>Order Page</h2>
 	        </div>
 	    </section>
 	   
-	    
 	    <section class="album-catagory section-padding-100-0">
-    		
-    		
 	        <div class="container">
 	         <div class="col-12">
 	          <!-- #### search #### -->	
@@ -102,42 +98,22 @@
 	    </section>
 	    <!-- ##### Album Catagory Area End ##### -->
 
-    <!-- ##### Add Area Start ##### -->
-    <div class="add-area mb-100">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="adds">
-                        <a href="#"><img src="img/bg-img/add3.gif" alt=""></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- ##### Add Area End ##### -->
-
-  
-
-		
-		
-		
-		
-	<!-- 메뉴 partial jsp 구성 -->
-	<div>
-		<jsp:include page="/inc/footer.jsp"></jsp:include>
-	</div>
-		
-	<!-- ##### All Javascript Script ##### -->
-    <!-- jQuery-2.2.4 js -->
-    <script src="${pageContext.request.contextPath}/resources/js/jquery/jquery-2.2.4.min.js"></script>
-    <!-- Popper js -->
-    <script src="${pageContext.request.contextPath}/resources/js/bootstrap/popper.min.js"></script>
-    <!-- Bootstrap js -->
-    <script src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap.min.js"></script>
-    <!-- All Plugins js -->
-    <script src="${pageContext.request.contextPath}/resources/js/plugins/plugins.js"></script>
-    <!-- Active js -->
-    <script src="${pageContext.request.contextPath}/resources/js/active.js"></script>
+		<!-- 메뉴 partial jsp 구성 -->
+		<div>
+			<jsp:include page="/inc/footer.jsp"></jsp:include>
+		</div>
+			
+		<!-- ##### All Javascript Script ##### -->
+	    <!-- jQuery-2.2.4 js -->
+	    <script src="${pageContext.request.contextPath}/resources/js/jquery/jquery-2.2.4.min.js"></script>
+	    <!-- Popper js -->
+	    <script src="${pageContext.request.contextPath}/resources/js/bootstrap/popper.min.js"></script>
+	    <!-- Bootstrap js -->
+	    <script src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap.min.js"></script>
+	    <!-- All Plugins js -->
+	    <script src="${pageContext.request.contextPath}/resources/js/plugins/plugins.js"></script>
+	    <!-- Active js -->
+	    <script src="${pageContext.request.contextPath}/resources/js/active.js"></script>
 		
 	</body>
 </html>

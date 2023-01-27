@@ -28,7 +28,6 @@
     	<!-- ##### Breadcumb Area Start ##### -->
 	    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(${pageContext.request.contextPath}/resources/img/bg-img/breadcumb3.jpg);">
 	        <div class="bradcumbContent">
-	            
 	            <h2>Q&A</h2>
 	        </div>
 	    </section>
@@ -70,64 +69,41 @@
 							</td>
 							<td>${q.createdate}</td>
 							<td>
-								<c:forEach var="c" items="${comment}">
-									<c:choose> 
-										<c:when test="${c.questionCode eq q.questionCode}">
-											<a href="${pageContext.request.contextPath}/QuestionOne?questionCode=${q.questionCode}">답변보기</a>
-										</c:when> 
-										<c:otherwise>
+								<c:choose> 
+									<c:when test="${q.commentCode <= 0}">
 										<a href="${pageContext.request.contextPath}/QuestionModify?questionCode=${q.questionCode}">수정</a>
 										<a href="${pageContext.request.contextPath}/QuestionRemove?questionCode=${q.questionCode}">삭제</a>
-										</c:otherwise> 
-									</c:choose> 
-								</c:forEach>
+									</c:when> 
+									<c:otherwise>
+										<p>답변완료</p>
+									</c:otherwise> 
+								</c:choose> 
 							</td>
 						</tr>
 					</c:forEach>
 		          </tbody>
 		      </table>	  
-			        
 			</div>
 		</div>
 	    </section>
 	    <!-- ##### Album Catagory Area End ##### -->
 
-    <!-- ##### Add Area Start ##### -->
-    <div class="add-area mb-100">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="adds">
-                        <a href="#"><img src="img/bg-img/add3.gif" alt=""></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- ##### Add Area End ##### -->
-
-  
-
-		
-		
-		
-		
-	<!-- 메뉴 partial jsp 구성 -->
-	<div>
-		<jsp:include page="/inc/footer.jsp"></jsp:include>
-	</div>
-		
-	<!-- ##### All Javascript Script ##### -->
-    <!-- jQuery-2.2.4 js -->
-    <script src="${pageContext.request.contextPath}/resources/js/jquery/jquery-2.2.4.min.js"></script>
-    <!-- Popper js -->
-    <script src="${pageContext.request.contextPath}/resources/js/bootstrap/popper.min.js"></script>
-    <!-- Bootstrap js -->
-    <script src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap.min.js"></script>
-    <!-- All Plugins js -->
-    <script src="${pageContext.request.contextPath}/resources/js/plugins/plugins.js"></script>
-    <!-- Active js -->
-    <script src="${pageContext.request.contextPath}/resources/js/active.js"></script>
-		
+		<!-- 메뉴 partial jsp 구성 -->
+		<div>
+			<jsp:include page="/inc/footer.jsp"></jsp:include>
+		</div>
+			
+		<!-- ##### All Javascript Script ##### -->
+	    <!-- jQuery-2.2.4 js -->
+	    <script src="${pageContext.request.contextPath}/resources/js/jquery/jquery-2.2.4.min.js"></script>
+	    <!-- Popper js -->
+	    <script src="${pageContext.request.contextPath}/resources/js/bootstrap/popper.min.js"></script>
+	    <!-- Bootstrap js -->
+	    <script src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap.min.js"></script>
+	    <!-- All Plugins js -->
+	    <script src="${pageContext.request.contextPath}/resources/js/plugins/plugins.js"></script>
+	    <!-- Active js -->
+	    <script src="${pageContext.request.contextPath}/resources/js/active.js"></script>
+			
 	</body>
 </html>
