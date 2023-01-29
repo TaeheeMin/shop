@@ -27,6 +27,7 @@ public class QuestionOneController extends HttpServlet {
 		ArrayList<HashMap<String, Object>> comment = questionCommentService.getQuestionComment(questionCode);
 		boolean commentCk = false;
 		commentCk = questionCommentService.questionCh(questionCode);
+		System.out.println("commentCk : " + commentCk);
 		// view와 공유할 모델 데이터 성정
 		request.setAttribute("list", list);
 		request.setAttribute("comment", comment);

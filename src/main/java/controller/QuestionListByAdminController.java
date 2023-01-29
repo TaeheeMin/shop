@@ -71,7 +71,7 @@ public class QuestionListByAdminController extends HttpServlet {
 		if(category == null) {
 			category = "";
 		}
-		System.out.println("category : " +  category);
+		// System.out.println("category : " +  category);
 	
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		ArrayList<HashMap<String, Object>> comment = new ArrayList<HashMap<String, Object>>();

@@ -29,13 +29,14 @@ public class QuestionCommentDao {
 	// question code 존재하면 이미 답변 등록->insert못함
 	public boolean insertCheck(Connection conn, int questionCode) throws Exception {
 		boolean questionCh = false;
-		String sql = "SELECT comment_code FORM question_comment WHERE qusetion_code = ? ";
+		String sql = "SELECT * FROM question_comment WHERE question_code = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, questionCode);
 		ResultSet rs = stmt.executeQuery();
 		if(rs.next()) {
 			questionCh = true;
 		}
+		System.out.println("questionCh : " + questionCh);
 		return questionCh;
 	}
 	

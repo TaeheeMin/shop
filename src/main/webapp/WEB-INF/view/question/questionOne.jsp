@@ -48,124 +48,99 @@
 	   
 	    
 	    <section class="album-catagory section-padding-100-0">
-    		
     		<form action="${pageContext.request.contextPath}/QuestionCommentAdd" method="post">
-	        <div class="container">
-	         <div class="col-12">       	
-       		<h3>Question</h3>
-			   <table class = "table w-100 rounded" style="table-layout: auto; width: 100%; table-layout: fixed;">     
-			  				<c:forEach var="list" items="${list}">
-					<tr>
-						<th>문의사항 번호</th>
-						<td>
-							<input type="hidden" name="questionCode" value="${list.questionCode}">
-							<c:out value="${list.questionCode}"></c:out>
-						</td>
-					</tr>
-					<tr>
-						<th>주문상품</th>
-						<td>
-							<img src="${pageContext.request.contextPath}/goodsimg/${list.filename}" width="100" height="100">
-							<br>
-							<c:out value="${list.goodsTitle}"></c:out>
-						</td>
-					</tr>
-					<tr>
-						<th>카테고리</th>
-						<td><c:out value="${list.category}"></c:out></td>
-					</tr>
-					<tr>
-						<th>문의제목</th>
-						<td><c:out value="${list.questionTitle}"></c:out></td>
-					</tr>
-					<tr>
-						<th>문의내용</th>
-						<td><c:out value="${list.qusetionMemo}"></c:out></td>
-					</tr>
-					<tr>
-						<th>등록일</th>
-						<td><c:out value="${list.createdate}"></c:out></td>
-					</tr>
-				</c:forEach>
-			</table>	
-			
-			</div>
-			<br>
-		<h3>Answer</h3>
-		<c:forEach var="comment" items="${comment}">
-			<table class = "table w-100 rounded" style="table-layout: auto; width: 100%; table-layout: fixed;">
-				<tr>
-					<th>번호</th>
-					<td>${comment.questionCode}</td>
-				</tr>
-				<tr>
-					<th>작성일</th>
-					<td>${comment.createdate}</td>
-				</tr>
-				<tr>
-					<th>내용</th>
-					<td>${comment.commentMemo}</td>
-				</tr>
-			</table>
-			</c:forEach>
-			<br>
-			<c:if test="${loginEmp != null && commentCk == false}">
-				<h3>Add Answer</h3>				
-				<div class="col-12">
-			    	<div class="form-group">
-						<textarea name="commentMemo" class="form-control" id="commentMemo" cols="30" rows="10" placeholder="content"></textarea>
-			            <small id="contentMsg" class="form-text text-danger"></small>
-					</div>
-	 				<div class="col-12 text-center">
-	 					<button class="btn oneMusic-btn mt-30" type="Submit" id="addAnswerBtn">답변완료<i class="fa fa-angle-double-right"></i></button>
-			        </div>
+		        <div class="container">
+		        	<div class="col-12">       	
+	       				<h3>Question</h3>
+						   <table class = "table w-100 rounded" style="table-layout: auto; width: 100%; table-layout: fixed;">     
+				  				<c:forEach var="list" items="${list}">
+									<tr>
+										<th>문의사항 번호</th>
+										<td>
+											<input type="hidden" name="questionCode" value="${list.questionCode}">
+											<c:out value="${list.questionCode}"></c:out>
+										</td>
+									</tr>
+									<tr>
+										<th>주문상품</th>
+										<td>
+											<img src="${pageContext.request.contextPath}/goodsimg/${list.filename}" width="100" height="100">
+											<br>
+											<c:out value="${list.goodsTitle}"></c:out>
+										</td>
+									</tr>
+									<tr>
+										<th>카테고리</th>
+										<td><c:out value="${list.category}"></c:out></td>
+									</tr>
+									<tr>
+										<th>문의제목</th>
+										<td><c:out value="${list.questionTitle}"></c:out></td>
+									</tr>
+									<tr>
+										<th>문의내용</th>
+										<td><c:out value="${list.qusetionMemo}"></c:out></td>
+									</tr>
+									<tr>
+										<th>등록일</th>
+										<td><c:out value="${list.createdate}"></c:out></td>
+									</tr>
+								</c:forEach>
+							</table>	
+						</div>
+						
+						<br>
+						
+						<h3>Answer</h3>
+						<c:forEach var="comment" items="${comment}">
+							<table class = "table w-100 rounded" style="table-layout: auto; width: 100%; table-layout: fixed;">
+								<tr>
+									<th>번호</th>
+									<td>${comment.questionCode}</td>
+								</tr>
+								<tr>
+									<th>작성일</th>
+									<td>${comment.createdate}</td>
+								</tr>
+								<tr>
+									<th>내용</th>
+									<td>${comment.commentMemo}</td>
+								</tr>
+							</table>
+						</c:forEach>
+						<br>
+						<c:if test="${loginEmp != null && (commentCk == false || commentCk == null)}">
+							<h3>Add Answer</h3>				
+							<div class="col-12">
+						    	<div class="form-group">
+									<textarea name="commentMemo" class="form-control" id="commentMemo" cols="30" rows="10" placeholder="content"></textarea>
+						            <small id="contentMsg" class="form-text text-danger"></small>
+								</div>
+				 				<div class="col-12 text-center">
+				 					<button class="btn oneMusic-btn mt-30" type="Submit" id="addAnswerBtn">답변완료<i class="fa fa-angle-double-right"></i></button>
+						        </div>
+							</div>
+						</c:if>
 				</div>
-			</c:if>
-		                                		
-		</div>
-		</form>		
-	
-		
-		
+			</form>		
 	    </section>
 	    <!-- ##### Album Catagory Area End ##### -->
 
-    <!-- ##### Add Area Start ##### -->
-    <div class="add-area mb-100">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="adds">
-                        <a href="#"><img src="img/bg-img/add3.gif" alt=""></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- ##### Add Area End ##### -->
-
-  
-
-		
-		
-		
-		
-	<!-- 메뉴 partial jsp 구성 -->
-	<div>
-		<jsp:include page="/inc/footer.jsp"></jsp:include>
-	</div>
-		
-	<!-- ##### All Javascript Script ##### -->
-    <!-- jQuery-2.2.4 js -->
-    <script src="${pageContext.request.contextPath}/resources/js/jquery/jquery-2.2.4.min.js"></script>
-    <!-- Popper js -->
-    <script src="${pageContext.request.contextPath}/resources/js/bootstrap/popper.min.js"></script>
-    <!-- Bootstrap js -->
-    <script src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap.min.js"></script>
-    <!-- All Plugins js -->
-    <script src="${pageContext.request.contextPath}/resources/js/plugins/plugins.js"></script>
-    <!-- Active js -->
-    <script src="${pageContext.request.contextPath}/resources/js/active.js"></script>
-		
+		<!-- 메뉴 partial jsp 구성 -->
+		<div>
+			<jsp:include page="/inc/footer.jsp"></jsp:include>
+		</div>
+			
+		<!-- ##### All Javascript Script ##### -->
+	    <!-- jQuery-2.2.4 js -->
+	    <script src="${pageContext.request.contextPath}/resources/js/jquery/jquery-2.2.4.min.js"></script>
+	    <!-- Popper js -->
+	    <script src="${pageContext.request.contextPath}/resources/js/bootstrap/popper.min.js"></script>
+	    <!-- Bootstrap js -->
+	    <script src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap.min.js"></script>
+	    <!-- All Plugins js -->
+	    <script src="${pageContext.request.contextPath}/resources/js/plugins/plugins.js"></script>
+	    <!-- Active js -->
+	    <script src="${pageContext.request.contextPath}/resources/js/active.js"></script>
 	</body>
 </html>

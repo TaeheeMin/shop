@@ -36,8 +36,8 @@ public class QuestionCommentAddController extends HttpServlet {
 		QuestionComment questionComment = new QuestionComment();
 		questionComment.setCommentMemo(request.getParameter("commentMemo"));
 		questionComment.setQuestionCode(Integer.parseInt(request.getParameter("questionCode")));
-		System.out.println(questionComment.getQuestionCode());
-		System.out.println(questionComment.getCommentMemo());
+		//System.out.println(questionComment.getQuestionCode());
+		//System.out.println(questionComment.getCommentMemo());
 		int row = 0;
 		this.questionCommentService = new QuestionCommentService();
 		row = questionCommentService.addQuestionComment(questionComment);
