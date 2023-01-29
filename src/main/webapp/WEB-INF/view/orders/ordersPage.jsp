@@ -203,15 +203,6 @@
 		        <div class="container">
 		            <div class="row">
 		                <div class="col-12">
-		                    <div class="section-heading">                    
-		                       
-		                      
-		                    </div>
-		                </div>
-		            </div>
-		
-		            <div class="row">
-		                <div class="col-12">
 		                    <!-- Contact Form Area -->
 		                    <div class="contact-form-area">                       
 		                            <div class="row">
@@ -272,16 +263,16 @@
 										        <h4 class="modal-title">배송지 추가</h4>
 										      </div>
 										      <!-- 주소추가 -->
-												<!-- 카카오 다음 우편번호 서비스 JS API -->
+											<!-- 카카오 다음 우편번호 서비스 JS API -->
 											<div class="ml-4">
-											<input class="mr-3 mb-1" type="text" id="sample3_postcode" placeholder="우편번호">
-											<input class="ml-2 mb-1" type="button" onclick="sample3_execDaumPostcode()" value="우편번호 찾기"><br>
-											<input class="mb-1" style="width:260px;" type="text" id="sample3_address" placeholder="주소"><br>
-											<input class="mb-1" style="width:260px;" type="text" id="sample3_detailAddress" placeholder="상세주소">
-											<input class="mb-1" style="width:140px;" type="text" id="sample3_extraAddress" placeholder="참고항목">
+												<input class="mr-3 mb-1" type="text" id="sample3_postcode" placeholder="우편번호">
+												<input class="ml-2 mb-1" type="button" onclick="sample3_execDaumPostcode()" value="우편번호 찾기"><br>
+												<input class="mb-1" style="width:260px;" type="text" id="sample3_address" placeholder="주소"><br>
+												<input class="mb-1" style="width:260px;" type="text" id="sample3_detailAddress" placeholder="상세주소">
+												<input class="mb-1" style="width:140px;" type="text" id="sample3_extraAddress" placeholder="참고항목">
 											</div>
 											<div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative">
-											<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
+												<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
 											</div>
 											
 											<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -366,9 +357,6 @@
 										        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 										      </div>
 										    </div>
-										    
-											<hr>
-										
 										  </div>
 										</div>
 		                            </div>                       
@@ -385,13 +373,13 @@
 				<c:set var= "total" value="${total + result.goodsPrice*result.cartQuantity}"/>
 			</c:forEach>
 			<div class="col-md-6 col-lg-3">
-			total price: <input type="text" name="totalPrice" id="totalPrice" value="${total}" class="form-control" readonly="readonly">
+				total price: <input type="text" name="totalPrice" id="totalPrice" value="${total}" class="form-control" readonly="readonly">
 			</div>
 			<div class="col-md-6 col-lg-3">
-			point : <input type="text" name="usePoint" id="usePoint" class="form-control" readonly="" value="">
+				point : <input type="text" name="usePoint" id="usePoint" class="form-control" readonly="" value="">
 			</div>
 			<div class="col-md-6 col-lg-3">
-			<p>전액사용 <input type="checkbox" id="pointAll" name="pointAll" value=""></p>
+				<p>전액사용 <input type="checkbox" id="pointAll" name="pointAll" value=""></p>
 			</div>
 			<input type="hidden" id="sharePoint" name="sharePoint" value="">
 			<div class="col-12 text-center wow fadeInUp" data-wow-delay="500ms">
@@ -405,41 +393,26 @@
 			<input type="hidden" name="customerId" value="${loginCustomer.customerId}">
 		</form>
 			        
-			</div>
+		</div>
 		</div>
 	    </section>
 	    <!-- ##### Album Catagory Area End ##### -->
 
-    <!-- ##### Add Area Start ##### -->
-    <div class="add-area mb-100">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="adds">
-                        <a href="#"><img src="img/bg-img/add3.gif" alt=""></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- ##### Add Area End ##### -->
-
-	<!-- 메뉴 partial jsp 구성 -->
-	<div>
-		<jsp:include page="/inc/footer.jsp"></jsp:include>
-	</div>
-		
-	<!-- ##### All Javascript Script ##### -->
-    <!-- jQuery-2.2.4 js -->
-    <script src="${pageContext.request.contextPath}/resources/js/jquery/jquery-2.2.4.min.js"></script>
-    <!-- Popper js -->
-    <script src="${pageContext.request.contextPath}/resources/js/bootstrap/popper.min.js"></script>
-    <!-- Bootstrap js -->
-    <script src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap.min.js"></script>
-    <!-- All Plugins js -->
-    <script src="${pageContext.request.contextPath}/resources/js/plugins/plugins.js"></script>
-    <!-- Active js -->
-    <script src="${pageContext.request.contextPath}/resources/js/active.js"></script>
-		
+		<!-- 메뉴 partial jsp 구성 -->
+		<div>
+			<jsp:include page="/inc/footer.jsp"></jsp:include>
+		</div>
+			
+		<!-- ##### All Javascript Script ##### -->
+	    <!-- jQuery-2.2.4 js -->
+	    <script src="${pageContext.request.contextPath}/resources/js/jquery/jquery-2.2.4.min.js"></script>
+	    <!-- Popper js -->
+	    <script src="${pageContext.request.contextPath}/resources/js/bootstrap/popper.min.js"></script>
+	    <!-- Bootstrap js -->
+	    <script src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap.min.js"></script>
+	    <!-- All Plugins js -->
+	    <script src="${pageContext.request.contextPath}/resources/js/plugins/plugins.js"></script>
+	    <!-- Active js -->
+	    <script src="${pageContext.request.contextPath}/resources/js/active.js"></script>
 	</body>
 </html>
