@@ -185,7 +185,7 @@ public class GoodsService {
 		return list;
 	}
 	
-	// 2-2-4) 홈화면 밑부분에 소개할 인디음악
+	// 2-2-5) 홈화면 밑부분에 소개할 인디음악
 		public ArrayList<HashMap<String, Object>> selectIndieSongList() {
 			Connection conn = null;
 			this.goodsDao = new GoodsDao();
