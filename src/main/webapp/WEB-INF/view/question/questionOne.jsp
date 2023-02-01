@@ -91,8 +91,8 @@
 						
 						<br>
 						
-						<h3>Answer</h3>
 						<c:forEach var="comment" items="${comment}">
+							<h3>Answer</h3>
 							<table class = "table w-100 rounded" style="table-layout: auto; width: 100%; table-layout: fixed;">
 								<tr>
 									<th>번호</th>
@@ -109,6 +109,7 @@
 							</table>
 						</c:forEach>
 						<br>
+						
 						<c:if test="${loginEmp != null && (commentCk == false || commentCk == null)}">
 							<h3>Add Answer</h3>				
 							<div class="col-12">
